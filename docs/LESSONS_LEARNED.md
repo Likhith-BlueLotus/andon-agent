@@ -42,3 +42,10 @@ Template — copy for each entry:
 - **Fix:** health endpoint is `/health`; all docs/commands updated. Also: new projects' default compute SA can't read the source bucket → dedicated `andon-build@` SA via `--build-service-account`.
 - **Do differently / rule added:** no route may end in `z`.
 - **Cost (time / $):** 10 min / ~$0.
+
+### 2026-10-11 00:45 — Dataset fetch: throttled UCI connection, RAR-in-zip IMS, dead IMS tail (phase 1, data)
+- **What happened:** the UCI hydraulic zip crawled at ~25 KB/s on one connection while fresh connections got >1.5 MB/s (UCI ignores HTTP Range, so no resume). NASA `IMS.zip` turned out to be a zip of per-test RARs. The last 2 snapshots of IMS test 2 are flat (rig stopped). MetroPT-3 is 0.1 Hz with ~18% gaps.
+- **Root cause:** per-connection server throttling; archive layout not documented on the catalogue page; source data quirks.
+- **Fix:** `download()` drops and reopens a connection under 64 KB/s for 60 s; IMS fetch range-extracts only `2nd_test.rar` (85.6 MB, not 1.07 GB) with `remotezip` and unpacks it with bsdtar; inspection uses the last *live* IMS snapshot. Details in `docs/data_inspection.md`.
+- **Do differently / rule added:** list remote archives with `remotezip` before downloading anything big; never trust a dataset's last sample to be live.
+- **Cost (time / $):** ~15 min / $0.
