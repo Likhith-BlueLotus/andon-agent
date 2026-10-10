@@ -1,0 +1,27 @@
+# Risk register
+
+Review at 20:00 IST daily (`/status` reads this). P = probability, I = impact (H/M/L). A risk whose **trigger** fires gets its mitigation executed that day, not "tomorrow".
+
+| # | Dimension | Risk | P | I | Mitigation (pre-planned) | Trigger | Owner |
+|---|---|---|---|---|---|---|---|
+| 1 | Eligibility | Team not registered by Oct 11 | M | H | Register tonight, screenshot confirmation | Not done by Oct 11 12:00 IST | Both |
+| 2 | Eligibility | "Working professionals only" — apprentice/teammate status questioned | L | H | Email support+aibuildercup@hack2skill.com now; keep the reply | No reply by Oct 14 → follow up | A |
+| 3 | Compliance | Freshness rule: reused code or employer/startup terminology spotted | L | H | Public repo created Oct 10, dated commits, `/data-audit` grep before freeze, no copied code from reference repo | Any grep hit | B |
+| 4 | Licence | A dataset turns out non-commercial or unlicensed | L | M | DATA_SOURCES register checked today; re-check on download; R-set degrades gracefully if one source is dropped | Licence page differs from register | B |
+| 5 | Data | MIMII/IMS downloads too large or slow | M | M | `remotezip` for MIMII; one IMS test set; start downloads Sat night | Not finished by Sun noon → drop IMS (R015–R017), keep MIMII subset | B |
+| 6 | Data | R-set mapping looks contrived (units, rates) to an engineer-judge | M | M | Inspection report first; provenance chips show source rows and transforms; honest "mapped" wording | Judge-review flags it | B |
+| 7 | Technical | Pinned model ID wrong or Pro preview unavailable / throttled | M | M | Phase 0 live check; Flash fallback built in; JUDGE_MODEL env switch | Smoke test fails or >20% 429s | A |
+| 8 | Technical | ADK API differs from our spec | M | M | Fetch adk.dev before coding; event-mapper isolates UI from ADK internals | First ADK error that contradicts docs | A |
+| 9 | Technical | SSE stream cut by proxy/timeout | M | H | 900 s timeout, 15 s heartbeats, direct Cloud Run URL (no Hosting rewrite), reconnect + replay offer | Any stream ends without `done` | A |
+| 10 | Quality | S1 doesn't beat B1 (the naive single prompt) | M | H | Read failures by hand on Run 20; fix tools/verifier first, prompts last; if still not, reframe around unsupported-claim rate + R-set honesty | Run-20 top-1 S1 ≤ B1 | A |
+| 11 | Quality | Verifier too strict → many `insufficient_evidence` | M | M | Tolerances in config; track abstention recall; tune on dev set only | Abstention recall < 0.7 on faulted dev scenarios | A |
+| 12 | Cost | Spend overruns $300 before Dec 4 | M | H | Ledger (DEVELOPMENT §7), Flash judge in dev, replay default, kill switch, budget alerts $100/200/250 | Spend > ledger line for the day, or > $150 at freeze | A |
+| 13 | Schedule | Frontend late → no live demo | M | H | Built against fixture stream from day 1; fallback = SPA served from FastAPI | Not streaming live by Wed 18:00 | B |
+| 14 | Schedule | One person blocked/unavailable a day | M | M | Handoff notes; both full-stack; cut list | Missed handoff | Both |
+| 15 | Demo | Live call fails while recording | M | M | min-instances 1, warm-up, 3 takes, labelled replay | Any failed take | B |
+| 16 | Demo | Judges test the live URL during Oct 19–Nov 6 and it's cold, broken or out of budget | M | H | Replay default (no cost), passcode for live, judging-window runbook, daily URL check by alternating person | Any failed daily check | Both |
+| 17 | Judging | Seen as "RAG/chatbot wrapper" | M | H | Trace of tool cards, visible verifier rejection, eval vs B1, capability matrix, rehearsed Q&A | `/judge-review` Technical < 30/40 | Both |
+| 18 | Judging | "It's all synthetic" | H | M | R-set with source labels, provenance chips, MaintIE-style WOs, OSHA-based LOTO, BYO-CSV stretch | Always — lead with it | B |
+| 19 | Safety/ethics | Model paraphrases a safety step or implies autonomous action | L | H | Verbatim LOTO check, only one write tool, approval gate, tests | Any test failure | A |
+| 20 | Security | Leaked key / public endpoint abused | L | H | No keys (ADC), gitleaks pre-commit, passcode + rate limit, max-instances 3 | Unusual spend or traffic | A |
+| 21 | Travel | A finalist can't travel to Singapore Dec 4 (visa/leave) | L | H | Check passport validity and leave now; only 2 travel anyway | — | Both |

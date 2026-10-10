@@ -1,0 +1,32 @@
+# data
+data/raw/
+data/*.duckdb
+data/*.duckdb.wal
+data/scenarios/**/telemetry*.parquet
+eval/results/*/raw/
+
+# secrets
+.env
+.env.*
+!.env.example
+*.pem
+*service-account*.json
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# node
+node_modules/
+web/dist/
+
+# os / editors
+.DS_Store
+.idea/
+.vscode/
