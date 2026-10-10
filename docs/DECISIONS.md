@@ -49,3 +49,6 @@ Context: pinned IDs, prices, SDK names checked against live docs (Agent Platform
 
 **ADR-016 — Trunk-based development on `main`** · 2026-10-11 · accepted
 Context: owner preference; two people, one week, PR overhead slows integration. → Decision: commit directly to `main`; no `a/`/`b/` branches. → Rejected: branch + PR per topic (DEVELOPMENT §3 v1). → Consequences: every commit must pass tests + ruff; `git pull --rebase` before push; directory ownership avoids conflicts; contract files still need both humans' OK.
+
+**ADR-017 — Contracts v1.0.0 frozen** · 2026-10-11 · accepted (Person A; Person B to confirm)
+Written from ARCHITECTURE §4 with five additions: `RCAReport.hypotheses` max 3 enforced; `AgentData.model_id` nullable (deterministic verifier has no model); `ErrorData.code` documents `budget_exhausted`; `encode_sse()` sends `id: <seq>` for resumable streams; `parse_event()` validates the discriminated union. `tests/test_contracts.py` keeps `web/src/types/events.ts` in sync (event types, cause classes, version, interface fields). Guard test forbids `agents/`/`api/` from importing truth/eval modules or mentioning `truth.json`.
