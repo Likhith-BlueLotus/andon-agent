@@ -28,3 +28,10 @@ Template — copy for each entry:
 - **Fix:** reverted; `*.md` added to `extend-exclude` in ruff.toml.
 - **Do differently / rule added:** after any formatter run, `git status docs/` before committing.
 - **Cost (time / $):** 3 min / $0.
+
+### 2026-10-11 00:00 — Budget create failed: INR billing account (phase 0, person A)
+- **What happened:** `gcloud billing budgets create --budget-amount=300USD` → INVALID_ARGUMENT.
+- **Root cause:** budget currency must match the billing account (INR). Also, default budgets net out credits, so alerts would never fire while the $300 credit lasts.
+- **Fix:** ₹26,500 budget, `--credit-types-treatment=exclude-all-credits`, project *number* in the filter; bootstrap.sh now detects currency.
+- **Do differently / rule added:** read `currencyCode` before any money config.
+- **Cost (time / $):** 5 min / $0.
