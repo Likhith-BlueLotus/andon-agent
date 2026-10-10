@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "replaced filter and drained condensate line",
+    "outcome": "system stable",
+    "row": 0,
+    "symptom": "refrigerant dryer high pressure alarm"
+   },
+   {
+    "action": "adj mechanical locator and sensor alignment",
+    "outcome": "clamp operational",
+    "row": 1,
+    "symptom": "clamp pin fail to seat"
+   },
+   {
+    "action": "cleaned transducer connector pins",
+    "outcome": "reading stable",
+    "row": 2,
+    "symptom": "press tonnage erratic reading"
+   },
+   {
+    "action": "repl input shaft brg and greased",
+    "outcome": "noise resolved",
+    "row": 3,
+    "symptom": "drive bearing growling noise"
+   },
+   {
+    "action": "changed hyd filter elements",
+    "outcome": "pressure still low",
+    "row": 4,
+    "symptom": "low system pressure"
+   },
+   {
+    "action": "repl tips and calibrated dresser",
+    "outcome": "tip life restored",
+    "row": 5,
+    "symptom": "weld tip wear excessive"
+   },
+   {
+    "action": "reloaded plc program and reset values",
+    "outcome": "setpoint correct",
+    "row": 6,
+    "symptom": "pressure setpoint mismatch"
+   },
+   {
+    "action": "adj air pressure regulator",
+    "outcome": "weld force normal",
+    "row": 7,
+    "symptom": "gun weld force weak"
+   },
+   {
+    "action": "cleaned strainer and flushed gun hose",
+    "outcome": "flow restored",
+    "row": 8,
+    "symptom": "coolant flow alarm"
+   },
+   {
+    "action": "cleared debris from line strainer",
+    "outcome": "flow ok",
+    "row": 9,
+    "symptom": "coolant flow low"
+   },
+   {
+    "action": "repl led module",
+    "outcome": "light stable",
+    "row": 10,
+    "symptom": "vision lighting flicker"
+   },
+   {
+    "action": "power washed cooler fins",
+    "outcome": "temp down",
+    "row": 11,
+    "symptom": "hydraulic oil temp high"
+   },
+   {
+    "action": "repl heater element and thermostat",
+    "outcome": "temp normalized",
+    "row": 12,
+    "symptom": "heated sealer hose temp alarm"
+   },
+   {
+    "action": "repl module control board",
+    "outcome": "light bright",
+    "row": 13,
+    "symptom": "lighting dim"
+   },
+   {
+    "action": "repl blown cabinet cooling fan",
+    "outcome": "drive temp stable",
+    "row": 14,
+    "symptom": "servo drive overtemp"
+   },
+   {
+    "action": "clean fan filter and check connections",
+    "outcome": "temp back to normal",
+    "row": 15,
+    "symptom": "servo drive fault"
+   },
+   {
+    "action": "re-calibrated digital setpoint module",
+    "outcome": "settings match",
+    "row": 16,
+    "symptom": "pressure settings wrong"
+   },
+   {
+    "action": "drain and fill compressor oil",
+    "outcome": "service complete",
+    "row": 17,
+    "symptom": "pm due"
+   },
+   {
+    "action": "repl faulty thermistor on motor",
+    "outcome": "temp normal",
+    "row": 18,
+    "symptom": "servo sensor reading drift"
+   },
+   {
+    "action": "refilled way lube reservoir",
+    "outcome": "alarm cleared",
+    "row": 19,
+    "symptom": "lube low level alarm"
+   },
+   {
+    "action": "changed cutter blade and set dresser",
+    "outcome": "dressing quality good",
+    "row": 20,
+    "symptom": "tip dress failure"
+   },
+   {
+    "action": "re-calibrated pressure transducer output",
+    "outcome": "accurate reading",
+    "row": 21,
+    "symptom": "sealer pressure gauge drifting"
+   },
+   {
+    "action": "repl filter media and clean exhaust",
+    "outcome": "temp normal",
+    "row": 22,
+    "symptom": "servo cabinet overheat"
+   },
+   {
+    "action": "reverted timer to backup settings",
+    "outcome": "cycle stable",
+    "row": 23,
+    "symptom": "cycle timer incorrect"
+   },
+   {
+    "action": "repl tips and adj dresser",
+    "outcome": "tip performance ok",
+    "row": 24,
+    "symptom": "weld tip sticking"
+   },
+   {
+    "action": "replaced worn shunt cable",
+    "outcome": "current steady",
+    "row": 25,
+    "symptom": "weld current erratic"
+   },
+   {
+    "action": "cleared drain trap blockage",
+    "outcome": "leaking stopped",
+    "row": 26,
+    "symptom": "condensate line leaking"
+   },
+   {
+    "action": "flushed lines and check flow switch",
+    "outcome": "flow ok",
+    "row": 27,
+    "symptom": "coolant flow sensor fault"
+   },
+   {
+    "action": "cleaned exterior of cooler",
+    "outcome": "temp dropping",
+    "row": 28,
+    "symptom": "hydraulic oil hot"
+   },
+   {
+    "action": "repl bypass valve (previous job failed)",
+    "outcome": "temp stabilized",
+    "row": 29,
+    "symptom": "persistent high oil temp"
+   },
+   {
+    "action": "tightened comms plug at controller",
+    "outcome": "signal restored",
+    "row": 30,
+    "symptom": "camera image lost"
+   },
+   {
+    "action": "repl cooling fan motor",
+    "outcome": "temp okay",
+    "row": 31,
+    "symptom": "drive thermal trip"
+   },
+   {
+    "action": "repl primary air filter",
+    "outcome": "flow normal",
+    "row": 32,
+    "symptom": "intake diff high"
+   },
+   {
+    "action": "repl pump shaft seal kit",
+    "outcome": "no leaks",
+    "row": 33,
+    "symptom": "sealer leak at pump"
+   },
+   {
+    "action": "dressed tips",
+    "outcome": "weld good",
+    "row": 34,
+    "symptom": "weld quality low"
+   },
+   {
+    "action": "cleaned oil cooler",
+    "outcome": "temp normal",
+    "row": 35,
+    "symptom": "high temp alarm"
+   },
+   {
+    "action": "cycled power and reset dryer controller",
+    "outcome": "dryer running",
+    "row": 36,
+    "symptom": "dryer fault lamp on"
+   },
+   {
+    "action": "replaced faulty comm cable",
+    "outcome": "signal stable",
+    "row": 37,
+    "symptom": "camera signal intermittent"
+   },
+   {
+    "action": "repl valve solenoid",
+    "outcome": "draining normal",
+    "row": 38,
+    "symptom": "drain trap flooding"
+   },
+   {
+    "action": "repl rtd sensor",
+    "outcome": "reading normal",
+    "row": 39,
+    "symptom": "bearing temp error"
+   },
+   {
+    "action": "oil and filter change",
+    "outcome": "ready",
+    "row": 40,
+    "symptom": "pm due"
+   },
+   {
+    "action": "cleaned cooling fins",
+    "outcome": "temp normalized",
+    "row": 41,
+    "symptom": "oil overheat"
+   },
+   {
+    "action": "restored parameters from hmi",
+    "outcome": "cycle okay",
+    "row": 42,
+    "symptom": "cycle timer fault"
+   },
+   {
+    "action": "compressor oil change",
+    "outcome": "complete",
+    "row": 43,
+    "symptom": "pm due"
+   },
+   {
+    "action": "cleaned strainer",
+    "outcome": "flow returned",
+    "row": 44,
+    "symptom": "chiller flow alarm"
+   },
+   {
+    "action": "replaced led array",
+    "outcome": "ok",
+    "row": 45,
+    "symptom": "vision light failing"
+   },
+   {
+    "action": "cleaned proportional valve spool",
+    "outcome": "response restored",
+    "row": 46,
+    "symptom": "slow response on press"
+   },
+   {
+    "action": "replaced drain valve",
+    "outcome": "no air loss",
+    "row": 47,
+    "symptom": "air drain leak"
+   },
+   {
+    "action": "adj tensioner assembly",
+    "outcome": "tension correct",
+    "row": 48,
+    "symptom": "conveyor chain slack"
+   },
+   {
+    "action": "cleaned drain orifice",
+    "outcome": "flow good",
+    "row": 49,
+    "symptom": "condensate stuck"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3092,
+  "output_tokens": 2442,
+  "thinking_tokens": 0,
+  "usd": 0.004436
+ }
+}

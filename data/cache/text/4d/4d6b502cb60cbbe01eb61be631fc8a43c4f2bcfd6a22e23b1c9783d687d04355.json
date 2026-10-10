@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "tighten loose comm connector",
+    "outcome": "signal restored",
+    "row": 0,
+    "symptom": "vision cam signal loss"
+   },
+   {
+    "action": "refilled way lube reservoir",
+    "outcome": "fault returned",
+    "row": 1,
+    "symptom": "hyd press low alarm"
+   },
+   {
+    "action": "bleed lines, fixed per wo-2501187",
+    "outcome": "flow constant",
+    "row": 2,
+    "symptom": "sealer pump air entrapment"
+   },
+   {
+    "action": "repl worn drive brg",
+    "outcome": "quiet ops",
+    "row": 3,
+    "symptom": "conveyor drive noise"
+   },
+   {
+    "action": "repl faulty sensor",
+    "outcome": "ok",
+    "row": 4,
+    "symptom": "servo gun temp alarm"
+   },
+   {
+    "action": "unclog drain valve",
+    "outcome": "stopped leak",
+    "row": 5,
+    "symptom": "condensate drain leaking"
+   },
+   {
+    "action": "cleaned condenser coil",
+    "outcome": "temp normalized",
+    "row": 6,
+    "symptom": "chiller temp high"
+   },
+   {
+    "action": "chk hose connections",
+    "outcome": "resolved",
+    "row": 7,
+    "symptom": "heated hose comm fault"
+   },
+   {
+    "action": "re-aligned sensor head",
+    "outcome": "tracking fixed",
+    "row": 8,
+    "symptom": "parts skipping photo eye"
+   },
+   {
+    "action": "replaced main drive brg",
+    "outcome": "smooth run",
+    "row": 9,
+    "symptom": "conveyor drive chatter"
+   },
+   {
+    "action": "cleaned strainer",
+    "outcome": "flow restored",
+    "row": 10,
+    "symptom": "low weld coolant flow"
+   },
+   {
+    "action": "cleaned pump strainer",
+    "outcome": "pressure up",
+    "row": 11,
+    "symptom": "low pump flow"
+   },
+   {
+    "action": "washed cooler fins",
+    "outcome": "temp down",
+    "row": 12,
+    "symptom": "hyd oil high temp"
+   },
+   {
+    "action": "adj tension drive chain",
+    "outcome": "correct slack",
+    "row": 13,
+    "symptom": "conveyor belt loose"
+   },
+   {
+    "action": "ran tip dresser",
+    "outcome": "weld quality good",
+    "row": 14,
+    "symptom": "weld tip wear"
+   },
+   {
+    "action": "repl pump seal",
+    "outcome": "no leak",
+    "row": 15,
+    "symptom": "sealer leak"
+   },
+   {
+    "action": "cleared hose debris",
+    "outcome": "flow nominal",
+    "row": 16,
+    "symptom": "weld gun coolant flow"
+   },
+   {
+    "action": "repl frayed wire",
+    "outcome": "fixed",
+    "row": 17,
+    "symptom": "heated hose fault"
+   },
+   {
+    "action": "dress weld tips",
+    "outcome": "ok",
+    "row": 18,
+    "symptom": "poor weld quality"
+   },
+   {
+    "action": "repl temp probe",
+    "outcome": "fault clear",
+    "row": 19,
+    "symptom": "servo temp error"
+   },
+   {
+    "action": "reset locator pin",
+    "outcome": "ok",
+    "row": 20,
+    "symptom": "weld clamp stuck"
+   },
+   {
+    "action": "chk connection",
+    "outcome": "cleared",
+    "row": 21,
+    "symptom": "heated hose error"
+   },
+   {
+    "action": "replenished way lube",
+    "outcome": "ready",
+    "row": 22,
+    "symptom": "low lube level"
+   },
+   {
+    "action": "adj regulator",
+    "outcome": "fault persisted",
+    "row": 23,
+    "symptom": "servo gun air fault"
+   },
+   {
+    "action": "replaced probe",
+    "outcome": "normal",
+    "row": 24,
+    "symptom": "temp sensor alarm"
+   },
+   {
+    "action": "new seal installed",
+    "outcome": "fixed",
+    "row": 25,
+    "symptom": "sealer pump leak"
+   },
+   {
+    "action": "clean cooler",
+    "outcome": "temp stable",
+    "row": 26,
+    "symptom": "hyd system heating"
+   },
+   {
+    "action": "tighten housing bolts",
+    "outcome": "still leaking",
+    "row": 27,
+    "symptom": "pump seepage"
+   },
+   {
+    "action": "fixed per wo-2501224, reloaded logic",
+    "outcome": "cycle ok",
+    "row": 28,
+    "symptom": "weld cycle fail"
+   },
+   {
+    "action": "fixed per wo-2501202, flushed cooler",
+    "outcome": "temp ok",
+    "row": 29,
+    "symptom": "hyd temp rising"
+   },
+   {
+    "action": "repl coupling",
+    "outcome": "no leak",
+    "row": 30,
+    "symptom": "hissing air leak"
+   },
+   {
+    "action": "calibrated temp sensor",
+    "outcome": "fault persists",
+    "row": 31,
+    "symptom": "servo gun temp alarm"
+   },
+   {
+    "action": "calibrated transducer",
+    "outcome": "reading match",
+    "row": 32,
+    "symptom": "pressure data error"
+   },
+   {
+    "action": "reset clamp",
+    "outcome": "ok",
+    "row": 33,
+    "symptom": "clamp pin fault"
+   },
+   {
+    "action": "re-aligned pin",
+    "outcome": "cleared",
+    "row": 34,
+    "symptom": "locator pin fault"
+   },
+   {
+    "action": "fixed per wo-2501228, purge line",
+    "outcome": "steady pump",
+    "row": 35,
+    "symptom": "air in sealer"
+   },
+   {
+    "action": "set new parameters",
+    "outcome": "match",
+    "row": 36,
+    "symptom": "pressure setpoint error"
+   },
+   {
+    "action": "adj pin limit switch",
+    "outcome": "ok",
+    "row": 37,
+    "symptom": "pin pos fault"
+   },
+   {
+    "action": "repl intake filter",
+    "outcome": "flow up",
+    "row": 38,
+    "symptom": "low air flow"
+   },
+   {
+    "action": "drain and refill oil",
+    "outcome": "complete",
+    "row": 39,
+    "symptom": "compressor pm"
+   },
+   {
+    "action": "replaced cabinet fan",
+    "outcome": "cooling ok",
+    "row": 40,
+    "symptom": "servo drive hot"
+   },
+   {
+    "action": "dress weld tips",
+    "outcome": "ok",
+    "row": 41,
+    "symptom": "weld tip wear"
+   },
+   {
+    "action": "clean strainer",
+    "outcome": "flow norm",
+    "row": 42,
+    "symptom": "weld gun flow alarm"
+   },
+   {
+    "action": "cleaned seal surface",
+    "outcome": "leaking still",
+    "row": 43,
+    "symptom": "sealer pump drip"
+   },
+   {
+    "action": "repl filter element",
+    "outcome": "clean",
+    "row": 44,
+    "symptom": "hyd filter dirty"
+   },
+   {
+    "action": "tighten fitting",
+    "outcome": "dry",
+    "row": 45,
+    "symptom": "hyd oil leak"
+   },
+   {
+    "action": "repl transducer",
+    "outcome": "stable",
+    "row": 46,
+    "symptom": "pressure unstable"
+   },
+   {
+    "action": "replace sensor",
+    "outcome": "fixed",
+    "row": 47,
+    "symptom": "temp sensor fail"
+   },
+   {
+    "action": "fixed per wo-2501232, new hose",
+    "outcome": "flow fixed",
+    "row": 48,
+    "symptom": "coolant flow fault"
+   },
+   {
+    "action": "restored parameters",
+    "outcome": "running",
+    "row": 49,
+    "symptom": "cycle timer off"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3190,
+  "output_tokens": 2384,
+  "thinking_tokens": 0,
+  "usd": 0.004373
+ }
+}

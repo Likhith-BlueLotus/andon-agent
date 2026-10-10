@@ -1,5 +1,9 @@
 # data
 data/raw/
+# generated scenarios are reproducible: uv run python -m simulator.generate (deterministic seeds)
+data/scenarios/*/
+data/andon.duckdb*
+data/andon.tmp.duckdb*
 data/*.duckdb
 data/*.duckdb.wal
 eval/results/*/raw/
@@ -29,3 +33,6 @@ web/dist/
 .DS_Store
 .idea/
 .vscode/
+data/work_orders.parquet
+# eval-only labels (wrong-first-diagnosis flags): never committed, never loaded into the store
+data/work_orders_labels.parquet

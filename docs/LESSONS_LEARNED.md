@@ -49,3 +49,10 @@ Template — copy for each entry:
 - **Fix:** `download()` drops and reopens a connection under 64 KB/s for 60 s; IMS fetch range-extracts only `2nd_test.rar` (85.6 MB, not 1.07 GB) with `remotezip` and unpacks it with bsdtar; inspection uses the last *live* IMS snapshot. Details in `docs/data_inspection.md`.
 - **Do differently / rule added:** list remote archives with `remotezip` before downloading anything big; never trust a dataset's last sample to be live.
 - **Cost (time / $):** ~15 min / $0.
+
+### 2026-10-11 — S-set generator: Parquet size, async genai client, square-wave signals (phase 1, data)
+- **What happened:** (1) first telemetry Parquet was 49 MB/scenario (≈3 GB for 60); 68% of it was the `ts` column. (2) The second Flash-Lite call in one process died with `RuntimeError: Event loop is closed`. (3) The simulator's own QA detector missed the air-leak root signature and fired on reject-rate noise.
+- **Root cause:** (1) pyarrow defaults to PLAIN/dictionary for int64 timestamps; (2) the google-genai `aio` client binds to the event loop of its first call, so `asyncio.run()` per call breaks; (3) compressor current is a load/unload square wave and reject rate is a binomial rolling %, so 1-min bins and MAD sigma are wrong for both.
+- **Fix:** `ts` written with `DELTA_BINARY_PACKED`, `value` dictionary-encoded (values are quantised to sensor resolution) → 9.9 MB/scenario. `TextGen.run()` keeps one persistent loop. `simulator/qa.py` uses per-signal bin widths (10 min for duty-cycle signals, 15 min for spread) and a sigma floor at the sensor resolution.
+- **Do differently / rule added:** measure per-column Parquet sizes before choosing a layout; never call `asyncio.run` twice around one genai client; the change-point tool (Phase 2) must use duty-cycle aggregation for UT-AIR current/pressure, or it will miss leaks.
+- **Cost (time / $):** ~30 min / $0.

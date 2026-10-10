@@ -1,0 +1,35 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "22:00 shift start. Model B running. No major alarms."
+   },
+   {
+    "slot": 2,
+    "text": "06:00 shift start. Model B running. No major alarms."
+   },
+   {
+    "slot": 3,
+    "text": "14:00 changeover completed. Running model A. No major alarms."
+   },
+   {
+    "slot": 4,
+    "text": "16:13 ST20 Weld cell A weld monitor energy out of band alarm x4."
+   },
+   {
+    "slot": 5,
+    "text": "19:44 weld energy out of band x2. 19:57 tip resistance high. 20:05 ST20 Weld cell A stopped. Maint called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 941,
+  "output_tokens": 223,
+  "thinking_tokens": 0,
+  "usd": 0.00057
+ }
+}

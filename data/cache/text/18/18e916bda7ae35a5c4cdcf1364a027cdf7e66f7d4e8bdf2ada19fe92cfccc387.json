@@ -1,0 +1,31 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "14:00 shift start, running model B. No major alarms in previous shift."
+   },
+   {
+    "slot": 2,
+    "text": "22:00 changeover done, model B to model A. No major alarms in previous shift."
+   },
+   {
+    "slot": 3,
+    "text": "06:00 changeover done, model A to model B. No major alarms in previous shift."
+   },
+   {
+    "slot": 4,
+    "text": "06:36 plant air header pressure low alarm. 06:51 ST30 weld cell B gun air pressure low, line stopped. Maint called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 857,
+  "output_tokens": 191,
+  "thinking_tokens": 0,
+  "usd": 0.000501
+ }
+}

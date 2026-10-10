@@ -1,0 +1,35 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "No major alarms prev shift. 22:00 changeover done, model B to model A."
+   },
+   {
+    "slot": 2,
+    "text": "03:53 pe ST30 weld monitor energy out of band alarm 2 baar. 06:00 shift start, model A running."
+   },
+   {
+    "slot": 3,
+    "text": "06:57 ST30 weld energy out of band x10, 09:01 ST60 reject rate high x5, 10:23 ST30 tip resistance high x17. 14:00 shift start, model A."
+   },
+   {
+    "slot": 4,
+    "text": "17:31 ST30 weld monitor energy out of band alarm 8 baar."
+   },
+   {
+    "slot": 5,
+    "text": "20:31 ST30 weld monitor energy out of band. 20:37 line QA hold, reject rate high, maintenance called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 1004,
+  "output_tokens": 278,
+  "thinking_tokens": 0,
+  "usd": 0.000668
+ }
+}

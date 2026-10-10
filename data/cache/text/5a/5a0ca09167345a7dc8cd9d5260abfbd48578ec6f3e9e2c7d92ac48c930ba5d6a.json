@@ -1,0 +1,35 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "14:00 changeover Model A to B completed. Koi major alarm nahi tha."
+   },
+   {
+    "slot": 2,
+    "text": "22:00 shift start. Running model B. No major alarms in previous shift."
+   },
+   {
+    "slot": 3,
+    "text": "03:15 ST20 clamp retry, 03:26 cycle time high alarms. 04:13 ST60 high reject rate. 06:00 shift start, model B running."
+   },
+   {
+    "slot": 4,
+    "text": "05:35 ST20 cycle time high, 05:39 clamp retry. 06:21 ST60 par reject zyada aa rahe the."
+   },
+   {
+    "slot": 5,
+    "text": "09:23 ST20 clamp retry, 09:35 cycle time high. 09:51 line stop due to QA hold on ST60 reject rate. Maintenance informed."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 1035,
+  "output_tokens": 279,
+  "thinking_tokens": 0,
+  "usd": 0.000677
+ }
+}

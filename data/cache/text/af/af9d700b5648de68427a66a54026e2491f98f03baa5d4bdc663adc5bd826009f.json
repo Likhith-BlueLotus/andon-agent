@@ -1,0 +1,35 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "21:02 ST30 weld energy out of band alarm. 22:00 changeover model B to A complete."
+   },
+   {
+    "slot": 2,
+    "text": "ST30 weld cell B tip resistance high alarms x10, weld energy out of band alarms x3. 06:00 shift start running model A."
+   },
+   {
+    "slot": 3,
+    "text": "ST30 tip resistance high x13, energy out of band x16. ST60 reject rate high x2. 14:00 shift start model A."
+   },
+   {
+    "slot": 4,
+    "text": "13:15 ST30 energy out of band x5. 14:21 ST30 tip resistance high and ST60 reject rate high alarms."
+   },
+   {
+    "slot": 5,
+    "text": "16:52 line stopped QA hold high rejects. ST30 gun force not reached x3, ST20 gun force not reached x3, ST30 energy out of band. Maintenance called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 1136,
+  "output_tokens": 293,
+  "thinking_tokens": 0,
+  "usd": 0.000723
+ }
+}

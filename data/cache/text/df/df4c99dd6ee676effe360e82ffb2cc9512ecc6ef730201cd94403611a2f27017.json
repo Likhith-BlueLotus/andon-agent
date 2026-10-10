@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "repl cabinet filter and cleaned cooling fan",
+    "outcome": "temp normalized",
+    "row": 0,
+    "symptom": "servo gun drive high temp alarm"
+   },
+   {
+    "action": "repl leaking quick coupling o-ring",
+    "outcome": "leak stopped",
+    "row": 1,
+    "symptom": "hissing sound near quick coupling"
+   },
+   {
+    "action": "cleaned cooler fins and flushed hydraulic lines",
+    "outcome": "temp returned to op range",
+    "row": 2,
+    "symptom": "oil high temp alarm on display"
+   },
+   {
+    "action": "replaced faulty sensor lead",
+    "outcome": "signal stable",
+    "row": 3,
+    "symptom": "servo temp sensor signal drifting"
+   },
+   {
+    "action": "repl drive end brg and greased housing",
+    "outcome": "noise resolved",
+    "row": 4,
+    "symptom": "rough noise at drive end"
+   },
+   {
+    "action": "repl pump seal kit",
+    "outcome": "leak stopped",
+    "row": 5,
+    "symptom": "sealer pump leaking at seal"
+   },
+   {
+    "action": "cleaned drain valve and unblocked port",
+    "outcome": "drain functioning",
+    "row": 6,
+    "symptom": "condensate drain blow-by"
+   },
+   {
+    "action": "replenished lube reservoir",
+    "outcome": "alarm cleared",
+    "row": 7,
+    "symptom": "way lube level low alarm"
+   },
+   {
+    "action": "adj air pressure regulator setting",
+    "outcome": "pressure stable",
+    "row": 8,
+    "symptom": "gun pressure inconsistent"
+   },
+   {
+    "action": "aligned sensor bracket and tightened bolts",
+    "outcome": "sensor reading correct",
+    "row": 9,
+    "symptom": "conveyor photo eye misalign alarm"
+   },
+   {
+    "action": "clnd filter and checked air flow",
+    "outcome": "fan running normal",
+    "row": 10,
+    "symptom": "servo gun drive overheating"
+   },
+   {
+    "action": "repl control cabinet fan",
+    "outcome": "temp within limits",
+    "row": 11,
+    "symptom": "servo controller over temp"
+   },
+   {
+    "action": "replaced copper electrode tips",
+    "outcome": "dress cycle normalized",
+    "row": 12,
+    "symptom": "tip dress req frequency high"
+   },
+   {
+    "action": "cut hose end and refitted connector",
+    "outcome": "leak repaired",
+    "row": 13,
+    "symptom": "air leak at line coupling"
+   },
+   {
+    "action": "reloaded PLC logic and restored settings",
+    "outcome": "cycle time normal",
+    "row": 14,
+    "symptom": "cycle time parameter fault"
+   },
+   {
+    "action": "repl pressure transducer",
+    "outcome": "readings accurate",
+    "row": 15,
+    "symptom": "pressure sensor reading erratic"
+   },
+   {
+    "action": "cleared cooling intake and checked fan",
+    "outcome": "temp normal",
+    "row": 16,
+    "symptom": "servo drive over temp warning"
+   },
+   {
+    "action": "replaced filter and checked fan speed",
+    "outcome": "temp stable",
+    "row": 17,
+    "symptom": "servo drive alarm high temp"
+   },
+   {
+    "action": "topped up oil tank",
+    "outcome": "alarm cleared",
+    "row": 18,
+    "symptom": "low way lube level"
+   },
+   {
+    "action": "re-entered process parameters",
+    "outcome": "cycle ok",
+    "row": 19,
+    "symptom": "cycle timing drift"
+   },
+   {
+    "action": "reseated cam cable and secured lock",
+    "outcome": "comm restored",
+    "row": 20,
+    "symptom": "vision cam comm loss"
+   },
+   {
+    "action": "cleaned sealer nozzle and tip",
+    "outcome": "flow normal",
+    "row": 21,
+    "symptom": "sealer flow restricted"
+   },
+   {
+    "action": "cleaned strainer and flushed cooling lines",
+    "outcome": "flow returned",
+    "row": 22,
+    "symptom": "low coolant flow warning"
+   },
+   {
+    "action": "repl seal and tested for leaks",
+    "outcome": "leak stopped",
+    "row": 23,
+    "symptom": "pump seal leaking"
+   },
+   {
+    "action": "repl sensor and re-terminated wiring",
+    "outcome": "reading correct",
+    "row": 24,
+    "symptom": "temp sensor signal erratic"
+   },
+   {
+    "action": "adj chain tensioner",
+    "outcome": "chain tight",
+    "row": 25,
+    "symptom": "chain slack excessive"
+   },
+   {
+    "action": "entered correct params for model",
+    "outcome": "pressure matched",
+    "row": 26,
+    "symptom": "pressure setpoint mismatch"
+   },
+   {
+    "action": "restored saved cycle parameters",
+    "outcome": "cycle validated",
+    "row": 27,
+    "symptom": "incorrect weld cycle parameters"
+   },
+   {
+    "action": "replaced tips and reset counter",
+    "outcome": "weld quality normal",
+    "row": 28,
+    "symptom": "electrode tips degraded"
+   },
+   {
+    "action": "replaced shunt and cleaned terminals",
+    "outcome": "heat reduced",
+    "row": 29,
+    "symptom": "weld cable heat high"
+   },
+   {
+    "action": "cleaned nozzle orifice",
+    "outcome": "sealer flow restored",
+    "row": 30,
+    "symptom": "nozzle tip blocked"
+   },
+   {
+    "action": "flushed strainer and replaced hose",
+    "outcome": "flow rate nominal",
+    "row": 31,
+    "symptom": "low water flow alarm"
+   },
+   {
+    "action": "repl shunt and tightened bolts",
+    "outcome": "resistance normal",
+    "row": 32,
+    "symptom": "weld cable resistance high"
+   },
+   {
+    "action": "cleaned camera lens surface",
+    "outcome": "vision clear",
+    "row": 33,
+    "symptom": "vision blurry"
+   },
+   {
+    "action": "loaded correct model pressure settings",
+    "outcome": "settings matched",
+    "row": 34,
+    "symptom": "pressure settings wrong"
+   },
+   {
+    "action": "replaced shunt cable",
+    "outcome": "resistance normal",
+    "row": 35,
+    "symptom": "shunt cable worn"
+   },
+   {
+    "action": "repl brg set and lubricated",
+    "outcome": "running smooth",
+    "row": 36,
+    "symptom": "bearing noise at drive"
+   },
+   {
+    "action": "re-inputted model setpoints",
+    "outcome": "setpoints active",
+    "row": 37,
+    "symptom": "pressure setpoint error"
+   },
+   {
+    "action": "added way oil to reservoir",
+    "outcome": "oil level good",
+    "row": 38,
+    "symptom": "way lube level low"
+   },
+   {
+    "action": "adj tensioner assembly",
+    "outcome": "chain tracking ok",
+    "row": 39,
+    "symptom": "chain loose, skipping"
+   },
+   {
+    "action": "flushed hyd valve and tested",
+    "outcome": "problem persists, not fixed",
+    "row": 40,
+    "symptom": "slow valve response time"
+   },
+   {
+    "action": "repl lighting module",
+    "outcome": "light stable",
+    "row": 41,
+    "symptom": "vision light erratic"
+   },
+   {
+    "action": "topped up gearbox oil level",
+    "outcome": "level ok",
+    "row": 42,
+    "symptom": "gearbox oil low"
+   },
+   {
+    "action": "repl quick connect fitting",
+    "outcome": "leak stopped",
+    "row": 43,
+    "symptom": "air coupling hiss"
+   },
+   {
+    "action": "reset control module comms",
+    "outcome": "settings updated",
+    "row": 44,
+    "symptom": "pressure settings not updating"
+   },
+   {
+    "action": "tightened chain tensioner",
+    "outcome": "tension ok",
+    "row": 45,
+    "symptom": "chain loose"
+   },
+   {
+    "action": "refilled gearbox oil",
+    "outcome": "level correct",
+    "row": 46,
+    "symptom": "gearbox oil low level"
+   },
+   {
+    "action": "repl filter element and gasket",
+    "outcome": "pm complete",
+    "row": 47,
+    "symptom": "filter service due"
+   },
+   {
+    "action": "cleared nozzle blockage",
+    "outcome": "not fixed, still slow",
+    "row": 48,
+    "symptom": "sealer flow low"
+   },
+   {
+    "action": "adj locator pin position",
+    "outcome": "seated correctly",
+    "row": 49,
+    "symptom": "pin not seating correctly"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3140,
+  "output_tokens": 1443,
+  "thinking_tokens": 0,
+  "usd": 0.002949
+ }
+}

@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "removed and cleaned suction strainer",
+    "outcome": "flow rate returned to normal",
+    "row": 0,
+    "symptom": "chiller pump flow low"
+   },
+   {
+    "action": "replaced dirty intake filter element",
+    "outcome": "pressure levels stabilized",
+    "row": 1,
+    "symptom": "air pressure drop at intake"
+   },
+   {
+    "action": "rebuilt stuck condensate drain valve",
+    "outcome": "leak repaired",
+    "row": 2,
+    "symptom": "compressed air drain leaking"
+   },
+   {
+    "action": "bled air from material feed line",
+    "outcome": "pump suction pressure restored",
+    "row": 3,
+    "symptom": "sealer pump cavitating"
+   },
+   {
+    "action": "adj proximity switch position",
+    "outcome": "positioning error persists",
+    "row": 4,
+    "symptom": "weld gun clamp position fault"
+   },
+   {
+    "action": "realigned photo eye sensor",
+    "outcome": "conveyor running smooth",
+    "row": 5,
+    "symptom": "conveyor belt tracking fault"
+   },
+   {
+    "action": "flushed strainer and cleared hose",
+    "outcome": "coolant flow normal",
+    "row": 6,
+    "symptom": "weld gun coolant flow alarm"
+   },
+   {
+    "action": "replaced worn electrode tips",
+    "outcome": "weld quality improved",
+    "row": 7,
+    "symptom": "poor weld quality"
+   },
+   {
+    "action": "installed new auto-drain unit",
+    "outcome": "drainage operating correctly",
+    "row": 8,
+    "symptom": "air line condensate drain failure"
+   },
+   {
+    "action": "adj drive chain tensioner",
+    "outcome": "tension within spec",
+    "row": 9,
+    "symptom": "conveyor chain slack"
+   },
+   {
+    "action": "cleared debris from drain port",
+    "outcome": "drain functioning",
+    "row": 10,
+    "symptom": "drain valve stuck"
+   },
+   {
+    "action": "replaced faulty temp sensor",
+    "outcome": "temp reading stable",
+    "row": 11,
+    "symptom": "conveyor brg temp alarm"
+   },
+   {
+    "action": "performed tip dress cycle",
+    "outcome": "tips within tolerance",
+    "row": 12,
+    "symptom": "tip wear alarm"
+   },
+   {
+    "action": "cleaned proportional valve spool",
+    "outcome": "press response fast",
+    "row": 13,
+    "symptom": "press valve sluggish"
+   },
+   {
+    "action": "replaced intake element",
+    "outcome": "airflow good",
+    "row": 14,
+    "symptom": "intake filter dirty"
+   },
+   {
+    "action": "wiped camera lens",
+    "outcome": "image clear",
+    "row": 15,
+    "symptom": "vision check fail"
+   },
+   {
+    "action": "re-calibrated pressure transducer",
+    "outcome": "pressure readout stable",
+    "row": 16,
+    "symptom": "sealer pressure erratic"
+   },
+   {
+    "action": "restored weld parameters",
+    "outcome": "cycle functioning",
+    "row": 17,
+    "symptom": "weld cycle error"
+   },
+   {
+    "action": "cleaned dirty lens cover",
+    "outcome": "vision system pass",
+    "row": 18,
+    "symptom": "vision system blur"
+   },
+   {
+    "action": "repl sensor cable, replacing faulty unit from WO-2500593",
+    "outcome": "sensor reading correct",
+    "row": 19,
+    "symptom": "servo temp sensor fault"
+   },
+   {
+    "action": "flushed chiller circuit",
+    "outcome": "flow rate ok",
+    "row": 20,
+    "symptom": "low flow to gun"
+   },
+   {
+    "action": "serviced valve coil",
+    "outcome": "valve responding fast",
+    "row": 21,
+    "symptom": "press valve delay"
+   },
+   {
+    "action": "inspected cable wiring",
+    "outcome": "temp normal",
+    "row": 22,
+    "symptom": "servo temp high reading"
+   },
+   {
+    "action": "adjusted pin alignment",
+    "outcome": "pin seating correctly",
+    "row": 23,
+    "symptom": "gun locator pin error"
+   },
+   {
+    "action": "changed compressor oil/filter",
+    "outcome": "pm complete",
+    "row": 24,
+    "symptom": "pm schedule due"
+   },
+   {
+    "action": "repl failed lighting module",
+    "outcome": "illumination bright",
+    "row": 25,
+    "symptom": "vision lighting flicker"
+   },
+   {
+    "action": "repl dirty filter",
+    "outcome": "clean air flow",
+    "row": 26,
+    "symptom": "air intake blockage"
+   },
+   {
+    "action": "repl hydraulic filter element",
+    "outcome": "filter system clean",
+    "row": 27,
+    "symptom": "pm maintenance"
+   },
+   {
+    "action": "removed nozzle, cleared debris",
+    "outcome": "sealer flow consistent",
+    "row": 28,
+    "symptom": "sealer nozzle clog"
+   },
+   {
+    "action": "cleaned valve internal orifice",
+    "outcome": "press responding ok",
+    "row": 29,
+    "symptom": "press valve sluggish"
+   },
+   {
+    "action": "repl failed cabinet fan, previous fix WO-2500605 failed",
+    "outcome": "drive temp normal",
+    "row": 30,
+    "symptom": "servo drive over temp"
+   },
+   {
+    "action": "dressed weld tips",
+    "outcome": "tips good",
+    "row": 31,
+    "symptom": "tip wear limit"
+   },
+   {
+    "action": "reset parameters",
+    "outcome": "timing restored",
+    "row": 32,
+    "symptom": "weld timer error"
+   },
+   {
+    "action": "re-aligned locator",
+    "outcome": "clamp cycle ok",
+    "row": 33,
+    "symptom": "clamp fault"
+   },
+   {
+    "action": "cleared drain trap",
+    "outcome": "leak stoped",
+    "row": 34,
+    "symptom": "drain leak"
+   },
+   {
+    "action": "reset sensor",
+    "outcome": "temp ok",
+    "row": 35,
+    "symptom": "servo temp err"
+   },
+   {
+    "action": "vented material lines",
+    "outcome": "line pressurized",
+    "row": 36,
+    "symptom": "sealer line air"
+   },
+   {
+    "action": "flushed gun circuit",
+    "outcome": "flow ok",
+    "row": 37,
+    "symptom": "coolant flow alarm"
+   },
+   {
+    "action": "replaced worn secondary shunt",
+    "outcome": "weld current improved",
+    "row": 38,
+    "symptom": "high weld resistance"
+   },
+   {
+    "action": "secured loose cable connection",
+    "outcome": "vision link restored",
+    "row": 39,
+    "symptom": "vision comm loss"
+   },
+   {
+    "action": "cleaned chiller cooler fins",
+    "outcome": "temp stabilized",
+    "row": 40,
+    "symptom": "hyd oil overheating"
+   },
+   {
+    "action": "tightened fitting on pump",
+    "outcome": "leak fixed",
+    "row": 41,
+    "symptom": "hyd leak"
+   },
+   {
+    "action": "cleaned cabinet filters",
+    "outcome": "temp down",
+    "row": 42,
+    "symptom": "drive temp alarm"
+   },
+   {
+    "action": "adj drive tension",
+    "outcome": "tension good",
+    "row": 43,
+    "symptom": "chain slack"
+   },
+   {
+    "action": "flushed strainer",
+    "outcome": "flow restored",
+    "row": 44,
+    "symptom": "coolant flow low"
+   },
+   {
+    "action": "replaced light unit",
+    "outcome": "illumination ok",
+    "row": 45,
+    "symptom": "dim vision"
+   },
+   {
+    "action": "calibrated transducer",
+    "outcome": "readout correct",
+    "row": 46,
+    "symptom": "sealer pressure readout error"
+   },
+   {
+    "action": "secured communication cable",
+    "outcome": "signal stable",
+    "row": 47,
+    "symptom": "vision cable intermittent"
+   },
+   {
+    "action": "replaced pressure transducer",
+    "outcome": "readout normal",
+    "row": 48,
+    "symptom": "press pressure unstable"
+   },
+   {
+    "action": "cleaned cooler",
+    "outcome": "cooling normal",
+    "row": 49,
+    "symptom": "oil temp high"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3122,
+  "output_tokens": 2451,
+  "thinking_tokens": 0,
+  "usd": 0.004457
+ }
+}

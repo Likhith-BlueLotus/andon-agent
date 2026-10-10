@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "topped up oil to spec",
+    "outcome": "level ok",
+    "row": 0,
+    "symptom": "gearbox oil level low"
+   },
+   {
+    "action": "repl shunt and cable set",
+    "outcome": "weld quality good",
+    "row": 1,
+    "symptom": "weld shunt burnt out"
+   },
+   {
+    "action": "repl shunt",
+    "outcome": "unit op ok",
+    "row": 2,
+    "symptom": "gun shunt frayed"
+   },
+   {
+    "action": "clnd strainer and flushed lines",
+    "outcome": "flow norm",
+    "row": 3,
+    "symptom": "low flow alarm gun"
+   },
+   {
+    "action": "inst new cable and shunt",
+    "outcome": "op normal",
+    "row": 4,
+    "symptom": "weld shunt wear"
+   },
+   {
+    "action": "refilled reservoir",
+    "outcome": "system lubricated",
+    "row": 5,
+    "symptom": "way lube level low"
+   },
+   {
+    "action": "chk wiring and conn",
+    "outcome": "sensor reading stable",
+    "row": 6,
+    "symptom": "servo sensor intermittent fault"
+   },
+   {
+    "action": "clnd prop valve spool",
+    "outcome": "resp time improved",
+    "row": 7,
+    "symptom": "slow press response"
+   },
+   {
+    "action": "repl electrode tips and dress",
+    "outcome": "weld quality stable",
+    "row": 8,
+    "symptom": "tips worn out"
+   },
+   {
+    "action": "repl hyd filter elements",
+    "outcome": "issue still present",
+    "row": 9,
+    "symptom": "erratic press pressure"
+   },
+   {
+    "action": "replenish lube supply",
+    "outcome": "ok",
+    "row": 10,
+    "symptom": "way lube low"
+   },
+   {
+    "action": "tightened loose sensor plug",
+    "outcome": "readings norm",
+    "row": 11,
+    "symptom": "servo temp reading high"
+   },
+   {
+    "action": "replaced thermistor",
+    "outcome": "alarm clear",
+    "row": 12,
+    "symptom": "servo thermal alarm"
+   },
+   {
+    "action": "adj air reg to spec",
+    "outcome": "press good",
+    "row": 13,
+    "symptom": "gun press low"
+   },
+   {
+    "action": "repl faulty drain valve",
+    "outcome": "air saved",
+    "row": 14,
+    "symptom": "air trap venting constantly"
+   },
+   {
+    "action": "restored correct plc logic params",
+    "outcome": "timing fix",
+    "row": 15,
+    "symptom": "cycle time drifting"
+   },
+   {
+    "action": "re-seated comm cable",
+    "outcome": "link rest",
+    "row": 16,
+    "symptom": "vision cam comm error"
+   },
+   {
+    "action": "wiped camera lens",
+    "outcome": "readings clear",
+    "row": 17,
+    "symptom": "vision error count high"
+   },
+   {
+    "action": "updated model recipe",
+    "outcome": "setpoint corrected",
+    "row": 18,
+    "symptom": "press setpoint error"
+   },
+   {
+    "action": "adj locator pin pos",
+    "outcome": "clamp ok",
+    "row": 19,
+    "symptom": "clamp not closing"
+   },
+   {
+    "action": "drained and filled new oil",
+    "outcome": "pm complete",
+    "row": 20,
+    "symptom": "comp oil service due"
+   },
+   {
+    "action": "repl cable",
+    "outcome": "good weld",
+    "row": 21,
+    "symptom": "weld cable shunt broken"
+   },
+   {
+    "action": "tightened casing bolts",
+    "outcome": "leak persists",
+    "row": 22,
+    "symptom": "sealer pump leaking"
+   },
+   {
+    "action": "checked wiring conn",
+    "outcome": "fixed reading",
+    "row": 23,
+    "symptom": "bearing temp sensor fault"
+   },
+   {
+    "action": "repl faulty probe",
+    "outcome": "reading steady",
+    "row": 24,
+    "symptom": "erratic bearing temp"
+   },
+   {
+    "action": "repl faulty plc comm module; fixed prev wo",
+    "outcome": "sys synched",
+    "row": 25,
+    "symptom": "pressure not matching recipe"
+   },
+   {
+    "action": "realigned locator pin",
+    "outcome": "op pass",
+    "row": 26,
+    "symptom": "clamp misalignment"
+   },
+   {
+    "action": "recalibrated transducer",
+    "outcome": "stable",
+    "row": 27,
+    "symptom": "sealer press drift"
+   },
+   {
+    "action": "adj pin travel limit",
+    "outcome": "ok",
+    "row": 28,
+    "symptom": "pin out of pos"
+   },
+   {
+    "action": "calib sensor",
+    "outcome": "reading valid",
+    "row": 29,
+    "symptom": "transducer readout weird"
+   },
+   {
+    "action": "adj bracket",
+    "outcome": "tracking good",
+    "row": 30,
+    "symptom": "conveyor photo eye misaligned"
+   },
+   {
+    "action": "repl filter",
+    "outcome": "airflow good",
+    "row": 31,
+    "symptom": "air intake filter dirty"
+   },
+   {
+    "action": "repl transducer",
+    "outcome": "reading stable",
+    "row": 32,
+    "symptom": "press reading erratic"
+   },
+   {
+    "action": "repl clogged hose; fixed prev wo",
+    "outcome": "flow norm",
+    "row": 33,
+    "symptom": "low gun flow persist"
+   },
+   {
+    "action": "repl faulty transducer; fixed prev wo",
+    "outcome": "stable output",
+    "row": 34,
+    "symptom": "sealer press instability"
+   },
+   {
+    "action": "repl cabinet cooling fan",
+    "outcome": "drive cool",
+    "row": 35,
+    "symptom": "servo drive over temp"
+   },
+   {
+    "action": "adj air regulator",
+    "outcome": "press good",
+    "row": 36,
+    "symptom": "gun air low"
+   },
+   {
+    "action": "repl tips",
+    "outcome": "ready",
+    "row": 37,
+    "symptom": "tip weld wear"
+   },
+   {
+    "action": "flushed valve manifold",
+    "outcome": "fast resp",
+    "row": 38,
+    "symptom": "press valve lag"
+   },
+   {
+    "action": "re-aligned photo eye",
+    "outcome": "tracking normal",
+    "row": 39,
+    "symptom": "eye not picking up"
+   },
+   {
+    "action": "repl auto drain",
+    "outcome": "seal tight",
+    "row": 40,
+    "symptom": "air drain venting"
+   },
+   {
+    "action": "adj locator pin",
+    "outcome": "ok",
+    "row": 41,
+    "symptom": "pin position alarm"
+   },
+   {
+    "action": "washed condenser coils",
+    "outcome": "temp drop",
+    "row": 42,
+    "symptom": "chiller not cooling"
+   },
+   {
+    "action": "greased bearing housing",
+    "outcome": "noise red",
+    "row": 43,
+    "symptom": "noisy drive bearing"
+   },
+   {
+    "action": "repl pump seal",
+    "outcome": "no leak",
+    "row": 44,
+    "symptom": "pump seal leak"
+   },
+   {
+    "action": "chng gun strainer",
+    "outcome": "flow restored",
+    "row": 45,
+    "symptom": "low coolant flow"
+   },
+   {
+    "action": "reloaded param backup",
+    "outcome": "timer set",
+    "row": 46,
+    "symptom": "timer settings reset"
+   },
+   {
+    "action": "re-entered timing setpts",
+    "outcome": "op normal",
+    "row": 47,
+    "symptom": "cycle time error"
+   },
+   {
+    "action": "tightened leaking pipe fit",
+    "outcome": "dry",
+    "row": 48,
+    "symptom": "hyd oil weeping"
+   },
+   {
+    "action": "adj chain tensioner",
+    "outcome": "run ok",
+    "row": 49,
+    "symptom": "chain slack"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3185,
+  "output_tokens": 1291,
+  "thinking_tokens": 0,
+  "usd": 0.002733
+ }
+}

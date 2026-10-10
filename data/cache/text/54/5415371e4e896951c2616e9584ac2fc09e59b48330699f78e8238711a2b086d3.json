@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "tighten connection and wiped down",
+    "outcome": "leak stopped",
+    "row": 0,
+    "symptom": "hyd fitting oil weep"
+   },
+   {
+    "action": "adj regulator set point",
+    "outcome": "pressure stable",
+    "row": 1,
+    "symptom": "gun pressure low alarm"
+   },
+   {
+    "action": "repl worn o-ring on fitting",
+    "outcome": "no leaks found",
+    "row": 2,
+    "symptom": "minor hyd leak detected"
+   },
+   {
+    "action": "repl tip dresser blades",
+    "outcome": "weld quality improved",
+    "row": 3,
+    "symptom": "poor weld quality"
+   },
+   {
+    "action": "repl worn tips and clean dresser",
+    "outcome": "dressing ok",
+    "row": 4,
+    "symptom": "tip dresser not cutting"
+   },
+   {
+    "action": "bleed air from material lines",
+    "outcome": "pump running smooth",
+    "row": 5,
+    "symptom": "sealer pump cavitating"
+   },
+   {
+    "action": "clean proportional valve spool",
+    "outcome": "response time normal",
+    "row": 6,
+    "symptom": "press move sluggish"
+   },
+   {
+    "action": "repl faulty led module",
+    "outcome": "lighting restored",
+    "row": 7,
+    "symptom": "vision light flickering"
+   },
+   {
+    "action": "repl pump shaft seal kit",
+    "outcome": "seal dry",
+    "row": 8,
+    "symptom": "pump seal weeping"
+   },
+   {
+    "action": "install new weld cable shunt",
+    "outcome": "ready for prod",
+    "row": 9,
+    "symptom": "weld shunt frayed"
+   },
+   {
+    "action": "adj tensioner assembly",
+    "outcome": "chain track aligned",
+    "row": 10,
+    "symptom": "conveyor chain slack"
+   },
+   {
+    "action": "repl copper electrodes",
+    "outcome": "weld ok",
+    "row": 11,
+    "symptom": "weld tips mushrooming"
+   },
+   {
+    "action": "clean cooling water strainer",
+    "outcome": "flow restored",
+    "row": 12,
+    "symptom": "gun cooling fault"
+   },
+   {
+    "action": "tighten fitting at pump discharge",
+    "outcome": "oil flow stopped",
+    "row": 13,
+    "symptom": "pump oil drip"
+   },
+   {
+    "action": "adj locator pin height",
+    "outcome": "part load correct",
+    "row": 14,
+    "symptom": "part not seating"
+   },
+   {
+    "action": "repl auto drain valve",
+    "outcome": "air pressure holding",
+    "row": 15,
+    "symptom": "drain stuck open"
+   },
+   {
+    "action": "repl quick coupling and hose",
+    "outcome": "no air loss",
+    "row": 16,
+    "symptom": "air line leaking"
+   },
+   {
+    "action": "power wash condenser coil",
+    "outcome": "temp normalized",
+    "row": 17,
+    "symptom": "high chiller head pressure"
+   },
+   {
+    "action": "lubed drive bearing",
+    "outcome": "noise reduced",
+    "row": 18,
+    "symptom": "conveyor drive noise"
+   },
+   {
+    "action": "reset controller parameters",
+    "outcome": "alarm returned shortly",
+    "row": 19,
+    "symptom": "servo high temp alarm"
+   },
+   {
+    "action": "refill lube reservoir",
+    "outcome": "alarm cleared",
+    "row": 20,
+    "symptom": "way lube low"
+   },
+   {
+    "action": "top off way oil",
+    "outcome": "ready",
+    "row": 21,
+    "symptom": "lube level low"
+   },
+   {
+    "action": "re-align photo eye sensor",
+    "outcome": "detection verified",
+    "row": 22,
+    "symptom": "part detect fault"
+   },
+   {
+    "action": "clean cooling fins",
+    "outcome": "cooling ok",
+    "row": 23,
+    "symptom": "chiller efficiency low"
+   },
+   {
+    "action": "tighten motor mount bolts",
+    "outcome": "noise still present",
+    "row": 24,
+    "symptom": "conveyor noisy bearing"
+   },
+   {
+    "action": "flush gun cooling circuit",
+    "outcome": "flow ok",
+    "row": 25,
+    "symptom": "coolant flow low"
+   },
+   {
+    "action": "reseat comm cable",
+    "outcome": "link restored",
+    "row": 26,
+    "symptom": "vision comm loss"
+   },
+   {
+    "action": "repl faulty temp sensor",
+    "outcome": "readings correct",
+    "row": 27,
+    "symptom": "temp sensor erratic"
+   },
+   {
+    "action": "bleed system",
+    "outcome": "pump running",
+    "row": 28,
+    "symptom": "pump air lock"
+   },
+   {
+    "action": "power cycle unit",
+    "outcome": "operational",
+    "row": 29,
+    "symptom": "air dryer error"
+   },
+   {
+    "action": "repl oil and filter",
+    "outcome": "pm complete",
+    "row": 30,
+    "symptom": "pm due"
+   },
+   {
+    "action": "repl hyd filter element",
+    "outcome": "system clean",
+    "row": 31,
+    "symptom": "pm due"
+   },
+   {
+    "action": "repl intake filter",
+    "outcome": "flow improved",
+    "row": 32,
+    "symptom": "intake dirty"
+   },
+   {
+    "action": "repl faulty solenoid",
+    "outcome": "draining ok",
+    "row": 33,
+    "symptom": "condensate drain fail"
+   },
+   {
+    "action": "adj tensioner",
+    "outcome": "chain track ok",
+    "row": 34,
+    "symptom": "chain loose"
+   },
+   {
+    "action": "clean regulator filter",
+    "outcome": "pressure ok",
+    "row": 35,
+    "symptom": "low gun pressure"
+   },
+   {
+    "action": "repl clogged strainer",
+    "outcome": "flow back",
+    "row": 36,
+    "symptom": "coolant flow alarm"
+   },
+   {
+    "action": "recalibrate sensor",
+    "outcome": "stable",
+    "row": 37,
+    "symptom": "sensor drift"
+   },
+   {
+    "action": "check wiring",
+    "outcome": "ok",
+    "row": 38,
+    "symptom": "sensor erratic"
+   },
+   {
+    "action": "wipe camera lens",
+    "outcome": "image clear",
+    "row": 39,
+    "symptom": "vision blurred"
+   },
+   {
+    "action": "repl cabinet fan",
+    "outcome": "temp down",
+    "row": 40,
+    "symptom": "servo over temp"
+   },
+   {
+    "action": "repl light array",
+    "outcome": "image bright",
+    "row": 41,
+    "symptom": "lighting dim"
+   },
+   {
+    "action": "replace sensor",
+    "outcome": "good",
+    "row": 42,
+    "symptom": "temp alarm"
+   },
+   {
+    "action": "repl sensor",
+    "outcome": "ok",
+    "row": 43,
+    "symptom": "sensor fault"
+   },
+   {
+    "action": "repl shunt",
+    "outcome": "weld ok",
+    "row": 44,
+    "symptom": "weld shunt wear"
+   },
+   {
+    "action": "repl crimped internal hose, per WO-2601420",
+    "outcome": "flow fixed",
+    "row": 45,
+    "symptom": "coolant flow still low"
+   },
+   {
+    "action": "clean coils",
+    "outcome": "good",
+    "row": 46,
+    "symptom": "chiller temp high"
+   },
+   {
+    "action": "reset clamp switch",
+    "outcome": "still failing",
+    "row": 47,
+    "symptom": "pin pos fault"
+   },
+   {
+    "action": "refill reservoir",
+    "outcome": "ok",
+    "row": 48,
+    "symptom": "lube low"
+   },
+   {
+    "action": "flush line again as WO-2601448 failed",
+    "outcome": "fixed",
+    "row": 49,
+    "symptom": "coolant low flow"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3122,
+  "output_tokens": 2388,
+  "thinking_tokens": 0,
+  "usd": 0.004363
+ }
+}

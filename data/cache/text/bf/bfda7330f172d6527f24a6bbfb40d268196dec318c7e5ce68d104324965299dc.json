@@ -1,0 +1,31 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "22:00 changeover Model A to B done. No major alarms previous shift."
+   },
+   {
+    "slot": 2,
+    "text": "06:00 changeover Model B to A done. Pichli shift mein koi major alarm nahi tha."
+   },
+   {
+    "slot": 3,
+    "text": "14:00 shift start, model A chal raha hai. No major alarms reported."
+   },
+   {
+    "slot": 4,
+    "text": "21:11 line stopped at ST20 weld cell A. Servo temperature high trip. Maintenance called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 813,
+  "output_tokens": 176,
+  "thinking_tokens": 0,
+  "usd": 0.000467
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "Last shift no major alarm. 14:00 changeover done, model A to B."
+   },
+   {
+    "slot": 2,
+    "text": "No major alarms from prev shift. 22:00 shift start, running model B."
+   },
+   {
+    "slot": 3,
+    "text": "23:41 par ST20 Weld cell A servo temp high alarm aaya tha do baar. 06:00 shift start, running model B."
+   },
+   {
+    "slot": 4,
+    "text": "06:21 ST20 Weld cell A servo temperature high alarm recorded."
+   },
+   {
+    "slot": 5,
+    "text": "Line stopped 08:23. ST20 Weld cell A servo temperature high trip and high-high alarm. Maintenance called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 920,
+  "output_tokens": 232,
+  "thinking_tokens": 0,
+  "usd": 0.000578
+ }
+}

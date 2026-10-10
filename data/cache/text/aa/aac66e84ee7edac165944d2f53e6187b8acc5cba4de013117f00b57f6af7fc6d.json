@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "drained oil, repl filter, added new oil",
+    "outcome": "oil levels nominal",
+    "row": 0,
+    "symptom": "scheduled pm compressor service"
+   },
+   {
+    "action": "found heated hose connection loose, re-secured",
+    "outcome": "flow restored",
+    "row": 1,
+    "symptom": "sealer flow fluctuating"
+   },
+   {
+    "action": "repl failed control cab cooling fan, previous fix failed",
+    "outcome": "temp normal",
+    "row": 2,
+    "symptom": "servo gun overheating again"
+   },
+   {
+    "action": "repl worn shunt strap",
+    "outcome": "weld quality ok",
+    "row": 3,
+    "symptom": "weld spatter high"
+   },
+   {
+    "action": "reloaded parameters from master list",
+    "outcome": "timer sync fixed",
+    "row": 4,
+    "symptom": "weld cycle timer fault"
+   },
+   {
+    "action": "replaced faulty sensor wire",
+    "outcome": "temp signal steady",
+    "row": 5,
+    "symptom": "servo gun temp alarm"
+   },
+   {
+    "action": "adj air pressure regulator",
+    "outcome": "pressure set correct",
+    "row": 6,
+    "symptom": "weld gun pressure low"
+   },
+   {
+    "action": "re-calibrated pressure transducer",
+    "outcome": "reading stable",
+    "row": 7,
+    "symptom": "sealer pressure erratic"
+   },
+   {
+    "action": "cleaned dust from cab fan",
+    "outcome": "fan airflow good",
+    "row": 8,
+    "symptom": "servo drive over temp"
+   },
+   {
+    "action": "installed new shunt cable",
+    "outcome": "resistance fixed",
+    "row": 9,
+    "symptom": "weld cable frayed"
+   },
+   {
+    "action": "reset heated hose controller",
+    "outcome": "temp stable",
+    "row": 10,
+    "symptom": "sealer hose temp fault"
+   },
+   {
+    "action": "flushed proportional valve solenoid",
+    "outcome": "response time improved",
+    "row": 11,
+    "symptom": "press move lagging"
+   },
+   {
+    "action": "tightened locator pin bracket",
+    "outcome": "parts centered",
+    "row": 12,
+    "symptom": "part location drift"
+   },
+   {
+    "action": "repl faulty hose thermostat",
+    "outcome": "heat control restored",
+    "row": 13,
+    "symptom": "sealer heat alarm"
+   },
+   {
+    "action": "repl quick disconnect coupling",
+    "outcome": "leak stopped",
+    "row": 14,
+    "symptom": "hissing air leak"
+   },
+   {
+    "action": "cleaned filter screen in valve",
+    "outcome": "press speed good",
+    "row": 15,
+    "symptom": "press valve sluggish"
+   },
+   {
+    "action": "repl faulty transducer",
+    "outcome": "reading stable",
+    "row": 16,
+    "symptom": "pressure gauge jumpy"
+   },
+   {
+    "action": "cleaned condenser coil fins",
+    "outcome": "cooling normal",
+    "row": 17,
+    "symptom": "chiller temp high"
+   },
+   {
+    "action": "drained moisture trap, reset unit",
+    "outcome": "dew point ok",
+    "row": 18,
+    "symptom": "air dryer error"
+   },
+   {
+    "action": "air blasted condenser coil",
+    "outcome": "temp dropped",
+    "row": 19,
+    "symptom": "chiller cooling poor"
+   },
+   {
+    "action": "repl main pump seal",
+    "outcome": "no leaks",
+    "row": 20,
+    "symptom": "sealer pump leak"
+   },
+   {
+    "action": "realigned locator pin",
+    "outcome": "clamp seated",
+    "row": 21,
+    "symptom": "clamp not closing"
+   },
+   {
+    "action": "updated controller software config",
+    "outcome": "cycle valid",
+    "row": 22,
+    "symptom": "timer param error"
+   },
+   {
+    "action": "repl desiccant filter",
+    "outcome": "dryer normal",
+    "row": 23,
+    "symptom": "dryer alarm"
+   },
+   {
+    "action": "reset clamp stroke distance",
+    "outcome": "parts good",
+    "row": 24,
+    "symptom": "part fit issue"
+   },
+   {
+    "action": "re-dressed electrodes",
+    "outcome": "weld quality good",
+    "row": 25,
+    "symptom": "weld tip wear"
+   },
+   {
+    "action": "repl internal pump seal kit",
+    "outcome": "dry pump",
+    "row": 26,
+    "symptom": "pump seepage"
+   },
+   {
+    "action": "repl weld shunt",
+    "outcome": "cable cool",
+    "row": 27,
+    "symptom": "cable hot"
+   },
+   {
+    "action": "adj chain tensioner",
+    "outcome": "tension set",
+    "row": 28,
+    "symptom": "conveyor chain loose"
+   },
+   {
+    "action": "tightened chain, didn't fix noise",
+    "outcome": "still noisy",
+    "row": 29,
+    "symptom": "chain noise"
+   },
+   {
+    "action": "cleaned pump intake strainer",
+    "outcome": "flow good",
+    "row": 30,
+    "symptom": "low flow error"
+   },
+   {
+    "action": "replaced electrode tips",
+    "outcome": "ready for production",
+    "row": 31,
+    "symptom": "tip worn alarm"
+   },
+   {
+    "action": "replaced tips and dressed",
+    "outcome": "spot solid",
+    "row": 32,
+    "symptom": "poor weld spot"
+   },
+   {
+    "action": "took up slack in drive chain",
+    "outcome": "tension ok",
+    "row": 33,
+    "symptom": "conveyor slack"
+   },
+   {
+    "action": "cleaned external oil cooler",
+    "outcome": "temp normalized",
+    "row": 34,
+    "symptom": "hyd temp high"
+   },
+   {
+    "action": "repl weld shunt",
+    "outcome": "fixed",
+    "row": 35,
+    "symptom": "shunt burning"
+   },
+   {
+    "action": "changed compressor oil",
+    "outcome": "pm complete",
+    "row": 36,
+    "symptom": "pm due"
+   },
+   {
+    "action": "cut back hose, re-fitted connector",
+    "outcome": "no air loss",
+    "row": 37,
+    "symptom": "air hose leak"
+   },
+   {
+    "action": "degreased oil cooler fins",
+    "outcome": "temp steady",
+    "row": 38,
+    "symptom": "hyd oil overheating"
+   },
+   {
+    "action": "replaced air intake filter",
+    "outcome": "pressure restored",
+    "row": 39,
+    "symptom": "intake filter dirty"
+   },
+   {
+    "action": "cleared strainer at gun base",
+    "outcome": "flow returned",
+    "row": 40,
+    "symptom": "coolant flow low"
+   },
+   {
+    "action": "re-calibrated sealer transducer",
+    "outcome": "accurate",
+    "row": 41,
+    "symptom": "pressure drift"
+   },
+   {
+    "action": "installed new intake filter",
+    "outcome": "service complete",
+    "row": 42,
+    "symptom": "filter clogged"
+   },
+   {
+    "action": "repl compressor intake element",
+    "outcome": "ready",
+    "row": 43,
+    "symptom": "pm filter change"
+   },
+   {
+    "action": "re-uploaded timer settings",
+    "outcome": "stable",
+    "row": 44,
+    "symptom": "timer param error"
+   },
+   {
+    "action": "reset parameters to specs",
+    "outcome": "correct",
+    "row": 45,
+    "symptom": "wrong cycle times"
+   },
+   {
+    "action": "top up gearbox oil, no change",
+    "outcome": "still noisy",
+    "row": 46,
+    "symptom": "gearbox grinding noise"
+   },
+   {
+    "action": "repl worn shunt",
+    "outcome": "weld good",
+    "row": 47,
+    "symptom": "high resistance"
+   },
+   {
+    "action": "wiped down sensor lens, fault persists",
+    "outcome": "fault active",
+    "row": 48,
+    "symptom": "sensor alarm"
+   },
+   {
+    "action": "repl drive end bearing, previous fix failed",
+    "outcome": "quiet run",
+    "row": 49,
+    "symptom": "conveyor noise persists"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3114,
+  "output_tokens": 2436,
+  "thinking_tokens": 0,
+  "usd": 0.004432
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "06:00 shift start. No major alarms in previous shift. Running model A."
+   },
+   {
+    "slot": 2,
+    "text": "14:00 shift start. Previous shift mein koi major alarm nahi tha. Model A chal raha hai."
+   },
+   {
+    "slot": 3,
+    "text": "22:00 shift start. No major alarms in previous shift. Running model A."
+   },
+   {
+    "slot": 4,
+    "text": "04:54 ST50 starved x2, 04:58 ST30 weld energy out of band x3, 05:03 ST40 starved x3, 05:05 ST20 blocked. 05:22 ST30 servo drive over-temp trip. Maintenance called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 914,
+  "output_tokens": 225,
+  "thinking_tokens": 0,
+  "usd": 0.000566
+ }
+}

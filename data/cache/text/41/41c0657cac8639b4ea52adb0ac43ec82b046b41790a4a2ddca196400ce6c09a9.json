@@ -1,0 +1,31 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "14:00 model B to A changeover done. No major alarms previous shift."
+   },
+   {
+    "slot": 2,
+    "text": "22:00 shift start, model A running. No major alarms pichle shift mein."
+   },
+   {
+    "slot": 3,
+    "text": "06:00 shift start, model A running. Koi major alarm nahi tha pichle shift mein."
+   },
+   {
+    "slot": 4,
+    "text": "06:34 ST40 starved, 06:37 ST20 cycle time high, 06:43 ST20 blocked, 06:49 ST10 blocked. Line output low, maintenance called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 909,
+  "output_tokens": 207,
+  "thinking_tokens": 0,
+  "usd": 0.000538
+ }
+}

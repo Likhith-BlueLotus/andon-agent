@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "refilled tank, checked supply lines",
+    "outcome": "system at optimal level",
+    "row": 0,
+    "symptom": "low way oil levels"
+   },
+   {
+    "action": "adj air regulator, verified gauge",
+    "outcome": "pressure reading correct",
+    "row": 1,
+    "symptom": "weld gun inconsistent pressure"
+   },
+   {
+    "action": "repl sensor, checked wiring",
+    "outcome": "temp signal normal",
+    "row": 2,
+    "symptom": "conveyor bearing temp alarm"
+   },
+   {
+    "action": "re-seated loose data cable",
+    "outcome": "comm restored",
+    "row": 3,
+    "symptom": "vision camera comm loss"
+   },
+   {
+    "action": "cleaned lens with non-scratch cloth",
+    "outcome": "image clarity restored",
+    "row": 4,
+    "symptom": "blurred image on camera"
+   },
+   {
+    "action": "adjusted limit switch bracket",
+    "outcome": "pin signal stable",
+    "row": 5,
+    "symptom": "clamp pin position fault"
+   },
+   {
+    "action": "repl faulty heating element wire",
+    "outcome": "temp stable",
+    "row": 6,
+    "symptom": "sealer hose temp fault"
+   },
+   {
+    "action": "calibrated pressure transducer",
+    "outcome": "readings within spec",
+    "row": 7,
+    "symptom": "inaccurate material pressure display"
+   },
+   {
+    "action": "repl worn shunt strap",
+    "outcome": "weld quality normalized",
+    "row": 8,
+    "symptom": "excessive weld heat at gun"
+   },
+   {
+    "action": "repl tips, reset tip dresser",
+    "outcome": "nugget size restored",
+    "row": 9,
+    "symptom": "poor weld quality"
+   },
+   {
+    "action": "re-terminated heater harness connector",
+    "outcome": "heater functioning",
+    "row": 10,
+    "symptom": "sealer hose temp error"
+   },
+   {
+    "action": "cleaned strainer, cleared debris",
+    "outcome": "flow rate normal",
+    "row": 11,
+    "symptom": "coolant flow alarm"
+   },
+   {
+    "action": "changed hyd filter element",
+    "outcome": "pressure still unstable",
+    "row": 12,
+    "symptom": "low pressure system alert"
+   },
+   {
+    "action": "repl faulty temp sensor",
+    "outcome": "reading back to normal",
+    "row": 13,
+    "symptom": "conveyor bearing temp high"
+   },
+   {
+    "action": "realignment of pin carriage",
+    "outcome": "cycle time correct",
+    "row": 14,
+    "symptom": "clamp pin fault"
+   },
+   {
+    "action": "tightened fitting at manifold",
+    "outcome": "leak persists",
+    "row": 15,
+    "symptom": "hyd oil leak found"
+   },
+   {
+    "action": "repl failed led array",
+    "outcome": "lighting stable",
+    "row": 16,
+    "symptom": "lighting module flickering"
+   },
+   {
+    "action": "adj tensioner assembly",
+    "outcome": "chain tension nominal",
+    "row": 17,
+    "symptom": "chain slack detected"
+   },
+   {
+    "action": "repl valve, follow-up from WO-2500713",
+    "outcome": "response time corrected",
+    "row": 18,
+    "symptom": "slow proportional valve"
+   },
+   {
+    "action": "washed condenser coils, checked fan",
+    "outcome": "cooling capacity restored",
+    "row": 19,
+    "symptom": "chiller overheating"
+   },
+   {
+    "action": "reset clamp assembly",
+    "outcome": "problem remains",
+    "row": 20,
+    "symptom": "clamp pin fault"
+   },
+   {
+    "action": "flushed coolant line, cleaned strainer",
+    "outcome": "flow steady",
+    "row": 21,
+    "symptom": "low coolant flow"
+   },
+   {
+    "action": "adj regulator spring tension",
+    "outcome": "pressure correct",
+    "row": 22,
+    "symptom": "weld gun pressure low"
+   },
+   {
+    "action": "repl faulty pressure controller, fixed WO-2500716",
+    "outcome": "setpoint holding",
+    "row": 23,
+    "symptom": "pressure setpoint mismatch"
+   },
+   {
+    "action": "repl blocked hose assembly",
+    "outcome": "flow returned",
+    "row": 24,
+    "symptom": "coolant flow low"
+   },
+   {
+    "action": "reloaded original cycle parameters",
+    "outcome": "timing restored",
+    "row": 25,
+    "symptom": "incorrect weld timing"
+   },
+   {
+    "action": "cleaned heat exchanger",
+    "outcome": "temp stabilized",
+    "row": 26,
+    "symptom": "oil temp high"
+   },
+   {
+    "action": "re-cleared strainer, fixed WO-2500721",
+    "outcome": "flow now stable",
+    "row": 27,
+    "symptom": "low coolant flow"
+   },
+   {
+    "action": "repl shunt",
+    "outcome": "conductivity restored",
+    "row": 28,
+    "symptom": "weld shunt frayed"
+   },
+   {
+    "action": "cleaned valve spool",
+    "outcome": "valves normal",
+    "row": 29,
+    "symptom": "proportional valve sluggish"
+   },
+   {
+    "action": "bled air from actuator",
+    "outcome": "smooth movement",
+    "row": 30,
+    "symptom": "proportional valve sluggish"
+   },
+   {
+    "action": "calibrated regulator",
+    "outcome": "stable pressure",
+    "row": 31,
+    "symptom": "erratic gun pressure"
+   },
+   {
+    "action": "repl power supply",
+    "outcome": "lights working",
+    "row": 32,
+    "symptom": "lighting module failure"
+   },
+   {
+    "action": "repl faulty thermistor",
+    "outcome": "correct temp reading",
+    "row": 33,
+    "symptom": "servo temp error"
+   },
+   {
+    "action": "re-keyed parameters on screen",
+    "outcome": "data matches model",
+    "row": 34,
+    "symptom": "pressure setpoint error"
+   },
+   {
+    "action": "tightened sensor wiring",
+    "outcome": "signal stable",
+    "row": 35,
+    "symptom": "servo temp error"
+   },
+   {
+    "action": "repl bad connector",
+    "outcome": "temp maintained",
+    "row": 36,
+    "symptom": "sealer hose temp fault"
+   },
+   {
+    "action": "repl o-ring in manifold",
+    "outcome": "leak stopped",
+    "row": 37,
+    "symptom": "hyd oil leak"
+   },
+   {
+    "action": "repl patch cable",
+    "outcome": "camera online",
+    "row": 38,
+    "symptom": "comm lost to cam"
+   },
+   {
+    "action": "serviced drain valve",
+    "outcome": "dryer running",
+    "row": 39,
+    "symptom": "air dryer alarm"
+   },
+   {
+    "action": "repl shunt",
+    "outcome": "weld back to spec",
+    "row": 40,
+    "symptom": "shunt worn"
+   },
+   {
+    "action": "repl bearing",
+    "outcome": "quiet operation",
+    "row": 41,
+    "symptom": "drive bearing noise"
+   },
+   {
+    "action": "lubed solenoid",
+    "outcome": "valve cycling normal",
+    "row": 42,
+    "symptom": "valve sluggish"
+   },
+   {
+    "action": "repl shunt",
+    "outcome": "fixed",
+    "row": 43,
+    "symptom": "weld shunt wear"
+   },
+   {
+    "action": "reset dryer controller",
+    "outcome": "normal ops",
+    "row": 44,
+    "symptom": "dryer fault"
+   },
+   {
+    "action": "repl damaged shunt",
+    "outcome": "good welds",
+    "row": 45,
+    "symptom": "shunt damage"
+   },
+   {
+    "action": "flushed coolant line",
+    "outcome": "flow good",
+    "row": 46,
+    "symptom": "low flow alarm"
+   },
+   {
+    "action": "repl shunt",
+    "outcome": "functioning",
+    "row": 47,
+    "symptom": "shunt frayed"
+   },
+   {
+    "action": "repl hyd filters",
+    "outcome": "clean oil",
+    "row": 48,
+    "symptom": "pm filter change"
+   },
+   {
+    "action": "purged air from line",
+    "outcome": "pump steady",
+    "row": 49,
+    "symptom": "material pump air"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3180,
+  "output_tokens": 2456,
+  "thinking_tokens": 0,
+  "usd": 0.004479
+ }
+}

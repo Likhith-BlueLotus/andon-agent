@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "reloaded parameters to controller",
+    "outcome": "cycle timing stable",
+    "row": 0,
+    "symptom": "weld cycle timing drifting"
+   },
+   {
+    "action": "replaced press return filters",
+    "outcome": "completed",
+    "row": 1,
+    "symptom": "pm schedule for hydraulic filters"
+   },
+   {
+    "action": "reset defaults in hmi",
+    "outcome": "system running nominal",
+    "row": 2,
+    "symptom": "weld parameters changed unexpectedly"
+   },
+   {
+    "action": "reseated ethernet cable",
+    "outcome": "comms restored",
+    "row": 3,
+    "symptom": "vision system comm loss"
+   },
+   {
+    "action": "recalibrated proportional valve after previous fail",
+    "outcome": "pressure verified",
+    "row": 4,
+    "symptom": "press pressure not matching model"
+   },
+   {
+    "action": "drained and swapped filter elements",
+    "outcome": "pm signed off",
+    "row": 5,
+    "symptom": "pm maintenance for hydraulic unit"
+   },
+   {
+    "action": "topped off gear lube",
+    "outcome": "level restored",
+    "row": 6,
+    "symptom": "low gearbox oil level alarm"
+   },
+   {
+    "action": "cleared metal debris from strainer",
+    "outcome": "flow restored",
+    "row": 7,
+    "symptom": "weld gun coolant flow low"
+   },
+   {
+    "action": "replaced failed cabinet cooling fan",
+    "outcome": "temp normalized",
+    "row": 8,
+    "symptom": "servo drive high temp fault"
+   },
+   {
+    "action": "flushed supply lines",
+    "outcome": "coolant flow good",
+    "row": 9,
+    "symptom": "insufficient coolant flow at gun"
+   },
+   {
+    "action": "oil and filter change",
+    "outcome": "pm complete",
+    "row": 10,
+    "symptom": "compressor pm maintenance due"
+   },
+   {
+    "action": "replaced damaged rj45 connector",
+    "outcome": "stable link",
+    "row": 11,
+    "symptom": "intermittent vision comm loss"
+   },
+   {
+    "action": "adjusted proximity sensor position",
+    "outcome": "pin detected",
+    "row": 12,
+    "symptom": "clamp pin not seating"
+   },
+   {
+    "action": "cleaned auto drain valve",
+    "outcome": "leak stopped",
+    "row": 13,
+    "symptom": "compressed air condensate leak"
+   },
+   {
+    "action": "refilled press reservoir",
+    "outcome": "low level alarm clear",
+    "row": 14,
+    "symptom": "way lube level low"
+   },
+   {
+    "action": "realigned optical sensor",
+    "outcome": "object detection fixed",
+    "row": 15,
+    "symptom": "conveyor photo eye misaligned"
+   },
+   {
+    "action": "tightened cable lugs",
+    "outcome": "weld inconsistent still",
+    "row": 16,
+    "symptom": "inconsistent weld quality"
+   },
+   {
+    "action": "reset alarm history",
+    "outcome": "alarm returned promptly",
+    "row": 17,
+    "symptom": "servo temp sensor fault"
+   },
+   {
+    "action": "replaced weld shunt",
+    "outcome": "weld quality normal",
+    "row": 18,
+    "symptom": "weld cable fraying detected"
+   },
+   {
+    "action": "adjusted air pressure regulator",
+    "outcome": "stroke speed improved",
+    "row": 19,
+    "symptom": "weld gun closing sluggish"
+   },
+   {
+    "action": "replaced tips and reset dresser, fixed WO-2501167",
+    "outcome": "weld pass",
+    "row": 20,
+    "symptom": "weld quality poor"
+   },
+   {
+    "action": "tightened pump flange bolts",
+    "outcome": "leak persists internally",
+    "row": 21,
+    "symptom": "hydraulic leak from press base"
+   },
+   {
+    "action": "restarted cooling pump",
+    "outcome": "alarm came back",
+    "row": 22,
+    "symptom": "coolant flow alarm"
+   },
+   {
+    "action": "replaced comm cable",
+    "outcome": "connection solid",
+    "row": 23,
+    "symptom": "vision camera link dropping"
+   },
+   {
+    "action": "downloaded saved config file",
+    "outcome": "parameters restored",
+    "row": 24,
+    "symptom": "weld controller param mismatch"
+   },
+   {
+    "action": "cleaned cooler fins, resolved WO-2501172",
+    "outcome": "temp stable",
+    "row": 25,
+    "symptom": "high oil temp on press"
+   },
+   {
+    "action": "replaced electrode tips",
+    "outcome": "weld good",
+    "row": 26,
+    "symptom": "tips wearing fast"
+   },
+   {
+    "action": "replaced faulty cabinet fan, fixed WO-2501173",
+    "outcome": "temp normal",
+    "row": 27,
+    "symptom": "servo drive overheating again"
+   },
+   {
+    "action": "adjusted mechanical stop, fixed WO-2501168",
+    "outcome": "pin seats correctly",
+    "row": 28,
+    "symptom": "locator pin fault"
+   },
+   {
+    "action": "updated press recipe",
+    "outcome": "pressure correct",
+    "row": 29,
+    "symptom": "pressure setpoint mismatch"
+   },
+   {
+    "action": "performed oil change",
+    "outcome": "pm ok",
+    "row": 30,
+    "symptom": "compressor scheduled service"
+   },
+   {
+    "action": "replaced temperature sensor",
+    "outcome": "alarm cleared",
+    "row": 31,
+    "symptom": "conveyor bearing alarm"
+   },
+   {
+    "action": "cleaned sensor lens",
+    "outcome": "sensor operational",
+    "row": 32,
+    "symptom": "conveyor photo eye blocked"
+   },
+   {
+    "action": "cleaned nozzle orifice",
+    "outcome": "flow pattern improved",
+    "row": 33,
+    "symptom": "sealer flow restricted"
+   },
+   {
+    "action": "adj proximity switch bracket",
+    "outcome": "clamp detected",
+    "row": 34,
+    "symptom": "clamp not locking"
+   },
+   {
+    "action": "replaced drive end bearing",
+    "outcome": "noise resolved",
+    "row": 35,
+    "symptom": "conveyor drive noise"
+   },
+   {
+    "action": "tightened packing nut",
+    "outcome": "leak continues",
+    "row": 36,
+    "symptom": "sealer pump leaking"
+   },
+   {
+    "action": "cleaned cabinet filters",
+    "outcome": "airflow good",
+    "row": 37,
+    "symptom": "servo drive temp high"
+   },
+   {
+    "action": "cleaned prop valve spool",
+    "outcome": "smooth motion",
+    "row": 38,
+    "symptom": "press move erratic"
+   },
+   {
+    "action": "installed new shunt cable",
+    "outcome": "weld good",
+    "row": 39,
+    "symptom": "weld shunt wear"
+   },
+   {
+    "action": "adjusted regulator setpoint",
+    "outcome": "pressure nominal",
+    "row": 40,
+    "symptom": "weld gun pressure low"
+   },
+   {
+    "action": "cleaned inline filter",
+    "outcome": "flow ok",
+    "row": 41,
+    "symptom": "coolant flow alarm on gun"
+   },
+   {
+    "action": "recalibrated transducer",
+    "outcome": "accuracy verified",
+    "row": 42,
+    "symptom": "sealer pressure reading off"
+   },
+   {
+    "action": "tightened mounting hardware",
+    "outcome": "sensor aligned",
+    "row": 43,
+    "symptom": "conveyor photo eye misaligned"
+   },
+   {
+    "action": "checked valve coils",
+    "outcome": "valves operating",
+    "row": 44,
+    "symptom": "press sluggish"
+   },
+   {
+    "action": "replaced faulty hose element",
+    "outcome": "temp controlled",
+    "row": 45,
+    "symptom": "heated hose temp fault"
+   },
+   {
+    "action": "cleaned sensor plug connection",
+    "outcome": "stable signal",
+    "row": 46,
+    "symptom": "servo sensor reading drift"
+   },
+   {
+    "action": "replaced nozzle tip",
+    "outcome": "flow correct",
+    "row": 47,
+    "symptom": "sealer output poor"
+   },
+   {
+    "action": "adjusted air reg",
+    "outcome": "force normal",
+    "row": 48,
+    "symptom": "gun force out of range"
+   },
+   {
+    "action": "lube/filter replacement",
+    "outcome": "complete",
+    "row": 49,
+    "symptom": "compressor scheduled maintenance"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3224,
+  "output_tokens": 2493,
+  "thinking_tokens": 0,
+  "usd": 0.004546
+ }
+}

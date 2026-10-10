@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "repl worn shunt and cable",
+    "outcome": "weld quality restored",
+    "row": 0,
+    "symptom": "high weld resistance"
+   },
+   {
+    "action": "cleaned condenser fins",
+    "outcome": "temp normalized",
+    "row": 1,
+    "symptom": "chiller unit overheating"
+   },
+   {
+    "action": "realigned photo eye sensor",
+    "outcome": "conveyor running smooth",
+    "row": 2,
+    "symptom": "conveyor sync alarm"
+   },
+   {
+    "action": "reseated camera comm cable",
+    "outcome": "data link restored",
+    "row": 3,
+    "symptom": "vision system comm loss"
+   },
+   {
+    "action": "repl air dryer board",
+    "outcome": "air dry",
+    "row": 4,
+    "symptom": "moisture in plant air"
+   },
+   {
+    "action": "calibrated pump pressure sensor",
+    "outcome": "pressure stable",
+    "row": 5,
+    "symptom": "sealer pressure erratic"
+   },
+   {
+    "action": "cleaned camera lens",
+    "outcome": "image clear",
+    "row": 6,
+    "symptom": "part recognition fail"
+   },
+   {
+    "action": "adj locator position",
+    "outcome": "pin seated correctly",
+    "row": 7,
+    "symptom": "gun locator pin fault"
+   },
+   {
+    "action": "realigned photo eye bracket",
+    "outcome": "conveyor operational",
+    "row": 8,
+    "symptom": "conveyor stop triggered"
+   },
+   {
+    "action": "repl dessicant bed",
+    "outcome": "dry air confirmed",
+    "row": 9,
+    "symptom": "air dryer low flow"
+   },
+   {
+    "action": "repl faulty sensor",
+    "outcome": "temp readout valid",
+    "row": 10,
+    "symptom": "servo temp error"
+   },
+   {
+    "action": "changed compressor oil",
+    "outcome": "pm complete",
+    "row": 11,
+    "symptom": "pm schedule due"
+   },
+   {
+    "action": "cleaned strainer and hose",
+    "outcome": "flow rate normal",
+    "row": 12,
+    "symptom": "gun coolant low flow"
+   },
+   {
+    "action": "repl intake filter",
+    "outcome": "flow improved",
+    "row": 13,
+    "symptom": "air intake restriction"
+   },
+   {
+    "action": "repl heated hose cable",
+    "outcome": "heat restored",
+    "row": 14,
+    "symptom": "sealer output low"
+   },
+   {
+    "action": "cleaned pump strainer",
+    "outcome": "flow steady",
+    "row": 15,
+    "symptom": "chiller flow fault"
+   },
+   {
+    "action": "tightened comm cable",
+    "outcome": "comm back online",
+    "row": 16,
+    "symptom": "vision comm error"
+   },
+   {
+    "action": "pressure washed cooler fins",
+    "outcome": "temp down",
+    "row": 17,
+    "symptom": "hyd oil high temp"
+   },
+   {
+    "action": "repl worn shunt",
+    "outcome": "heat issue resolved",
+    "row": 18,
+    "symptom": "weld cable heat"
+   },
+   {
+    "action": "cleaned condenser coil",
+    "outcome": "cooling normal",
+    "row": 19,
+    "symptom": "chiller temp spike"
+   },
+   {
+    "action": "repl hose sensor",
+    "outcome": "trip cleared",
+    "row": 20,
+    "symptom": "heated hose trip"
+   },
+   {
+    "action": "flushed coolant strainer",
+    "outcome": "flow restored",
+    "row": 21,
+    "symptom": "low coolant alarm"
+   },
+   {
+    "action": "restarted dryer unit",
+    "outcome": "dryer working",
+    "row": 22,
+    "symptom": "air dryer error"
+   },
+   {
+    "action": "repl dryer valve",
+    "outcome": "air flow normal",
+    "row": 23,
+    "symptom": "air dryer fault"
+   },
+   {
+    "action": "added gear oil",
+    "outcome": "noise reduced",
+    "row": 24,
+    "symptom": "gearbox noise"
+   },
+   {
+    "action": "repl tips, dressed",
+    "outcome": "weld quality good",
+    "row": 25,
+    "symptom": "bad spot weld"
+   },
+   {
+    "action": "reloaded original software",
+    "outcome": "cycle norm",
+    "row": 26,
+    "symptom": "timer param error"
+   },
+   {
+    "action": "repl cabinet fans",
+    "outcome": "temp dropped",
+    "row": 27,
+    "symptom": "servo drive over temp"
+   },
+   {
+    "action": "replaced temp probe",
+    "outcome": "reading normal",
+    "row": 28,
+    "symptom": "servo temp readout bad"
+   },
+   {
+    "action": "performed oil change",
+    "outcome": "pm done",
+    "row": 29,
+    "symptom": "compressor pm"
+   },
+   {
+    "action": "calibrated transducer",
+    "outcome": "reading accurate",
+    "row": 30,
+    "symptom": "pressure signal drift"
+   },
+   {
+    "action": "repl shunt",
+    "outcome": "shunt good",
+    "row": 31,
+    "symptom": "weld cable fray"
+   },
+   {
+    "action": "cleared nozzle clog",
+    "outcome": "flow uniform",
+    "row": 32,
+    "symptom": "sealer output inconsistent"
+   },
+   {
+    "action": "adj air regulator",
+    "outcome": "force steady",
+    "row": 33,
+    "symptom": "weld force erratic"
+   },
+   {
+    "action": "re-terminated cable",
+    "outcome": "comm okay",
+    "row": 34,
+    "symptom": "comm lost"
+   },
+   {
+    "action": "cleaned fan intake",
+    "outcome": "temp norm",
+    "row": 35,
+    "symptom": "servo overheat"
+   },
+   {
+    "action": "washed cooler",
+    "outcome": "temp back down",
+    "row": 36,
+    "symptom": "oil hot"
+   },
+   {
+    "action": "refilled way oil",
+    "outcome": "lube status ok",
+    "row": 37,
+    "symptom": "lube level low"
+   },
+   {
+    "action": "cleaned nozzle",
+    "outcome": "sealer good",
+    "row": 38,
+    "symptom": "sealer flow bad"
+   },
+   {
+    "action": "cleaned oil cooler",
+    "outcome": "temp stable",
+    "row": 39,
+    "symptom": "oil temp up"
+   },
+   {
+    "action": "repl shunt",
+    "outcome": "weld stable",
+    "row": 40,
+    "symptom": "weld cable wear"
+   },
+   {
+    "action": "secured cable plug",
+    "outcome": "fixed",
+    "row": 41,
+    "symptom": "vision comm fail"
+   },
+   {
+    "action": "replaced filter element",
+    "outcome": "flow good",
+    "row": 42,
+    "symptom": "intake dirty"
+   },
+   {
+    "action": "repl sensor",
+    "outcome": "temp norm",
+    "row": 43,
+    "symptom": "servo temp alarm"
+   },
+   {
+    "action": "repl cabinet fan",
+    "outcome": "temp normal",
+    "row": 44,
+    "symptom": "servo drive alarm"
+   },
+   {
+    "action": "calibrated pressure transducer",
+    "outcome": "still erratic, not fixed",
+    "row": 45,
+    "symptom": "sealer flow erratic"
+   },
+   {
+    "action": "removed nozzle debris",
+    "outcome": "flow correct",
+    "row": 46,
+    "symptom": "sealer nozzle blocked"
+   },
+   {
+    "action": "checked hose wiring",
+    "outcome": "repaired break",
+    "row": 47,
+    "symptom": "heated hose trip"
+   },
+   {
+    "action": "washed air cooler",
+    "outcome": "temp okay",
+    "row": 48,
+    "symptom": "oil temp high"
+   },
+   {
+    "action": "repl heater fuse",
+    "outcome": "heater back on",
+    "row": 49,
+    "symptom": "heated hose fault"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3057,
+  "output_tokens": 1770,
+  "thinking_tokens": 0,
+  "usd": 0.003419
+ }
+}

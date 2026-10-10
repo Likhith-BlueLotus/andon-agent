@@ -1,0 +1,35 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "06:00 changeover done, model A to model B. No major alarms during previous shift."
+   },
+   {
+    "slot": 2,
+    "text": "14:00 changeover done, model B to model A. Pichle shift me koi major alarm nahi tha."
+   },
+   {
+    "slot": 3,
+    "text": "22:00 changeover complete, model A to model B. No major alarms reported."
+   },
+   {
+    "slot": 4,
+    "text": "01:27 pe ST60 vision check reject rate high alarm aaya."
+   },
+   {
+    "slot": 5,
+    "text": "ST20 and ST30 cycle time alarms. 03:13 line stop at ST30 weld cell B, servo drive over-temperature trip. Maintenance called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 955,
+  "output_tokens": 233,
+  "thinking_tokens": 0,
+  "usd": 0.000588
+ }
+}

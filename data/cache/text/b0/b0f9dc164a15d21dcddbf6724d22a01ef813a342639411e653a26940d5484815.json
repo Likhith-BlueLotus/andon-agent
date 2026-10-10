@@ -1,0 +1,35 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "12:54 ST20 weld monitor energy out of band alarm. Start shift, running model B."
+   },
+   {
+    "slot": 2,
+    "text": "16:38 ST20 weld monitor energy out of band alarm x3. Start shift, running model B."
+   },
+   {
+    "slot": 3,
+    "text": "ST20 weld energy out of band x9. ST60 reject rate high x5. ST20 tip resistance high x17. Changeover done, model B to A."
+   },
+   {
+    "slot": 4,
+    "text": "ST60 high reject rate x3. ST20 energy out of band x3. ST20 tip resistance high alarm."
+   },
+   {
+    "slot": 5,
+    "text": "09:13 line stopped for QA hold due to high reject rate. Maintenance called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 1034,
+  "output_tokens": 245,
+  "thinking_tokens": 0,
+  "usd": 0.000626
+ }
+}

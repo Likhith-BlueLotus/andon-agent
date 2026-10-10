@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "repl faulty heating element",
+    "outcome": "temp holding steady",
+    "row": 0,
+    "symptom": "sealer heater alarm"
+   },
+   {
+    "action": "repl motor brg set",
+    "outcome": "noise resolved",
+    "row": 1,
+    "symptom": "drive end noisy"
+   },
+   {
+    "action": "repl loose cat6 cable",
+    "outcome": "comms restored",
+    "row": 2,
+    "symptom": "vision comm loss"
+   },
+   {
+    "action": "clean condenser fins",
+    "outcome": "press normal",
+    "row": 3,
+    "symptom": "chiller hi press alarm"
+   },
+   {
+    "action": "adj photo eye alignment",
+    "outcome": "sensor sensing ok",
+    "row": 4,
+    "symptom": "conveyor belt stop"
+   },
+   {
+    "action": "repl worn tips at dresser",
+    "outcome": "weld ok",
+    "row": 5,
+    "symptom": "poor weld quality"
+   },
+   {
+    "action": "adj air regulator output",
+    "outcome": "pressure correct",
+    "row": 6,
+    "symptom": "gun pressure low"
+   },
+   {
+    "action": "re-calib transducer, prev wo failed",
+    "outcome": "fixed",
+    "row": 7,
+    "symptom": "material flow erratic"
+   },
+   {
+    "action": "reset params, ignored previous wo",
+    "outcome": "cycle back normal",
+    "row": 8,
+    "symptom": "weld cycle timer fault"
+   },
+   {
+    "action": "lubed output shaft brg",
+    "outcome": "vibration gone",
+    "row": 9,
+    "symptom": "conveyor drive rumble"
+   },
+   {
+    "action": "clean lens, adj mount",
+    "outcome": "stable signal",
+    "row": 10,
+    "symptom": "eye signal blinking"
+   },
+   {
+    "action": "replenish reservoir level",
+    "outcome": "warning cleared",
+    "row": 11,
+    "symptom": "way lube low"
+   },
+   {
+    "action": "set regulator to spec",
+    "outcome": "force verified",
+    "row": 12,
+    "symptom": "weld force unsteady"
+   },
+   {
+    "action": "repl fill plug seal",
+    "outcome": "no leaks",
+    "row": 13,
+    "symptom": "oil leak under gearbox"
+   },
+   {
+    "action": "adj air reg pressure",
+    "outcome": "cycle fast",
+    "row": 14,
+    "symptom": "gun firing slowly"
+   },
+   {
+    "action": "top up gear oil",
+    "outcome": "level full",
+    "row": 15,
+    "symptom": "gearbox oil low"
+   },
+   {
+    "action": "fill to correct mark",
+    "outcome": "quiet",
+    "row": 16,
+    "symptom": "gearbox noisy"
+   },
+   {
+    "action": "repl failed cabinet fan",
+    "outcome": "temp down",
+    "row": 17,
+    "symptom": "servo drive over temp"
+   },
+   {
+    "action": "repl heated hose unit",
+    "outcome": "flow steady",
+    "row": 18,
+    "symptom": "sealer flow trip"
+   },
+   {
+    "action": "repl tips, dress head",
+    "outcome": "spatter reduced",
+    "row": 19,
+    "symptom": "weld spatter high"
+   },
+   {
+    "action": "oil added to spec",
+    "outcome": "level good",
+    "row": 20,
+    "symptom": "gearbox dipstick low"
+   },
+   {
+    "action": "repl worn gun tips",
+    "outcome": "weld good",
+    "row": 21,
+    "symptom": "spot weld fails"
+   },
+   {
+    "action": "serviced air dryer unit",
+    "outcome": "moisture gone",
+    "row": 22,
+    "symptom": "air moisture alarm"
+   },
+   {
+    "action": "adj locator pin travel",
+    "outcome": "pin seats ok",
+    "row": 23,
+    "symptom": "pin not seating"
+   },
+   {
+    "action": "adjust press setpoint",
+    "outcome": "matches model",
+    "row": 24,
+    "symptom": "hyd press drift"
+   },
+   {
+    "action": "clean debris from strainer",
+    "outcome": "pump quiet",
+    "row": 25,
+    "symptom": "chiller pump noisy"
+   },
+   {
+    "action": "repl faulty thermistor",
+    "outcome": "reading normal",
+    "row": 26,
+    "symptom": "temp sensor fault"
+   },
+   {
+    "action": "repl tips only",
+    "outcome": "problem persists",
+    "row": 27,
+    "symptom": "weld quality poor"
+   },
+   {
+    "action": "add oil to gearbox",
+    "outcome": "still noisy",
+    "row": 28,
+    "symptom": "conveyor noise"
+   },
+   {
+    "action": "clean proportional valve",
+    "outcome": "smooth motion",
+    "row": 29,
+    "symptom": "valve jittery"
+   },
+   {
+    "action": "adj air pressure",
+    "outcome": "speed norm",
+    "row": 30,
+    "symptom": "gun travel slow"
+   },
+   {
+    "action": "repl drive card, ignored previous fan wo",
+    "outcome": "fixed",
+    "row": 31,
+    "symptom": "servo drive overheat"
+   },
+   {
+    "action": "lubed pin shaft",
+    "outcome": "smooth travel",
+    "row": 32,
+    "symptom": "clamp stuck"
+   },
+   {
+    "action": "bleed air from line",
+    "outcome": "flow consistent",
+    "row": 33,
+    "symptom": "sealer sputtering"
+   },
+   {
+    "action": "check pump inlet seals",
+    "outcome": "flow steady",
+    "row": 34,
+    "symptom": "pump cavitating"
+   },
+   {
+    "action": "clear clogged strainer",
+    "outcome": "flow ok",
+    "row": 35,
+    "symptom": "gun cooling alarm"
+   },
+   {
+    "action": "adj pressure regulator",
+    "outcome": "force correct",
+    "row": 36,
+    "symptom": "low weld force"
+   },
+   {
+    "action": "restore logic params",
+    "outcome": "cycle good",
+    "row": 37,
+    "symptom": "timer error"
+   },
+   {
+    "action": "repl worn shunt strap",
+    "outcome": "heat normal",
+    "row": 38,
+    "symptom": "weld shunt hot"
+   },
+   {
+    "action": "wipe camera lens",
+    "outcome": "clear image",
+    "row": 39,
+    "symptom": "vision error"
+   },
+   {
+    "action": "adj cylinder timing",
+    "outcome": "ok now",
+    "row": 40,
+    "symptom": "pin jamming"
+   },
+   {
+    "action": "top up oil",
+    "outcome": "level ok",
+    "row": 41,
+    "symptom": "gear oil leak"
+   },
+   {
+    "action": "repl torn hose",
+    "outcome": "no air leak",
+    "row": 42,
+    "symptom": "hissing sound"
+   },
+   {
+    "action": "repl weld shunt",
+    "outcome": "good welds",
+    "row": 43,
+    "symptom": "shunt burned"
+   },
+   {
+    "action": "flush gun circuit",
+    "outcome": "flow normal",
+    "row": 44,
+    "symptom": "coolant flow low"
+   },
+   {
+    "action": "tighten loose fitting",
+    "outcome": "no drip",
+    "row": 45,
+    "symptom": "oil puddle under press"
+   },
+   {
+    "action": "clean strainer mesh",
+    "outcome": "flow correct",
+    "row": 46,
+    "symptom": "chiller flow low"
+   },
+   {
+    "action": "re-prime supply line",
+    "outcome": "flow stable",
+    "row": 47,
+    "symptom": "sealer pump chatter"
+   },
+   {
+    "action": "repl temp sensor",
+    "outcome": "alarm reset",
+    "row": 48,
+    "symptom": "servo alarm"
+   },
+   {
+    "action": "spray clean coils",
+    "outcome": "cooling normal",
+    "row": 49,
+    "symptom": "chiller hot"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3179,
+  "output_tokens": 1784,
+  "thinking_tokens": 0,
+  "usd": 0.003471
+ }
+}

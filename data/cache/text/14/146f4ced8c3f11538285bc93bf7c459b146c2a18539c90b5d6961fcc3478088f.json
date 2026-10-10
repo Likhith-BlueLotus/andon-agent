@@ -1,0 +1,31 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "14:00 shift start. No major alarms in prev shift. Running model B."
+   },
+   {
+    "slot": 2,
+    "text": "22:00 changeover done, model B se model A shift hua. No major alarms."
+   },
+   {
+    "slot": 3,
+    "text": "06:00 shift start, model A chal raha hai. No major alarms."
+   },
+   {
+    "slot": 4,
+    "text": "13:17 ST20 weld cell A clamp position retry 3 times, 13:18 cycle time high 3 times. 13:46 line stop, QA hold high reject rate. Maintenance called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 859,
+  "output_tokens": 199,
+  "thinking_tokens": 0,
+  "usd": 0.000513
+ }
+}

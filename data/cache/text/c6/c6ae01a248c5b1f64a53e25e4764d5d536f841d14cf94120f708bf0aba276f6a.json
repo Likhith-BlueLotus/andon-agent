@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "bench test & clean solenoid",
+    "outcome": "resp restored",
+    "row": 0,
+    "symptom": "prop valve slow resp"
+   },
+   {
+    "action": "repl worn cutter blades",
+    "outcome": "dressing ok",
+    "row": 1,
+    "symptom": "tip dresser error"
+   },
+   {
+    "action": "blow out condenser coil",
+    "outcome": "temp normalized",
+    "row": 2,
+    "symptom": "high temp alarm"
+   },
+   {
+    "action": "tighten drive chain tensioner",
+    "outcome": "tension within spec",
+    "row": 3,
+    "symptom": "chain slack detected"
+   },
+   {
+    "action": "repl sensor and recalibrate",
+    "outcome": "data normal",
+    "row": 4,
+    "symptom": "servo temp sensor fault"
+   },
+   {
+    "action": "adj pin bracket",
+    "outcome": "parts seating fine",
+    "row": 5,
+    "symptom": "locator pin misaligned"
+   },
+   {
+    "action": "clean gun supply strainer",
+    "outcome": "flow ok",
+    "row": 6,
+    "symptom": "gun coolant low flow"
+   },
+   {
+    "action": "repl wiring harness link",
+    "outcome": "signal stable",
+    "row": 7,
+    "symptom": "servo temp signal erratic"
+   },
+   {
+    "action": "repl prop valve spool",
+    "outcome": "speed nominal",
+    "row": 8,
+    "symptom": "slow press cycle"
+   },
+   {
+    "action": "repl dresser motor brushes",
+    "outcome": "dressing quality good",
+    "row": 9,
+    "symptom": "tip dress failing"
+   },
+   {
+    "action": "repl hyd pressure filters",
+    "outcome": "pm complete",
+    "row": 10,
+    "symptom": "pm due"
+   },
+   {
+    "action": "repl faulty transducer",
+    "outcome": "reading stable",
+    "row": 11,
+    "symptom": "pressure signal jitter"
+   },
+   {
+    "action": "reload logic program parameters",
+    "outcome": "correct pressures",
+    "row": 12,
+    "symptom": "pressure setpoint mismatch"
+   },
+   {
+    "action": "repl seal kit",
+    "outcome": "leak stopped",
+    "row": 13,
+    "symptom": "hyd leak at pump"
+   },
+   {
+    "action": "chg oil and filters",
+    "outcome": "pm complete",
+    "row": 14,
+    "symptom": "pm due"
+   },
+   {
+    "action": "repl led array module",
+    "outcome": "light restored",
+    "row": 15,
+    "symptom": "vision lighting failed"
+   },
+   {
+    "action": "clean nozzle orifice",
+    "outcome": "bead uniform",
+    "row": 16,
+    "symptom": "sealer flow erratic"
+   },
+   {
+    "action": "adj air pressure reg",
+    "outcome": "force normal",
+    "row": 17,
+    "symptom": "gun weld force low"
+   },
+   {
+    "action": "clean lens surface",
+    "outcome": "image clear",
+    "row": 18,
+    "symptom": "image blur vision"
+   },
+   {
+    "action": "repl rtd sensor",
+    "outcome": "temp signal normal",
+    "row": 19,
+    "symptom": "brg temp sensor erratic"
+   },
+   {
+    "action": "repl cabinet intake fan",
+    "outcome": "temp down",
+    "row": 20,
+    "symptom": "servo drive high temp"
+   },
+   {
+    "action": "repl control fuses",
+    "outcome": "issue persists",
+    "row": 21,
+    "symptom": "weld quality bad"
+   },
+   {
+    "action": "repl burnt weld shunt",
+    "outcome": "quality fixed",
+    "row": 22,
+    "symptom": "weld quality bad"
+   },
+   {
+    "action": "chg dresser blades",
+    "outcome": "tips dress well",
+    "row": 23,
+    "symptom": "tip dresser fault"
+   },
+   {
+    "action": "clean chiller strainer",
+    "outcome": "flow ok",
+    "row": 24,
+    "symptom": "pump flow error"
+   },
+   {
+    "action": "reset parameter",
+    "outcome": "ok",
+    "row": 25,
+    "symptom": "cycle timer fault"
+   },
+   {
+    "action": "repl primary shaft seal",
+    "outcome": "leak stopped",
+    "row": 26,
+    "symptom": "sealer pump leaking"
+   },
+   {
+    "action": "adj tensioner",
+    "outcome": "quiet",
+    "row": 27,
+    "symptom": "chain noise"
+   },
+   {
+    "action": "repl sensor",
+    "outcome": "ok",
+    "row": 28,
+    "symptom": "temp sensor high error"
+   },
+   {
+    "action": "clean strainer",
+    "outcome": "flow restored",
+    "row": 29,
+    "symptom": "low flow chiller"
+   },
+   {
+    "action": "oil change",
+    "outcome": "done",
+    "row": 30,
+    "symptom": "pm cycle"
+   },
+   {
+    "action": "repl secondary shunt",
+    "outcome": "ok",
+    "row": 31,
+    "symptom": "weld shunt wear"
+   },
+   {
+    "action": "repl pump seal set",
+    "outcome": "no leaks",
+    "row": 32,
+    "symptom": "sealer pump seal worn"
+   },
+   {
+    "action": "repl transducer",
+    "outcome": "ok",
+    "row": 33,
+    "symptom": "pressure read error"
+   },
+   {
+    "action": "tighten ethernet cable",
+    "outcome": "comm restored",
+    "row": 34,
+    "symptom": "vision comm loss"
+   },
+   {
+    "action": "reflash firmware prev WO failed",
+    "outcome": "timer stable",
+    "row": 35,
+    "symptom": "timer param error persists"
+   },
+   {
+    "action": "calibrate transducer",
+    "outcome": "stable",
+    "row": 36,
+    "symptom": "pressure drift"
+   },
+   {
+    "action": "change compressor oil",
+    "outcome": "pm ok",
+    "row": 37,
+    "symptom": "pm oil change"
+   },
+   {
+    "action": "repl bearing sensor",
+    "outcome": "ok",
+    "row": 38,
+    "symptom": "sensor temp alarm"
+   },
+   {
+    "action": "repl pressure filters",
+    "outcome": "clean",
+    "row": 39,
+    "symptom": "hyd filter pm"
+   },
+   {
+    "action": "adj regulator",
+    "outcome": "force set",
+    "row": 40,
+    "symptom": "gun force issue"
+   },
+   {
+    "action": "repl rtd",
+    "outcome": "reading ok",
+    "row": 41,
+    "symptom": "bearing sensor failure"
+   },
+   {
+    "action": "repl water pump",
+    "outcome": "flow still low",
+    "row": 42,
+    "symptom": "low coolant flow"
+   },
+   {
+    "action": "reset locators",
+    "outcome": "good",
+    "row": 43,
+    "symptom": "loc pin alignment"
+   },
+   {
+    "action": "adj air pressure",
+    "outcome": "ok",
+    "row": 44,
+    "symptom": "weld force variance"
+   },
+   {
+    "action": "repl sensor",
+    "outcome": "ok",
+    "row": 45,
+    "symptom": "servo temp high"
+   },
+   {
+    "action": "repl seals",
+    "outcome": "ok",
+    "row": 46,
+    "symptom": "sealer pump seal"
+   },
+   {
+    "action": "clean strainer",
+    "outcome": "flow restored",
+    "row": 47,
+    "symptom": "low coolant flow"
+   },
+   {
+    "action": "adj regulator",
+    "outcome": "ok",
+    "row": 48,
+    "symptom": "weld force low"
+   },
+   {
+    "action": "clean strainer",
+    "outcome": "ok",
+    "row": 49,
+    "symptom": "flow alarm"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3100,
+  "output_tokens": 2328,
+  "thinking_tokens": 0,
+  "usd": 0.004267
+ }
+}

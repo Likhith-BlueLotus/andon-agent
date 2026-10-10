@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "repl sensor as prev wo failed",
+    "outcome": "temp reading stable",
+    "row": 0,
+    "symptom": "bearing temp sensor erratic reading"
+   },
+   {
+    "action": "adj prop valve parameters",
+    "outcome": "cycle time ok",
+    "row": 1,
+    "symptom": "press cyl movement sluggish"
+   },
+   {
+    "action": "repl pump seal kit",
+    "outcome": "leak stopped",
+    "row": 2,
+    "symptom": "sealer pump leaking at shaft"
+   },
+   {
+    "action": "repl damaged quick connect hose",
+    "outcome": "no air loss",
+    "row": 3,
+    "symptom": "air leak near weld cell"
+   },
+   {
+    "action": "adj gun air regulator",
+    "outcome": "pressure still unstable",
+    "row": 4,
+    "symptom": "weld gun pressure unstable"
+   },
+   {
+    "action": "recalibrated pressure transducer",
+    "outcome": "signal steady",
+    "row": 5,
+    "symptom": "sealer press readout drifting"
+   },
+   {
+    "action": "cleaned pump intake strainer",
+    "outcome": "flow alarm reset",
+    "row": 6,
+    "symptom": "chiller flow alarm active"
+   },
+   {
+    "action": "chk dryer refrigerant levels",
+    "outcome": "issue persists",
+    "row": 7,
+    "symptom": "air dryer high dew point"
+   },
+   {
+    "action": "tightened loose fitting at pump",
+    "outcome": "dry now",
+    "row": 8,
+    "symptom": "hyd fluid seepage found"
+   },
+   {
+    "action": "repl faulty heater band cable",
+    "outcome": "heating normal",
+    "row": 9,
+    "symptom": "sealer gun not heating"
+   },
+   {
+    "action": "realigned photo eye sensor",
+    "outcome": "ok",
+    "row": 10,
+    "symptom": "conveyor auto stop fault"
+   },
+   {
+    "action": "cleaned nozzle tip",
+    "outcome": "bead flow good",
+    "row": 11,
+    "symptom": "sealer bead inconsistent"
+   },
+   {
+    "action": "cleaned oil cooler fins",
+    "outcome": "temp dropped",
+    "row": 12,
+    "symptom": "hyd temp warning active"
+   },
+   {
+    "action": "adj gun air regulator",
+    "outcome": "speed restored",
+    "row": 13,
+    "symptom": "weld gun closing slow"
+   },
+   {
+    "action": "restored correct timer settings",
+    "outcome": "timer ok",
+    "row": 14,
+    "symptom": "cycle time too short"
+   },
+   {
+    "action": "cleared strainer blockage",
+    "outcome": "flow restored",
+    "row": 15,
+    "symptom": "weld gun flow alarm"
+   },
+   {
+    "action": "removed nozzle obstruction",
+    "outcome": "flow fixed",
+    "row": 16,
+    "symptom": "sealer output low"
+   },
+   {
+    "action": "repl cabinet cooling fan",
+    "outcome": "drive temp normal",
+    "row": 17,
+    "symptom": "servo drive overtemp trip"
+   },
+   {
+    "action": "repl damaged connector",
+    "outcome": "temp steady",
+    "row": 18,
+    "symptom": "heated hose temp fault"
+   },
+   {
+    "action": "adj tip dresser setting",
+    "outcome": "tip life extended",
+    "row": 19,
+    "symptom": "weld tip wear high"
+   },
+   {
+    "action": "repl worn shunt cable",
+    "outcome": "weld strength pass",
+    "row": 20,
+    "symptom": "weld quality poor"
+   },
+   {
+    "action": "replaced clogged hose",
+    "outcome": "flow normalized",
+    "row": 21,
+    "symptom": "gun flow low alarm"
+   },
+   {
+    "action": "cleaned gun inlet filter",
+    "outcome": "flow ok",
+    "row": 22,
+    "symptom": "low flow alarm at gun"
+   },
+   {
+    "action": "clean dust from cooling fan",
+    "outcome": "temp dropped",
+    "row": 23,
+    "symptom": "servo drive alarm"
+   },
+   {
+    "action": "fixed internal line constriction after prev wo",
+    "outcome": "flow steady",
+    "row": 24,
+    "symptom": "gun flow still low"
+   },
+   {
+    "action": "repl cooling fan motor",
+    "outcome": "temp ok",
+    "row": 25,
+    "symptom": "servo drive hot"
+   },
+   {
+    "action": "cleaned strainer",
+    "outcome": "flow normal",
+    "row": 26,
+    "symptom": "low coolant flow"
+   },
+   {
+    "action": "reprogrammed cycle timer",
+    "outcome": "ok",
+    "row": 27,
+    "symptom": "timer settings reset"
+   },
+   {
+    "action": "repl solenoid seal after previous failed fix",
+    "outcome": "leak fixed",
+    "row": 28,
+    "symptom": "condensate drain leaking"
+   },
+   {
+    "action": "realigned locator pin",
+    "outcome": "clamp functional",
+    "row": 29,
+    "symptom": "clamp not closing"
+   },
+   {
+    "action": "cleaned heat sink",
+    "outcome": "temp down",
+    "row": 30,
+    "symptom": "drive overtemp alarm"
+   },
+   {
+    "action": "flushed cooling line",
+    "outcome": "flow ok",
+    "row": 31,
+    "symptom": "coolant flow low"
+   },
+   {
+    "action": "adj tip dress speed",
+    "outcome": "ok",
+    "row": 32,
+    "symptom": "weld tip mushrooming"
+   },
+   {
+    "action": "recalibrated transducer",
+    "outcome": "pressure still erratic",
+    "row": 33,
+    "symptom": "sealer pressure erratic"
+   },
+   {
+    "action": "adj air regulator",
+    "outcome": "pressure good",
+    "row": 34,
+    "symptom": "weld gun pressure low"
+   },
+   {
+    "action": "adj prop valve current",
+    "outcome": "slow response still present",
+    "row": 35,
+    "symptom": "press cycle slow"
+   },
+   {
+    "action": "repl worn weld shunt",
+    "outcome": "temp normal",
+    "row": 36,
+    "symptom": "shunt cable hot"
+   },
+   {
+    "action": "replaced mechanical seal",
+    "outcome": "leak stopped",
+    "row": 37,
+    "symptom": "pump seal leaking"
+   },
+   {
+    "action": "cleared debris from nozzle",
+    "outcome": "flow uniform",
+    "row": 38,
+    "symptom": "bead gap found"
+   },
+   {
+    "action": "repl heated hose wire",
+    "outcome": "heating ok",
+    "row": 39,
+    "symptom": "sealer hose fault"
+   },
+   {
+    "action": "reprimed line after prev failed fix",
+    "outcome": "flow steady",
+    "row": 40,
+    "symptom": "pump starved error"
+   },
+   {
+    "action": "repl faulty pressure transducer",
+    "outcome": "reading correct",
+    "row": 41,
+    "symptom": "press pressure error"
+   },
+   {
+    "action": "bled air from material line",
+    "outcome": "ok",
+    "row": 42,
+    "symptom": "pump inlet starvation"
+   },
+   {
+    "action": "adj main air regulator",
+    "outcome": "ok",
+    "row": 43,
+    "symptom": "gun pressure low"
+   },
+   {
+    "action": "replaced heating element",
+    "outcome": "temp correct",
+    "row": 44,
+    "symptom": "hose heat alarm"
+   },
+   {
+    "action": "adj drive tensioner",
+    "outcome": "chain tight",
+    "row": 45,
+    "symptom": "conveyor chain slack"
+   },
+   {
+    "action": "cleaned strainer",
+    "outcome": "flow ok",
+    "row": 46,
+    "symptom": "gun flow low"
+   },
+   {
+    "action": "adjusted photo eye alignment",
+    "outcome": "running",
+    "row": 47,
+    "symptom": "conveyor stops"
+   },
+   {
+    "action": "repl desiccant beads",
+    "outcome": "air dry",
+    "row": 48,
+    "symptom": "dryer moisture alarm"
+   },
+   {
+    "action": "repl damaged shunt",
+    "outcome": "ok",
+    "row": 49,
+    "symptom": "weld shunt frayed"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3204,
+  "output_tokens": 1314,
+  "thinking_tokens": 0,
+  "usd": 0.002772
+ }
+}

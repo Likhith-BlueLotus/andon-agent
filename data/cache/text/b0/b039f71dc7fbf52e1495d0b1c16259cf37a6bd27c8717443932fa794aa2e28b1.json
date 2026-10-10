@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "repl tips, adj dresser cycles",
+    "outcome": "weld quality restored",
+    "row": 0,
+    "symptom": "tips worn, weld quality poor"
+   },
+   {
+    "action": "reset timer to standard values",
+    "outcome": "cycle restored",
+    "row": 1,
+    "symptom": "timer param error on screen"
+   },
+   {
+    "action": "clean lens, re-focus",
+    "outcome": "pass rate ok",
+    "row": 2,
+    "symptom": "vision check fail, image blurry"
+   },
+   {
+    "action": "repl cabinet cooling fan",
+    "outcome": "temp normalized",
+    "row": 3,
+    "symptom": "servo gun overheating alarm"
+   },
+   {
+    "action": "drain moisture, reset dryer",
+    "outcome": "dryer functioning",
+    "row": 4,
+    "symptom": "dryer high dew point alert"
+   },
+   {
+    "action": "repl dryer control board",
+    "outcome": "dryer back in service",
+    "row": 5,
+    "symptom": "dryer fault alarm"
+   },
+   {
+    "action": "repl quick coupling and hose",
+    "outcome": "leak stopped",
+    "row": 6,
+    "symptom": "hissing sound near coupling"
+   },
+   {
+    "action": "clean strainer, replace hose",
+    "outcome": "flow good",
+    "row": 7,
+    "symptom": "coolant flow low alarm"
+   },
+   {
+    "action": "repl transducer, per wo-2500441 update",
+    "outcome": "fixed reading",
+    "row": 8,
+    "symptom": "transducer readout drifting"
+   },
+   {
+    "action": "repl secondary weld shunt",
+    "outcome": "temp stable",
+    "row": 9,
+    "symptom": "shunt cable worn, overheating"
+   },
+   {
+    "action": "repl damaged quick connect",
+    "outcome": "leak sealed",
+    "row": 10,
+    "symptom": "air leak in coupling"
+   },
+   {
+    "action": "install new shunt assembly",
+    "outcome": "good welds",
+    "row": 11,
+    "symptom": "shunt showing wear, sparking"
+   },
+   {
+    "action": "adj photo eye alignment",
+    "outcome": "sensor tracking ok",
+    "row": 12,
+    "symptom": "conv not seeing part"
+   },
+   {
+    "action": "update model parameters",
+    "outcome": "setpoint correct",
+    "row": 13,
+    "symptom": "pressure setpoint error"
+   },
+   {
+    "action": "repl sensor wiring harness",
+    "outcome": "temp signal stable",
+    "row": 14,
+    "symptom": "servo temp sensor erratic"
+   },
+   {
+    "action": "repl worn coupling",
+    "outcome": "leak fixed",
+    "row": 15,
+    "symptom": "air leak noted"
+   },
+   {
+    "action": "repl faulty sensor",
+    "outcome": "temp reading accurate",
+    "row": 16,
+    "symptom": "servo temp sensor faulty"
+   },
+   {
+    "action": "lubed bearing, inspected housing",
+    "outcome": "noise reduced",
+    "row": 17,
+    "symptom": "conv drive bearing noisy"
+   },
+   {
+    "action": "adj regulator pressure settings",
+    "outcome": "force stable",
+    "row": 18,
+    "symptom": "weld force inconsistent"
+   },
+   {
+    "action": "repl temp sensor",
+    "outcome": "signal restored",
+    "row": 19,
+    "symptom": "bearing sensor error code"
+   },
+   {
+    "action": "calibrate sealer pressure transducer",
+    "outcome": "calibrated",
+    "row": 20,
+    "symptom": "sealer pressure gauge drifting"
+   },
+   {
+    "action": "adj transducer wiring",
+    "outcome": "stable output",
+    "row": 21,
+    "symptom": "press hyd pressure fluctuate"
+   },
+   {
+    "action": "repl transducer, as wo-2500449 failed",
+    "outcome": "pressure reading correct",
+    "row": 22,
+    "symptom": "pressure alarm persists"
+   },
+   {
+    "action": "repl bad bearing sensor",
+    "outcome": "signal stable",
+    "row": 23,
+    "symptom": "bearing sensor reading high"
+   },
+   {
+    "action": "repl tips, adj dresser",
+    "outcome": "weld good",
+    "row": 24,
+    "symptom": "tips worn, bad weld"
+   },
+   {
+    "action": "repl regulator internal seals",
+    "outcome": "pressure constant",
+    "row": 25,
+    "symptom": "weld force erratic"
+   },
+   {
+    "action": "clean pump intake strainer",
+    "outcome": "flow improved",
+    "row": 26,
+    "symptom": "chiller flow restriction"
+   },
+   {
+    "action": "repl air filter element",
+    "outcome": "pressure still low",
+    "row": 27,
+    "symptom": "air intake pressure low"
+   },
+   {
+    "action": "re-aligned photo eye bracket",
+    "outcome": "sensor working",
+    "row": 28,
+    "symptom": "conv photo eye missed part"
+   },
+   {
+    "action": "repl bearing temp sensor",
+    "outcome": "signal normal",
+    "row": 29,
+    "symptom": "sensor signal out of range"
+   },
+   {
+    "action": "repl drive end bearing",
+    "outcome": "runs smooth",
+    "row": 30,
+    "symptom": "conv drive noisy"
+   },
+   {
+    "action": "repl heated hose assembly",
+    "outcome": "temp control back",
+    "row": 31,
+    "symptom": "sealer hose temp fault"
+   },
+   {
+    "action": "clean, lubed locator pin",
+    "outcome": "pin retracts ok",
+    "row": 32,
+    "symptom": "locator pin stuck"
+   },
+   {
+    "action": "repl servo temp sensor",
+    "outcome": "temp signal correct",
+    "row": 33,
+    "symptom": "servo temp alarm"
+   },
+   {
+    "action": "repl drive end bearing",
+    "outcome": "no noise",
+    "row": 34,
+    "symptom": "conv bearing grinding"
+   },
+   {
+    "action": "adj pin limit switch",
+    "outcome": "pin detect good",
+    "row": 35,
+    "symptom": "pin out of position"
+   },
+   {
+    "action": "repl faulty sensor",
+    "outcome": "reading stable",
+    "row": 36,
+    "symptom": "bearing sensor bad read"
+   },
+   {
+    "action": "reset clamp assembly position",
+    "outcome": "pin seated",
+    "row": 37,
+    "symptom": "clamp pin error"
+   },
+   {
+    "action": "reset compressor dryer unit",
+    "outcome": "dryer running",
+    "row": 38,
+    "symptom": "dryer alarm active"
+   },
+   {
+    "action": "perform compressor pm oil change",
+    "outcome": "temp remains high",
+    "row": 39,
+    "symptom": "high air temp"
+   },
+   {
+    "action": "calibrated sealer transducer",
+    "outcome": "calibrated ok",
+    "row": 40,
+    "symptom": "sealer pressure off"
+   },
+   {
+    "action": "repl weld shunt",
+    "outcome": "weld current normal",
+    "row": 41,
+    "symptom": "weld shunt frayed"
+   },
+   {
+    "action": "clean sealer nozzle tip",
+    "outcome": "flow pattern good",
+    "row": 42,
+    "symptom": "sealer flow restricted"
+   },
+   {
+    "action": "repl coupling and hose",
+    "outcome": "leak sealed",
+    "row": 43,
+    "symptom": "air coupling leaking"
+   },
+   {
+    "action": "repl drive end bearing",
+    "outcome": "runs quiet",
+    "row": 44,
+    "symptom": "drive bearing noise"
+   },
+   {
+    "action": "repl cabinet fan, cleaned filter",
+    "outcome": "temp drop",
+    "row": 45,
+    "symptom": "servo gun over temp"
+   },
+   {
+    "action": "tighten fitting and repl seal",
+    "outcome": "no leaks",
+    "row": 46,
+    "symptom": "oil weeping at hose"
+   },
+   {
+    "action": "repl faulty temp sensor",
+    "outcome": "signal corrected",
+    "row": 47,
+    "symptom": "temp sensor reading error"
+   },
+   {
+    "action": "repl drive end bearing",
+    "outcome": "smooth op",
+    "row": 48,
+    "symptom": "bearing noise detected"
+   },
+   {
+    "action": "re-aligned photo eye",
+    "outcome": "sensor detect good",
+    "row": 49,
+    "symptom": "eye not sensing"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3116,
+  "output_tokens": 1760,
+  "thinking_tokens": 0,
+  "usd": 0.003419
+ }
+}

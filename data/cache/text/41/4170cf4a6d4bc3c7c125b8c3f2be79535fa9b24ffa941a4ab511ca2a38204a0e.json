@@ -1,0 +1,35 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "Previous shift mein koi major alarm nahi tha. 06:00 changeover done, model A se model B shift hua."
+   },
+   {
+    "slot": 2,
+    "text": "Previous shift mein koi major alarm nahi tha. 14:00 changeover done, model B se model A shift hua."
+   },
+   {
+    "slot": 3,
+    "text": "Previous shift mein koi major alarm nahi tha. 22:00 changeover done, model A se model B shift hua."
+   },
+   {
+    "slot": 4,
+    "text": "23:09 ko ST40 Sealer bead width out of tolerance alarm aaya 2 times. 01:01 pe ST40 Sealer bead width low alarm mila."
+   },
+   {
+    "slot": 5,
+    "text": "Maintenance called. 01:49 bead width low x4, 01:51 bead inspection error x2. 02:14 line stopped due to high reject rate quality hold."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 970,
+  "output_tokens": 276,
+  "thinking_tokens": 0,
+  "usd": 0.000656
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "14:00 shift start. Running model A. No major alarms in prev shift."
+   },
+   {
+    "slot": 2,
+    "text": "22:00 shift start. Running model A. 15:18 alarm ST10 Press oil temp high reported 7 times."
+   },
+   {
+    "slot": 3,
+    "text": "06:00 shift start. Running model A. No major alarms in prev shift."
+   },
+   {
+    "slot": 4,
+    "text": "06:38 ST10 Press mein oil temperature high alarm aaya."
+   },
+   {
+    "slot": 5,
+    "text": "09:52 line stopped. ST10 Press oil temp high-high alarm. Maintenance called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 906,
+  "output_tokens": 219,
+  "thinking_tokens": 0,
+  "usd": 0.000555
+ }
+}

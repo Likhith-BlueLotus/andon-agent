@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "replaced prop valve coil and spool",
+    "outcome": "cycle speed back to normal",
+    "row": 0,
+    "symptom": "press hyd slow at cycle start"
+   },
+   {
+    "action": "bled air from feed line",
+    "outcome": "pump suction pressure stable",
+    "row": 1,
+    "symptom": "sealer pump cavitation alarms"
+   },
+   {
+    "action": "repl worn mechanical seal",
+    "outcome": "no leaks detected",
+    "row": 2,
+    "symptom": "sealer leaking at pump shaft"
+   },
+   {
+    "action": "changed damaged secondary shunt",
+    "outcome": "weld quality improved",
+    "row": 3,
+    "symptom": "weld spatter high"
+   },
+   {
+    "action": "re-seated rj45 cable on controller",
+    "outcome": "comm signal restored",
+    "row": 4,
+    "symptom": "vision error intermittent"
+   },
+   {
+    "action": "refilled tank with hydraulic oil",
+    "outcome": "system running normally",
+    "row": 5,
+    "symptom": "low way lube alarm"
+   },
+   {
+    "action": "adj tip dresser feed rate",
+    "outcome": "tip life within spec",
+    "row": 6,
+    "symptom": "weld tip wear excess"
+   },
+   {
+    "action": "adjusted air regulator for gun",
+    "outcome": "speed okay",
+    "row": 7,
+    "symptom": "gun closing slow"
+   },
+   {
+    "action": "replaced drive motor bearing",
+    "outcome": "noise resolved",
+    "row": 8,
+    "symptom": "conveyor noisy at drive end"
+   },
+   {
+    "action": "cleaned and flushed prop valve",
+    "outcome": "response time ok",
+    "row": 9,
+    "symptom": "slow response on press hyd"
+   },
+   {
+    "action": "adj gun air regulator",
+    "outcome": "pressure set correctly",
+    "row": 10,
+    "symptom": "gun pressure low"
+   },
+   {
+    "action": "re-calibrated pressure setpoint",
+    "outcome": "setpoint matching",
+    "row": 11,
+    "symptom": "press pressure error"
+   },
+   {
+    "action": "replaced worn shunt assembly",
+    "outcome": "temp down",
+    "row": 12,
+    "symptom": "weld shunt hot"
+   },
+   {
+    "action": "re-dressed tips",
+    "outcome": "welds passing",
+    "row": 13,
+    "symptom": "poor weld quality"
+   },
+   {
+    "action": "replaced temp probe",
+    "outcome": "reading normal",
+    "row": 14,
+    "symptom": "servo sensor alarm"
+   },
+   {
+    "action": "changed oil and filter",
+    "outcome": "pm complete",
+    "row": 15,
+    "symptom": "compressor pm due"
+   },
+   {
+    "action": "cleaned and re-wired sensor",
+    "outcome": "signal stable",
+    "row": 16,
+    "symptom": "bearing sensor erratic"
+   },
+   {
+    "action": "replaced cabinet cooling fan",
+    "outcome": "temp normalized",
+    "row": 17,
+    "symptom": "servo gun overheating"
+   },
+   {
+    "action": "replaced hydraulic filter element",
+    "outcome": "pressure within spec",
+    "row": 18,
+    "symptom": "hyd filter dirty"
+   },
+   {
+    "action": "repl worn seal",
+    "outcome": "no more leak",
+    "row": 19,
+    "symptom": "sealer dripping under pump"
+   },
+   {
+    "action": "serviced prop valve spool",
+    "outcome": "operation smooth",
+    "row": 20,
+    "symptom": "hyd valve sticking"
+   },
+   {
+    "action": "repl material feed hoses, prev fix in wo-2501244 bad",
+    "outcome": "flow constant",
+    "row": 21,
+    "symptom": "sealer pump starve alarm"
+   },
+   {
+    "action": "replaced intake filter element",
+    "outcome": "air flow optimal",
+    "row": 22,
+    "symptom": "intake filter clogged"
+   },
+   {
+    "action": "unclogged condensate drain valve",
+    "outcome": "air leak stopped",
+    "row": 23,
+    "symptom": "drain blowing air"
+   },
+   {
+    "action": "cleaned nozzle orifice",
+    "outcome": "bead uniform",
+    "row": 24,
+    "symptom": "sealer bead inconsistent"
+   },
+   {
+    "action": "tensioned conveyor chain",
+    "outcome": "chain tight",
+    "row": 25,
+    "symptom": "chain loose"
+   },
+   {
+    "action": "pressure washed cooler fins",
+    "outcome": "oil temp dropped",
+    "row": 26,
+    "symptom": "hyd oil overheating"
+   },
+   {
+    "action": "repl quick disconnect fitting",
+    "outcome": "no air leak",
+    "row": 27,
+    "symptom": "hissing sound near coupling"
+   },
+   {
+    "action": "adj locator pin position",
+    "outcome": "pin aligned",
+    "row": 28,
+    "symptom": "part location error"
+   },
+   {
+    "action": "replaced internal pump seal",
+    "outcome": "leak fixed",
+    "row": 29,
+    "symptom": "sealer leak detected"
+   },
+   {
+    "action": "tightened hydraulic fittings",
+    "outcome": "weep stopped",
+    "row": 30,
+    "symptom": "hyd oil weep at fitting"
+   },
+   {
+    "action": "cleaned oil cooler",
+    "outcome": "temps normal",
+    "row": 31,
+    "symptom": "hyd system hot"
+   },
+   {
+    "action": "re-wired comm cable",
+    "outcome": "camera functional",
+    "row": 32,
+    "symptom": "camera signal loss"
+   },
+   {
+    "action": "replaced lighting module",
+    "outcome": "image clear",
+    "row": 33,
+    "symptom": "vision lighting dim"
+   },
+   {
+    "action": "changed hyd filter element",
+    "outcome": "system checked",
+    "row": 34,
+    "symptom": "pm interval reached"
+   },
+   {
+    "action": "aligned photo eye",
+    "outcome": "conveyor started",
+    "row": 35,
+    "symptom": "conveyor stopped"
+   },
+   {
+    "action": "replaced drive bearing",
+    "outcome": "noise gone",
+    "row": 36,
+    "symptom": "bearing roar at drive"
+   },
+   {
+    "action": "updated setpoint values",
+    "outcome": "setpoint confirmed",
+    "row": 37,
+    "symptom": "pressure setpoint error"
+   },
+   {
+    "action": "calibrated transducer",
+    "outcome": "pressure accurate",
+    "row": 38,
+    "symptom": "sealer pressure gauge error"
+   },
+   {
+    "action": "cleaned strainer",
+    "outcome": "flow restored",
+    "row": 39,
+    "symptom": "coolant flow fault"
+   },
+   {
+    "action": "repl pump seal",
+    "outcome": "no leak",
+    "row": 40,
+    "symptom": "seal leak"
+   },
+   {
+    "action": "aligned photo eye",
+    "outcome": "clear",
+    "row": 41,
+    "symptom": "conveyor blocked"
+   },
+   {
+    "action": "repl drive end bearing",
+    "outcome": "fixed",
+    "row": 42,
+    "symptom": "drive bearing noise"
+   },
+   {
+    "action": "inspected shunt for damage",
+    "outcome": "problem persists",
+    "row": 43,
+    "symptom": "weld quality low"
+   },
+   {
+    "action": "adj regulator",
+    "outcome": "ok",
+    "row": 44,
+    "symptom": "gun delay"
+   },
+   {
+    "action": "aligned photo eye",
+    "outcome": "ok",
+    "row": 45,
+    "symptom": "conveyor fault"
+   },
+   {
+    "action": "dressed tips",
+    "outcome": "spatter continued",
+    "row": 46,
+    "symptom": "weld spatter"
+   },
+   {
+    "action": "added oil",
+    "outcome": "level full",
+    "row": 47,
+    "symptom": "gearbox level low"
+   },
+   {
+    "action": "adj regulator",
+    "outcome": "fixed",
+    "row": 48,
+    "symptom": "gun speed slow"
+   },
+   {
+    "action": "wired sensor correctly, prev fix in wo-2501294 incorrect",
+    "outcome": "fixed",
+    "row": 49,
+    "symptom": "servo temp err persists"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3150,
+  "output_tokens": 2442,
+  "thinking_tokens": 0,
+  "usd": 0.00445
+ }
+}

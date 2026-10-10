@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "replaced main drive output brg set",
+    "outcome": "noise resolved, fixed issue from WO-2601883",
+    "row": 0,
+    "symptom": "brg noise persists after insp"
+   },
+   {
+    "action": "adj drive tensioner linkage",
+    "outcome": "tension within spec",
+    "row": 1,
+    "symptom": "chain slack detected"
+   },
+   {
+    "action": "cleaned dust from condenser coils",
+    "outcome": "flow rate normal",
+    "row": 2,
+    "symptom": "chiller temp rising"
+   },
+   {
+    "action": "reloaded parameters from master file",
+    "outcome": "cycle stable",
+    "row": 3,
+    "symptom": "weld cycle timing drift"
+   },
+   {
+    "action": "replenished hydraulic way lube",
+    "outcome": "alarm cleared",
+    "row": 4,
+    "symptom": "way lube level alarm"
+   },
+   {
+    "action": "dressed tips and set pressure",
+    "outcome": "weld quality good",
+    "row": 5,
+    "symptom": "weld quality degrading"
+   },
+   {
+    "action": "cleaned inlet strainer, flushed line",
+    "outcome": "flow restored",
+    "row": 6,
+    "symptom": "low coolant flow alarm"
+   },
+   {
+    "action": "repl led array module",
+    "outcome": "image contrast good",
+    "row": 7,
+    "symptom": "vision error on part detect"
+   },
+   {
+    "action": "adj air regulator pressure settings",
+    "outcome": "no improvement, issue persists",
+    "row": 8,
+    "symptom": "gun travel slow"
+   },
+   {
+    "action": "inspect external cabinet seals",
+    "outcome": "drive still tripping, fault persists",
+    "row": 9,
+    "symptom": "servo drive overheating"
+   },
+   {
+    "action": "cleaned fouled oil cooler fins",
+    "outcome": "temp normalized",
+    "row": 10,
+    "symptom": "oil temp high alarm"
+   },
+   {
+    "action": "tensioned primary drive chain",
+    "outcome": "chain tight",
+    "row": 11,
+    "symptom": "conveyor chain jump"
+   },
+   {
+    "action": "flushed debris from gun supply",
+    "outcome": "flow sensor clear",
+    "row": 12,
+    "symptom": "coolant flow sensor alert"
+   },
+   {
+    "action": "repl blocked cabinet fan filter",
+    "outcome": "temp stable",
+    "row": 13,
+    "symptom": "servo motor temp limit"
+   },
+   {
+    "action": "cleared strainer of metal swarf",
+    "outcome": "flow returned",
+    "row": 14,
+    "symptom": "chiller pump low flow"
+   },
+   {
+    "action": "refilled lube oil",
+    "outcome": "system status ok",
+    "row": 15,
+    "symptom": "low lube reservoir"
+   },
+   {
+    "action": "repl cabinet air fan unit",
+    "outcome": "drive cooling normal",
+    "row": 16,
+    "symptom": "servo drive high temp"
+   },
+   {
+    "action": "replaced cabinet exhaust fan",
+    "outcome": "temp down",
+    "row": 17,
+    "symptom": "servo gun temp alarm"
+   },
+   {
+    "action": "replaced calcified supply hose, follow up to WO-2601910",
+    "outcome": "flow normalized",
+    "row": 18,
+    "symptom": "coolant flow intermittent"
+   },
+   {
+    "action": "restored system parameters",
+    "outcome": "timer synced",
+    "row": 19,
+    "symptom": "cycle timer fault"
+   },
+   {
+    "action": "repl clogged strainer, per WO-2601909",
+    "outcome": "flow alarm clear",
+    "row": 20,
+    "symptom": "persistent flow alarm"
+   },
+   {
+    "action": "repl desiccant filter cartridge",
+    "outcome": "air dry",
+    "row": 21,
+    "symptom": "dryer dew point high"
+   },
+   {
+    "action": "drained and refilled comp oil",
+    "outcome": "maint complete",
+    "row": 22,
+    "symptom": "scheduled oil maint"
+   },
+   {
+    "action": "adjusted regulator and locked dial",
+    "outcome": "pressure steady",
+    "row": 23,
+    "symptom": "gun pressure drop"
+   },
+   {
+    "action": "greased drive end bearing",
+    "outcome": "noise reduced",
+    "row": 24,
+    "symptom": "rough drive operation"
+   },
+   {
+    "action": "repl worn shunt strap",
+    "outcome": "weld arc stable",
+    "row": 25,
+    "symptom": "welding arc erratic"
+   },
+   {
+    "action": "cleaned intake fan grille",
+    "outcome": "temp ok",
+    "row": 26,
+    "symptom": "servo drive fault"
+   },
+   {
+    "action": "realigned locator block",
+    "outcome": "pin clear",
+    "row": 27,
+    "symptom": "pin alignment err"
+   },
+   {
+    "action": "lubricated motor drive bearing",
+    "outcome": "noise silenced",
+    "row": 28,
+    "symptom": "drive bearing whine"
+   },
+   {
+    "action": "tightened leaking hose clamp",
+    "outcome": "hiss continues",
+    "row": 29,
+    "symptom": "air hiss heard"
+   },
+   {
+    "action": "reset clamp stroke sensor",
+    "outcome": "part locked",
+    "row": 30,
+    "symptom": "part not locating"
+   },
+   {
+    "action": "replaced faulty drain solenoid, WO-2601930 failed",
+    "outcome": "drain working",
+    "row": 31,
+    "symptom": "drain valve stuck"
+   },
+   {
+    "action": "replaced frayed weld shunt",
+    "outcome": "current restored",
+    "row": 32,
+    "symptom": "low weld current"
+   },
+   {
+    "action": "greased housing and checked alignment",
+    "outcome": "smooth run",
+    "row": 33,
+    "symptom": "bearing heat/noise"
+   },
+   {
+    "action": "repl faulty pressure transducer",
+    "outcome": "signal stable",
+    "row": 34,
+    "symptom": "press pressure jitter"
+   },
+   {
+    "action": "adj clamp pin stroke",
+    "outcome": "clamp secure",
+    "row": 35,
+    "symptom": "clamp failing to lock"
+   },
+   {
+    "action": "calibrated press transducer",
+    "outcome": "reading matched",
+    "row": 36,
+    "symptom": "analog signal drift"
+   },
+   {
+    "action": "repl vision light module",
+    "outcome": "image sharp",
+    "row": 37,
+    "symptom": "camera image dark"
+   },
+   {
+    "action": "cleaned blocked fan filter",
+    "outcome": "temp dropped",
+    "row": 38,
+    "symptom": "drive thermal trip"
+   },
+   {
+    "action": "topped off gearbox oil",
+    "outcome": "level full",
+    "row": 39,
+    "symptom": "low level check"
+   },
+   {
+    "action": "adj tensioner to spec",
+    "outcome": "tension good",
+    "row": 40,
+    "symptom": "chain loose"
+   },
+   {
+    "action": "repl air regulator assembly",
+    "outcome": "force stable",
+    "row": 41,
+    "symptom": "erratic gun force"
+   },
+   {
+    "action": "reset to baseline",
+    "outcome": "timing okay",
+    "row": 42,
+    "symptom": "timer param error"
+   },
+   {
+    "action": "backflushed gun cooling loop",
+    "outcome": "flow ok",
+    "row": 43,
+    "symptom": "coolant flow drop"
+   },
+   {
+    "action": "replaced transducer cable",
+    "outcome": "reading normal",
+    "row": 44,
+    "symptom": "psi reading erratic"
+   },
+   {
+    "action": "refilled tank",
+    "outcome": "light off",
+    "row": 45,
+    "symptom": "lube light on"
+   },
+   {
+    "action": "replaced proportional valve seal kit",
+    "outcome": "cycle fast",
+    "row": 46,
+    "symptom": "slow valve cycle"
+   },
+   {
+    "action": "replaced drive cabinet fan",
+    "outcome": "cool",
+    "row": 47,
+    "symptom": "drive fan noise"
+   },
+   {
+    "action": "replaced hose filter",
+    "outcome": "flow high",
+    "row": 48,
+    "symptom": "flow low"
+   },
+   {
+    "action": "replaced gauge and regulator",
+    "outcome": "pressure constant",
+    "row": 49,
+    "symptom": "pressure spike"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3182,
+  "output_tokens": 2480,
+  "thinking_tokens": 0,
+  "usd": 0.004516
+ }
+}

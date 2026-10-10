@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "realigned beam and locked bracket",
+    "outcome": "line running normal",
+    "row": 0,
+    "symptom": "conveyor photo eye triggered error"
+   },
+   {
+    "action": "added 2L oil",
+    "outcome": "level ok",
+    "row": 1,
+    "symptom": "gearbox reservoir low"
+   },
+   {
+    "action": "refilled tank",
+    "outcome": "system operational",
+    "row": 2,
+    "symptom": "way lube level low"
+   },
+   {
+    "action": "lubed and chkd alignment",
+    "outcome": "noise subsiding",
+    "row": 3,
+    "symptom": "drive brg noise detected"
+   },
+   {
+    "action": "topped up gearbox",
+    "outcome": "ok",
+    "row": 4,
+    "symptom": "oil level warning"
+   },
+   {
+    "action": "reloaded defaults to controller",
+    "outcome": "timer cycle correct",
+    "row": 5,
+    "symptom": "cycle time error"
+   },
+   {
+    "action": "adj air regulator",
+    "outcome": "pressure holding",
+    "row": 6,
+    "symptom": "gun pressure unstable"
+   },
+   {
+    "action": "chgd oil and filters",
+    "outcome": "pm complete",
+    "row": 7,
+    "symptom": "comp pm required"
+   },
+   {
+    "action": "topped up 1L",
+    "outcome": "level normal",
+    "row": 8,
+    "symptom": "low gearbox oil"
+   },
+   {
+    "action": "repl clogged cabinet filter",
+    "outcome": "temp stable",
+    "row": 9,
+    "symptom": "gun drive overheating"
+   },
+   {
+    "action": "repl quick fitting",
+    "outcome": "leak stopped",
+    "row": 10,
+    "symptom": "air leak at line"
+   },
+   {
+    "action": "adj regulator pressure",
+    "outcome": "stable weld force",
+    "row": 11,
+    "symptom": "gun force jitter"
+   },
+   {
+    "action": "repl cooling fan",
+    "outcome": "temp normalized",
+    "row": 12,
+    "symptom": "servo drive hot"
+   },
+   {
+    "action": "topped off reservoir",
+    "outcome": "alarm reset",
+    "row": 13,
+    "symptom": "gearbox oil alarm"
+   },
+   {
+    "action": "cleared strainer blockage",
+    "outcome": "flow restored",
+    "row": 14,
+    "symptom": "cooling flow alarm"
+   },
+   {
+    "action": "checked connections and reset",
+    "outcome": "heating restored",
+    "row": 15,
+    "symptom": "sealer hose cold"
+   },
+   {
+    "action": "cleaned suction strainer",
+    "outcome": "flow okay",
+    "row": 16,
+    "symptom": "pump pressure drop"
+   },
+   {
+    "action": "bled air from manifold",
+    "outcome": "line pumping normal",
+    "row": 17,
+    "symptom": "air in sealer"
+   },
+   {
+    "action": "power washed condenser coil",
+    "outcome": "cooling improved",
+    "row": 18,
+    "symptom": "chiller high temp"
+   },
+   {
+    "action": "cleaned contacts",
+    "outcome": "reading correct",
+    "row": 19,
+    "symptom": "temp sensor drift"
+   },
+   {
+    "action": "ran auto tip dress",
+    "outcome": "tip geometry ok",
+    "row": 20,
+    "symptom": "tip wear warning"
+   },
+   {
+    "action": "re-seated sensor wire",
+    "outcome": "value normal",
+    "row": 21,
+    "symptom": "servo temp reading high"
+   },
+   {
+    "action": "calibrated sensor probe",
+    "outcome": "reading restored",
+    "row": 22,
+    "symptom": "brg temp alarm"
+   },
+   {
+    "action": "dress tips to spec",
+    "outcome": "weld quality good",
+    "row": 23,
+    "symptom": "weld tips worn"
+   },
+   {
+    "action": "repl secondary seal",
+    "outcome": "leak stopped",
+    "row": 24,
+    "symptom": "pump seal leak"
+   },
+   {
+    "action": "re-terminated signal wires",
+    "outcome": "data restored",
+    "row": 25,
+    "symptom": "sensor fault"
+   },
+   {
+    "action": "repl intake fan",
+    "outcome": "temp dropping",
+    "row": 26,
+    "symptom": "cabinet overheating"
+   },
+   {
+    "action": "cleaned lens and aligned",
+    "outcome": "working",
+    "row": 27,
+    "symptom": "pe sensor faulty"
+   },
+   {
+    "action": "re-greased and adjusted",
+    "outcome": "quiet",
+    "row": 28,
+    "symptom": "bearing vibration"
+   },
+   {
+    "action": "repl sensor probe",
+    "outcome": "stable",
+    "row": 29,
+    "symptom": "temp sensor erratic"
+   },
+   {
+    "action": "repl shunt cable",
+    "outcome": "good resistance",
+    "row": 30,
+    "symptom": "weld shunt burning"
+   },
+   {
+    "action": "secured mounting arm",
+    "outcome": "stable",
+    "row": 31,
+    "symptom": "pe misalignment error"
+   },
+   {
+    "action": "refilled way lube",
+    "outcome": "ok",
+    "row": 32,
+    "symptom": "lube level low"
+   },
+   {
+    "action": "repl internal fan",
+    "outcome": "temp normal",
+    "row": 33,
+    "symptom": "servo gun hot"
+   },
+   {
+    "action": "realigned beam",
+    "outcome": "reset",
+    "row": 34,
+    "symptom": "sensor blocking error"
+   },
+   {
+    "action": "repl worn shunt",
+    "outcome": "weld quality ok",
+    "row": 35,
+    "symptom": "high resistance weld"
+   },
+   {
+    "action": "cleared debris from tip",
+    "outcome": "flow good",
+    "row": 36,
+    "symptom": "sealer nozzle plug"
+   },
+   {
+    "action": "repl drive bearing",
+    "outcome": "smooth operation",
+    "row": 37,
+    "symptom": "bearing grinding sound"
+   },
+   {
+    "action": "replaced faulty connector",
+    "outcome": "heating ok",
+    "row": 38,
+    "symptom": "sealer hose alarm"
+   },
+   {
+    "action": "adj air stroke",
+    "outcome": "pin seating well",
+    "row": 39,
+    "symptom": "pin lock fail"
+   },
+   {
+    "action": "reset parameters",
+    "outcome": "cycle normal",
+    "row": 40,
+    "symptom": "cycle timer fault"
+   },
+   {
+    "action": "tightened terminals",
+    "outcome": "still low current",
+    "row": 41,
+    "symptom": "low weld current"
+   },
+   {
+    "action": "checked suction seals",
+    "outcome": "flow restored",
+    "row": 42,
+    "symptom": "pump starved air"
+   },
+   {
+    "action": "adj air regulator",
+    "outcome": "force okay",
+    "row": 43,
+    "symptom": "gun force erratic"
+   },
+   {
+    "action": "reset timer board",
+    "outcome": "ok",
+    "row": 44,
+    "symptom": "cycle time wrong"
+   },
+   {
+    "action": "realigned photo eye",
+    "outcome": "working",
+    "row": 45,
+    "symptom": "pe sensor fault"
+   },
+   {
+    "action": "cleared air trap",
+    "outcome": "pump running",
+    "row": 46,
+    "symptom": "no flow"
+   },
+   {
+    "action": "adjusted proximity switch",
+    "outcome": "still erroring",
+    "row": 47,
+    "symptom": "pin position error"
+   },
+   {
+    "action": "replaced mechanical seal",
+    "outcome": "dry",
+    "row": 48,
+    "symptom": "pump seal leak"
+   },
+   {
+    "action": "repl led module",
+    "outcome": "image clear",
+    "row": 49,
+    "symptom": "vision image dark"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3136,
+  "output_tokens": 1248,
+  "thinking_tokens": 0,
+  "usd": 0.002656
+ }
+}

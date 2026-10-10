@@ -1,0 +1,31 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "22:00 shift start, model B running. No major alarms seen in previous shift."
+   },
+   {
+    "slot": 2,
+    "text": "06:00 changeover completed, switched from model B to model A. No major alarms."
+   },
+   {
+    "slot": 3,
+    "text": "14:00 shift start, model A running. ST60 reject rate high alarm at 08:02. ST40 sealer bead width low and inspection tolerance alarms noted."
+   },
+   {
+    "slot": 4,
+    "text": "16:53 se ST40 sealer bead low aur inspection alarm aane shuru. 17:18 line stop, QA hold reject rate high. Maintenance ko inform kiya."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 920,
+  "output_tokens": 213,
+  "thinking_tokens": 0,
+  "usd": 0.000549
+ }
+}

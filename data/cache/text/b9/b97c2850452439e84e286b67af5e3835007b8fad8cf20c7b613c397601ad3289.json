@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "chk signal cable wiring, re-term",
+    "outcome": "reading normal",
+    "row": 0,
+    "symptom": "servo temp sensor high err"
+   },
+   {
+    "action": "clean pin, lubricate assembly",
+    "outcome": "smooth travel",
+    "row": 1,
+    "symptom": "clamp pin sticky, not lock"
+   },
+   {
+    "action": "insp solenoid coil, clean valve",
+    "outcome": "resp time ok",
+    "row": 2,
+    "symptom": "hyd valve sluggish cycle"
+   },
+   {
+    "action": "tighten hose clamp, inspect lines",
+    "outcome": "pressure still unstable",
+    "row": 3,
+    "symptom": "sealer pump pressure drop"
+   },
+   {
+    "action": "adj regulator, clean orifice",
+    "outcome": "stable force",
+    "row": 4,
+    "symptom": "weld force inconsistent"
+   },
+   {
+    "action": "repl clogged strainer, flush hose",
+    "outcome": "flow restored",
+    "row": 5,
+    "symptom": "coolant flow alarm persists"
+   },
+   {
+    "action": "replace tips, run tip dresser",
+    "outcome": "quality good",
+    "row": 6,
+    "symptom": "poor weld quality"
+   },
+   {
+    "action": "replace dryer desiccant, clean filter",
+    "outcome": "air dry",
+    "row": 7,
+    "symptom": "high moisture in air lines"
+   },
+   {
+    "action": "repl caps, dress tips",
+    "outcome": "nugget standard",
+    "row": 8,
+    "symptom": "weld nugget undersize"
+   },
+   {
+    "action": "clean seat, replace spring",
+    "outcome": "seal tight",
+    "row": 9,
+    "symptom": "drain valve air leak"
+   },
+   {
+    "action": "re-set param on hmi",
+    "outcome": "match confirmed",
+    "row": 10,
+    "symptom": "press pressure mismatch"
+   },
+   {
+    "action": "replaced air intake filter",
+    "outcome": "no change to flow",
+    "row": 11,
+    "symptom": "compressor intake pressure drop"
+   },
+   {
+    "action": "repl led module",
+    "outcome": "cam image clear",
+    "row": 12,
+    "symptom": "vision error high count"
+   },
+   {
+    "action": "lubed brg, checked seal",
+    "outcome": "noise reduced",
+    "row": 13,
+    "symptom": "conveyor noise high"
+   },
+   {
+    "action": "clean coil fins",
+    "outcome": "temp normalized",
+    "row": 14,
+    "symptom": "chiller coolant temp high"
+   },
+   {
+    "action": "dress tips, check cap",
+    "outcome": "weld ok",
+    "row": 15,
+    "symptom": "spot weld quality poor"
+   },
+   {
+    "action": "adj tensioner block",
+    "outcome": "tension set",
+    "row": 16,
+    "symptom": "conveyor chain slack"
+   },
+   {
+    "action": "clean lens, re-focus",
+    "outcome": "img clear",
+    "row": 17,
+    "symptom": "vision check fail"
+   },
+   {
+    "action": "bled air from pump lines",
+    "outcome": "steady output",
+    "row": 18,
+    "symptom": "material flow surging"
+   },
+   {
+    "action": "swapped out drive brg",
+    "outcome": "run smooth",
+    "row": 19,
+    "symptom": "conveyor bearing growl"
+   },
+   {
+    "action": "adj switch, tighten bolt",
+    "outcome": "pos verified",
+    "row": 20,
+    "symptom": "locator pin fail"
+   },
+   {
+    "action": "new filter element",
+    "outcome": "pressure normal",
+    "row": 21,
+    "symptom": "intake restriction alarm"
+   },
+   {
+    "action": "repl heating element wire",
+    "outcome": "temp stable",
+    "row": 22,
+    "symptom": "sealer heater err"
+   },
+   {
+    "action": "flush valve block",
+    "outcome": "resp fast",
+    "row": 23,
+    "symptom": "valve slow, press sluggish"
+   },
+   {
+    "action": "clean solenoid drain",
+    "outcome": "closed",
+    "row": 24,
+    "symptom": "drain stuck, air loss"
+   },
+   {
+    "action": "swap led driver",
+    "outcome": "light good",
+    "row": 25,
+    "symptom": "vision lighting dim"
+   },
+   {
+    "action": "swapped element",
+    "outcome": "flow ok",
+    "row": 26,
+    "symptom": "intake filter dirty"
+   },
+   {
+    "action": "repl oil filter",
+    "outcome": "system pump failure",
+    "row": 27,
+    "symptom": "pm filter change due"
+   },
+   {
+    "action": "repl solenoid valve coil",
+    "outcome": "fast resp",
+    "row": 28,
+    "symptom": "valve slow to cycle"
+   },
+   {
+    "action": "checked wiring connections",
+    "outcome": "still jittery",
+    "row": 29,
+    "symptom": "press pressure jitter"
+   },
+   {
+    "action": "repl faulty transducer",
+    "outcome": "stable reading",
+    "row": 30,
+    "symptom": "pressure jitter issue"
+   },
+   {
+    "action": "reset unit, checked fan",
+    "outcome": "run normal",
+    "row": 31,
+    "symptom": "dryer fault alarm"
+   },
+   {
+    "action": "clean lug connections",
+    "outcome": "temp down",
+    "row": 32,
+    "symptom": "weld cable heat"
+   },
+   {
+    "action": "purge system",
+    "outcome": "flow good",
+    "row": 33,
+    "symptom": "sealer uneven flow"
+   },
+   {
+    "action": "re-seat ethernet connector",
+    "outcome": "link solid",
+    "row": 34,
+    "symptom": "cam signal loss"
+   },
+   {
+    "action": "adj sensor gap",
+    "outcome": "signal good",
+    "row": 35,
+    "symptom": "pin not detecting"
+   },
+   {
+    "action": "swapped hyd filter",
+    "outcome": "clean",
+    "row": 36,
+    "symptom": "scheduled pm filter change"
+   },
+   {
+    "action": "re-align locator",
+    "outcome": "ok",
+    "row": 37,
+    "symptom": "pin out of pos"
+   },
+   {
+    "action": "replaced o-ring in coupling",
+    "outcome": "leak stopped",
+    "row": 38,
+    "symptom": "hissing air leak"
+   },
+   {
+    "action": "greased brg",
+    "outcome": "quiet",
+    "row": 39,
+    "symptom": "noisy drive brg"
+   },
+   {
+    "action": "new filter element",
+    "outcome": "pump cavitating",
+    "row": 40,
+    "symptom": "routine filter pm"
+   },
+   {
+    "action": "degreased chiller coil",
+    "outcome": "temp down",
+    "row": 41,
+    "symptom": "hyd oil high temp"
+   },
+   {
+    "action": "clean coolant strainer",
+    "outcome": "flow normal",
+    "row": 42,
+    "symptom": "low flow to gun"
+   },
+   {
+    "action": "re-aligned photo eye",
+    "outcome": "fault returned",
+    "row": 43,
+    "symptom": "conveyor sensor fault"
+   },
+   {
+    "action": "repl cabinet fans",
+    "outcome": "cool",
+    "row": 44,
+    "symptom": "servo cabinet overheat"
+   },
+   {
+    "action": "repl transducer",
+    "outcome": "stable now",
+    "row": 45,
+    "symptom": "pressure sensor reading wrong"
+   },
+   {
+    "action": "reloaded timer logic",
+    "outcome": "cycle good",
+    "row": 46,
+    "symptom": "timing wrong"
+   },
+   {
+    "action": "adj reg pressure",
+    "outcome": "steady",
+    "row": 47,
+    "symptom": "force drift"
+   },
+   {
+    "action": "fixed sensor connection",
+    "outcome": "alarm cleared",
+    "row": 48,
+    "symptom": "false brg temp alarm"
+   },
+   {
+    "action": "repl worn coupling",
+    "outcome": "seal good",
+    "row": 49,
+    "symptom": "air leak in booth"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3208,
+  "output_tokens": 2424,
+  "thinking_tokens": 0,
+  "usd": 0.004438
+ }
+}

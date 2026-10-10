@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "repl nozzle tip",
+    "outcome": "flow ok",
+    "row": 0,
+    "symptom": "nozzle flow erratic"
+   },
+   {
+    "action": "re-calib sensor",
+    "outcome": "temp reading norm",
+    "row": 1,
+    "symptom": "servo temp err"
+   },
+   {
+    "action": "add gear oil",
+    "outcome": "noise persist, not fixed",
+    "row": 2,
+    "symptom": "gbx noise high"
+   },
+   {
+    "action": "repl quick coupling",
+    "outcome": "leak stopped",
+    "row": 3,
+    "symptom": "hissing air leak"
+   },
+   {
+    "action": "top up way lube",
+    "outcome": "system full",
+    "row": 4,
+    "symptom": "low lube level"
+   },
+   {
+    "action": "refill gearbox oil",
+    "outcome": "level norm",
+    "row": 5,
+    "symptom": "low oil alarm"
+   },
+   {
+    "action": "repl sensor wiring, prev job failed",
+    "outcome": "data stable",
+    "row": 6,
+    "symptom": "sensor still bad"
+   },
+   {
+    "action": "reset controller",
+    "outcome": "fault returned",
+    "row": 7,
+    "symptom": "servo temp high"
+   },
+   {
+    "action": "clean prop valve",
+    "outcome": "response normal",
+    "row": 8,
+    "symptom": "slow cyl action"
+   },
+   {
+    "action": "repl faulty brg sensor",
+    "outcome": "signal stable",
+    "row": 9,
+    "symptom": "erratic temp signal"
+   },
+   {
+    "action": "repl cabinet fan",
+    "outcome": "cools norm",
+    "row": 10,
+    "symptom": "fan alarm"
+   },
+   {
+    "action": "unblock auto drain",
+    "outcome": "drain cycles",
+    "row": 11,
+    "symptom": "drain stuck"
+   },
+   {
+    "action": "adj air reg",
+    "outcome": "stable press",
+    "row": 12,
+    "symptom": "press fluctuation"
+   },
+   {
+    "action": "bleed air from pump",
+    "outcome": "flow steady",
+    "row": 13,
+    "symptom": "flow surging"
+   },
+   {
+    "action": "repl intake filter",
+    "outcome": "air flow clean",
+    "row": 14,
+    "symptom": "dirty intake"
+   },
+   {
+    "action": "repl spring in reg",
+    "outcome": "pressure hold",
+    "row": 15,
+    "symptom": "regulator drifting"
+   },
+   {
+    "action": "change filter element",
+    "outcome": "press norm",
+    "row": 16,
+    "symptom": "filter clogged"
+   },
+   {
+    "action": "set reg pressure",
+    "outcome": "weld ok",
+    "row": 17,
+    "symptom": "low weld force"
+   },
+   {
+    "action": "lubed brg",
+    "outcome": "still noisy",
+    "row": 18,
+    "symptom": "grinding noise"
+   },
+   {
+    "action": "adj tensioner",
+    "outcome": "chain tight",
+    "row": 19,
+    "symptom": "chain slack"
+   },
+   {
+    "action": "drain and refill oil",
+    "outcome": "maint done",
+    "row": 20,
+    "symptom": "pm due"
+   },
+   {
+    "action": "repl dresser blades, WO 2601708 insufficient",
+    "outcome": "weld quality good",
+    "row": 21,
+    "symptom": "tip wear poor weld"
+   },
+   {
+    "action": "re-calib transducer",
+    "outcome": "reads correct",
+    "row": 22,
+    "symptom": "press reading low"
+   },
+   {
+    "action": "clean tip",
+    "outcome": "flow restored",
+    "row": 23,
+    "symptom": "nozzle flow low"
+   },
+   {
+    "action": "repl pump seals",
+    "outcome": "no leaks",
+    "row": 24,
+    "symptom": "leaking sealer pump"
+   },
+   {
+    "action": "repl o-ring",
+    "outcome": "leak stop",
+    "row": 25,
+    "symptom": "hissing joint"
+   },
+   {
+    "action": "repl drive brg",
+    "outcome": "quiet run",
+    "row": 26,
+    "symptom": "bearing rumble"
+   },
+   {
+    "action": "reset dryer controller",
+    "outcome": "dryer run",
+    "row": 27,
+    "symptom": "dryer alarm"
+   },
+   {
+    "action": "clean fan filters",
+    "outcome": "temp down",
+    "row": 28,
+    "symptom": "overheat alarm"
+   },
+   {
+    "action": "re-prog setpoints",
+    "outcome": "match verified",
+    "row": 29,
+    "symptom": "pressure mismatch"
+   },
+   {
+    "action": "repl dresser cutter",
+    "outcome": "clean cuts",
+    "row": 30,
+    "symptom": "tip dresser jam"
+   },
+   {
+    "action": "repl faulty sensor",
+    "outcome": "temp reading ok",
+    "row": 31,
+    "symptom": "temp sensor fail"
+   },
+   {
+    "action": "repl cabinet fan",
+    "outcome": "temp norm",
+    "row": 32,
+    "symptom": "cabinet hot"
+   },
+   {
+    "action": "repl reg seal",
+    "outcome": "no leak",
+    "row": 33,
+    "symptom": "air leak"
+   },
+   {
+    "action": "prime system",
+    "outcome": "material flow",
+    "row": 34,
+    "symptom": "pump air lock"
+   },
+   {
+    "action": "repl bearing",
+    "outcome": "ok now",
+    "row": 35,
+    "symptom": "bearing fail"
+   },
+   {
+    "action": "repl electrode tips",
+    "outcome": "weld good",
+    "row": 36,
+    "symptom": "weld tip worn"
+   },
+   {
+    "action": "repl regulator",
+    "outcome": "stable air",
+    "row": 37,
+    "symptom": "unstable air"
+   },
+   {
+    "action": "clean strainer",
+    "outcome": "flow ok",
+    "row": 38,
+    "symptom": "flow alarm"
+   },
+   {
+    "action": "reset locator pin",
+    "outcome": "pos corrected",
+    "row": 39,
+    "symptom": "locator misfire"
+   },
+   {
+    "action": "repl dryer desiccant",
+    "outcome": "air dry",
+    "row": 40,
+    "symptom": "air wet"
+   },
+   {
+    "action": "clean gun strainer",
+    "outcome": "flow up",
+    "row": 41,
+    "symptom": "coolant flow low"
+   },
+   {
+    "action": "tighten fitting",
+    "outcome": "dry",
+    "row": 42,
+    "symptom": "hyd leak"
+   },
+   {
+    "action": "align photo eye",
+    "outcome": "sensor detect",
+    "row": 43,
+    "symptom": "part miss"
+   },
+   {
+    "action": "wash condenser",
+    "outcome": "temp dropped",
+    "row": 44,
+    "symptom": "high chiller temp"
+   },
+   {
+    "action": "repl shunt",
+    "outcome": "cool run",
+    "row": 45,
+    "symptom": "shunt hot"
+   },
+   {
+    "action": "repl shaft seals",
+    "outcome": "no drip",
+    "row": 46,
+    "symptom": "sealer drip"
+   },
+   {
+    "action": "replace brg",
+    "outcome": "smooth running",
+    "row": 47,
+    "symptom": "brg noise"
+   },
+   {
+    "action": "adj tensioner",
+    "outcome": "ok",
+    "row": 48,
+    "symptom": "chain loose"
+   },
+   {
+    "action": "repl air hose",
+    "outcome": "press stable",
+    "row": 49,
+    "symptom": "pressure drop"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3136,
+  "output_tokens": 1622,
+  "thinking_tokens": 0,
+  "usd": 0.003217
+ }
+}

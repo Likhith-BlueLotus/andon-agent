@@ -1,0 +1,27 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "No major alarms prev shift. 14:00 changeover done, model A to B."
+   },
+   {
+    "slot": 2,
+    "text": "No major alarms prev shift. 22:00 changeover model B to A complete."
+   },
+   {
+    "slot": 3,
+    "text": "06:11 line stopped ST30 weld cell B, servo temp high trip, maintenance called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 734,
+  "output_tokens": 135,
+  "thinking_tokens": 0,
+  "usd": 0.000386
+ }
+}

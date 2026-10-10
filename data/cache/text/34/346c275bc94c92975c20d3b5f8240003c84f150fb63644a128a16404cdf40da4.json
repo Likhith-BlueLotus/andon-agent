@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "realigned photo eye bracket, tightned bolts",
+    "outcome": "sensor clear, system running",
+    "row": 0,
+    "symptom": "conveyor auto stop, sensor light red"
+   },
+   {
+    "action": "replaced clogged air filter elements",
+    "outcome": "dew point dropped, restored",
+    "row": 1,
+    "symptom": "high air dew point alarm"
+   },
+   {
+    "action": "drained old oil, repl filter, added new oil",
+    "outcome": "pm complete, oil level good",
+    "row": 2,
+    "symptom": "scheduled maintenance compressor oil"
+   },
+   {
+    "action": "replaced faulty heater cartridge in hose",
+    "outcome": "flow stabilized, temp setpoint met",
+    "row": 3,
+    "symptom": "sealer flow inconsistency reported"
+   },
+   {
+    "action": "replaced frayed shunt, torqued lugs",
+    "outcome": "cable temp normal, op resumed",
+    "row": 4,
+    "symptom": "weld cable heat alarm"
+   },
+   {
+    "action": "fixed tip dresser pneumatic feed, override wo-2400197",
+    "outcome": "tip profile now correct",
+    "row": 5,
+    "symptom": "weld tip dressing poor, tips worn"
+   },
+   {
+    "action": "cleaned fin pack, removed lint buildup",
+    "outcome": "temp normalized",
+    "row": 6,
+    "symptom": "chiller high temp alarm"
+   },
+   {
+    "action": "topped up oil to spec level",
+    "outcome": "oil level normal",
+    "row": 7,
+    "symptom": "gearbox oil level low"
+   },
+   {
+    "action": "repositioned locator pin and tightened jam nut",
+    "outcome": "part sensor clear",
+    "row": 8,
+    "symptom": "part location sensor error"
+   },
+   {
+    "action": "trimmed cable end, re-crimped lug",
+    "outcome": "cable temp stable",
+    "row": 9,
+    "symptom": "weld cable hot"
+   },
+   {
+    "action": "refilled way lube reservoir",
+    "outcome": "alarm cleared",
+    "row": 10,
+    "symptom": "way lube level low alarm"
+   },
+   {
+    "action": "cleaned lens, realigned eye",
+    "outcome": "sensor functioning",
+    "row": 11,
+    "symptom": "conveyor tripped sensor"
+   },
+   {
+    "action": "reloaded cycle data from backup",
+    "outcome": "timer synced",
+    "row": 12,
+    "symptom": "timer settings error"
+   },
+   {
+    "action": "checked wiring, cleaned sensor tip",
+    "outcome": "reading back in range",
+    "row": 13,
+    "symptom": "servo temp reading high"
+   },
+   {
+    "action": "replaced faulty thermal probe",
+    "outcome": "stable signal returned",
+    "row": 14,
+    "symptom": "servo temp unstable"
+   },
+   {
+    "action": "cleaned prop valve spool, checkd pilot air",
+    "outcome": "stroke smooth",
+    "row": 15,
+    "symptom": "press stroke jittery"
+   },
+   {
+    "action": "re-calibrated pressure transducer",
+    "outcome": "reading matches gauge",
+    "row": 16,
+    "symptom": "pressure reading drift"
+   },
+   {
+    "action": "lubed pin, adjusted stroke",
+    "outcome": "clamp cycle smooth",
+    "row": 17,
+    "symptom": "clamp pin sticking"
+   },
+   {
+    "action": "lubed drive brg, checked housing",
+    "outcome": "noise level reduced",
+    "row": 18,
+    "symptom": "bearing hum, excessive noise"
+   },
+   {
+    "action": "cleaned camera lens glass",
+    "outcome": "image clear",
+    "row": 19,
+    "symptom": "vision error, blurred image"
+   },
+   {
+    "action": "reset weld timer parameters",
+    "outcome": "cycle time restored",
+    "row": 20,
+    "symptom": "cycle time alarm"
+   },
+   {
+    "action": "cleaned pump intake strainer",
+    "outcome": "flow rate returned",
+    "row": 21,
+    "symptom": "chiller flow error"
+   },
+   {
+    "action": "adj air regulator pressure setpoint",
+    "outcome": "force consistent",
+    "row": 22,
+    "symptom": "gun force erratic"
+   },
+   {
+    "action": "refilled reservoir",
+    "outcome": "level ok",
+    "row": 23,
+    "symptom": "lube level low"
+   },
+   {
+    "action": "tightened fitting, wiped area",
+    "outcome": "leak stopped",
+    "row": 24,
+    "symptom": "oil leak found under press"
+   },
+   {
+    "action": "restored timer settings",
+    "outcome": "alarm reset",
+    "row": 25,
+    "symptom": "parameter alarm"
+   },
+   {
+    "action": "re-uploaded cycle logic",
+    "outcome": "sync ok",
+    "row": 26,
+    "symptom": "timer mismatch"
+   },
+   {
+    "action": "replaced faulty thermocouple",
+    "outcome": "temp reading normal",
+    "row": 27,
+    "symptom": "bearing temp sensor high"
+   },
+   {
+    "action": "ran tip dresser cycle, replaced cutter",
+    "outcome": "tips dressing good",
+    "row": 28,
+    "symptom": "weld tip wear fast"
+   },
+   {
+    "action": "flushed prop valve port",
+    "outcome": "valve speed normal",
+    "row": 29,
+    "symptom": "valve slow response"
+   },
+   {
+    "action": "wiped down camera lens",
+    "outcome": "readings good",
+    "row": 30,
+    "symptom": "vision read error"
+   },
+   {
+    "action": "tightened loose fitting at pump",
+    "outcome": "no more leaking",
+    "row": 31,
+    "symptom": "hydraulic drip found"
+   },
+   {
+    "action": "reset logic params",
+    "outcome": "parameter error cleared",
+    "row": 32,
+    "symptom": "timer error"
+   },
+   {
+    "action": "restored from memory",
+    "outcome": "cycle normal",
+    "row": 33,
+    "symptom": "timer logic error"
+   },
+   {
+    "action": "adj take up tensioner",
+    "outcome": "chain tight",
+    "row": 34,
+    "symptom": "chain drive loose"
+   },
+   {
+    "action": "re-calibrated transducer",
+    "outcome": "calibrated",
+    "row": 35,
+    "symptom": "pressure reading off"
+   },
+   {
+    "action": "aligned pin bracket",
+    "outcome": "fault cleared",
+    "row": 36,
+    "symptom": "pin locator fault"
+   },
+   {
+    "action": "refilled way lube",
+    "outcome": "op ok",
+    "row": 37,
+    "symptom": "lube tank low"
+   },
+   {
+    "action": "cleared strainer, flushed hose",
+    "outcome": "flow normal",
+    "row": 38,
+    "symptom": "coolant flow low alarm"
+   },
+   {
+    "action": "lubricated brg, checked alignment",
+    "outcome": "noise resolved",
+    "row": 39,
+    "symptom": "drive brg noise"
+   },
+   {
+    "action": "reseated cable, tied off",
+    "outcome": "signal restored",
+    "row": 40,
+    "symptom": "vision loss of comm"
+   },
+   {
+    "action": "reset to baseline",
+    "outcome": "timer fixed",
+    "row": 41,
+    "symptom": "timer mismatch"
+   },
+   {
+    "action": "calibrated transducer",
+    "outcome": "reading matched",
+    "row": 42,
+    "symptom": "pressure reading error"
+   },
+   {
+    "action": "reloaded timer setpoint",
+    "outcome": "ok",
+    "row": 43,
+    "symptom": "parameter check fail"
+   },
+   {
+    "action": "replaced lighting led module",
+    "outcome": "light stable",
+    "row": 44,
+    "symptom": "lighting flickers"
+   },
+   {
+    "action": "tightened pipe fitting",
+    "outcome": "leak gone",
+    "row": 45,
+    "symptom": "oil weep at pump"
+   },
+   {
+    "action": "replaced cab fan unit",
+    "outcome": "temp dropping",
+    "row": 46,
+    "symptom": "servo drive overtemp"
+   },
+   {
+    "action": "repl hyd filter elements",
+    "outcome": "pm complete",
+    "row": 47,
+    "symptom": "pm filter needed"
+   },
+   {
+    "action": "cleared tip blockage",
+    "outcome": "pattern restored",
+    "row": 48,
+    "symptom": "sealer pattern poor"
+   },
+   {
+    "action": "cleaned coolant strainer",
+    "outcome": "alarm cleared",
+    "row": 49,
+    "symptom": "gun coolant flow alarm"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3124,
+  "output_tokens": 1407,
+  "thinking_tokens": 0,
+  "usd": 0.002891
+ }
+}

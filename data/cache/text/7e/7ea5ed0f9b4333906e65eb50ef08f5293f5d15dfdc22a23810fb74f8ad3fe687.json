@@ -1,0 +1,35 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "14:00 shift start, model B running. No major alarms during previous shift."
+   },
+   {
+    "slot": 2,
+    "text": "22:00 shift start, model B chal raha hai. Previous shift mein koi major alarm nahi tha."
+   },
+   {
+    "slot": 3,
+    "text": "ST20 Weld cell A cycle time high 19 times, clamp position retry 12 times. ST60 Vision check reject rate high. 06:00 shift start, model B running."
+   },
+   {
+    "slot": 4,
+    "text": "ST20 Weld cell A cycle time high 11 times, clamp position retry 10 times."
+   },
+   {
+    "slot": 5,
+    "text": "Line stopped at 09:18 for QA hold due to high reject rate. Prior ST20 alarms recorded. Maintenance called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 1016,
+  "output_tokens": 248,
+  "thinking_tokens": 0,
+  "usd": 0.000626
+ }
+}

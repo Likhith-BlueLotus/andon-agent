@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "adj air regulator output",
+    "outcome": "pressure stable",
+    "row": 0,
+    "symptom": "weld gun air pressure fluctuation"
+   },
+   {
+    "action": "clear debris from locater",
+    "outcome": "pin movement restored",
+    "row": 1,
+    "symptom": "clamp pin fail to seat"
+   },
+   {
+    "action": "repl cabinet cooling fan",
+    "outcome": "drive temp normal",
+    "row": 2,
+    "symptom": "servo drive high temp fault"
+   },
+   {
+    "action": "restore default timer params",
+    "outcome": "cycle stable",
+    "row": 3,
+    "symptom": "cycle timer inconsistent"
+   },
+   {
+    "action": "clean oil cooler fins",
+    "outcome": "oil temp cooling",
+    "row": 4,
+    "symptom": "hyd oil temp high alarm"
+   },
+   {
+    "action": "repl worn pump seal",
+    "outcome": "pressure restored",
+    "row": 5,
+    "symptom": "sealer pump pressure drop"
+   },
+   {
+    "action": "lubed pin housing",
+    "outcome": "pin retracted",
+    "row": 6,
+    "symptom": "clamp pin sticking"
+   },
+   {
+    "action": "chk transducer wiring",
+    "outcome": "reading stable",
+    "row": 7,
+    "symptom": "press pressure unstable"
+   },
+   {
+    "action": "repl faulty temp sensor",
+    "outcome": "temp signal steady",
+    "row": 8,
+    "symptom": "servo temp sensor fault"
+   },
+   {
+    "action": "tightened hyd hose fitting",
+    "outcome": "leak continues under load",
+    "row": 9,
+    "symptom": "hyd oil weeping at fitting"
+   },
+   {
+    "action": "topped up gearbox oil",
+    "outcome": "level normal",
+    "row": 10,
+    "symptom": "gearbox oil low level"
+   },
+   {
+    "action": "cleaned gun coolant strainer",
+    "outcome": "flow restored",
+    "row": 11,
+    "symptom": "coolant flow alarm"
+   },
+   {
+    "action": "adj air regulator",
+    "outcome": "pressure optimal",
+    "row": 12,
+    "symptom": "low air pressure alarm"
+   },
+   {
+    "action": "purged air from lines",
+    "outcome": "pump steady",
+    "row": 13,
+    "symptom": "sealer pump cavitating"
+   },
+   {
+    "action": "repl faulty dryer filter",
+    "outcome": "dryer normal",
+    "row": 14,
+    "symptom": "air dryer low dewpoint"
+   },
+   {
+    "action": "repl hyd filter element",
+    "outcome": "filter updated",
+    "row": 15,
+    "symptom": "pm schedule due"
+   },
+   {
+    "action": "reloaded timer software",
+    "outcome": "timer normal",
+    "row": 16,
+    "symptom": "weld cycle timer erratic"
+   },
+   {
+    "action": "reset dryer controller",
+    "outcome": "dryer running",
+    "row": 17,
+    "symptom": "dryer compressor fault"
+   },
+   {
+    "action": "re-seated comm cable",
+    "outcome": "comms restored",
+    "row": 18,
+    "symptom": "vision camera offline"
+   },
+   {
+    "action": "cleaned pump nozzle",
+    "outcome": "bead uniform",
+    "row": 19,
+    "symptom": "sealer bead inconsistent"
+   },
+   {
+    "action": "calibrated system for current job",
+    "outcome": "setpoint corrected",
+    "row": 20,
+    "symptom": "pressure setpoint error"
+   },
+   {
+    "action": "repl bearing temp sensor",
+    "outcome": "temp reading normal",
+    "row": 21,
+    "symptom": "conveyor bearing alarm"
+   },
+   {
+    "action": "cleaned condenser coil",
+    "outcome": "dryer cool",
+    "row": 22,
+    "symptom": "air dryer overheating"
+   },
+   {
+    "action": "chk transducer cable",
+    "outcome": "reading accurate",
+    "row": 23,
+    "symptom": "press pressure readout off"
+   },
+   {
+    "action": "adj pin bracket",
+    "outcome": "pin aligned",
+    "row": 24,
+    "symptom": "locator pin misaligned"
+   },
+   {
+    "action": "repl hyd gauge",
+    "outcome": "pressure still erratic",
+    "row": 25,
+    "symptom": "press pressure erratic"
+   },
+   {
+    "action": "refilled way lube tank",
+    "outcome": "level ok",
+    "row": 26,
+    "symptom": "way lube level low"
+   },
+   {
+    "action": "repl lighting module",
+    "outcome": "image clear",
+    "row": 27,
+    "symptom": "vision dim image"
+   },
+   {
+    "action": "ran tip dresser",
+    "outcome": "weld quality ok",
+    "row": 28,
+    "symptom": "weld quality low"
+   },
+   {
+    "action": "repl worn weld shunt",
+    "outcome": "heat returned",
+    "row": 29,
+    "symptom": "weld heat loss"
+   },
+   {
+    "action": "repl sensor wiring",
+    "outcome": "sensor operational",
+    "row": 30,
+    "symptom": "servo temp sensor alarm"
+   },
+   {
+    "action": "repl clogged coolant hose",
+    "outcome": "flow ok",
+    "row": 31,
+    "symptom": "coolant flow alarm"
+   },
+   {
+    "action": "repl faulty prop valve",
+    "outcome": "valve functioning",
+    "row": 32,
+    "symptom": "valve slow response"
+   },
+   {
+    "action": "adj pressure regulator",
+    "outcome": "pressure stable",
+    "row": 33,
+    "symptom": "gun air pressure drop"
+   },
+   {
+    "action": "cleaned tip",
+    "outcome": "flow restored",
+    "row": 34,
+    "symptom": "sealer bead skipped"
+   },
+   {
+    "action": "repl sensor",
+    "outcome": "temp normal",
+    "row": 35,
+    "symptom": "temp sensor fault"
+   },
+   {
+    "action": "dressed tips",
+    "outcome": "tips good",
+    "row": 36,
+    "symptom": "weld tips mushroomed"
+   },
+   {
+    "action": "bled lines",
+    "outcome": "pump priming",
+    "row": 37,
+    "symptom": "pump starving"
+   },
+   {
+    "action": "dressed tips",
+    "outcome": "welds passing",
+    "row": 38,
+    "symptom": "bad welds"
+   },
+   {
+    "action": "replaced sensor",
+    "outcome": "signal clean",
+    "row": 39,
+    "symptom": "temp sensor noisy"
+   },
+   {
+    "action": "replenished way lube",
+    "outcome": "lube full",
+    "row": 40,
+    "symptom": "lube alert"
+   },
+   {
+    "action": "repl pump seal",
+    "outcome": "leak fixed",
+    "row": 41,
+    "symptom": "hyd oil weep"
+   },
+   {
+    "action": "re-input timer settings",
+    "outcome": "settings saved",
+    "row": 42,
+    "symptom": "cycle timer lost settings"
+   },
+   {
+    "action": "refilled tank",
+    "outcome": "alarm cleared",
+    "row": 43,
+    "symptom": "lube alarm"
+   },
+   {
+    "action": "cleaned cooler",
+    "outcome": "temp dropping",
+    "row": 44,
+    "symptom": "hyd oil hot"
+   },
+   {
+    "action": "repl pump seals",
+    "outcome": "no leak",
+    "row": 45,
+    "symptom": "pump seal leak"
+   },
+   {
+    "action": "reset params",
+    "outcome": "timing normal",
+    "row": 46,
+    "symptom": "timer drift"
+   },
+   {
+    "action": "repl weld shunt",
+    "outcome": "ready",
+    "row": 47,
+    "symptom": "weld shunt frayed"
+   },
+   {
+    "action": "cleaned cooler radiator",
+    "outcome": "temp ok",
+    "row": 48,
+    "symptom": "high oil temp"
+   },
+   {
+    "action": "repl cooling fan",
+    "outcome": "fan running",
+    "row": 49,
+    "symptom": "servo fan error"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3170,
+  "output_tokens": 2383,
+  "thinking_tokens": 0,
+  "usd": 0.004367
+ }
+}

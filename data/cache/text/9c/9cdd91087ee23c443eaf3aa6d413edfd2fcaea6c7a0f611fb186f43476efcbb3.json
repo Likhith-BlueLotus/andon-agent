@@ -1,0 +1,35 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "No major alarms prev shift. 14:00 changeover model B to model A complete."
+   },
+   {
+    "slot": 2,
+    "text": "No major alarms prev shift. 22:00 changeover model A to model B complete."
+   },
+   {
+    "slot": 3,
+    "text": "04:02 ST40 Sealer station blocked (outfeed full). 04:36 ST60 Vision station starved waiting for part (x2)."
+   },
+   {
+    "slot": 4,
+    "text": "02:22 ST50 Conveyor vibration high (x3). 04:02 ST40 Sealer blocked (x3). 04:36 ST60 Vision starved (x4). 06:00 running model B."
+   },
+   {
+    "slot": 5,
+    "text": "07:17 ST60 Vision starved, 07:29 ST40 blocked, 07:34 ST30 blocked. 07:40 line stopped, conveyor vibration high-high. Maintenance called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 1048,
+  "output_tokens": 298,
+  "thinking_tokens": 0,
+  "usd": 0.000709
+ }
+}

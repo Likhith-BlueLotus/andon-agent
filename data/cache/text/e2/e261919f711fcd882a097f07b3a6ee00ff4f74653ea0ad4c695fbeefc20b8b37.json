@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "repl cabinet fan and filter",
+    "outcome": "temp normalized",
+    "row": 0,
+    "symptom": "servo gun cabinet hot"
+   },
+   {
+    "action": "cln gun strainer and flush lines",
+    "outcome": "flow restored",
+    "row": 1,
+    "symptom": "low flow error to gun"
+   },
+   {
+    "action": "recalibrate sensor and chk cable",
+    "outcome": "stable reading",
+    "row": 2,
+    "symptom": "servo sensor drift"
+   },
+   {
+    "action": "topped up oil to level",
+    "outcome": "ok",
+    "row": 3,
+    "symptom": "gearbox oil low"
+   },
+   {
+    "action": "replaced worn shunt cable",
+    "outcome": "weld quality good",
+    "row": 4,
+    "symptom": "shunt burning"
+   },
+   {
+    "action": "flushed strainer in gun loop",
+    "outcome": "flow ok",
+    "row": 5,
+    "symptom": "coolant flow alarm"
+   },
+   {
+    "action": "power wash coil",
+    "outcome": "efficiency improved",
+    "row": 6,
+    "symptom": "condenser coil restricted"
+   },
+   {
+    "action": "adj cylinder clamp arm",
+    "outcome": "pin aligned",
+    "row": 7,
+    "symptom": "locating pin not seating"
+   },
+   {
+    "action": "lubed pin housing",
+    "outcome": "free movement",
+    "row": 8,
+    "symptom": "locating pin sticking"
+   },
+   {
+    "action": "chkd connections",
+    "outcome": "fault cleared",
+    "row": 9,
+    "symptom": "servo sensor error"
+   },
+   {
+    "action": "reset parameter",
+    "outcome": "reading normal",
+    "row": 10,
+    "symptom": "servo temp erratic"
+   },
+   {
+    "action": "re-seated conn pins",
+    "outcome": "fault still present",
+    "row": 11,
+    "symptom": "servo temp erratic"
+   },
+   {
+    "action": "re-tuned prop valve",
+    "outcome": "cycle time ok",
+    "row": 12,
+    "symptom": "valve response slow"
+   },
+   {
+    "action": "checked wiring harness",
+    "outcome": "sensor stable",
+    "row": 13,
+    "symptom": "servo temp error"
+   },
+   {
+    "action": "cleared nozzle tip",
+    "outcome": "still restricted",
+    "row": 14,
+    "symptom": "nozzle flow weak"
+   },
+   {
+    "action": "cln valve spool",
+    "outcome": "response snappy",
+    "row": 15,
+    "symptom": "press valve lag"
+   },
+   {
+    "action": "repl blocked strainer",
+    "outcome": "flow ok",
+    "row": 16,
+    "symptom": "gun coolant alarm"
+   },
+   {
+    "action": "repl starved supply line",
+    "outcome": "flow fixed",
+    "row": 17,
+    "symptom": "nozzle flow weak"
+   },
+   {
+    "action": "repl shunt",
+    "outcome": "ok",
+    "row": 18,
+    "symptom": "weld shunt frayed"
+   },
+   {
+    "action": "tightened hydraulic fitting",
+    "outcome": "no leak",
+    "row": 19,
+    "symptom": "oil weeping at fitting"
+   },
+   {
+    "action": "repl transducer",
+    "outcome": "correct pressure",
+    "row": 20,
+    "symptom": "transducer reading high"
+   },
+   {
+    "action": "adj pin bracket",
+    "outcome": "aligned",
+    "row": 21,
+    "symptom": "locator pin misaligned"
+   },
+   {
+    "action": "reloaded plc program",
+    "outcome": "correct match",
+    "row": 22,
+    "symptom": "pressure setpoint error"
+   },
+   {
+    "action": "repl faulty thermal switch",
+    "outcome": "cooling normal",
+    "row": 23,
+    "symptom": "servo cabinet over temp"
+   },
+   {
+    "action": "calibrated hmi pressure set",
+    "outcome": "ok",
+    "row": 24,
+    "symptom": "pressure setpoint mismatch"
+   },
+   {
+    "action": "checked wiring",
+    "outcome": "ok",
+    "row": 25,
+    "symptom": "temp sensor reading"
+   },
+   {
+    "action": "aligned lens",
+    "outcome": "signal restored",
+    "row": 26,
+    "symptom": "photo eye misaligned"
+   },
+   {
+    "action": "reloaded data",
+    "outcome": "timer set",
+    "row": 27,
+    "symptom": "cycle timer off"
+   },
+   {
+    "action": "adj regulator",
+    "outcome": "pressure ok",
+    "row": 28,
+    "symptom": "gun pressure low"
+   },
+   {
+    "action": "calibrated sensor",
+    "outcome": "accurate",
+    "row": 29,
+    "symptom": "pressure transducer drift"
+   },
+   {
+    "action": "inputted correct timing",
+    "outcome": "fixed",
+    "row": 30,
+    "symptom": "timer param error"
+   },
+   {
+    "action": "reset to std",
+    "outcome": "fixed",
+    "row": 31,
+    "symptom": "timer param error"
+   },
+   {
+    "action": "replaced filter",
+    "outcome": "faster",
+    "row": 32,
+    "symptom": "valve response delay"
+   },
+   {
+    "action": "repl cabinet fan",
+    "outcome": "temp down",
+    "row": 33,
+    "symptom": "servo over heat"
+   },
+   {
+    "action": "cleaned nozzle",
+    "outcome": "ok",
+    "row": 34,
+    "symptom": "nozzle flow low"
+   },
+   {
+    "action": "cleaned lens",
+    "outcome": "clear image",
+    "row": 35,
+    "symptom": "vision image blurry"
+   },
+   {
+    "action": "replaced shunt",
+    "outcome": "fixed",
+    "row": 36,
+    "symptom": "weld shunt wear"
+   },
+   {
+    "action": "replaced drive bearing",
+    "outcome": "quiet",
+    "row": 37,
+    "symptom": "bearing noise"
+   },
+   {
+    "action": "reset parameters",
+    "outcome": "match",
+    "row": 38,
+    "symptom": "pressure setting error"
+   },
+   {
+    "action": "re-dressed tips",
+    "outcome": "weld ok",
+    "row": 39,
+    "symptom": "electrode tips worn"
+   },
+   {
+    "action": "adjusted tension",
+    "outcome": "ok",
+    "row": 40,
+    "symptom": "chain loose"
+   },
+   {
+    "action": "replaced filter",
+    "outcome": "fixed",
+    "row": 41,
+    "symptom": "dryer alarm"
+   },
+   {
+    "action": "reloaded settings",
+    "outcome": "ok",
+    "row": 42,
+    "symptom": "cycle timer fault"
+   },
+   {
+    "action": "cleaned strainer",
+    "outcome": "flow up",
+    "row": 43,
+    "symptom": "coolant flow alarm"
+   },
+   {
+    "action": "replaced heating element",
+    "outcome": "heat ok",
+    "row": 44,
+    "symptom": "heated hose trip"
+   },
+   {
+    "action": "replaced coupling",
+    "outcome": "no hiss",
+    "row": 45,
+    "symptom": "air leak"
+   },
+   {
+    "action": "replaced regulator",
+    "outcome": "stable",
+    "row": 46,
+    "symptom": "gun pressure variation"
+   },
+   {
+    "action": "cleaned strainer",
+    "outcome": "flow ok",
+    "row": 47,
+    "symptom": "low flow alarm"
+   },
+   {
+    "action": "cleaned and lubed",
+    "outcome": "ok",
+    "row": 48,
+    "symptom": "pin sticking"
+   },
+   {
+    "action": "adj pneumatic valve",
+    "outcome": "ok",
+    "row": 49,
+    "symptom": "locator pin slow"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3187,
+  "output_tokens": 1617,
+  "thinking_tokens": 0,
+  "usd": 0.003222
+ }
+}

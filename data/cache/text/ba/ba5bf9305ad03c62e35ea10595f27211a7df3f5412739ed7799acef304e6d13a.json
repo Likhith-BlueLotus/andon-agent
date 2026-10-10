@@ -1,0 +1,35 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "14:00 shift start. No major alarms prev shift. Running model B."
+   },
+   {
+    "slot": 2,
+    "text": "15:54 ST20 weld energy OOB x3. 20:36 ST20 tip res high x6. 20:41 ST60 reject rate high x3. 22:00 model B to A changeover done."
+   },
+   {
+    "slot": 3,
+    "text": "22:21 ST60 reject high. 22:29 ST20 tip res high x11. 22:51 ST20 energy OOB x8. 06:00 model A to B changeover complete."
+   },
+   {
+    "slot": 4,
+    "text": "05:43 ST20 energy OOB x3. 06:21 ST20 tip res high. 06:21 ST60 reject rate high."
+   },
+   {
+    "slot": 5,
+    "text": "08:57 line stopped, QA hold due to high reject rate. Maintenance bulaya gaya hai."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 1065,
+  "output_tokens": 307,
+  "thinking_tokens": 0,
+  "usd": 0.000727
+ }
+}

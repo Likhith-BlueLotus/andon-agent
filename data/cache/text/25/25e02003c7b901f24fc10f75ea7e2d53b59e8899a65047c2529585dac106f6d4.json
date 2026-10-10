@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "re-calibrated sensor settings",
+    "outcome": "reading back to nominal",
+    "row": 0,
+    "symptom": "pressure transducer drift"
+   },
+   {
+    "action": "clean chiller pump strainer",
+    "outcome": "flow restored",
+    "row": 1,
+    "symptom": "flow low alarm"
+   },
+   {
+    "action": "replaced worn tips and cycled dresser",
+    "outcome": "weld ok",
+    "row": 2,
+    "symptom": "weld quality poor"
+   },
+   {
+    "action": "adj trans output signal",
+    "outcome": "stable pressure",
+    "row": 3,
+    "symptom": "press pressure unstable"
+   },
+   {
+    "action": "replaced frayed weld shunt",
+    "outcome": "resistance back to spec",
+    "row": 4,
+    "symptom": "high weld resistance error"
+   },
+   {
+    "action": "reset temp sensor connection",
+    "outcome": "fault cleared",
+    "row": 5,
+    "symptom": "servo motor temp alarm"
+   },
+   {
+    "action": "updated press setpoints in plc",
+    "outcome": "pressure corrected",
+    "row": 6,
+    "symptom": "pressure drop after shift"
+   },
+   {
+    "action": "reloaded original timer parameters",
+    "outcome": "cycle time synced",
+    "row": 7,
+    "symptom": "weld cycle timing drift"
+   },
+   {
+    "action": "repl main brg as prev fix failed",
+    "outcome": "noise resolved",
+    "row": 8,
+    "symptom": "drive bearing noise persists"
+   },
+   {
+    "action": "repl faulty sensor cabling",
+    "outcome": "temp signal steady",
+    "row": 9,
+    "symptom": "servo temp sensor fault"
+   },
+   {
+    "action": "secured ethernet cable",
+    "outcome": "comms restored",
+    "row": 10,
+    "symptom": "camera signal dropping out"
+   },
+   {
+    "action": "bled air from material feed line",
+    "outcome": "pump priming fixed",
+    "row": 11,
+    "symptom": "sealer pump pressure erratic"
+   },
+   {
+    "action": "checked heating element wiring",
+    "outcome": "temp normalized",
+    "row": 12,
+    "symptom": "heated hose temp alarm"
+   },
+   {
+    "action": "repl stuck auto drain valve",
+    "outcome": "leak fixed",
+    "row": 13,
+    "symptom": "air leak in manifold"
+   },
+   {
+    "action": "inspected inlet filter, purged air",
+    "outcome": "pump stable",
+    "row": 14,
+    "symptom": "pump cavitating, low pressure"
+   },
+   {
+    "action": "repl damaged quick connect fitting",
+    "outcome": "leak stopped",
+    "row": 15,
+    "symptom": "hissing air leak"
+   },
+   {
+    "action": "wiped down camera lens",
+    "outcome": "clear image returned",
+    "row": 16,
+    "symptom": "vision error codes"
+   },
+   {
+    "action": "reset controller cycle parameters",
+    "outcome": "normal operation",
+    "row": 17,
+    "symptom": "weld sequence timeout"
+   },
+   {
+    "action": "changed compressor oil and filter",
+    "outcome": "pm completed",
+    "row": 18,
+    "symptom": "pm due"
+   },
+   {
+    "action": "cleaned chiller strainer",
+    "outcome": "flow ok",
+    "row": 19,
+    "symptom": "low flow alarm"
+   },
+   {
+    "action": "repl faulty temp sensor",
+    "outcome": "reading back to normal",
+    "row": 20,
+    "symptom": "conveyor bearing high temp alarm"
+   },
+   {
+    "action": "checked terminal block connections",
+    "outcome": "heating remains intermittent",
+    "row": 21,
+    "symptom": "hose not heating"
+   },
+   {
+    "action": "adjusted gun air regulator",
+    "outcome": "force increased",
+    "row": 22,
+    "symptom": "gun weld force weak"
+   },
+   {
+    "action": "dressed electrode tips",
+    "outcome": "weld quality restored",
+    "row": 23,
+    "symptom": "bad weld spots"
+   },
+   {
+    "action": "refilled lube reservoir",
+    "outcome": "warning cleared",
+    "row": 24,
+    "symptom": "way lube low"
+   },
+   {
+    "action": "corrected weld timer settings",
+    "outcome": "cycle restored",
+    "row": 25,
+    "symptom": "timer drift error"
+   },
+   {
+    "action": "re-calibrated hydraulic transducer",
+    "outcome": "accuracy restored",
+    "row": 26,
+    "symptom": "pressure gauge reading mismatch"
+   },
+   {
+    "action": "adj locator pin position",
+    "outcome": "pin clear",
+    "row": 27,
+    "symptom": "part not seated"
+   },
+   {
+    "action": "changed intake filter",
+    "outcome": "pressure improved",
+    "row": 28,
+    "symptom": "low air pressure"
+   },
+   {
+    "action": "adjusted transducer offset",
+    "outcome": "setpoint verified",
+    "row": 29,
+    "symptom": "pressure setpoint error"
+   },
+   {
+    "action": "adjusted regulator pressure",
+    "outcome": "speed back to normal",
+    "row": 30,
+    "symptom": "gun slow closing"
+   },
+   {
+    "action": "repl pump shaft seal",
+    "outcome": "no leaks",
+    "row": 31,
+    "symptom": "sealer leak at pump"
+   },
+   {
+    "action": "realigned locator pin",
+    "outcome": "pin still binding",
+    "row": 32,
+    "symptom": "part error on jig"
+   },
+   {
+    "action": "replaced worn shunt",
+    "outcome": "weld strength back",
+    "row": 33,
+    "symptom": "weld power drop"
+   },
+   {
+    "action": "fixed bent locator pin",
+    "outcome": "part seated",
+    "row": 34,
+    "symptom": "part seating fault"
+   },
+   {
+    "action": "repl faulty hose coupling",
+    "outcome": "air tight",
+    "row": 35,
+    "symptom": "air noise heard"
+   },
+   {
+    "action": "adjusted drive chain tension",
+    "outcome": "tension perfect",
+    "row": 36,
+    "symptom": "chain slack"
+   },
+   {
+    "action": "repl sensor",
+    "outcome": "temp normal",
+    "row": 37,
+    "symptom": "bearing over temp false alarm"
+   },
+   {
+    "action": "dressed tips",
+    "outcome": "quality good",
+    "row": 38,
+    "symptom": "weld tips mushrooming"
+   },
+   {
+    "action": "tightened hydraulic fitting",
+    "outcome": "weeping stopped",
+    "row": 39,
+    "symptom": "oil weeping from fitting"
+   },
+   {
+    "action": "cleared air pocket in line",
+    "outcome": "flow steady",
+    "row": 40,
+    "symptom": "pump motor stalling"
+   },
+   {
+    "action": "cleaned gun coolant strainer",
+    "outcome": "flow okay",
+    "row": 41,
+    "symptom": "cooling alarm gun 3"
+   },
+   {
+    "action": "tightened sensor wiring",
+    "outcome": "stable reading",
+    "row": 42,
+    "symptom": "temp sensor reading erratic"
+   },
+   {
+    "action": "cleaned proportional valve spool",
+    "outcome": "response back to normal",
+    "row": 43,
+    "symptom": "press cycle lagging"
+   },
+   {
+    "action": "reconnected camera comm cable",
+    "outcome": "comms restored",
+    "row": 44,
+    "symptom": "comm link error"
+   },
+   {
+    "action": "cleaned optics",
+    "outcome": "image clear",
+    "row": 45,
+    "symptom": "blurry images"
+   },
+   {
+    "action": "dressed weld caps",
+    "outcome": "weld good",
+    "row": 46,
+    "symptom": "poor welds"
+   },
+   {
+    "action": "adj regulator",
+    "outcome": "force okay",
+    "row": 47,
+    "symptom": "gun force low"
+   },
+   {
+    "action": "replaced faulty hose thermostat",
+    "outcome": "heating restored",
+    "row": 48,
+    "symptom": "hose not heating"
+   },
+   {
+    "action": "adj locator pin",
+    "outcome": "part position correct",
+    "row": 49,
+    "symptom": "part locator issue"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3113,
+  "output_tokens": 2421,
+  "thinking_tokens": 0,
+  "usd": 0.00441
+ }
+}

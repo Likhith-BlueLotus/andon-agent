@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "repl heating element",
+    "outcome": "temp restored",
+    "row": 0,
+    "symptom": "sealer pump heated hose error"
+   },
+   {
+    "action": "adj mounting bracket",
+    "outcome": "aligned",
+    "row": 1,
+    "symptom": "conveyor photo eye triggered"
+   },
+   {
+    "action": "repl damaged bearing",
+    "outcome": "running quiet",
+    "row": 2,
+    "symptom": "drive end brg noise"
+   },
+   {
+    "action": "replaced faulty led driver",
+    "outcome": "img stable",
+    "row": 3,
+    "symptom": "vision lighting module flickering"
+   },
+   {
+    "action": "reloaded system parameters",
+    "outcome": "normal op",
+    "row": 4,
+    "symptom": "weld controller timer drift"
+   },
+   {
+    "action": "bled air from line",
+    "outcome": "flow restored",
+    "row": 5,
+    "symptom": "pump inlet starved"
+   },
+   {
+    "action": "greased and checked shaft",
+    "outcome": "resolved",
+    "row": 6,
+    "symptom": "conveyor drive brg noise"
+   },
+   {
+    "action": "clnd strainer filter",
+    "outcome": "flow ok",
+    "row": 7,
+    "symptom": "chiller pump low flow"
+   },
+   {
+    "action": "replaced sensor probe",
+    "outcome": "data normal",
+    "row": 8,
+    "symptom": "brg temp sensor erratic"
+   },
+   {
+    "action": "swapped weld shunt",
+    "outcome": "fixed",
+    "row": 9,
+    "symptom": "weld shunt frayed"
+   },
+   {
+    "action": "calibrated 4-20ma loop",
+    "outcome": "accurate",
+    "row": 10,
+    "symptom": "pressure transducer drift"
+   },
+   {
+    "action": "replaced housing brg",
+    "outcome": "smooth",
+    "row": 11,
+    "symptom": "conveyor drive brg noise"
+   },
+   {
+    "action": "cleaned cab fan",
+    "outcome": "temp down",
+    "row": 12,
+    "symptom": "servo gun controller heat"
+   },
+   {
+    "action": "changed intake filter",
+    "outcome": "fault persists",
+    "row": 13,
+    "symptom": "low air pressure alarm"
+   },
+   {
+    "action": "adj chain tensioner",
+    "outcome": "tightened",
+    "row": 14,
+    "symptom": "chain loose on conveyor"
+   },
+   {
+    "action": "replaced sensor wiring",
+    "outcome": "fixed",
+    "row": 15,
+    "symptom": "brg sensor showing high temp"
+   },
+   {
+    "action": "repl mechanical seal",
+    "outcome": "leak stop",
+    "row": 16,
+    "symptom": "sealer pump seal drip"
+   },
+   {
+    "action": "reset defaults",
+    "outcome": "system live",
+    "row": 17,
+    "symptom": "weld controller timer error"
+   },
+   {
+    "action": "repl blocked strainer",
+    "outcome": "flow rectified",
+    "row": 18,
+    "symptom": "low coolant flow at gun"
+   },
+   {
+    "action": "re-terminated sensor conn",
+    "outcome": "signal stable",
+    "row": 19,
+    "symptom": "temp sensor reading error"
+   },
+   {
+    "action": "repl control fuse",
+    "outcome": "still faulting",
+    "row": 20,
+    "symptom": "air dryer error light"
+   },
+   {
+    "action": "adj drive chain",
+    "outcome": "ok",
+    "row": 21,
+    "symptom": "chain sag detected"
+   },
+   {
+    "action": "flushed hyd block",
+    "outcome": "normal speed",
+    "row": 22,
+    "symptom": "valve response slow"
+   },
+   {
+    "action": "fixed comms interference",
+    "outcome": "parameter stable",
+    "row": 23,
+    "symptom": "weld parameter shift"
+   },
+   {
+    "action": "clnd camera lens",
+    "outcome": "clear",
+    "row": 24,
+    "symptom": "vision image blurry"
+   },
+   {
+    "action": "re-calibrated p_transducer",
+    "outcome": "matches",
+    "row": 25,
+    "symptom": "pressure setpoint mismatch"
+   },
+   {
+    "action": "repl copper shunt",
+    "outcome": "fixed",
+    "row": 26,
+    "symptom": "shunt worn"
+   },
+   {
+    "action": "repl oil filter",
+    "outcome": "done",
+    "row": 27,
+    "symptom": "pm schedule due"
+   },
+   {
+    "action": "wiped down lens",
+    "outcome": "ok",
+    "row": 28,
+    "symptom": "camera lens dirty"
+   },
+   {
+    "action": "repl faulty fitting",
+    "outcome": "leak repaired",
+    "row": 29,
+    "symptom": "air leak in coupling"
+   },
+   {
+    "action": "repl solenoid coil",
+    "outcome": "fast",
+    "row": 30,
+    "symptom": "valve slow"
+   },
+   {
+    "action": "clnd strainer",
+    "outcome": "ok",
+    "row": 31,
+    "symptom": "chiller flow warning"
+   },
+   {
+    "action": "repl sensor",
+    "outcome": "fixed",
+    "row": 32,
+    "symptom": "servo temp high reading"
+   },
+   {
+    "action": "realigned cylinder head",
+    "outcome": "ok",
+    "row": 33,
+    "symptom": "clamp pin jam"
+   },
+   {
+    "action": "repl sensor cable",
+    "outcome": "signal good",
+    "row": 34,
+    "symptom": "p_transducer noisy"
+   },
+   {
+    "action": "adj chain link",
+    "outcome": "ok",
+    "row": 35,
+    "symptom": "chain loose"
+   },
+   {
+    "action": "repl stuck drain",
+    "outcome": "no air leak",
+    "row": 36,
+    "symptom": "air drain leaking"
+   },
+   {
+    "action": "tightened hose fitting",
+    "outcome": "fixed",
+    "row": 37,
+    "symptom": "air leak at fitting"
+   },
+   {
+    "action": "realignment",
+    "outcome": "ok",
+    "row": 38,
+    "symptom": "photo eye error"
+   },
+   {
+    "action": "cleared nozzle clog",
+    "outcome": "good flow",
+    "row": 39,
+    "symptom": "sealer flow uneven"
+   },
+   {
+    "action": "restored parameters",
+    "outcome": "ok",
+    "row": 40,
+    "symptom": "timer param error"
+   },
+   {
+    "action": "cleaned spool",
+    "outcome": "fixed",
+    "row": 41,
+    "symptom": "valve sluggish"
+   },
+   {
+    "action": "repl shunt",
+    "outcome": "ok",
+    "row": 42,
+    "symptom": "shunt worn"
+   },
+   {
+    "action": "reset board",
+    "outcome": "ok",
+    "row": 43,
+    "symptom": "timer fault"
+   },
+   {
+    "action": "re-calibrated",
+    "outcome": "ok",
+    "row": 44,
+    "symptom": "pressure read error"
+   },
+   {
+    "action": "adj pin bracket",
+    "outcome": "ok",
+    "row": 45,
+    "symptom": "pin pos fault"
+   },
+   {
+    "action": "topped up oil",
+    "outcome": "ok",
+    "row": 46,
+    "symptom": "gearbox oil low"
+   },
+   {
+    "action": "adj regulator",
+    "outcome": "pressure still low",
+    "row": 47,
+    "symptom": "gun pressure low"
+   },
+   {
+    "action": "lubricated pin",
+    "outcome": "free",
+    "row": 48,
+    "symptom": "pin sticking"
+   },
+   {
+    "action": "repl shunt",
+    "outcome": "ok",
+    "row": 49,
+    "symptom": "shunt worn"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3145,
+  "output_tokens": 1740,
+  "thinking_tokens": 0,
+  "usd": 0.003396
+ }
+}

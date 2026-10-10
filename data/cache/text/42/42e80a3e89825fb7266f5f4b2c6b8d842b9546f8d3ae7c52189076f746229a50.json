@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "ran tip dresser cycle",
+    "outcome": "weld ok",
+    "row": 0,
+    "symptom": "weld quality poor tips worn"
+   },
+   {
+    "action": "restored weld controller parameters",
+    "outcome": "ok",
+    "row": 1,
+    "symptom": "cycle time alarm"
+   },
+   {
+    "action": "replaced failed cabinet cooling fan",
+    "outcome": "fault cleared",
+    "row": 2,
+    "symptom": "servo gun drive alarm recurring"
+   },
+   {
+    "action": "topped up oil",
+    "outcome": "ok",
+    "row": 3,
+    "symptom": "gearbox oil low level"
+   },
+   {
+    "action": "dressed electrode tips",
+    "outcome": "tips good",
+    "row": 4,
+    "symptom": "weld surface marking"
+   },
+   {
+    "action": "replaced shunt copper flex",
+    "outcome": "fixed",
+    "row": 5,
+    "symptom": "high resistance weld error"
+   },
+   {
+    "action": "adj locator pin",
+    "outcome": "ok",
+    "row": 6,
+    "symptom": "part location error"
+   },
+   {
+    "action": "cleared nozzle blockage",
+    "outcome": "still poor output",
+    "row": 7,
+    "symptom": "poor sealer bead flow"
+   },
+   {
+    "action": "reset timer parameters",
+    "outcome": "back to spec",
+    "row": 8,
+    "symptom": "unexpected cycle time drift"
+   },
+   {
+    "action": "dressed electrodes",
+    "outcome": "ok",
+    "row": 9,
+    "symptom": "weld tip deformation"
+   },
+   {
+    "action": "reseated camera cable",
+    "outcome": "fixed",
+    "row": 10,
+    "symptom": "vision system loss comms"
+   },
+   {
+    "action": "checked dryer filter",
+    "outcome": "alarm persistent",
+    "row": 11,
+    "symptom": "air dryer alarm"
+   },
+   {
+    "action": "replaced fan",
+    "outcome": "ok",
+    "row": 12,
+    "symptom": "servo drive over temp"
+   },
+   {
+    "action": "reloaded timer settings",
+    "outcome": "ok",
+    "row": 13,
+    "symptom": "timing out of sync"
+   },
+   {
+    "action": "repl shunt",
+    "outcome": "ok",
+    "row": 14,
+    "symptom": "gun shunt frayed"
+   },
+   {
+    "action": "adj air regulator",
+    "outcome": "speed normal",
+    "row": 15,
+    "symptom": "gun travel slow"
+   },
+   {
+    "action": "swapped out fan",
+    "outcome": "fixed",
+    "row": 16,
+    "symptom": "servo drive fan error"
+   },
+   {
+    "action": "replaced cooling fan",
+    "outcome": "ok",
+    "row": 17,
+    "symptom": "cabinet temp high"
+   },
+   {
+    "action": "adjusted regulator",
+    "outcome": "fixed",
+    "row": 18,
+    "symptom": "gun pressure low"
+   },
+   {
+    "action": "filled oil",
+    "outcome": "ok",
+    "row": 19,
+    "symptom": "gearbox oil low"
+   },
+   {
+    "action": "secured comms cable",
+    "outcome": "ok",
+    "row": 20,
+    "symptom": "vision data jitter"
+   },
+   {
+    "action": "adjusted air reg",
+    "outcome": "erratic speed remains",
+    "row": 21,
+    "symptom": "gun speed erratic"
+   },
+   {
+    "action": "cleaned hydraulic spool",
+    "outcome": "responce fast",
+    "row": 22,
+    "symptom": "valve response slow"
+   },
+   {
+    "action": "lubed drive",
+    "outcome": "still noisy",
+    "row": 23,
+    "symptom": "conveyor noise"
+   },
+   {
+    "action": "aligned photo eye",
+    "outcome": "detects",
+    "row": 24,
+    "symptom": "no detect on conveyor"
+   },
+   {
+    "action": "cleaned orifice",
+    "outcome": "bead good",
+    "row": 25,
+    "symptom": "sealer nozzle clogged"
+   },
+   {
+    "action": "replaced fan",
+    "outcome": "ok",
+    "row": 26,
+    "symptom": "drive heat alarm"
+   },
+   {
+    "action": "calibrated transducer",
+    "outcome": "stable",
+    "row": 27,
+    "symptom": "sealer pressure unstable"
+   },
+   {
+    "action": "replaced temp sensor",
+    "outcome": "fixed past failure",
+    "row": 28,
+    "symptom": "faulty sensor reading"
+   },
+   {
+    "action": "repaired drain valve",
+    "outcome": "ok",
+    "row": 29,
+    "symptom": "air leak at drain"
+   },
+   {
+    "action": "cleaned gun strainer",
+    "outcome": "flow restored",
+    "row": 30,
+    "symptom": "coolant flow alarm"
+   },
+   {
+    "action": "replaced temp sensor",
+    "outcome": "ok",
+    "row": 31,
+    "symptom": "sensor signal error"
+   },
+   {
+    "action": "replaced drain valve",
+    "outcome": "cured previous issue",
+    "row": 32,
+    "symptom": "condensate drain open"
+   },
+   {
+    "action": "dressed tips",
+    "outcome": "fixed",
+    "row": 33,
+    "symptom": "weld tips mushrooming"
+   },
+   {
+    "action": "re-calibrated transducer",
+    "outcome": "fixed issue",
+    "row": 34,
+    "symptom": "sealer pressure off"
+   },
+   {
+    "action": "replaced hose",
+    "outcome": "heated",
+    "row": 35,
+    "symptom": "sealer hose cold"
+   },
+   {
+    "action": "cleaned cooler",
+    "outcome": "temp down",
+    "row": 36,
+    "symptom": "oil temp alarm"
+   },
+   {
+    "action": "chkd sensor wiring",
+    "outcome": "fixed",
+    "row": 37,
+    "symptom": "bearing temp reading high"
+   },
+   {
+    "action": "cleared strainer",
+    "outcome": "flow ok",
+    "row": 38,
+    "symptom": "coolant flow low"
+   },
+   {
+    "action": "adj air reg",
+    "outcome": "ok",
+    "row": 39,
+    "symptom": "gun pressure weak"
+   },
+   {
+    "action": "chkd strainer",
+    "outcome": "cleared",
+    "row": 40,
+    "symptom": "coolant low flow"
+   },
+   {
+    "action": "adj pin",
+    "outcome": "ok",
+    "row": 41,
+    "symptom": "part loc err"
+   },
+   {
+    "action": "repl fan",
+    "outcome": "ok",
+    "row": 42,
+    "symptom": "fan motor fail"
+   },
+   {
+    "action": "refilled tank",
+    "outcome": "fault remains",
+    "row": 43,
+    "symptom": "way lube light"
+   },
+   {
+    "action": "repl cooling fan",
+    "outcome": "quiet",
+    "row": 44,
+    "symptom": "fan noise"
+   },
+   {
+    "action": "repl fan",
+    "outcome": "ok",
+    "row": 45,
+    "symptom": "drive temp hi"
+   },
+   {
+    "action": "repl led array",
+    "outcome": "ok",
+    "row": 46,
+    "symptom": "lighting dim"
+   },
+   {
+    "action": "adj pin",
+    "outcome": "ok",
+    "row": 47,
+    "symptom": "pin sticking"
+   },
+   {
+    "action": "repl faulty timer card",
+    "outcome": "param stable now",
+    "row": 48,
+    "symptom": "timer drift persists"
+   },
+   {
+    "action": "restored timer",
+    "outcome": "ok",
+    "row": 49,
+    "symptom": "timer alarm"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3206,
+  "output_tokens": 2316,
+  "thinking_tokens": 0,
+  "usd": 0.004275
+ }
+}

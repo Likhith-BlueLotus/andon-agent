@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "reset controller and cycled pwr",
+    "outcome": "alarm returned immediately",
+    "row": 0,
+    "symptom": "servo temp sensor reading high"
+   },
+   {
+    "action": "repl seal kit and o-rings",
+    "outcome": "leak stopped",
+    "row": 1,
+    "symptom": "sealer pump seal leaking"
+   },
+   {
+    "action": "tightened fitting and wiped area",
+    "outcome": "no further seepage",
+    "row": 2,
+    "symptom": "hyd fitting weeping oil"
+   },
+   {
+    "action": "swapped out dirty filter element",
+    "outcome": "fault still present",
+    "row": 3,
+    "symptom": "hyd filter element replacement"
+   },
+   {
+    "action": "re-terminated wiring at block",
+    "outcome": "signal stable",
+    "row": 4,
+    "symptom": "conv bearing sensor erratic"
+   },
+   {
+    "action": "cleaned orifice of debris",
+    "outcome": "drain cycling correctly",
+    "row": 5,
+    "symptom": "air drain stuck open"
+   },
+   {
+    "action": "repl cabinet fan and filter",
+    "outcome": "temp normalized",
+    "row": 6,
+    "symptom": "gun drive overheating"
+   },
+   {
+    "action": "repl faulty temp sensor cable",
+    "outcome": "reading back to normal",
+    "row": 7,
+    "symptom": "servo temp sensor fault"
+   },
+   {
+    "action": "adj tensioner block",
+    "outcome": "tension within spec",
+    "row": 8,
+    "symptom": "conveyor chain loose"
+   },
+   {
+    "action": "cleaned lens and re-aligned",
+    "outcome": "parts counted correctly",
+    "row": 9,
+    "symptom": "photo eye not detecting"
+   },
+   {
+    "action": "repl sensor board, wo-2400335 failed",
+    "outcome": "resolved",
+    "row": 10,
+    "symptom": "servo temp sensor still wrong"
+   },
+   {
+    "action": "checked fan voltage and wiring",
+    "outcome": "fan operating",
+    "row": 11,
+    "symptom": "drive fan error"
+   },
+   {
+    "action": "repl valve spool, wo-2400354 failed",
+    "outcome": "full speed restored",
+    "row": 12,
+    "symptom": "prop valve sluggish response"
+   },
+   {
+    "action": "repl pump seals",
+    "outcome": "no leaks",
+    "row": 13,
+    "symptom": "hyd pump seal leaking"
+   },
+   {
+    "action": "tightened drive chain",
+    "outcome": "slack removed",
+    "row": 14,
+    "symptom": "conveyor chain slack"
+   },
+   {
+    "action": "reloaded recipe from server",
+    "outcome": "pressures correct",
+    "row": 15,
+    "symptom": "wrong pressure setpoint"
+   },
+   {
+    "action": "re-wired sensor, wo-2400338 ineffective",
+    "outcome": "readings stable",
+    "row": 16,
+    "symptom": "temp sensor reading error"
+   },
+   {
+    "action": "re-entered correct timer logic",
+    "outcome": "timing confirmed",
+    "row": 17,
+    "symptom": "cycle timer altered"
+   },
+   {
+    "action": "realigned clamp arm, wo-2400351 failed",
+    "outcome": "locator confirmed",
+    "row": 18,
+    "symptom": "pin out of position"
+   },
+   {
+    "action": "cleaned gun inlet strainer",
+    "outcome": "flow restored",
+    "row": 19,
+    "symptom": "low coolant flow to gun"
+   },
+   {
+    "action": "repl pump shaft seal",
+    "outcome": "leaking stopped",
+    "row": 20,
+    "symptom": "sealer pump seal worn"
+   },
+   {
+    "action": "replaced auto drain valve",
+    "outcome": "no air loss",
+    "row": 21,
+    "symptom": "air drain leaking"
+   },
+   {
+    "action": "checked wiring and sensor",
+    "outcome": "no fault found",
+    "row": 22,
+    "symptom": "servo temp alarm"
+   },
+   {
+    "action": "washed condenser coil",
+    "outcome": "cooling capacity improved",
+    "row": 23,
+    "symptom": "chiller coil dirty"
+   },
+   {
+    "action": "restored parameter from backup",
+    "outcome": "timer set",
+    "row": 24,
+    "symptom": "cycle timer wrong"
+   },
+   {
+    "action": "reprogrammed cycle sequence",
+    "outcome": "cycle stable",
+    "row": 25,
+    "symptom": "timer drift"
+   },
+   {
+    "action": "adj drive chain tension",
+    "outcome": "tension ok",
+    "row": 26,
+    "symptom": "chain slack"
+   },
+   {
+    "action": "replaced cooling fan",
+    "outcome": "temp down",
+    "row": 27,
+    "symptom": "gun drive hot"
+   },
+   {
+    "action": "cleaned pump inlet strainer",
+    "outcome": "flow ok",
+    "row": 28,
+    "symptom": "chiller flow alarm"
+   },
+   {
+    "action": "cleaned condenser fins",
+    "outcome": "temp normal",
+    "row": 29,
+    "symptom": "high chiller temp"
+   },
+   {
+    "action": "topped up reservoir",
+    "outcome": "full",
+    "row": 30,
+    "symptom": "low way lube"
+   },
+   {
+    "action": "checked valve signals",
+    "outcome": "response normal",
+    "row": 31,
+    "symptom": "valve slow"
+   },
+   {
+    "action": "adjusted locator pin",
+    "outcome": "seated",
+    "row": 32,
+    "symptom": "pin alignment"
+   },
+   {
+    "action": "replaced drain unit",
+    "outcome": "working",
+    "row": 33,
+    "symptom": "air drain fail"
+   },
+   {
+    "action": "replaced auto-drain",
+    "outcome": "ok",
+    "row": 34,
+    "symptom": "air leak"
+   },
+   {
+    "action": "shielded signal cable",
+    "outcome": "readings steady",
+    "row": 35,
+    "symptom": "sensor signal noisy"
+   },
+   {
+    "action": "added oil to tank",
+    "outcome": "level normal",
+    "row": 36,
+    "symptom": "low way lube"
+   },
+   {
+    "action": "topped off with gear oil",
+    "outcome": "level verified",
+    "row": 37,
+    "symptom": "gearbox oil low"
+   },
+   {
+    "action": "cleaned coolant strainer",
+    "outcome": "flow normal",
+    "row": 38,
+    "symptom": "coolant flow low"
+   },
+   {
+    "action": "cleared hose blockage",
+    "outcome": "flow ok",
+    "row": 39,
+    "symptom": "coolant flow low"
+   },
+   {
+    "action": "greased drive bearing",
+    "outcome": "noise reduced",
+    "row": 40,
+    "symptom": "noisy gearbox"
+   },
+   {
+    "action": "replaced gun shunt",
+    "outcome": "good cond",
+    "row": 41,
+    "symptom": "shunt cable frayed"
+   },
+   {
+    "action": "replaced weld shunt",
+    "outcome": "fixed",
+    "row": 42,
+    "symptom": "cable wear"
+   },
+   {
+    "action": "cleaned condenser dust",
+    "outcome": "cooling ok",
+    "row": 43,
+    "symptom": "chiller temp high"
+   },
+   {
+    "action": "re-aimed sensor beam",
+    "outcome": "detects well",
+    "row": 44,
+    "symptom": "eye misalignment"
+   },
+   {
+    "action": "tightened chain",
+    "outcome": "set",
+    "row": 45,
+    "symptom": "chain tension"
+   },
+   {
+    "action": "cleaned valve pilot",
+    "outcome": "fast response",
+    "row": 46,
+    "symptom": "valve slow"
+   },
+   {
+    "action": "unblocked sealer nozzle",
+    "outcome": "flow normal",
+    "row": 47,
+    "symptom": "nozzle blocked"
+   },
+   {
+    "action": "replaced lighting driver",
+    "outcome": "stable light",
+    "row": 48,
+    "symptom": "vision light flicker"
+   },
+   {
+    "action": "cleaned hyd oil cooler",
+    "outcome": "temp dropped",
+    "row": 49,
+    "symptom": "oil temp high"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3166,
+  "output_tokens": 1726,
+  "thinking_tokens": 0,
+  "usd": 0.00338
+ }
+}

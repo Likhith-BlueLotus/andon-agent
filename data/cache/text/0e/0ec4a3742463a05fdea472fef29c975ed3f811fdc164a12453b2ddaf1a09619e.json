@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "adj air regulator, verified settings",
+    "outcome": "pressure stable, ok",
+    "row": 0,
+    "symptom": "weld gun pressure unstable"
+   },
+   {
+    "action": "topped up gearbox oil reservoir",
+    "outcome": "alarm cleared",
+    "row": 1,
+    "symptom": "gearbox oil level low alarm"
+   },
+   {
+    "action": "replaced dessicant cartridge",
+    "outcome": "dew point normal",
+    "row": 2,
+    "symptom": "air dryer dew point high"
+   },
+   {
+    "action": "repl worn weld shunt",
+    "outcome": "weld quality improved",
+    "row": 3,
+    "symptom": "weld spatter high"
+   },
+   {
+    "action": "purged air from sealer line",
+    "outcome": "flow restored",
+    "row": 4,
+    "symptom": "sealer flow erratic"
+   },
+   {
+    "action": "repl faulty temp sensor",
+    "outcome": "reading normal",
+    "row": 5,
+    "symptom": "conveyor bearing temp alarm"
+   },
+   {
+    "action": "changed weld tips, dressed",
+    "outcome": "weld ok",
+    "row": 6,
+    "symptom": "poor weld penetration"
+   },
+   {
+    "action": "cleaned press cooling fins",
+    "outcome": "oil temp stabilized",
+    "row": 7,
+    "symptom": "hyd oil overheating"
+   },
+   {
+    "action": "adj locator pin position",
+    "outcome": "part seated correctly",
+    "row": 8,
+    "symptom": "part location error"
+   },
+   {
+    "action": "repl pump shaft seal",
+    "outcome": "no leaks",
+    "row": 9,
+    "symptom": "sealer pump leaking"
+   },
+   {
+    "action": "washed out oil cooler",
+    "outcome": "temp ok",
+    "row": 10,
+    "symptom": "oil temp alarm"
+   },
+   {
+    "action": "repl damaged weld cable",
+    "outcome": "operation steady",
+    "row": 11,
+    "symptom": "welding intermittent"
+   },
+   {
+    "action": "calibrated pump pressure transducer",
+    "outcome": "reading correct",
+    "row": 12,
+    "symptom": "sealer pressure readout drift"
+   },
+   {
+    "action": "cleaned gun intake strainer",
+    "outcome": "flow back to normal",
+    "row": 13,
+    "symptom": "low coolnt flow alarm"
+   },
+   {
+    "action": "cleaned condenser coil, low air",
+    "outcome": "unit running ok",
+    "row": 14,
+    "symptom": "process chiller tripping"
+   },
+   {
+    "action": "repl faulty temp sensor",
+    "outcome": "sensor reading normal",
+    "row": 15,
+    "symptom": "servo drive comms fault"
+   },
+   {
+    "action": "flushed supply hose line",
+    "outcome": "alarm reset",
+    "row": 16,
+    "symptom": "weld gun coolant alarm"
+   },
+   {
+    "action": "repl leaking quick coupler",
+    "outcome": "leak fixed",
+    "row": 17,
+    "symptom": "hissing noise from air line"
+   },
+   {
+    "action": "repl burnt out cabinet fan",
+    "outcome": "temp dropped",
+    "row": 18,
+    "symptom": "servo cabinet over temp"
+   },
+   {
+    "action": "repl worn shunt assembly",
+    "outcome": "temp normalized",
+    "row": 19,
+    "symptom": "weld shunt overheating"
+   },
+   {
+    "action": "repl frayed weld cable",
+    "outcome": "ok",
+    "row": 20,
+    "symptom": "high weld resistance"
+   },
+   {
+    "action": "reseated camera comm cable",
+    "outcome": "comms restored",
+    "row": 21,
+    "symptom": "vision cam comms fail"
+   },
+   {
+    "action": "repl tips, ran dressing cycle",
+    "outcome": "alarm cleared",
+    "row": 22,
+    "symptom": "tip wear limit alarm"
+   },
+   {
+    "action": "adj air pressure regulator",
+    "outcome": "pressure good",
+    "row": 23,
+    "symptom": "gun pressure low"
+   },
+   {
+    "action": "aligned photo eye sensor",
+    "outcome": "line moving",
+    "row": 24,
+    "symptom": "conveyor belt stop"
+   },
+   {
+    "action": "repl failed temp sensor",
+    "outcome": "alarm gone",
+    "row": 25,
+    "symptom": "servo alarm"
+   },
+   {
+    "action": "cleaned fouled cooler",
+    "outcome": "temp down",
+    "row": 26,
+    "symptom": "hyd oil high temp"
+   },
+   {
+    "action": "adj air regulator pressure",
+    "outcome": "gun cycle ok",
+    "row": 27,
+    "symptom": "weld gun speed slow"
+   },
+   {
+    "action": "cleaned blocked sealer nozzle",
+    "outcome": "bead uniform",
+    "row": 28,
+    "symptom": "sealer bead inconsistent"
+   },
+   {
+    "action": "cleaned gun strainer",
+    "outcome": "flow ok",
+    "row": 29,
+    "symptom": "coolant flow low"
+   },
+   {
+    "action": "recalibrated transducer",
+    "outcome": "data stable",
+    "row": 30,
+    "symptom": "pressure sensor alarm"
+   },
+   {
+    "action": "reset cycle timer params",
+    "outcome": "timing restored",
+    "row": 31,
+    "symptom": "weld timing off"
+   },
+   {
+    "action": "realignment of photo eyes",
+    "outcome": "sync good",
+    "row": 32,
+    "symptom": "conveyor sync alarm"
+   },
+   {
+    "action": "repl worn shunt",
+    "outcome": "weld good",
+    "row": 33,
+    "symptom": "weld quality drop"
+   },
+   {
+    "action": "changed comp oil, new filter",
+    "outcome": "pm complete",
+    "row": 34,
+    "symptom": "scheduled air compressor service"
+   },
+   {
+    "action": "cleaned oil cooler radiator",
+    "outcome": "temp nominal",
+    "row": 35,
+    "symptom": "hyd oil temp high"
+   },
+   {
+    "action": "cleaned dirt from condenser",
+    "outcome": "temp stable",
+    "row": 36,
+    "symptom": "chiller temp high"
+   },
+   {
+    "action": "adj locator position",
+    "outcome": "ok",
+    "row": 37,
+    "symptom": "locator failure"
+   },
+   {
+    "action": "repl worn drive end bearing",
+    "outcome": "running quiet",
+    "row": 38,
+    "symptom": "bearing noise from drive"
+   },
+   {
+    "action": "changed out cabinet fan",
+    "outcome": "cooling ok",
+    "row": 39,
+    "symptom": "servo drive overheat"
+   },
+   {
+    "action": "cleaned filter strainer only",
+    "outcome": "alarm returned shortly",
+    "row": 40,
+    "symptom": "low coolant flow alarm"
+   },
+   {
+    "action": "corrected cycle timer params",
+    "outcome": "fixed",
+    "row": 41,
+    "symptom": "weld timing error"
+   },
+   {
+    "action": "changed tips",
+    "outcome": "weld ok",
+    "row": 42,
+    "symptom": "bad weld nugget"
+   },
+   {
+    "action": "replaced prop valve",
+    "outcome": "stable",
+    "row": 43,
+    "symptom": "hyd press unstable"
+   },
+   {
+    "action": "fitted new shaft seal",
+    "outcome": "no leak",
+    "row": 44,
+    "symptom": "sealer pump leaking"
+   },
+   {
+    "action": "repl drive end bearing",
+    "outcome": "run smooth",
+    "row": 45,
+    "symptom": "conveyor vibration"
+   },
+   {
+    "action": "repl hydraulic filter element",
+    "outcome": "pressure good",
+    "row": 46,
+    "symptom": "hyd filter p-drop high"
+   },
+   {
+    "action": "changed intake filter element",
+    "outcome": "filter clean",
+    "row": 47,
+    "symptom": "comp intake dirty"
+   },
+   {
+    "action": "adj chain tensioner",
+    "outcome": "tension ok",
+    "row": 48,
+    "symptom": "chain slack"
+   },
+   {
+    "action": "repl blocked hose, fixed row 40",
+    "outcome": "flow restored",
+    "row": 49,
+    "symptom": "low coolant flow"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3119,
+  "output_tokens": 2430,
+  "thinking_tokens": 0,
+  "usd": 0.004425
+ }
+}

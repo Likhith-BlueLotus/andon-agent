@@ -1,0 +1,31 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "Shift start 22:00, model A running. No major alarms in previous shift."
+   },
+   {
+    "slot": 2,
+    "text": "Shift start 06:00, model A running. No major alarms in previous shift."
+   },
+   {
+    "slot": 3,
+    "text": "Shift start 14:00, changeover model A to B complete. No major alarms."
+   },
+   {
+    "slot": 4,
+    "text": "Line stop 14:54. ST40 Sealer light curtain interrupted, safety stop active. Maint called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 808,
+  "output_tokens": 179,
+  "thinking_tokens": 0,
+  "usd": 0.00047
+ }
+}

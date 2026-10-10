@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "reset unit and purged filters",
+    "outcome": "dryer online",
+    "row": 0,
+    "symptom": "air dryer alarm triggered"
+   },
+   {
+    "action": "realigned photo eye lens",
+    "outcome": "sensor operational",
+    "row": 1,
+    "symptom": "conveyor belt stop sensor fault"
+   },
+   {
+    "action": "calibrated prop valve signal",
+    "outcome": "stroke cycle improved",
+    "row": 2,
+    "symptom": "press slide slow stroke"
+   },
+   {
+    "action": "replaced faulty inlet check valve, ignore prev WO",
+    "outcome": "line bled clean",
+    "row": 3,
+    "symptom": "still air in sealer line"
+   },
+   {
+    "action": "replaced cabinet fan and cleaned vents",
+    "outcome": "drive temp normal",
+    "row": 4,
+    "symptom": "servo drive high temp"
+   },
+   {
+    "action": "adj regulator pressure setting",
+    "outcome": "pressure correct",
+    "row": 5,
+    "symptom": "gun weld pressure low"
+   },
+   {
+    "action": "rebuilt sensor mount, wo 2601776 failed",
+    "outcome": "pin in position",
+    "row": 6,
+    "symptom": "locator pin still misaligned"
+   },
+   {
+    "action": "restored parameters from backup",
+    "outcome": "timing fixed",
+    "row": 7,
+    "symptom": "weld cycle timing drift"
+   },
+   {
+    "action": "cleaned orifice in valve",
+    "outcome": "response back to spec",
+    "row": 8,
+    "symptom": "slow hydraulic response"
+   },
+   {
+    "action": "replaced clogged cooling fan",
+    "outcome": "fan functioning",
+    "row": 9,
+    "symptom": "servo drive overheating"
+   },
+   {
+    "action": "repl heating element connector",
+    "outcome": "temp normalized",
+    "row": 10,
+    "symptom": "sealer hose temp fault"
+   },
+   {
+    "action": "cleaned inline filter strainer",
+    "outcome": "flow restored",
+    "row": 11,
+    "symptom": "gun coolant low flow"
+   },
+   {
+    "action": "flush coolant lines",
+    "outcome": "flow rate okay",
+    "row": 12,
+    "symptom": "low coolant flow alarm"
+   },
+   {
+    "action": "cleaned condensate drain valve",
+    "outcome": "purging correctly",
+    "row": 13,
+    "symptom": "air dryer failing to purge"
+   },
+   {
+    "action": "replaced o-ring on pump fitting",
+    "outcome": "leak stopped",
+    "row": 14,
+    "symptom": "oil weeping at pump"
+   },
+   {
+    "action": "replaced worn electrode tips",
+    "outcome": "weld quality good",
+    "row": 15,
+    "symptom": "weld quality low"
+   },
+   {
+    "action": "reloaded weld schedule",
+    "outcome": "parameters verified",
+    "row": 16,
+    "symptom": "timer parameters changed"
+   },
+   {
+    "action": "updated plc data block",
+    "outcome": "pressure matches model",
+    "row": 17,
+    "symptom": "pressure setpoint error"
+   },
+   {
+    "action": "replaced faulty rtd sensor",
+    "outcome": "reading accurate",
+    "row": 18,
+    "symptom": "conveyor bearing temp alarm"
+   },
+   {
+    "action": "replaced dull cutters",
+    "outcome": "tips dressed properly",
+    "row": 19,
+    "symptom": "tip dresser failing"
+   },
+   {
+    "action": "replaced burnt weld shunt",
+    "outcome": "splash reduced",
+    "row": 20,
+    "symptom": "weld splash excessive"
+   },
+   {
+    "action": "cleared nozzle tip",
+    "outcome": "flow consistent",
+    "row": 21,
+    "symptom": "sealer nozzle blocked"
+   },
+   {
+    "action": "checked wiring harness",
+    "outcome": "signal stable",
+    "row": 22,
+    "symptom": "servo temp err"
+   },
+   {
+    "action": "re-mapped model settings",
+    "outcome": "setpoint verified",
+    "row": 23,
+    "symptom": "wrong pressure setpoint"
+   },
+   {
+    "action": "repl faulty thermal fuse",
+    "outcome": "hose heating",
+    "row": 24,
+    "symptom": "hose not heating"
+   },
+   {
+    "action": "replaced hydraulic filter element",
+    "outcome": "pm complete",
+    "row": 25,
+    "symptom": "scheduled pm for filter"
+   },
+   {
+    "action": "tightened pin locknut",
+    "outcome": "still reporting fault",
+    "row": 26,
+    "symptom": "pin out of position"
+   },
+   {
+    "action": "flushed coolant circuit",
+    "outcome": "flow rate normal",
+    "row": 27,
+    "symptom": "gun cooling alarm"
+   },
+   {
+    "action": "re-input cycle settings",
+    "outcome": "settings saved",
+    "row": 28,
+    "symptom": "weld cycle error"
+   },
+   {
+    "action": "re-calibrated sensors",
+    "outcome": "setpoint matched",
+    "row": 29,
+    "symptom": "pressure setpoint mismatch"
+   },
+   {
+    "action": "calibrated transducer signal",
+    "outcome": "reading stable",
+    "row": 30,
+    "symptom": "pressure transducer drift"
+   },
+   {
+    "action": "vented line",
+    "outcome": "sealer flow steady",
+    "row": 31,
+    "symptom": "pump air starvation"
+   },
+   {
+    "action": "cleaned exterior vent",
+    "outcome": "temp still high",
+    "row": 32,
+    "symptom": "servo drive over temp"
+   },
+   {
+    "action": "adj drive tensioner",
+    "outcome": "tension correct",
+    "row": 33,
+    "symptom": "conveyor chain slack"
+   },
+   {
+    "action": "replaced damaged shunt",
+    "outcome": "cable intact",
+    "row": 34,
+    "symptom": "weld cable frayed"
+   },
+   {
+    "action": "power washed condenser coil",
+    "outcome": "temp dropped",
+    "row": 35,
+    "symptom": "chiller temp high"
+   },
+   {
+    "action": "calibrated output",
+    "outcome": "accurate",
+    "row": 36,
+    "symptom": "transducer cal check"
+   },
+   {
+    "action": "lubed and adj stroke",
+    "outcome": "pin functioning",
+    "row": 37,
+    "symptom": "locator pin binding"
+   },
+   {
+    "action": "checked wiring",
+    "outcome": "reading ok",
+    "row": 38,
+    "symptom": "servo temp sensor fault"
+   },
+   {
+    "action": "replaced sensor, wo 2601827 did not fix",
+    "outcome": "reading stable",
+    "row": 39,
+    "symptom": "servo temp sensor failing"
+   },
+   {
+    "action": "loaded factory defaults",
+    "outcome": "cycle stable",
+    "row": 40,
+    "symptom": "timer parameters reset"
+   },
+   {
+    "action": "repl tips",
+    "outcome": "welds good",
+    "row": 41,
+    "symptom": "tips worn"
+   },
+   {
+    "action": "tightened flange fittings",
+    "outcome": "no air leak",
+    "row": 42,
+    "symptom": "pump inlet air"
+   },
+   {
+    "action": "restarted unit",
+    "outcome": "fault returned",
+    "row": 43,
+    "symptom": "air dryer fault"
+   },
+   {
+    "action": "lubed drive bearing",
+    "outcome": "noise reduced",
+    "row": 44,
+    "symptom": "drive bearing noise"
+   },
+   {
+    "action": "repl sensor",
+    "outcome": "reading correct",
+    "row": 45,
+    "symptom": "transducer readout off"
+   },
+   {
+    "action": "reset timing logic",
+    "outcome": "verified",
+    "row": 46,
+    "symptom": "cycle timer changed"
+   },
+   {
+    "action": "tightened bracket",
+    "outcome": "sensor aligned",
+    "row": 47,
+    "symptom": "photo eye misaligned"
+   },
+   {
+    "action": "cleaned fan filter",
+    "outcome": "temp down",
+    "row": 48,
+    "symptom": "drive over temp"
+   },
+   {
+    "action": "repl sensor cable",
+    "outcome": "signal stable",
+    "row": 49,
+    "symptom": "servo temp sensor reading"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3199,
+  "output_tokens": 2438,
+  "thinking_tokens": 0,
+  "usd": 0.004457
+ }
+}

@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "repl transducer and recalib",
+    "outcome": "pressure signal stable",
+    "row": 0,
+    "symptom": "press transducer reading fluctuating"
+   },
+   {
+    "action": "repl electrodes and dress tips",
+    "outcome": "weld quality restored",
+    "row": 1,
+    "symptom": "weld tips worn down fast"
+   },
+   {
+    "action": "reset controller parameters to base",
+    "outcome": "timer error cleared",
+    "row": 2,
+    "symptom": "cycle timer fault appearing"
+   },
+   {
+    "action": "repl faulty thermal sensor",
+    "outcome": "alarm cleared",
+    "row": 3,
+    "symptom": "high temp alarm on gearbox bearing"
+   },
+   {
+    "action": "repl frayed shunt cable",
+    "outcome": "stable current",
+    "row": 4,
+    "symptom": "weld current fluctuating"
+   },
+   {
+    "action": "recalib pressure sensor",
+    "outcome": "pressure holding",
+    "row": 5,
+    "symptom": "sealer pump pressure erratic"
+   },
+   {
+    "action": "repl faulty pressure sensor, wo-2601622 failed",
+    "outcome": "pressure constant",
+    "row": 6,
+    "symptom": "sealer pressure still erratic"
+   },
+   {
+    "action": "clean nozzle orifice",
+    "outcome": "pattern fixed",
+    "row": 7,
+    "symptom": "sealer spray pattern poor"
+   },
+   {
+    "action": "replace float assembly",
+    "outcome": "leaks stopped",
+    "row": 8,
+    "symptom": "air drain stuck open"
+   },
+   {
+    "action": "replace wiring loom",
+    "outcome": "reading normal",
+    "row": 9,
+    "symptom": "servo temp sensor fault"
+   },
+   {
+    "action": "repl cabinet cooling fan",
+    "outcome": "drive temp normal",
+    "row": 10,
+    "symptom": "servo drive overheating"
+   },
+   {
+    "action": "check heater element wiring",
+    "outcome": "heating restored",
+    "row": 11,
+    "symptom": "heated hose temp low"
+   },
+   {
+    "action": "power wash coil",
+    "outcome": "chilling recovered",
+    "row": 12,
+    "symptom": "chiller temp high"
+   },
+   {
+    "action": "top up gear oil level",
+    "outcome": "level normal",
+    "row": 13,
+    "symptom": "gearbox oil low"
+   },
+   {
+    "action": "repl secondary shunt",
+    "outcome": "weld success",
+    "row": 14,
+    "symptom": "weld quality degrading"
+   },
+   {
+    "action": "flush strainer and check hose, wo-2601633 failed",
+    "outcome": "flow restored",
+    "row": 15,
+    "symptom": "coolant flow still low"
+   },
+   {
+    "action": "realign photo eye",
+    "outcome": "conveyor operational",
+    "row": 16,
+    "symptom": "conveyor not indexing"
+   },
+   {
+    "action": "replaced electrodes, dressed tips",
+    "outcome": "weld quality good",
+    "row": 17,
+    "symptom": "tips fouling fast"
+   },
+   {
+    "action": "adj solenoid pilot pressure",
+    "outcome": "valves still slow",
+    "row": 18,
+    "symptom": "hyd valve sluggish"
+   },
+   {
+    "action": "adj air pressure regulator",
+    "outcome": "cycle speed correct",
+    "row": 19,
+    "symptom": "gun travel slow"
+   },
+   {
+    "action": "re-calib transducer",
+    "outcome": "reading stable",
+    "row": 20,
+    "symptom": "psi reading unstable"
+   },
+   {
+    "action": "re-calib sensor, wo-2601649 did not fix",
+    "outcome": "pressure steady",
+    "row": 21,
+    "symptom": "sealer pressure signal jumpy"
+   },
+   {
+    "action": "cleaned sensor connection",
+    "outcome": "temp normal",
+    "row": 22,
+    "symptom": "servo temp sensor reading high"
+   },
+   {
+    "action": "clean pump strainer",
+    "outcome": "flow good",
+    "row": 23,
+    "symptom": "chiller flow restriction"
+   },
+   {
+    "action": "tighten chain tensioners",
+    "outcome": "tension correct",
+    "row": 24,
+    "symptom": "chain slack"
+   },
+   {
+    "action": "replaced faulty transducer, wo-2601669 fix",
+    "outcome": "signal normal",
+    "row": 25,
+    "symptom": "psi reading off"
+   },
+   {
+    "action": "re-calib sensor",
+    "outcome": "psi stable",
+    "row": 26,
+    "symptom": "sealer psi deviation"
+   },
+   {
+    "action": "replace sensor",
+    "outcome": "temp normal",
+    "row": 27,
+    "symptom": "temp sensor erratic"
+   },
+   {
+    "action": "repl shunt",
+    "outcome": "fixed",
+    "row": 28,
+    "symptom": "shunt burning"
+   },
+   {
+    "action": "air blow clean",
+    "outcome": "cooling ok",
+    "row": 29,
+    "symptom": "coil plugged"
+   },
+   {
+    "action": "flush valve block",
+    "outcome": "fast response",
+    "row": 30,
+    "symptom": "valve response slow"
+   },
+   {
+    "action": "repl pump seals",
+    "outcome": "no leaks",
+    "row": 31,
+    "symptom": "sealer leak at pump"
+   },
+   {
+    "action": "tighten fittings",
+    "outcome": "dry",
+    "row": 32,
+    "symptom": "hyd weeping oil"
+   },
+   {
+    "action": "clean strainer",
+    "outcome": "flow ok",
+    "row": 33,
+    "symptom": "gun flow low"
+   },
+   {
+    "action": "clean coils",
+    "outcome": "cold",
+    "row": 34,
+    "symptom": "chiller not cooling"
+   },
+   {
+    "action": "adj tensioner",
+    "outcome": "tension good",
+    "row": 35,
+    "symptom": "chain slack detected"
+   },
+   {
+    "action": "repl fan",
+    "outcome": "temp drop",
+    "row": 36,
+    "symptom": "cabinet hot"
+   },
+   {
+    "action": "clear line",
+    "outcome": "ok",
+    "row": 37,
+    "symptom": "flow alarm"
+   },
+   {
+    "action": "realign pin",
+    "outcome": "ok",
+    "row": 38,
+    "symptom": "pin sticking"
+   },
+   {
+    "action": "re-seat cable",
+    "outcome": "comms restored",
+    "row": 39,
+    "symptom": "vision comm loss"
+   },
+   {
+    "action": "repl seals",
+    "outcome": "dry",
+    "row": 40,
+    "symptom": "pump seal leak"
+   },
+   {
+    "action": "reloaded settings",
+    "outcome": "ok",
+    "row": 41,
+    "symptom": "cycle timer fault"
+   },
+   {
+    "action": "re-set param",
+    "outcome": "fixed",
+    "row": 42,
+    "symptom": "timer error"
+   },
+   {
+    "action": "repl valve",
+    "outcome": "fixed",
+    "row": 43,
+    "symptom": "air drain leak"
+   },
+   {
+    "action": "tighten chain",
+    "outcome": "smooth",
+    "row": 44,
+    "symptom": "chain noise"
+   },
+   {
+    "action": "clean lens",
+    "outcome": "clear image",
+    "row": 45,
+    "symptom": "camera blurred"
+   },
+   {
+    "action": "adj pin",
+    "outcome": "ok",
+    "row": 46,
+    "symptom": "locator pin fault"
+   },
+   {
+    "action": "replace sensor",
+    "outcome": "fixed",
+    "row": 47,
+    "symptom": "temp sensor fault"
+   },
+   {
+    "action": "repl drain",
+    "outcome": "fixed",
+    "row": 48,
+    "symptom": "air leak"
+   },
+   {
+    "action": "re-set param",
+    "outcome": "ok",
+    "row": 49,
+    "symptom": "timer alarm"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3155,
+  "output_tokens": 1793,
+  "thinking_tokens": 0,
+  "usd": 0.003478
+ }
+}

@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "inspected bearing, regreased and tightened housing bolts",
+    "outcome": "noise reduced, operation normal",
+    "row": 0,
+    "symptom": "drive end bearing noisy/rough"
+   },
+   {
+    "action": "replaced faulty sensor cable and re-calibrated",
+    "outcome": "sensor reading back to normal",
+    "row": 1,
+    "symptom": "servo gun sensor reporting error"
+   },
+   {
+    "action": "disassembled drain, cleaned debris from seat",
+    "outcome": "seal restored, no air leak",
+    "row": 2,
+    "symptom": "condensate drain stuck open"
+   },
+   {
+    "action": "cleared obstruction in supply hose and strainer",
+    "outcome": "coolant flow restored to spec",
+    "row": 3,
+    "symptom": "low coolant flow to gun"
+   },
+   {
+    "action": "reloaded original logic from backup",
+    "outcome": "timing parameters verified and working",
+    "row": 4,
+    "symptom": "cycle time parameter error"
+   },
+   {
+    "action": "performed 0-10v transducer calibration",
+    "outcome": "reading matches gauge value",
+    "row": 5,
+    "symptom": "pressure reading drift"
+   },
+   {
+    "action": "removed nozzle, ultrasonic cleaned tip",
+    "outcome": "spray pattern restored",
+    "row": 6,
+    "symptom": "sealer nozzle partly blocked"
+   },
+   {
+    "action": "replaced worn pump shaft seals",
+    "outcome": "no visible leaks",
+    "row": 7,
+    "symptom": "pump seal leaking"
+   },
+   {
+    "action": "cleaned external cooling fins only",
+    "outcome": "temp still climbing, requires further investigation",
+    "row": 8,
+    "symptom": "hydraulic oil temp high"
+   },
+   {
+    "action": "bled air from feed line",
+    "outcome": "pump pressure stabilized",
+    "row": 9,
+    "symptom": "pump inlet starvation alert"
+   },
+   {
+    "action": "re-adj prox switch and cam",
+    "outcome": "pin positioning restored",
+    "row": 10,
+    "symptom": "locator pin out of pos"
+   },
+   {
+    "action": "replaced frayed heating element harness",
+    "outcome": "temp control restored",
+    "row": 11,
+    "symptom": "heated hose temp fault"
+   },
+   {
+    "action": "re-mapped model parameters in hmi",
+    "outcome": "setpoints match assembly req",
+    "row": 12,
+    "symptom": "pressure setpoint mismatch"
+   },
+   {
+    "action": "tightened sensor ground connection",
+    "outcome": "signal stable",
+    "row": 13,
+    "symptom": "servo temp sensor reading drift"
+   },
+   {
+    "action": "repl seal kit and o-rings",
+    "outcome": "no more drips",
+    "row": 14,
+    "symptom": "sealer pump seal wear"
+   },
+   {
+    "action": "pulled and cleaned strainer",
+    "outcome": "flow restored",
+    "row": 15,
+    "symptom": "chiller flow low"
+   },
+   {
+    "action": "adj regulator for proper force",
+    "outcome": "weld force within spec",
+    "row": 16,
+    "symptom": "gun air pressure low"
+   },
+   {
+    "action": "repl drive end bearing",
+    "outcome": "runs smooth",
+    "row": 17,
+    "symptom": "drive end brg rough"
+   },
+   {
+    "action": "replaced the nozzle tip only",
+    "outcome": "blockage persists, need to check feed line",
+    "row": 18,
+    "symptom": "sealer nozzle blocked"
+   },
+   {
+    "action": "greased drive end brgs",
+    "outcome": "noise resolved",
+    "row": 19,
+    "symptom": "conveyor noisy"
+   },
+   {
+    "action": "repl coil and valve housing, WO-2500909 ineffective",
+    "outcome": "response time normal",
+    "row": 20,
+    "symptom": "prop valve slow response"
+   },
+   {
+    "action": "reset breaker and chk continuity",
+    "outcome": "heat cycle normal",
+    "row": 21,
+    "symptom": "heated hose fault"
+   },
+   {
+    "action": "repl led array module",
+    "outcome": "image brightness back up",
+    "row": 22,
+    "symptom": "vision lighting failing"
+   },
+   {
+    "action": "adj tensioner block",
+    "outcome": "chain tight",
+    "row": 23,
+    "symptom": "conveyor chain slack"
+   },
+   {
+    "action": "flush lines and clean strainer",
+    "outcome": "flow ok",
+    "row": 24,
+    "symptom": "low coolant flow"
+   },
+   {
+    "action": "repl faulty air reg",
+    "outcome": "pressure holds",
+    "row": 25,
+    "symptom": "gun air pressure drifting"
+   },
+   {
+    "action": "repl transducer",
+    "outcome": "reads correctly",
+    "row": 26,
+    "symptom": "pressure sensor reads high"
+   },
+   {
+    "action": "reset timer to standard",
+    "outcome": "cycle stable",
+    "row": 27,
+    "symptom": "cycle timer error"
+   },
+   {
+    "action": "verified main air feed",
+    "outcome": "still mismatching on load",
+    "row": 28,
+    "symptom": "pressure setpoint mismatch"
+   },
+   {
+    "action": "adj bracket alignment",
+    "outcome": "pin clear",
+    "row": 29,
+    "symptom": "locator pin fault"
+   },
+   {
+    "action": "repl nozzle tip",
+    "outcome": "flow normal",
+    "row": 30,
+    "symptom": "nozzle blockage"
+   },
+   {
+    "action": "adj regulator",
+    "outcome": "force correct",
+    "row": 31,
+    "symptom": "gun pressure low"
+   },
+   {
+    "action": "align and clean lens",
+    "outcome": "sensor sensing",
+    "row": 32,
+    "symptom": "photo eye error"
+   },
+   {
+    "action": "cleaned dust from cabinet",
+    "outcome": "still overheating",
+    "row": 33,
+    "symptom": "servo drive over temp"
+   },
+   {
+    "action": "run cal routine",
+    "outcome": "verified",
+    "row": 34,
+    "symptom": "pressure transducer cal"
+   },
+   {
+    "action": "refill reservoir",
+    "outcome": "lvl full",
+    "row": 35,
+    "symptom": "low way lube"
+   },
+   {
+    "action": "adj reg",
+    "outcome": "fixed",
+    "row": 36,
+    "symptom": "gun air pressure off"
+   },
+   {
+    "action": "remove debris",
+    "outcome": "travel smooth",
+    "row": 37,
+    "symptom": "locator pin jam"
+   },
+   {
+    "action": "reset param",
+    "outcome": "normal",
+    "row": 38,
+    "symptom": "timer error"
+   },
+   {
+    "action": "repl pump seal",
+    "outcome": "no leak",
+    "row": 39,
+    "symptom": "seal wear"
+   },
+   {
+    "action": "changed oil filter only",
+    "outcome": "oil pressure light still on",
+    "row": 40,
+    "symptom": "compressor oil pm"
+   },
+   {
+    "action": "repl element",
+    "outcome": "press stable",
+    "row": 41,
+    "symptom": "filter pm"
+   },
+   {
+    "action": "repl cable",
+    "outcome": "signal ok",
+    "row": 42,
+    "symptom": "servo temp signal"
+   },
+   {
+    "action": "prime system",
+    "outcome": "pump running",
+    "row": 43,
+    "symptom": "pump starvation"
+   },
+   {
+    "action": "clear strainer",
+    "outcome": "flow ok",
+    "row": 44,
+    "symptom": "chiller flow"
+   },
+   {
+    "action": "repl unit",
+    "outcome": "accurate",
+    "row": 45,
+    "symptom": "transducer drift"
+   },
+   {
+    "action": "repl weld shunt",
+    "outcome": "current good",
+    "row": 46,
+    "symptom": "shunt worn"
+   },
+   {
+    "action": "repl hydraulic element",
+    "outcome": "clean",
+    "row": 47,
+    "symptom": "filter change"
+   },
+   {
+    "action": "adj valve gain",
+    "outcome": "fast",
+    "row": 48,
+    "symptom": "valve response"
+   },
+   {
+    "action": "repl sensor",
+    "outcome": "stable",
+    "row": 49,
+    "symptom": "servo temp sensor"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3134,
+  "output_tokens": 2462,
+  "thinking_tokens": 0,
+  "usd": 0.004476
+ }
+}

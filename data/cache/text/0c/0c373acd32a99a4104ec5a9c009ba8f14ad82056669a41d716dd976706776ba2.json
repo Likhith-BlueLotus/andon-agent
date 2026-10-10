@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "bled air from pump inlet",
+    "outcome": "pressure restored",
+    "row": 0,
+    "symptom": "sealer pump starved, air in lines"
+   },
+   {
+    "action": "tightened fitting and repl. o-ring",
+    "outcome": "leak stopped",
+    "row": 1,
+    "symptom": "hyd fitting weeping"
+   },
+   {
+    "action": "installed new shunt cable",
+    "outcome": "conductivity normal",
+    "row": 2,
+    "symptom": "weld shunt frayed"
+   },
+   {
+    "action": "found split hose behind cabinet",
+    "outcome": "air pressure stable",
+    "row": 3,
+    "symptom": "air leak still present after wo-2500478"
+   },
+   {
+    "action": "cleaned dust from cabinet fan",
+    "outcome": "drive temp normal",
+    "row": 4,
+    "symptom": "servo drive over temp alarm"
+   },
+   {
+    "action": "repl. cabinet cooling fan",
+    "outcome": "temp levels nominal",
+    "row": 5,
+    "symptom": "weld controller drive overheating"
+   },
+   {
+    "action": "changed hyd filter element",
+    "outcome": "pm complete",
+    "row": 6,
+    "symptom": "pm schedule for filter"
+   },
+   {
+    "action": "topped up gearbox oil level",
+    "outcome": "oil levels ok",
+    "row": 7,
+    "symptom": "low gear oil warning"
+   },
+   {
+    "action": "cleaned dirt from oil cooler fins",
+    "outcome": "oil temp stabilized",
+    "row": 8,
+    "symptom": "oil temp high alarm"
+   },
+   {
+    "action": "calibrated system pressure transducer",
+    "outcome": "output accurate",
+    "row": 9,
+    "symptom": "sealer pressure unstable"
+   },
+   {
+    "action": "replaced faulty solenoid valve",
+    "outcome": "drain cycling correctly",
+    "row": 10,
+    "symptom": "drain still sticking after wo-2500490"
+   },
+   {
+    "action": "installed new air intake filter",
+    "outcome": "airflow improved",
+    "row": 11,
+    "symptom": "dirty intake filter"
+   },
+   {
+    "action": "cleaned valve seat",
+    "outcome": "drain functioning",
+    "row": 12,
+    "symptom": "condensate drain not blowing"
+   },
+   {
+    "action": "topped up oil in gearbox",
+    "outcome": "level normal",
+    "row": 13,
+    "symptom": "low gear oil level"
+   },
+   {
+    "action": "swapped quick coupling",
+    "outcome": "leak fixed",
+    "row": 14,
+    "symptom": "hissing from hose connection"
+   },
+   {
+    "action": "reloaded model setpoints",
+    "outcome": "setpoint matched",
+    "row": 15,
+    "symptom": "pressure setpoint mismatch"
+   },
+   {
+    "action": "re-calibrated sealer transducer",
+    "outcome": "signal stable",
+    "row": 16,
+    "symptom": "pressure signal jitter"
+   },
+   {
+    "action": "calibrated transducer",
+    "outcome": "readings within spec",
+    "row": 17,
+    "symptom": "sealer pressure out of range"
+   },
+   {
+    "action": "repl. cabinet air filter",
+    "outcome": "cooling fan normal",
+    "row": 18,
+    "symptom": "servo drive overheating"
+   },
+   {
+    "action": "adj. proximity sensor",
+    "outcome": "clamp cycle ok",
+    "row": 19,
+    "symptom": "clamp pin position fault"
+   },
+   {
+    "action": "cleared material from nozzle",
+    "outcome": "flow restored",
+    "row": 20,
+    "symptom": "sealer flow restricted"
+   },
+   {
+    "action": "filled oil to level",
+    "outcome": "level ok",
+    "row": 21,
+    "symptom": "gearbox oil check"
+   },
+   {
+    "action": "tested and re-seated sensor",
+    "outcome": "temp reading normal",
+    "row": 22,
+    "symptom": "servo temp error"
+   },
+   {
+    "action": "replaced faulty temp sensor",
+    "outcome": "temp read ok",
+    "row": 23,
+    "symptom": "servo temp alarm"
+   },
+   {
+    "action": "repl. material supply hose",
+    "outcome": "flow steady",
+    "row": 24,
+    "symptom": "pump cavitating"
+   },
+   {
+    "action": "checked terminals, found loose",
+    "outcome": "hose heating again",
+    "row": 25,
+    "symptom": "heated hose cold"
+   },
+   {
+    "action": "added oil to gearbox",
+    "outcome": "level good",
+    "row": 26,
+    "symptom": "low gear oil"
+   },
+   {
+    "action": "changed element and housing seal",
+    "outcome": "pm done",
+    "row": 27,
+    "symptom": "hyd filter pm"
+   },
+   {
+    "action": "cleaned cooling fins",
+    "outcome": "temp stabilized",
+    "row": 28,
+    "symptom": "servo drive high temp"
+   },
+   {
+    "action": "greased conveyor drive bearing",
+    "outcome": "noise reduced",
+    "row": 29,
+    "symptom": "bearing noisy"
+   },
+   {
+    "action": "tightened conveyor drive chain",
+    "outcome": "tension set",
+    "row": 30,
+    "symptom": "chain slack"
+   },
+   {
+    "action": "dressed tips on auto station",
+    "outcome": "weld quality good",
+    "row": 31,
+    "symptom": "electrode tips dull"
+   },
+   {
+    "action": "repl. intake filter",
+    "outcome": "airflow good",
+    "row": 32,
+    "symptom": "intake filter dirty"
+   },
+   {
+    "action": "replaced sensor wiring",
+    "outcome": "signal ok",
+    "row": 33,
+    "symptom": "bearing sensor error"
+   },
+   {
+    "action": "refilled way lube reservoir",
+    "outcome": "lube level full",
+    "row": 34,
+    "symptom": "lube low"
+   },
+   {
+    "action": "cleaned nozzle orifice",
+    "outcome": "still no pressure, issue persists",
+    "row": 35,
+    "symptom": "sealer nozzle blocked"
+   },
+   {
+    "action": "swapped temp sensor",
+    "outcome": "sensor reading normal",
+    "row": 36,
+    "symptom": "temp sensor fail"
+   },
+   {
+    "action": "replaced temp probe",
+    "outcome": "temp reading normal",
+    "row": 37,
+    "symptom": "servo temp err"
+   },
+   {
+    "action": "refilled system",
+    "outcome": "level ok",
+    "row": 38,
+    "symptom": "low way lube"
+   },
+   {
+    "action": "repl. transducer unit",
+    "outcome": "pressure reading steady",
+    "row": 39,
+    "symptom": "pressure drift after wo-2500536"
+   },
+   {
+    "action": "repl. thermal sensor",
+    "outcome": "heat control restored",
+    "row": 40,
+    "symptom": "heated hose heat loss"
+   },
+   {
+    "action": "cleaned dust from fan",
+    "outcome": "temp back to normal",
+    "row": 41,
+    "symptom": "servo drive cooling alarm"
+   },
+   {
+    "action": "tightened mounting bolt",
+    "outcome": "pin aligned",
+    "row": 42,
+    "symptom": "locator pin fault"
+   },
+   {
+    "action": "replaced clogged nozzle",
+    "outcome": "flow rate normal",
+    "row": 43,
+    "symptom": "sealer flow low"
+   },
+   {
+    "action": "re-aligned eye lens",
+    "outcome": "eye detecting product",
+    "row": 44,
+    "symptom": "photo eye error"
+   },
+   {
+    "action": "checked fan, operational",
+    "outcome": "drove okay",
+    "row": 45,
+    "symptom": "servo drive temp alarm"
+   },
+   {
+    "action": "adj. air regulator",
+    "outcome": "pressure correct",
+    "row": 46,
+    "symptom": "gun pressure low"
+   },
+   {
+    "action": "re-calibrated unit",
+    "outcome": "readings correct",
+    "row": 47,
+    "symptom": "pressure transducer drift"
+   },
+   {
+    "action": "tightened suction flange",
+    "outcome": "air cleared",
+    "row": 48,
+    "symptom": "pump supply air"
+   },
+   {
+    "action": "adj. conveyor tensioner",
+    "outcome": "tension good",
+    "row": 49,
+    "symptom": "chain tension loose"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3173,
+  "output_tokens": 1765,
+  "thinking_tokens": 0,
+  "usd": 0.003441
+ }
+}

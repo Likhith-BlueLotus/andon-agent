@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "reset controller and cleared faults",
+    "outcome": "temp alarm returned",
+    "row": 0,
+    "symptom": "servo temp showing high alarm"
+   },
+   {
+    "action": "repl tips and adj tip dresser",
+    "outcome": "weld quality improved",
+    "row": 1,
+    "symptom": "weld electrode tips wearing fast"
+   },
+   {
+    "action": "tightened tensioner and greased drive",
+    "outcome": "chain tension ok",
+    "row": 2,
+    "symptom": "conveyor chain sagging excessively"
+   },
+   {
+    "action": "reseated comm cable connector",
+    "outcome": "image restored",
+    "row": 3,
+    "symptom": "camera image signal loss"
+   },
+   {
+    "action": "bled lines and purged air",
+    "outcome": "flow steady",
+    "row": 4,
+    "symptom": "sealer pump cavitation heard"
+   },
+   {
+    "action": "repl faulty sensor",
+    "outcome": "temp readings normal",
+    "row": 5,
+    "symptom": "servo temp sensor erratic"
+   },
+   {
+    "action": "repl clogged cabinet fan",
+    "outcome": "drive temp stable",
+    "row": 6,
+    "symptom": "gun drive overheated"
+   },
+   {
+    "action": "repl leaking quick coupling",
+    "outcome": "air pressure holding",
+    "row": 7,
+    "symptom": "air leak detected at line"
+   },
+   {
+    "action": "cleaned strainer",
+    "outcome": "flow rate normal",
+    "row": 8,
+    "symptom": "low coolant flow to gun"
+   },
+   {
+    "action": "cleaned tip blockage",
+    "outcome": "bead path corrected",
+    "row": 9,
+    "symptom": "sealer nozzle bead inconsistent"
+   },
+   {
+    "action": "realigned photo eye beam",
+    "outcome": "sensor sensing parts",
+    "row": 10,
+    "symptom": "part missing detection"
+   },
+   {
+    "action": "restored default parameter settings",
+    "outcome": "timer cycle stable",
+    "row": 11,
+    "symptom": "cycle timer timing erratic"
+   },
+   {
+    "action": "repl connector cable",
+    "outcome": "sensor working",
+    "row": 12,
+    "symptom": "servo temp sensor failing"
+   },
+   {
+    "action": "repl worn pump shaft seals",
+    "outcome": "no leaks",
+    "row": 13,
+    "symptom": "pump leaking sealer fluid"
+   },
+   {
+    "action": "restarted dryer unit",
+    "outcome": "system running",
+    "row": 14,
+    "symptom": "air dryer error light"
+   },
+   {
+    "action": "repl burnt weld shunt",
+    "outcome": "welds within spec",
+    "row": 15,
+    "symptom": "weld quality poor"
+   },
+   {
+    "action": "repl failed led module",
+    "outcome": "light steady",
+    "row": 16,
+    "symptom": "vision light flickering"
+   },
+   {
+    "action": "adj pressure regulator setpoint",
+    "outcome": "pressure matches model",
+    "row": 17,
+    "symptom": "hyd pressure low after changeover"
+   },
+   {
+    "action": "replaced restricted hose",
+    "outcome": "flow normal",
+    "row": 18,
+    "symptom": "coolant flow alarm"
+   },
+   {
+    "action": "cleaned drain filter",
+    "outcome": "dew point ok",
+    "row": 19,
+    "symptom": "dryer dew point high"
+   },
+   {
+    "action": "reset electronics",
+    "outcome": "dryer back online",
+    "row": 20,
+    "symptom": "dryer controller alarm"
+   },
+   {
+    "action": "repl pump seals",
+    "outcome": "dry pump housing",
+    "row": 21,
+    "symptom": "pump seals weeping"
+   },
+   {
+    "action": "changed compressor oil and filters",
+    "outcome": "pm complete",
+    "row": 22,
+    "symptom": "pm schedule due"
+   },
+   {
+    "action": "repl lighting board",
+    "outcome": "camera brightness ok",
+    "row": 23,
+    "symptom": "vision camera dim"
+   },
+   {
+    "action": "installed new strainer assembly per wo-2601751",
+    "outcome": "flow issue fixed",
+    "row": 24,
+    "symptom": "coolant flow persistent alarm"
+   },
+   {
+    "action": "tightened weld cable clamp",
+    "outcome": "weld issue unresolved",
+    "row": 25,
+    "symptom": "poor weld penetration"
+   },
+   {
+    "action": "recalibrated pressure valve",
+    "outcome": "stable pressure",
+    "row": 26,
+    "symptom": "hyd pressure fluctuating"
+   },
+   {
+    "action": "tightened fitting on pump",
+    "outcome": "leak stopped",
+    "row": 27,
+    "symptom": "hyd oil leak found"
+   },
+   {
+    "action": "cleaned gun strainer",
+    "outcome": "flow restored",
+    "row": 28,
+    "symptom": "coolant flow low"
+   },
+   {
+    "action": "repl pump inlet filter",
+    "outcome": "pump still starved",
+    "row": 29,
+    "symptom": "pump cavitating loud"
+   },
+   {
+    "action": "repl bearing and greased",
+    "outcome": "quiet operation",
+    "row": 30,
+    "symptom": "drive bearing noisy"
+   },
+   {
+    "action": "calibrated transducer following wo-2601780",
+    "outcome": "signal accurate",
+    "row": 31,
+    "symptom": "transducer error signal"
+   },
+   {
+    "action": "cleaned strainer",
+    "outcome": "flow normal",
+    "row": 32,
+    "symptom": "coolant flow alarm"
+   },
+   {
+    "action": "flushed coolant circuit",
+    "outcome": "flow restored",
+    "row": 33,
+    "symptom": "gun coolant low"
+   },
+   {
+    "action": "repl drive end bearing",
+    "outcome": "smooth running",
+    "row": 34,
+    "symptom": "bearing grinding noise"
+   },
+   {
+    "action": "cleaned camera lens",
+    "outcome": "clear image",
+    "row": 35,
+    "symptom": "blurred image"
+   },
+   {
+    "action": "repl dryer refrigerant filter",
+    "outcome": "dry air",
+    "row": 36,
+    "symptom": "dryer high moisture"
+   },
+   {
+    "action": "repl sensor wiring",
+    "outcome": "temp normal",
+    "row": 37,
+    "symptom": "temp sensor alarm"
+   },
+   {
+    "action": "repl cooling fan",
+    "outcome": "temp normal",
+    "row": 38,
+    "symptom": "drive temp high"
+   },
+   {
+    "action": "cleaned strainer",
+    "outcome": "flow restored",
+    "row": 39,
+    "symptom": "coolant flow restrict"
+   },
+   {
+    "action": "repl intake filter element",
+    "outcome": "d/p normal",
+    "row": 40,
+    "symptom": "filter d/p high"
+   },
+   {
+    "action": "repl bearing",
+    "outcome": "no vibration",
+    "row": 41,
+    "symptom": "bearing vibration"
+   },
+   {
+    "action": "cleaned pump intake strainer",
+    "outcome": "chiller cooling",
+    "row": 42,
+    "symptom": "chiller temp rising"
+   },
+   {
+    "action": "repl temp sensor",
+    "outcome": "signal stable",
+    "row": 43,
+    "symptom": "sensor signal out of range"
+   },
+   {
+    "action": "reloaded timer logic",
+    "outcome": "cycle accurate",
+    "row": 44,
+    "symptom": "timer drift"
+   },
+   {
+    "action": "reset software values",
+    "outcome": "reads still off",
+    "row": 45,
+    "symptom": "transducer reading wrong"
+   },
+   {
+    "action": "repl light driver",
+    "outcome": "light working",
+    "row": 46,
+    "symptom": "vision light failing"
+   },
+   {
+    "action": "repl seal on fitting",
+    "outcome": "no leaks",
+    "row": 47,
+    "symptom": "hyd fitting drip"
+   },
+   {
+    "action": "repl cabinet fan",
+    "outcome": "temp ok",
+    "row": 48,
+    "symptom": "drive fan error"
+   },
+   {
+    "action": "replaced dryer relay",
+    "outcome": "dryer running",
+    "row": 49,
+    "symptom": "dryer not cycling"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3137,
+  "output_tokens": 1729,
+  "thinking_tokens": 0,
+  "usd": 0.003378
+ }
+}

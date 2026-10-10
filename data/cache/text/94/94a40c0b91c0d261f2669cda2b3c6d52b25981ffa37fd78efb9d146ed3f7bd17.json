@@ -1,0 +1,31 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "22:00 shift start, model A. No major alarms during previous shift."
+   },
+   {
+    "slot": 2,
+    "text": "06:00 shift start, model A. No major alarms reported."
+   },
+   {
+    "slot": 3,
+    "text": "14:00 shift start, model A. ST30 energy out of band, servo temp high, cycle time high. ST40/ST50 starved. ST20 blocked."
+   },
+   {
+    "slot": 4,
+    "text": "ST30 weld cell B servo drive over-temp trip 15:08. ST20 blocked, ST30 energy issues, ST40 starved. Maintenance called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 1059,
+  "output_tokens": 205,
+  "thinking_tokens": 0,
+  "usd": 0.000572
+ }
+}

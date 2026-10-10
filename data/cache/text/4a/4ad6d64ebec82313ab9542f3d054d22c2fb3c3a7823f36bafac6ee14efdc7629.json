@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "reseat rj45 cable port",
+    "outcome": "comms restored ok",
+    "row": 0,
+    "symptom": "vis cam intermittent comms"
+   },
+   {
+    "action": "repl worn cutter and tips",
+    "outcome": "dress cycle ok",
+    "row": 1,
+    "symptom": "tip dresser fault"
+   },
+   {
+    "action": "reset timer parameters",
+    "outcome": "cycle stable",
+    "row": 2,
+    "symptom": "weld cycle timing drift"
+   },
+   {
+    "action": "clean filter element",
+    "outcome": "pressure normalized",
+    "row": 3,
+    "symptom": "air dryer low pressure"
+   },
+   {
+    "action": "repl led module",
+    "outcome": "stable lighting",
+    "row": 4,
+    "symptom": "vis light flicker"
+   },
+   {
+    "action": "repl internal pump seals",
+    "outcome": "leak stopped",
+    "row": 5,
+    "symptom": "hyd leak persists from wo-2601486"
+   },
+   {
+    "action": "calib transducer",
+    "outcome": "pressure steady",
+    "row": 6,
+    "symptom": "sealer pressure erratic"
+   },
+   {
+    "action": "replace coolant hose",
+    "outcome": "alarm remains active",
+    "row": 7,
+    "symptom": "low gun flow alarm"
+   },
+   {
+    "action": "repl bad sensor",
+    "outcome": "reading normal",
+    "row": 8,
+    "symptom": "bearing temp alarm"
+   },
+   {
+    "action": "repl pump shaft seal",
+    "outcome": "no leaks",
+    "row": 9,
+    "symptom": "pump housing leaking"
+   },
+   {
+    "action": "check cable harness",
+    "outcome": "temp signal still jumpy",
+    "row": 10,
+    "symptom": "servo temp erratic"
+   },
+   {
+    "action": "swapped driver board",
+    "outcome": "illumination fixed",
+    "row": 11,
+    "symptom": "dim lighting visual"
+   },
+   {
+    "action": "lubed drive bearing",
+    "outcome": "noise reduced",
+    "row": 12,
+    "symptom": "conveyor noise at end"
+   },
+   {
+    "action": "adj tensioner block",
+    "outcome": "chain track aligned",
+    "row": 13,
+    "symptom": "chain slack detected"
+   },
+   {
+    "action": "replaced comms cable",
+    "outcome": "data verified",
+    "row": 14,
+    "symptom": "camera signal loss"
+   },
+   {
+    "action": "change dressing bits",
+    "outcome": "weld quality good",
+    "row": 15,
+    "symptom": "poor weld finish"
+   },
+   {
+    "action": "clear gun strainer",
+    "outcome": "flow restored",
+    "row": 16,
+    "symptom": "low coolant flow"
+   },
+   {
+    "action": "repl output brg",
+    "outcome": "silent operation",
+    "row": 17,
+    "symptom": "drive bearing grinding"
+   },
+   {
+    "action": "flushed coolant circuit",
+    "outcome": "alarm cleared",
+    "row": 18,
+    "symptom": "flow alarm gun 2"
+   },
+   {
+    "action": "renew packing seal",
+    "outcome": "leak fixed",
+    "row": 19,
+    "symptom": "sealer drip at pump"
+   },
+   {
+    "action": "cleaned servo vent",
+    "outcome": "temp down",
+    "row": 20,
+    "symptom": "servo temp high"
+   },
+   {
+    "action": "repl strainer mesh",
+    "outcome": "flow okay",
+    "row": 21,
+    "symptom": "coolant flow restricted"
+   },
+   {
+    "action": "reset sensor loop",
+    "outcome": "signal stable",
+    "row": 22,
+    "symptom": "temp sensor fault"
+   },
+   {
+    "action": "shim locator bracket",
+    "outcome": "pin seated correct",
+    "row": 23,
+    "symptom": "pin misalignment after wo-2601508"
+   },
+   {
+    "action": "align tip dresser head",
+    "outcome": "tips dressing evenly",
+    "row": 24,
+    "symptom": "tips fouling fast wo-2601511"
+   },
+   {
+    "action": "clean cooler fins",
+    "outcome": "temp dropping",
+    "row": 25,
+    "symptom": "hyd oil overheating"
+   },
+   {
+    "action": "clean intake filter",
+    "outcome": "flow normal",
+    "row": 26,
+    "symptom": "chiller low flow"
+   },
+   {
+    "action": "repl frayed shunt",
+    "outcome": "weld test pass",
+    "row": 27,
+    "symptom": "high weld resistance"
+   },
+   {
+    "action": "adj pin stroke",
+    "outcome": "no jams",
+    "row": 28,
+    "symptom": "clamp pin jam"
+   },
+   {
+    "action": "changed tips",
+    "outcome": "prod resumed",
+    "row": 29,
+    "symptom": "weld tip wear"
+   },
+   {
+    "action": "repl heater fuse",
+    "outcome": "temp reached",
+    "row": 30,
+    "symptom": "sealer cold"
+   },
+   {
+    "action": "install new shunt",
+    "outcome": "good weld",
+    "row": 31,
+    "symptom": "shunt smoking"
+   },
+   {
+    "action": "repl internal fan",
+    "outcome": "temp stabilized",
+    "row": 32,
+    "symptom": "servo cabinet overheat"
+   },
+   {
+    "action": "repl drive brg",
+    "outcome": "runs quiet",
+    "row": 33,
+    "symptom": "drive bearing whine"
+   },
+   {
+    "action": "reload saved parameters",
+    "outcome": "timer synced",
+    "row": 34,
+    "symptom": "timing logic error"
+   },
+   {
+    "action": "chg compressor oil",
+    "outcome": "pm complete",
+    "row": 35,
+    "symptom": "pm due"
+   },
+   {
+    "action": "calib sensor",
+    "outcome": "verified ok",
+    "row": 36,
+    "symptom": "pressure data drift"
+   },
+   {
+    "action": "repl bulb assembly",
+    "outcome": "image clear",
+    "row": 37,
+    "symptom": "camera lighting dark"
+   },
+   {
+    "action": "reset wiring",
+    "outcome": "still faulting",
+    "row": 38,
+    "symptom": "servo temp sensor reading"
+   },
+   {
+    "action": "repl thermistor",
+    "outcome": "temp normal",
+    "row": 39,
+    "symptom": "servo temp signal bad"
+   },
+   {
+    "action": "change primary shunt",
+    "outcome": "stable arc",
+    "row": 40,
+    "symptom": "weld arc unstable"
+   },
+   {
+    "action": "adj air pressure",
+    "outcome": "force correct",
+    "row": 41,
+    "symptom": "gun force low"
+   },
+   {
+    "action": "tighten bolts",
+    "outcome": "leak still present",
+    "row": 42,
+    "symptom": "pump seal leaking"
+   },
+   {
+    "action": "calib transducer",
+    "outcome": "readings match",
+    "row": 43,
+    "symptom": "pressure output off"
+   },
+   {
+    "action": "clean nozzle tip",
+    "outcome": "bead good",
+    "row": 44,
+    "symptom": "poor bead layout"
+   },
+   {
+    "action": "dress tips",
+    "outcome": "profile good",
+    "row": 45,
+    "symptom": "tips mushroomed"
+   },
+   {
+    "action": "calib unit",
+    "outcome": "in tolerance",
+    "row": 46,
+    "symptom": "calib out of range"
+   },
+   {
+    "action": "repl shunt",
+    "outcome": "cool running",
+    "row": 47,
+    "symptom": "shunt getting hot"
+   },
+   {
+    "action": "clear circuit",
+    "outcome": "flow ok",
+    "row": 48,
+    "symptom": "low flow error"
+   },
+   {
+    "action": "repl drain valve",
+    "outcome": "dry air",
+    "row": 49,
+    "symptom": "dryer condensation"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3154,
+  "output_tokens": 2381,
+  "thinking_tokens": 0,
+  "usd": 0.00436
+ }
+}

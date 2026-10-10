@@ -1,0 +1,35 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "Shift start 22:00, running model B. No major alarms in previous shift."
+   },
+   {
+    "slot": 2,
+    "text": "Shift start 06:00, running model B. No major alarms in previous shift."
+   },
+   {
+    "slot": 3,
+    "text": "13:28 ST60 Vision check high reject alarm. 14:00 model changeover B to A done."
+   },
+   {
+    "slot": 4,
+    "text": "18:18 ST40 Sealer bead width low alarm. 19:39 ST40 Sealer bead width out of tolerance alarm."
+   },
+   {
+    "slot": 5,
+    "text": "21:34 ST40 bead low alarm x2, 21:37 bead width out of tolerance x4. 21:58 line stop by QA for high rejects. Maintenance called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 968,
+  "output_tokens": 258,
+  "thinking_tokens": 0,
+  "usd": 0.000629
+ }
+}

@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "re-calibrated sensor and checked signal cabling",
+    "outcome": "pressure reading stable",
+    "row": 0,
+    "symptom": "sealer press reading erratic after prior calibration"
+   },
+   {
+    "action": "replaced faulty thermistor",
+    "outcome": "alarm cleared",
+    "row": 1,
+    "symptom": "temp alarm on motor drive bearing"
+   },
+   {
+    "action": "re-adj proportional flow valve",
+    "outcome": "pressure stable",
+    "row": 2,
+    "symptom": "press pressure not holding setpoint"
+   },
+   {
+    "action": "replaced cracked pump housing flange",
+    "outcome": "leak stopped",
+    "row": 3,
+    "symptom": "hyd oil leak persisting after seal repl"
+   },
+   {
+    "action": "cleaned gun nozzle tip",
+    "outcome": "bead quality good",
+    "row": 4,
+    "symptom": "poor sealer bead consistency"
+   },
+   {
+    "action": "replaced faulty solenoid valve",
+    "outcome": "air leak stopped",
+    "row": 5,
+    "symptom": "condensate drain venting continuously"
+   },
+   {
+    "action": "repl quick coupling and nylon hose",
+    "outcome": "leak fixed",
+    "row": 6,
+    "symptom": "hissing sound at air line"
+   },
+   {
+    "action": "adj drive chain tensioner",
+    "outcome": "chain tight",
+    "row": 7,
+    "symptom": "conveyor chain slack"
+   },
+   {
+    "action": "cleaned drain valve assembly",
+    "outcome": "drain cycling norm",
+    "row": 8,
+    "symptom": "condensate drain stuck open"
+   },
+   {
+    "action": "adj air regulator output",
+    "outcome": "pressure correct",
+    "row": 9,
+    "symptom": "weld gun pressure low"
+   },
+   {
+    "action": "replaced worn pump seals",
+    "outcome": "no leaks",
+    "row": 10,
+    "symptom": "sealer pump leaking at drive shaft"
+   },
+   {
+    "action": "repl worn pump seals",
+    "outcome": "pressure restored",
+    "row": 11,
+    "symptom": "sealer pump output dropping"
+   },
+   {
+    "action": "repl seized cabinet cooling fan",
+    "outcome": "temp normal",
+    "row": 12,
+    "symptom": "servo gun controller overheating"
+   },
+   {
+    "action": "re-program weld seq parameters",
+    "outcome": "timer functioning",
+    "row": 13,
+    "symptom": "weld timer error recurring"
+   },
+   {
+    "action": "repl worn tips and adj dresser",
+    "outcome": "weld quality good",
+    "row": 14,
+    "symptom": "weld quality low"
+   },
+   {
+    "action": "repl pump seal set",
+    "outcome": "unit sealed",
+    "row": 15,
+    "symptom": "sealer leak detected at pump housing"
+   },
+   {
+    "action": "flushed proportional valve",
+    "outcome": "response time restored",
+    "row": 16,
+    "symptom": "press cycle time sluggish"
+   },
+   {
+    "action": "repl transducer and wire lead",
+    "outcome": "stable signal",
+    "row": 17,
+    "symptom": "sealer press display jumping"
+   },
+   {
+    "action": "increased air reg setpoint",
+    "outcome": "cycle fast",
+    "row": 18,
+    "symptom": "gun cylinder not closing fast"
+   },
+   {
+    "action": "repl worn weld shunt",
+    "outcome": "shunt running cool",
+    "row": 19,
+    "symptom": "weld shunt hot to touch"
+   },
+   {
+    "action": "repl faulty transducer",
+    "outcome": "reading stable",
+    "row": 20,
+    "symptom": "press pressure reading fluctuates"
+   },
+   {
+    "action": "added oil to spec level",
+    "outcome": "level ok",
+    "row": 21,
+    "symptom": "gearbox oil level low"
+   },
+   {
+    "action": "replaced hyd pressure transducer",
+    "outcome": "reading normal",
+    "row": 22,
+    "symptom": "press pressure unstable"
+   },
+   {
+    "action": "adjusted locator pin height",
+    "outcome": "clamp locked",
+    "row": 23,
+    "symptom": "weld clamp not locking"
+   },
+   {
+    "action": "repl shunt and tightened bolts",
+    "outcome": "ready for use",
+    "row": 24,
+    "symptom": "weld shunt signs of fraying"
+   },
+   {
+    "action": "change tips and dresser blade",
+    "outcome": "weld quality back",
+    "row": 25,
+    "symptom": "weld tips worn out"
+   },
+   {
+    "action": "cleaned strainer and flushed lines",
+    "outcome": "flow good",
+    "row": 26,
+    "symptom": "coolant flow low alarm"
+   },
+   {
+    "action": "restored system backup",
+    "outcome": "timer normal",
+    "row": 27,
+    "symptom": "weld timer settings altered"
+   },
+   {
+    "action": "adj air pressure regulator",
+    "outcome": "pressure good",
+    "row": 28,
+    "symptom": "gun pressure dropping"
+   },
+   {
+    "action": "replaced filter element",
+    "outcome": "pm complete",
+    "row": 29,
+    "symptom": "pm schedule for hyd filter"
+   },
+   {
+    "action": "repl tips and dressed electrode",
+    "outcome": "good welds",
+    "row": 30,
+    "symptom": "poor weld penetration"
+   },
+   {
+    "action": "repl damaged quick connect",
+    "outcome": "no hiss",
+    "row": 31,
+    "symptom": "air leak in assembly"
+   },
+   {
+    "action": "replaced drive end bearing",
+    "outcome": "quiet operation",
+    "row": 32,
+    "symptom": "conveyor noise from drive"
+   },
+   {
+    "action": "repl dirty filter",
+    "outcome": "airflow improved",
+    "row": 33,
+    "symptom": "pm interval for air intake"
+   },
+   {
+    "action": "replaced worn weld shunt",
+    "outcome": "heat normal",
+    "row": 34,
+    "symptom": "shunt overheating"
+   },
+   {
+    "action": "repl quick coupling and hose",
+    "outcome": "leak solved",
+    "row": 35,
+    "symptom": "hissing air leak"
+   },
+   {
+    "action": "cleaned pump inlet strainer",
+    "outcome": "flow restored",
+    "row": 36,
+    "symptom": "low flow chiller alarm"
+   },
+   {
+    "action": "replaced weld shunt",
+    "outcome": "shunt good",
+    "row": 37,
+    "symptom": "shunt showing wear"
+   },
+   {
+    "action": "secured loose comms cable",
+    "outcome": "camera feed clear",
+    "row": 38,
+    "symptom": "vision camera intermittent"
+   },
+   {
+    "action": "repl damaged heated hose",
+    "outcome": "temp controlled",
+    "row": 39,
+    "symptom": "sealer heater circuit open"
+   },
+   {
+    "action": "re-tensioned chain drive",
+    "outcome": "chain set",
+    "row": 40,
+    "symptom": "conveyor chain loose"
+   },
+   {
+    "action": "replaced coil on proportional valve",
+    "outcome": "response normal",
+    "row": 41,
+    "symptom": "press valve slow response"
+   },
+   {
+    "action": "cleaned cooler radiator fins",
+    "outcome": "temp down",
+    "row": 42,
+    "symptom": "hyd oil high temp"
+   },
+   {
+    "action": "repl shunt",
+    "outcome": "shunt good",
+    "row": 43,
+    "symptom": "weld shunt frayed"
+   },
+   {
+    "action": "repl burnt fan motor",
+    "outcome": "temp stable",
+    "row": 44,
+    "symptom": "servo cabinet cooling fault"
+   },
+   {
+    "action": "cleaned camera lens surface",
+    "outcome": "image clear",
+    "row": 45,
+    "symptom": "vision check blurry"
+   },
+   {
+    "action": "repl noisy bearing",
+    "outcome": "running quiet",
+    "row": 46,
+    "symptom": "bearing noise at drive"
+   },
+   {
+    "action": "cleaned coolant strainer",
+    "outcome": "flow restored",
+    "row": 47,
+    "symptom": "low flow alarm"
+   },
+   {
+    "action": "wiped down dirty lens",
+    "outcome": "vision ok",
+    "row": 48,
+    "symptom": "vision camera error"
+   },
+   {
+    "action": "bled air from pump inlet",
+    "outcome": "flow smooth",
+    "row": 49,
+    "symptom": "sealer pump surging"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3161,
+  "output_tokens": 1764,
+  "thinking_tokens": 0,
+  "usd": 0.003436
+ }
+}

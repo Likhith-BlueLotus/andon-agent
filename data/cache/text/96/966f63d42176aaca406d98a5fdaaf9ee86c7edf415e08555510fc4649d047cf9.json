@@ -1,0 +1,31 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "Shift start 06:00. Model B to A changeover done. No major alarms reported."
+   },
+   {
+    "slot": 2,
+    "text": "14:00 shift start. Running model A, no major alarms."
+   },
+   {
+    "slot": 3,
+    "text": "22:00 shift start. Model A to B changeover done. No major alarms."
+   },
+   {
+    "slot": 4,
+    "text": "ST20 Weld cell A stopped after repeated weld faults. Maintenance called after sequence of gun force, hydraulic pressure, and weld energy alarms."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 916,
+  "output_tokens": 178,
+  "thinking_tokens": 0,
+  "usd": 0.000496
+ }
+}

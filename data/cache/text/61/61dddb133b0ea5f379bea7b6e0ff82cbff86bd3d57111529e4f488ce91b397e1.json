@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "reloaded original software config",
+    "outcome": "parameter restored ok",
+    "row": 0,
+    "symptom": "weld cycle timer parameter error"
+   },
+   {
+    "action": "repl hyd filter element",
+    "outcome": "complete",
+    "row": 1,
+    "symptom": "pm schedule filter due"
+   },
+   {
+    "action": "repl clogged cabinet cooling fan",
+    "outcome": "drive temp normal",
+    "row": 2,
+    "symptom": "servo drive high temp fault"
+   },
+   {
+    "action": "adj tip dresser feed",
+    "outcome": "weld quality improved",
+    "row": 3,
+    "symptom": "weld tip wear frequent"
+   },
+   {
+    "action": "repl tips and adj dresser",
+    "outcome": "weld ok",
+    "row": 4,
+    "symptom": "weld tips worn out"
+   },
+   {
+    "action": "dressed tips reset dresser",
+    "outcome": "nugget size nominal",
+    "row": 5,
+    "symptom": "poor weld nugget size"
+   },
+   {
+    "action": "reset air dryer parameters",
+    "outcome": "pressure still low",
+    "row": 6,
+    "symptom": "low air supply pressure"
+   },
+   {
+    "action": "cleaned hyd spool valve",
+    "outcome": "issue persisted",
+    "row": 7,
+    "symptom": "press cycle sluggish"
+   },
+   {
+    "action": "dressed tips",
+    "outcome": "weld test ok",
+    "row": 8,
+    "symptom": "weld tips worn"
+   },
+   {
+    "action": "bled air from feed line",
+    "outcome": "flow restored",
+    "row": 9,
+    "symptom": "sealer pump cavitating"
+   },
+   {
+    "action": "topped up gear lube",
+    "outcome": "level normal",
+    "row": 10,
+    "symptom": "gearbox oil level low"
+   },
+   {
+    "action": "adj mechanical locator stop",
+    "outcome": "clamping cycle correct",
+    "row": 11,
+    "symptom": "clamp pin travel short"
+   },
+   {
+    "action": "ref WO-2400308 clean ext cooler fins",
+    "outcome": "oil temp stabilized",
+    "row": 12,
+    "symptom": "oil temp high still"
+   },
+   {
+    "action": "repl faulty hose thermostat",
+    "outcome": "heat control restored",
+    "row": 13,
+    "symptom": "sealer heating error"
+   },
+   {
+    "action": "tightened mounting bolts",
+    "outcome": "pin alignment correct",
+    "row": 14,
+    "symptom": "locating pin shift"
+   },
+   {
+    "action": "cleaned cooler radiator",
+    "outcome": "temp down",
+    "row": 15,
+    "symptom": "hyd oil overheating"
+   },
+   {
+    "action": "dressed tips",
+    "outcome": "ok",
+    "row": 16,
+    "symptom": "bad welds tips worn"
+   },
+   {
+    "action": "chkd sensor wiring connections",
+    "outcome": "reading stable",
+    "row": 17,
+    "symptom": "servo temp err code"
+   },
+   {
+    "action": "repl bad temp sensor",
+    "outcome": "reading normal",
+    "row": 18,
+    "symptom": "servo heat error"
+   },
+   {
+    "action": "ref WO-2400296 repl feed line seals",
+    "outcome": "air cleared",
+    "row": 19,
+    "symptom": "pump air locking still"
+   },
+   {
+    "action": "recalibrated transducer signal",
+    "outcome": "readings accurate",
+    "row": 20,
+    "symptom": "transducer pressure reading drift"
+   },
+   {
+    "action": "repl desiccant cartridge",
+    "outcome": "alarm clear",
+    "row": 21,
+    "symptom": "dryer alarm active"
+   },
+   {
+    "action": "dressed tips",
+    "outcome": "ok",
+    "row": 22,
+    "symptom": "tip dressing required"
+   },
+   {
+    "action": "repl worn shunt cable",
+    "outcome": "current stable",
+    "row": 23,
+    "symptom": "weld current loss"
+   },
+   {
+    "action": "greased drive bearing",
+    "outcome": "noise reduced",
+    "row": 24,
+    "symptom": "drive bearing noise"
+   },
+   {
+    "action": "adj air pressure regulator",
+    "outcome": "no improvement",
+    "row": 25,
+    "symptom": "gun force low"
+   },
+   {
+    "action": "clnd sensor probe",
+    "outcome": "temp normal",
+    "row": 26,
+    "symptom": "temp sensor erratic"
+   },
+   {
+    "action": "repl air filter element",
+    "outcome": "flow improved",
+    "row": 27,
+    "symptom": "dirty air filter"
+   },
+   {
+    "action": "repl shaft seal",
+    "outcome": "leak stopped",
+    "row": 28,
+    "symptom": "sealer pump weeping"
+   },
+   {
+    "action": "ref WO-2400307 repl faulty quick connect",
+    "outcome": "leak fixed",
+    "row": 29,
+    "symptom": "air leak persists"
+   },
+   {
+    "action": "repl intake filter",
+    "outcome": "complete",
+    "row": 30,
+    "symptom": "pm filter change"
+   },
+   {
+    "action": "cleaned cooler fins",
+    "outcome": "temp ok",
+    "row": 31,
+    "symptom": "hyd oil high temp"
+   },
+   {
+    "action": "repl cable to sensor",
+    "outcome": "reading normal",
+    "row": 32,
+    "symptom": "temp reading high"
+   },
+   {
+    "action": "ref WO-2400326 repl failed cooling fan",
+    "outcome": "no alarms",
+    "row": 33,
+    "symptom": "drive temp warning"
+   },
+   {
+    "action": "check controller voltage",
+    "outcome": "not fixed",
+    "row": 34,
+    "symptom": "timer param error"
+   },
+   {
+    "action": "refilled way lube",
+    "outcome": "complete",
+    "row": 35,
+    "symptom": "way lube low"
+   },
+   {
+    "action": "repl worn shunt",
+    "outcome": "resistance normal",
+    "row": 36,
+    "symptom": "high weld resistance"
+   },
+   {
+    "action": "tightened sensor mount",
+    "outcome": "fault returned",
+    "row": 37,
+    "symptom": "pin pos fault"
+   },
+   {
+    "action": "dresser cycle",
+    "outcome": "ok",
+    "row": 38,
+    "symptom": "tips worn"
+   },
+   {
+    "action": "dresser cycle",
+    "outcome": "ok",
+    "row": 39,
+    "symptom": "tips worn"
+   },
+   {
+    "action": "repl shunt",
+    "outcome": "weld ok",
+    "row": 40,
+    "symptom": "shunt damage"
+   },
+   {
+    "action": "repl weld shunt",
+    "outcome": "ok",
+    "row": 41,
+    "symptom": "shunt wear"
+   },
+   {
+    "action": "replenished way lube",
+    "outcome": "ok",
+    "row": 42,
+    "symptom": "lube low"
+   },
+   {
+    "action": "recalibrated transducer",
+    "outcome": "reading ok",
+    "row": 43,
+    "symptom": "transducer drift"
+   },
+   {
+    "action": "changed hyd filter",
+    "outcome": "done",
+    "row": 44,
+    "symptom": "pm filter swap"
+   },
+   {
+    "action": "repl shunt",
+    "outcome": "fixed",
+    "row": 45,
+    "symptom": "shunt wear"
+   },
+   {
+    "action": "flushed hyd lines",
+    "outcome": "valve fast",
+    "row": 46,
+    "symptom": "valve slow"
+   },
+   {
+    "action": "set new parameters",
+    "outcome": "cycle ok",
+    "row": 47,
+    "symptom": "timer parameter drift"
+   },
+   {
+    "action": "repl spool valve",
+    "outcome": "fast response",
+    "row": 48,
+    "symptom": "valve slow"
+   },
+   {
+    "action": "adj gun regulator",
+    "outcome": "force set",
+    "row": 49,
+    "symptom": "force issue"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3182,
+  "output_tokens": 2407,
+  "thinking_tokens": 0,
+  "usd": 0.004406
+ }
+}

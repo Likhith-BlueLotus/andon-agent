@@ -1,0 +1,315 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "rows": [
+   {
+    "action": "repl worn electrode caps",
+    "outcome": "weld quality restored",
+    "row": 0,
+    "symptom": "tip dresser failing cycle"
+   },
+   {
+    "action": "chk brg, lubed housing",
+    "outcome": "noise reduced",
+    "row": 1,
+    "symptom": "cnv drive end whining"
+   },
+   {
+    "action": "removed and cleaned strainer",
+    "outcome": "flow returned to normal",
+    "row": 2,
+    "symptom": "chiller low flow alarm"
+   },
+   {
+    "action": "added hyd oil to reservoir",
+    "outcome": "alarm persisted",
+    "row": 3,
+    "symptom": "low way lube alarm"
+   },
+   {
+    "action": "flushed strainer and replaced hose",
+    "outcome": "flow restored",
+    "row": 4,
+    "symptom": "gun coolant flow alarm"
+   },
+   {
+    "action": "repl worn weld shunt",
+    "outcome": "temp normalized",
+    "row": 5,
+    "symptom": "shunt overheating"
+   },
+   {
+    "action": "insp and re-greased brg",
+    "outcome": "noise quieted",
+    "row": 6,
+    "symptom": "rough brg noise at drive"
+   },
+   {
+    "action": "repl leaking quick coupling",
+    "outcome": "leak stopped",
+    "row": 7,
+    "symptom": "air hiss detected"
+   },
+   {
+    "action": "refilled way oil tank",
+    "outcome": "system running okay",
+    "row": 8,
+    "symptom": "way lube level low"
+   },
+   {
+    "action": "adj mechanical stop",
+    "outcome": "clamp cycle fixed",
+    "row": 9,
+    "symptom": "clamp pin not homing"
+   },
+   {
+    "action": "restored correct timer setpoints",
+    "outcome": "timing back in spec",
+    "row": 10,
+    "symptom": "weld timing fault"
+   },
+   {
+    "action": "cleaned condenser coil fins",
+    "outcome": "temp stabilized",
+    "row": 11,
+    "symptom": "chiller temp high"
+   },
+   {
+    "action": "repl pump shaft seal",
+    "outcome": "leak repaired",
+    "row": 12,
+    "symptom": "sealer pump leaking"
+   },
+   {
+    "action": "changed compressor oil",
+    "outcome": "pm complete",
+    "row": 13,
+    "symptom": "pm schedule due"
+   },
+   {
+    "action": "topped up oil level",
+    "outcome": "level normal",
+    "row": 14,
+    "symptom": "low gearbox oil"
+   },
+   {
+    "action": "cleared debris from strainer",
+    "outcome": "alarm cleared",
+    "row": 15,
+    "symptom": "chiller flow alarm"
+   },
+   {
+    "action": "replaced faulty temp sensor",
+    "outcome": "reading normal",
+    "row": 16,
+    "symptom": "servo temp error"
+   },
+   {
+    "action": "serviced air dryer unit",
+    "outcome": "air dry",
+    "row": 17,
+    "symptom": "wet air lines"
+   },
+   {
+    "action": "cleaned gun strainer",
+    "outcome": "flow ok",
+    "row": 18,
+    "symptom": "poor cooling at gun"
+   },
+   {
+    "action": "wiped camera lens",
+    "outcome": "image clear",
+    "row": 19,
+    "symptom": "vision image blurry"
+   },
+   {
+    "action": "repl temp sensor",
+    "outcome": "readings steady",
+    "row": 20,
+    "symptom": "erratic servo readings"
+   },
+   {
+    "action": "recalibrated transducer",
+    "outcome": "pressure reading correct",
+    "row": 21,
+    "symptom": "sealer pressure alarm"
+   },
+   {
+    "action": "refilled tank",
+    "outcome": "system status ok",
+    "row": 22,
+    "symptom": "lube pump low alarm"
+   },
+   {
+    "action": "repl caps and dressed",
+    "outcome": "tips ready",
+    "row": 23,
+    "symptom": "tips worn out"
+   },
+   {
+    "action": "replaced fan in cabinet",
+    "outcome": "temp down",
+    "row": 24,
+    "symptom": "servo over heat alarm"
+   },
+   {
+    "action": "repl tips and dressed",
+    "outcome": "weld good",
+    "row": 25,
+    "symptom": "weld quality failing"
+   },
+   {
+    "action": "cleaned cooling coil",
+    "outcome": "temp stable",
+    "row": 26,
+    "symptom": "chiller running hot"
+   },
+   {
+    "action": "adj regulator setpoint",
+    "outcome": "pressure correct",
+    "row": 27,
+    "symptom": "gun pressure low"
+   },
+   {
+    "action": "updated setpoint for part",
+    "outcome": "cycle working",
+    "row": 28,
+    "symptom": "hyd press error"
+   },
+   {
+    "action": "tensioned conveyor chain",
+    "outcome": "chain tracking ok",
+    "row": 29,
+    "symptom": "conveyor chain slack"
+   },
+   {
+    "action": "filled to proper level",
+    "outcome": "gearbox quiet",
+    "row": 30,
+    "symptom": "gearbox noise"
+   },
+   {
+    "action": "reset dryer controller",
+    "outcome": "normal operation",
+    "row": 31,
+    "symptom": "dryer alarm"
+   },
+   {
+    "action": "cleaned fouled cooler, fix WO-2500654",
+    "outcome": "temp dropped",
+    "row": 32,
+    "symptom": "high oil temp alarm"
+   },
+   {
+    "action": "cleared metal shavings",
+    "outcome": "pin moving",
+    "row": 33,
+    "symptom": "locator pin stuck"
+   },
+   {
+    "action": "reconfigured parameter",
+    "outcome": "setpoint corrected",
+    "row": 34,
+    "symptom": "press setpoint fault"
+   },
+   {
+    "action": "reloaded settings",
+    "outcome": "timer working",
+    "row": 35,
+    "symptom": "timer fault"
+   },
+   {
+    "action": "cleaned strainer",
+    "outcome": "flow ok",
+    "row": 36,
+    "symptom": "low coolant flow"
+   },
+   {
+    "action": "realigned photo eye",
+    "outcome": "conveyor moving",
+    "row": 37,
+    "symptom": "conveyor stopped"
+   },
+   {
+    "action": "adj regulator",
+    "outcome": "steady pressure",
+    "row": 38,
+    "symptom": "gun pressure fluctuated"
+   },
+   {
+    "action": "adj air regulator",
+    "outcome": "pressure good",
+    "row": 39,
+    "symptom": "low gun pressure"
+   },
+   {
+    "action": "restored original params",
+    "outcome": "timing fixed",
+    "row": 40,
+    "symptom": "timing drift"
+   },
+   {
+    "action": "recalibrated transducer",
+    "outcome": "alarm cleared",
+    "row": 41,
+    "symptom": "pressure alarm"
+   },
+   {
+    "action": "cleaned cabinet fan",
+    "outcome": "temp dropped",
+    "row": 42,
+    "symptom": "servo drive hot"
+   },
+   {
+    "action": "set correctly for model",
+    "outcome": "cycle good",
+    "row": 43,
+    "symptom": "wrong pressure set"
+   },
+   {
+    "action": "repl transducer cable",
+    "outcome": "reading stable",
+    "row": 44,
+    "symptom": "erratic press reading"
+   },
+   {
+    "action": "repl sensor",
+    "outcome": "data normal",
+    "row": 45,
+    "symptom": "temp sensor fail"
+   },
+   {
+    "action": "reprogrammed timer",
+    "outcome": "fixed",
+    "row": 46,
+    "symptom": "timer logic error"
+   },
+   {
+    "action": "realigned eye bracket",
+    "outcome": "tracking ok",
+    "row": 47,
+    "symptom": "photo eye error"
+   },
+   {
+    "action": "tightened cable",
+    "outcome": "comm restored",
+    "row": 48,
+    "symptom": "comm link lost"
+   },
+   {
+    "action": "repl filter",
+    "outcome": "airflow good",
+    "row": 49,
+    "symptom": "intake restriction"
+   }
+  ]
+ },
+ "prompt": "work_orders",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 3109,
+  "output_tokens": 1691,
+  "thinking_tokens": 0,
+  "usd": 0.003314
+ }
+}
