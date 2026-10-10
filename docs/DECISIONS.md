@@ -43,3 +43,6 @@ BYO-CSV → technician view + voice note → multilingual WO, only if phases 1�
 
 **ADR-014 — Demo scenario: real-signal air leak (R-set)** · 2026-10-10 · accepted
 Weld cells alarm, root cause upstream in plant air: the clearest "alarm at the wrong station" story, on real data with an operator-labelled ground truth. Backup: S-set sealer cavitation with audio.
+
+**ADR-015 — Phase 0 platform verification results** · 2026-10-10 · accepted
+Context: pinned IDs, prices, SDK names checked against live docs (Agent Platform model + pricing pages, PyPI, adk.dev). → Decision: all four pinned IDs exist (3.5 Flash GA and regional in asia-south1 — residency mode valid); prices in `config.py` with source URL; set both `GOOGLE_GENAI_USE_ENTERPRISE` and `GOOGLE_GENAI_USE_VERTEXAI` (SDK 2.29 prefers the former); `llm.py` passes `vertexai=True` explicitly so behaviour doesn't depend on env; fastapi floor lowered to what google-adk 2.11 allows; Hosting rewrite still 60 s → keep direct Cloud Run calls (ADR-006 stands). → Consequences: 3.8 Flash price doubles on 2027-01-01 (after Dec 4, no impact); residency calls cost +10% (non-global rate). Live call confirmation pending GCP project.

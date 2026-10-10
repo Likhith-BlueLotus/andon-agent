@@ -8,3 +8,23 @@ Template — copy for each entry:
 - **Fix:**
 - **Do differently / rule added:**
 - **Cost (time / $):**
+
+### 2026-10-10 23:40 — Latest fastapi conflicts with google-adk (phase 0, person A)
+- **What happened:** `uv sync` failed: fastapi 0.143 needs opentelemetry-api ≥1.44, google-adk 2.11 pins ≤1.42.1.
+- **Root cause:** pinning every package to "latest" ignores the framework's own upper bounds.
+- **Fix:** fastapi floor at 0.133; resolver picked 0.141.1.
+- **Do differently / rule added:** pin ADK + genai first, let them constrain the web stack.
+- **Cost (time / $):** 5 min / $0.
+
+### 2026-10-10 23:40 — Docs drift found in Phase 0 verification (phase 0, person A)
+- **What happened:** genai env var renamed (`GOOGLE_GENAI_USE_ENTERPRISE`), real Flash/Flash-Lite prices higher than first guesses (Flash $0.75/$3.75, Flash-Lite $0.25/$1.50 per 1M), cache minimum wording ambiguous for 3.8 Flash.
+- **Fix:** TECH_STACK.md + config.py updated; ADR-015.
+- **Do differently / rule added:** budget maths only from `config.PRICES`, never from memory.
+- **Cost (time / $):** 3 min agent research / $0.
+
+### 2026-10-10 23:50 — ruff 0.17 reformatted Python blocks inside docs (phase 0, person A)
+- **What happened:** `ruff format .` rewrote the contract code block in docs/ARCHITECTURE.md.
+- **Root cause:** ruff ≥0.17 formats fenced Python in Markdown by default.
+- **Fix:** reverted; `*.md` added to `extend-exclude` in ruff.toml.
+- **Do differently / rule added:** after any formatter run, `git status docs/` before committing.
+- **Cost (time / $):** 3 min / $0.

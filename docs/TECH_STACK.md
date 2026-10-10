@@ -1,6 +1,7 @@
 # Tech stack & environment
 
 ## Versions (pin in `pyproject.toml` / `package.json` on Day 0 after checking latest)
+Pinned 2026-10-10: google-adk 2.11.0, google-genai 2.29.0, fastapi 0.141.x (ADK caps <0.143), pydantic 2.14, duckdb 1.5, librosa 1.0 (major bump — check API before use).
 | Thing | Choice | Why |
 |---|---|---|
 | Python | 3.12 | ADK + google-genai support; fast |
@@ -17,13 +18,14 @@
 | Frontend hosting | Firebase Hosting (static SPA) | Satisfies "Firebase"; zero server |
 | Tests / lint | pytest (+ pytest-asyncio), ruff; vitest for web | |
 
-**Gotcha decided up front:** the SPA calls the Cloud Run URL directly (CORS), *not* through a Firebase Hosting rewrite — Hosting rewrites to Cloud Run have a short request timeout that would cut long SSE streams. Verify the current limit; if it's long enough, a rewrite is optional polish only.
+**Gotcha decided up front:** the SPA calls the Cloud Run URL directly (CORS), *not* through a Firebase Hosting rewrite — Hosting rewrites to Cloud Run have a short request timeout that would cut long SSE streams. Verified 2026-10-10: the Hosting→Cloud Run rewrite still times out at 60 s (504), so direct calls are required.
 
 ## Environment variables (`.env.example`, real values in Secret Manager / deploy flags)
 ```
 GOOGLE_CLOUD_PROJECT=andon-agent-xxxx
 GOOGLE_CLOUD_LOCATION=global           # Gemini
-GOOGLE_GENAI_USE_VERTEXAI=True         # verify the current env var name (docs mention an ENTERPRISE variant)
+GOOGLE_GENAI_USE_ENTERPRISE=true       # google-genai >=2.29 preferred name (wins if both set)
+GOOGLE_GENAI_USE_VERTEXAI=True         # legacy name, still honoured; keep both equal
 APP_REGION=asia-south1
 BQ_DATASET=andon
 GCS_BUCKET=andon-agent-xxxx-assets
@@ -69,14 +71,14 @@ gcloud run deploy andon-api --source . --region $REGION \
 ## Cloud Run / Gemini gotchas (each one has a test or a script)
 | Gotcha | Fix |
 |---|---|
-| Default request timeout 300 s | `--timeout 900`; SSE heartbeat every 15 s |
+| Default request timeout 300 s (max 3600 s) | `--timeout 900`; SSE heartbeat every 15 s |
 | Proxies buffer SSE | `Cache-Control: no-cache`, `X-Accel-Buffering: no`, flush each event |
 | Background work throttled after response (request-based billing) | Run eval as a Cloud Run **Job**, never as a background task |
 | Cold start | Slim image, lazy-load sklearn model and librosa; `--min-instances 1` only when it matters |
 | 429 RESOURCE_EXHAUSTED | `location=global`, jittered backoff, Pro→Flash fallback, ≤4 concurrent Gemini calls per instance in eval |
 | Gemini 3 sampling params | Don't send temperature/top_p/top_k; use thinking level |
 | Thought signatures in tool loops | Let ADK's runner carry them; if calling google-genai directly, return the full previous content |
-| Context cache minimum size | ≥6,144 tokens for 3.8 Flash / 3.1 Pro (check docs); cache is project-scoped and billed per hour — GC at session end |
+| Context cache minimum size | Docs (2026-10-10): 6,144 tokens for 3.1 Pro preview / 3.8 Flash, 4,096 for other Gemini 3; wording for 3.8 Flash *explicit* caching is ambiguous — confirm with one live `caches.create`. Default TTL 60 min; storage billed per hour — GC at session end |
 | response_schema limits | Shallow schemas, enums, no giant `anyOf`; validate with Pydantic; one retry then fail closed |
 | Large media | Pass `gs://` URIs as parts, never base64 large files |
 | Model retirement | Never 2.x; IDs only from `config.py`; Phase 0 live-checks them |

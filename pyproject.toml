@@ -1,0 +1,51 @@
+[project]
+name = "andon-agent"
+version = "0.1.0"
+description = "Agentic root-cause analysis for automotive assembly-line stops, with code-verified claims and a human approval gate."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "google-adk>=2.11,<3",
+    "google-genai>=2.29,<3",
+    "fastapi>=0.133",  # google-adk 2.11 caps fastapi <0.143 via opentelemetry pins
+    "uvicorn[standard]>=0.54",
+    "pydantic>=2.14,<3",
+    "numpy>=2.0",
+    "pandas>=2.2",
+    "pyarrow>=17",
+    "scipy>=1.14",
+    "ruptures>=1.1.10",
+    "scikit-learn>=1.5",
+    "joblib>=1.4",
+    "duckdb>=1.5",
+    "google-cloud-bigquery>=3.25",
+    "google-cloud-firestore>=2.18",
+    "google-cloud-storage>=2.18",
+    "requests>=2.32",
+]
+
+[project.optional-dependencies]
+# Heavy or fetch-only deps kept out of the API image.
+audio = ["librosa>=0.10"]
+fetch = ["remotezip>=0.12.6"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "httpx>=0.27",
+    "ruff>=0.6",
+    "pre-commit>=3.8",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-m 'not live'"
+asyncio_mode = "auto"
+markers = [
+    "live: calls Gemini or GCP; costs money; run with -m live",
+]

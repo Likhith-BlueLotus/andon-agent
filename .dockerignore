@@ -1,0 +1,13 @@
+.git
+.venv
+.claude
+data
+docs
+eval/results
+web
+tests
+**/__pycache__
+.env
+.env.*
+*.pem
+*service-account*.json

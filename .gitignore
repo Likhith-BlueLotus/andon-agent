@@ -2,7 +2,6 @@
 data/raw/
 data/*.duckdb
 data/*.duckdb.wal
-data/scenarios/**/telemetry*.parquet
 eval/results/*/raw/
 
 # secrets
