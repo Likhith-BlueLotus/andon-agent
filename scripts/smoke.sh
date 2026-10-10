@@ -3,8 +3,8 @@
 set -euo pipefail
 URL="${1:?usage: smoke.sh <API_URL>}"
 URL="${URL%/}"
-echo "GET $URL/healthz"
-body=$(curl -fsS --max-time 30 "$URL/healthz")
+echo "GET $URL/health"
+body=$(curl -fsS --max-time 30 "$URL/health")
 echo "$body"
 echo "$body" | grep -q '"status":"ok"' || { echo "FAIL: healthz not ok"; exit 1; }
 echo "PASS"

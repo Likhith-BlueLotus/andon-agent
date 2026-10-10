@@ -25,10 +25,10 @@ Human split (both full-stack; ownership, not exclusivity):
 `agents/schemas.py`, `api/events.py`, `simulator/truth_schema.py` are written together, reviewed by `principal-engineer`, merged, then frozen except by mutual agreement. B builds the UI against `tests/fixtures/sample_stream.jsonl` while A builds the real stream; Tuesday integration is a URL swap.
 
 ## 3. Branching, commits, merging
-- `main` is always deployable after Tuesday. Work on `a/<topic>` or `b/<topic>`; merge via PR; `/judge-review` on big ones.
-- Conventional commits. Rebase on `main` at the start of every session. Push at least every 2 hours.
+- Trunk-based (ADR-016): everyone commits directly to `main`; no feature branches. `main` must stay green — `uv run pytest -q` and ruff pass before every commit; `/judge-review` on big changes.
+- Conventional commits, small and atomic. `git pull --rebase` at the start of every session and before every push. Push at least every 2 hours.
 - End every session with `/handoff`. Start every session with "Read docs/HANDOFF.md and continue."
-- Optional `git worktree` lets one human run two Claude sessions (e.g., agents + eval) without collisions.
+- Two humans on one trunk: stay in your own directories (A: `agents/ api/ infra/ eval/`; B: `simulator/ scripts/fetch_datasets.py web/`), pull often, and coordinate edits to shared files (contracts, `config.py`, docs).
 
 ## 4. Phases and exit criteria
 | Phase | Command | Exit criterion (demonstrably true) |

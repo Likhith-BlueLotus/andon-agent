@@ -15,8 +15,8 @@ Create a task list for the steps below and work through them. Delegate infra to 
 4. **`agents/llm.py` v0**: a thin wrapper around google-genai with retry/backoff, model fallback hook, token + cost accounting (prices in `config.py` with the source URL and date in a comment), and an in-memory daily spend counter. Unit-test the cost maths offline.
 5. **Live model smoke test** `scripts/smoke_models.py`: one tiny call to each pinned model on `location=global` (and `gemini-3.5-flash` on `asia-south1`), print model id, latency, tokens, cost. If any ID fails, stop and tell me the exact error and the closest valid ID from the docs.
 6. **GCP bootstrap** via `infra/bootstrap.sh` and `infra/iam.sh` (see docs/TECH_STACK.md and docs/SECURITY.md). Show me each command before running anything that creates billable resources. Budget alerts at $100/$200/$250 — if the billing account id is needed, ask me.
-7. **Hello-world API**: `api/main.py` with `/healthz` only; deploy with `infra/deploy_api.sh` using the `andon-api@` service account; run `scripts/smoke.sh <url>`.
+7. **Hello-world API**: `api/main.py` with `/health` only; deploy with `infra/deploy_api.sh` using the `andon-api@` service account; run `scripts/smoke.sh <url>`.
 8. **Day-0 hygiene:** confirm team registration screenshot exists (ask me), the eligibility email is sent (RISKS #2), free disk ≥ 30 GB for datasets, budget ledger copied into `/status` output format.
 9. Commit (`chore: bootstrap`) and push.
 
-Exit criterion: the smoke script shows all pinned models answering, and `/healthz` responds from the Cloud Run URL. Then update docs/LESSONS_LEARNED.md and tell me the URL, the measured cost of the smoke test, and anything that differed from our docs.
+Exit criterion: the smoke script shows all pinned models answering, and `/health` responds from the Cloud Run URL. Then update docs/LESSONS_LEARNED.md and tell me the URL, the measured cost of the smoke test, and anything that differed from our docs.

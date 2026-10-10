@@ -48,8 +48,8 @@ the phases and to my row of the day plan.
 
 Context you must hold for the whole project:
 - Team: 2 humans, both full-stack. Person A = agents, backend, infra, eval harness.
-  Person B = data (S-set + R-set), frontend, deck/video. Each runs their own Claude Code session on
-  their own branch. You are working for: <A or B>.
+  Person B = data (S-set + R-set), frontend, deck/video. Each runs their own Claude Code session, both
+  committing to `main` (trunk-based, ADR-016). You are working for: <A or B>.
 - Deadline: submit by Sat Oct 17 18:00 IST. Feature freeze Thu Oct 15 23:59 IST. Today is <date>.
 - Budget: US$300 GCP credits total until the Dec 4 finale; follow the ledger in DEVELOPMENT.md §7.
 - Everything is fresh code written now. Data only from the USE list in docs/DATA_SOURCES.md, with

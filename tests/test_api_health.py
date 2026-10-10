@@ -4,8 +4,8 @@ import config
 from api.main import app
 
 
-def test_healthz():
-    r = TestClient(app).get("/healthz")
+def test_health():
+    r = TestClient(app).get("/health")
     assert r.status_code == 200
     body = r.json()
     assert body["status"] == "ok"

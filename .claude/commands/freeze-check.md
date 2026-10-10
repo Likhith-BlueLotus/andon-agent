@@ -5,7 +5,7 @@ description: Gate for the Thu Oct 15 23:59 IST feature freeze — tag v1.0-freez
 Check each item and show evidence. If all pass, tag `v1.0-freeze` and push the tag. If any fail, list them with the smallest fix and do not tag.
 
 - [ ] `main` is green: `uv run pytest -q`, `ruff check .`, `cd web && npm run build && npx vitest run`
-- [ ] Deployed API and web match `main` HEAD (compare `/healthz` version to `git rev-parse --short HEAD`)
+- [ ] Deployed API and web match `main` HEAD (compare `/health` version to `git rev-parse --short HEAD`)
 - [ ] Full live investigation of R002 succeeds on the deployed web app; replay works without passcode
 - [ ] Verifier rejection visible in at least one replay; provenance chips visible on real evidence
 - [ ] HITL approval gate works and refuses unticked safety steps; LOTO steps verbatim

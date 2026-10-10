@@ -26,6 +26,11 @@ for SA in "$API_SA" "$EVAL_SA"; do
   done
 done
 
+# Cloud Build for `gcloud run deploy --source`: read sources, push images, write logs.
+gcloud projects add-iam-policy-binding "$PROJECT" \
+  --member="serviceAccount:andon-build@$PROJECT.iam.gserviceaccount.com" \
+  --role=roles/cloudbuild.builds.builder --condition=None --quiet >/dev/null
+
 # Eval job may write results to the eval bucket only.
 gcloud storage buckets add-iam-policy-binding "gs://$PROJECT-eval" \
   --member="serviceAccount:$EVAL_SA" --role=roles/storage.objectAdmin >/dev/null

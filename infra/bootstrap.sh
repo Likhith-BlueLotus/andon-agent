@@ -23,6 +23,8 @@ gcloud services enable \
 gcloud artifacts repositories create andon --repository-format=docker --location="$REGION" || true
 gcloud iam service-accounts create andon-api --display-name="Andon API (Cloud Run)" || true
 gcloud iam service-accounts create andon-eval --display-name="Andon eval (Cloud Run Job)" || true
+# Source builds run as this SA, not the default compute SA (which has no roles on new projects).
+gcloud iam service-accounts create andon-build --display-name="Andon source builds (Cloud Build)" || true
 bq --location="$REGION" mk -d "$PROJECT:andon" || true
 gcloud storage buckets create "gs://$PROJECT-assets" --location="$REGION" --uniform-bucket-level-access || true
 gcloud storage buckets create "gs://$PROJECT-eval" --location="$REGION" --uniform-bucket-level-access || true

@@ -1,10 +1,13 @@
 # Handoff log (newest first)
 
-## 2026-10-10 night — Person A — Phase 0 (partial)
-**Done:** repo skeleton on `a/bootstrap`; `config.py` with verified pinned IDs + prices (ADR-015); `agents/llm.py` v0 (pinned guard, retry/backoff, judge fallback on 429/5xx/timeout, cost maths incl. Pro long-context tier, IST daily kill switch) — 22 offline tests green; `/healthz` exercised locally; infra scripts + `scripts/smoke_models.py` written, **not yet run** (no GCP project).
-**GCP (project `andon-agent-511218`, gcloud config `andon`, account srilakshmikripa26@gmail.com):** bootstrap + IAM done — APIs, Artifact Registry `andon`, SAs `andon-api@`/`andon-eval@`, BQ dataset `andon`, buckets `-assets`/`-eval`, Firestore native asia-south1, budget `andon-300` = ₹26,500 (billing account is INR; ~88 INR/USD assumed), credits excluded so alerts fire on gross cost.
-**Still open:** first Cloud Run deploy failed — Cloud Build's default compute SA lacks storage access on a new project. Plan: dedicated `andon-build@` SA with `roles/cloudbuild.builds.builder`, pass `--build-service-account`. ADC still points at another account → run `gcloud auth application-default login` as the project account before `scripts/smoke_models.py`.
-**Follow-ups from principal-engineer review (not done):**
-- Phase 2: ADK calls bypass llm.py → AndonBudgetPlugin (RISKS #22). Residency mode needs `Gemini(..., client_kwargs={"location": "asia-south1"})`.
-- Phase 3: spend counter → Firestore (then raise max-instances); `roles/datastore.user` allows deletes, so append-only audit must be enforced in code + test (Firestore rules don't bind server SDKs) — fix SECURITY.md wording; deploy must set `ALLOWED_ORIGINS` + `DAILY_BUDGET_USD`; `.dockerignore` excludes `data/` (replay fixtures need GCS or an allow-list); ledger rows for failed/timed-out calls.
-**For Person B:** contracts (`/phase-1 contracts`) not started; ARCHITECTURE §4 is the source. Note ruff ≥0.17 formats Markdown code blocks — `*.md` is now excluded.
+## 2026-10-11 ~01:00 IST — Person A — Phase 0 DONE
+**Live:** API https://andon-api-891056416508.asia-south1.run.app/health (runtime SA `andon-api@`, max-instances 1, timeout 900 s, docs disabled in prod). Repo: https://github.com/Likhith-BlueLotus/andon-agent, trunk-based on `main` (ADR-016), CI = ruff + pytest + gitleaks.
+**GCP `andon-agent-511218`** (gcloud config `andon`; run `export CLOUDSDK_ACTIVE_CONFIG_NAME=andon`): APIs, Artifact Registry, SAs `andon-api@` / `andon-eval@` / `andon-build@`, BQ `andon`, buckets `-assets` / `-eval`, Firestore native asia-south1, budget `andon-300` ₹26,500 (INR account; credits excluded).
+**Model smoke (live, 2026-10-11):** all 4 pinned IDs answer — 3.8 Flash 2.4 s, 3.1 Flash-Lite 1.3 s, 3.1 Pro preview 4.0 s, 3.5 Flash asia-south1 1.6 s; total $0.0019. Flash-Lite still spent 144 thinking tokens at LOW.
+**Spend to date:** ~$0.002 Gemini + Cloud Build minutes (free tier).
+**Next (A):** `/phase-1 contracts` with B (show both humans before merge), then `/phase-2`.
+**Follow-ups from principal-engineer review:**
+- Phase 2: ADK calls bypass llm.py → AndonBudgetPlugin (RISKS #22). Residency mode needs `Gemini(..., client_kwargs={"location": "asia-south1"})`. Confirm explicit-cache minimum on 3.8 Flash with one live `caches.create`.
+- Phase 3: spend counter → Firestore (then raise max-instances); `roles/datastore.user` allows deletes, so append-only audit must be enforced in code + test — fix SECURITY.md wording; `.dockerignore` excludes `data/` (replay fixtures need GCS or an allow-list); ledger rows for failed/timed-out calls; set real `ALLOWED_ORIGINS` once Firebase site exists.
+- Local ADC on this laptop still belongs to another account; use `scripts/smoke_models.py --gcloud-token` or re-run `gcloud auth application-default login`.
+**For Person B:** ruff ≥0.17 formats Markdown code blocks — `*.md` is excluded in ruff.toml. No route may end in `z` (Cloud Run).

@@ -7,7 +7,7 @@
 | Plant data (offline) | `scripts/fetch_datasets.py` (public datasets, checksums) → `simulator/` synthetic line + real-signal mapping + fault injector + imperfections + text artifacts + manuals + provenance; `truth.json` (hidden from agents) | Local / Cloud Run Job |
 | Data | Telemetry + alarms + work orders + provenance (BigQuery, DuckDB locally) · audio, manual PDFs, raw vibration snapshots (Cloud Storage) · manuals text (explicit context cache) | asia-south1 (Gemini: global) |
 | Agents | ADK graph: Commander → Parallel(Signal Analyst, Evidence Librarian) → Loop(RCA Judge ↔ Verifier, max 3) → Action Drafter | Inside the API container |
-| Serving | FastAPI: `/investigate` (SSE), `/approve`, `/replay`, `/healthz` · Firestore sessions, audit log, mock CMMS | Cloud Run asia-south1 |
+| Serving | FastAPI: `/investigate` (SSE), `/approve`, `/replay`, `/health` · Firestore sessions, audit log, mock CMMS | Cloud Run asia-south1 |
 | UI | React SPA: line mimic, live agent trace, RCA panel with verifier badges, approval gate | Firebase Hosting |
 | Eval | `eval/` harness, baselines, metrics → results JSON + slide PNG | Cloud Run Job |
 

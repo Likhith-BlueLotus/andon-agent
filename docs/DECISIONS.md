@@ -46,3 +46,6 @@ Weld cells alarm, root cause upstream in plant air: the clearest "alarm at the w
 
 **ADR-015 — Phase 0 platform verification results** · 2026-10-10 · accepted
 Context: pinned IDs, prices, SDK names checked against live docs (Agent Platform model + pricing pages, PyPI, adk.dev). → Decision: all four pinned IDs exist (3.5 Flash GA and regional in asia-south1 — residency mode valid); prices in `config.py` with source URL; set both `GOOGLE_GENAI_USE_ENTERPRISE` and `GOOGLE_GENAI_USE_VERTEXAI` (SDK 2.29 prefers the former); `llm.py` passes `vertexai=True` explicitly so behaviour doesn't depend on env; fastapi floor lowered to what google-adk 2.11 allows; Hosting rewrite still 60 s → keep direct Cloud Run calls (ADR-006 stands). → Consequences: 3.8 Flash price doubles on 2027-01-01 (after Dec 4, no impact); residency calls cost +10% (non-global rate). Live call confirmation pending GCP project.
+
+**ADR-016 — Trunk-based development on `main`** · 2026-10-11 · accepted
+Context: owner preference; two people, one week, PR overhead slows integration. → Decision: commit directly to `main`; no `a/`/`b/` branches. → Rejected: branch + PR per topic (DEVELOPMENT §3 v1). → Consequences: every commit must pass tests + ruff; `git pull --rebase` before push; directory ownership avoids conflicts; contract files still need both humans' OK.

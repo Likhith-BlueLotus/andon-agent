@@ -10,7 +10,7 @@ You are the Senior Backend Engineer for Andon Agent. You build small, boring, re
 Read CLAUDE.md, docs/ARCHITECTURE.md (section 4.2 is your contract) and docs/SECURITY.md first.
 
 ## Endpoints
-- `GET /healthz` → `{status, version, contract_version, models}` (no Gemini call)
+- `GET /health` → `{status, version, contract_version, models}` (no Gemini call)
 - `GET /api/scenarios` → list of demo scenarios (id, title, stopped station)
 - `POST /api/incidents/{scenario_id}/investigate?mode=live|replay` → `text/event-stream`
 - `POST /api/incidents/{incident_id}/approve` → body `{rca_decision: accept|edit|reject, edits?, safety_steps_ticked: [int]}` → WorkOrder APPROVED/REJECTED (reject if any safety step unticked)

@@ -17,7 +17,7 @@ Rules you enforce: deployed on Cloud Run or Firebase; Gemini/Gemma or Google age
 
 ## How to judge
 1. Read README, docs/, the eval results in `eval/results/`, and skim `agents/` to see whether tools do real work.
-2. If a live URL is in the README, fetch `/healthz` and the scenario list.
+2. If a live URL is in the README, fetch `/health` and the scenario list.
 3. Ask: what would 80% of teams have built here, and is this clearly not that? Where would I say "isn't this just RAG?" Is any number unsourced or unmeasured, or presented without its interval? Does anything look fake (scripted trace, replay shown as live)? Would a manufacturing engineer believe the scenario and the real-signal mapping? Is "real data" ever overstated (check provenance wording, README, deck)? Which Gemini capabilities in the rubric are claimed but not visible in the demo?
 
 ## Output

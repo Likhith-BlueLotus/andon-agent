@@ -1,11 +1,16 @@
 """Live smoke test: one tiny call to each pinned model through agents/llm.py. Costs < $0.01.
 
-Usage: GOOGLE_CLOUD_PROJECT=<id> uv run python scripts/smoke_models.py
+Usage: GOOGLE_CLOUD_PROJECT=<id> uv run python scripts/smoke_models.py [--gcloud-token]
+
+--gcloud-token authenticates with `gcloud auth print-access-token` (the active gcloud login)
+instead of Application Default Credentials. Useful when ADC belongs to another account.
 """
 
 from __future__ import annotations
 
+import argparse
 import asyncio
+import subprocess
 import sys
 from pathlib import Path
 
@@ -19,11 +24,38 @@ from agents.llm import LLM, SpendTracker
 PROMPT = "Reply with the single word: ready"
 
 
+def gcloud_token_transport():
+    from google import genai
+    from google.oauth2.credentials import Credentials
+
+    token = subprocess.run(
+        ["gcloud", "auth", "print-access-token"], check=True, capture_output=True, text=True
+    ).stdout.strip()
+    creds = Credentials(token=token)
+    clients: dict[str, genai.Client] = {}
+
+    async def transport(model_id, contents, gen_config):
+        loc = config.location_for(model_id)
+        if loc not in clients:
+            clients[loc] = genai.Client(
+                vertexai=True, project=config.PROJECT, location=loc, credentials=creds
+            )
+        return await clients[loc].aio.models.generate_content(
+            model=model_id, contents=contents, config=gen_config
+        )
+
+    return transport
+
+
 async def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--gcloud-token", action="store_true")
+    args = ap.parse_args()
     if not config.PROJECT:
         print("set GOOGLE_CLOUD_PROJECT")
         return 2
-    llm = LLM(spend=SpendTracker(daily_budget_usd=0.25), max_retries=1)
+    transport = gcloud_token_transport() if args.gcloud_token else None
+    llm = LLM(transport=transport, spend=SpendTracker(daily_budget_usd=0.25), max_retries=1)
     # LOW thinking keeps it cheap; no temperature/top_p/top_k for Gemini 3.
     cfg = types.GenerateContentConfig(
         thinking_config=types.ThinkingConfig(thinking_level="LOW"), max_output_tokens=256

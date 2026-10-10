@@ -35,3 +35,10 @@ Template — copy for each entry:
 - **Fix:** ₹26,500 budget, `--credit-types-treatment=exclude-all-credits`, project *number* in the filter; bootstrap.sh now detects currency.
 - **Do differently / rule added:** read `currencyCode` before any money config.
 - **Cost (time / $):** 5 min / $0.
+
+### 2026-10-11 00:30 — Cloud Run returned 404 for /healthz (phase 0, person A)
+- **What happened:** first deploy served `/docs` fine but `/healthz` returned a Google-branded 404.
+- **Root cause:** Cloud Run's front end reserves URL paths ending in `z` (`/healthz` never reaches the container).
+- **Fix:** health endpoint is `/health`; all docs/commands updated. Also: new projects' default compute SA can't read the source bucket → dedicated `andon-build@` SA via `--build-service-account`.
+- **Do differently / rule added:** no route may end in `z`.
+- **Cost (time / $):** 10 min / ~$0.
