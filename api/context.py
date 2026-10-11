@@ -20,6 +20,7 @@ from api.settings import Settings
 from api.stores import StoreProvider
 
 log = logging.getLogger("andon.api")
+TELEMETRY_READS_PER_MIN_PER_IP = 60
 
 # (scenario_id, incident_id) -> contract events of one live run
 LiveRunner = Callable[[str, str], AsyncIterator[Event]]
@@ -70,6 +71,7 @@ class AppContext:
     failures: FailureLimiter = field(default_factory=FailureLimiter)
     sleep: Callable[[float], Awaitable[None]] = asyncio.sleep  # replay pacing (tests inject)
     replay_limiter: Limiter | None = None
+    telemetry_limiter: Limiter | None = None  # chart reads: per instance, per IP, memory only
     live_slots: SlotPool = field(init=False)
     replay_slots: SlotPool = field(init=False)
     _lock: threading.Lock = field(default_factory=threading.Lock, repr=False)
@@ -87,6 +89,8 @@ class AppContext:
         lease = self.settings.run_timeout_s + 60.0
         self.live_slots = SlotPool(self.settings.max_concurrent_live, lease)
         self.replay_slots = SlotPool(self.settings.max_concurrent_replay, lease)
+        if self.telemetry_limiter is None:
+            self.telemetry_limiter = Limiter(MemoryLimiter(TELEMETRY_READS_PER_MIN_PER_IP, 10**9))
         if self.replay_limiter is None:
             self.replay_limiter = Limiter(
                 MemoryLimiter(self.settings.replay_runs_per_min_per_ip, 10**9)

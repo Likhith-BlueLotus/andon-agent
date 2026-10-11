@@ -153,6 +153,8 @@ Every event: `{"type": ..., "incident_id": str, "seq": int, "ts": iso8601, "agen
 
 Heartbeats are SSE comments (`: ping`), not events.
 
+Plain REST beside the SSE contract: `GET /api/scenarios/{id}/telemetry?asset_id=&tags=a,b&t0=&t1=&max_points=` returns `{scenario_id, asset_id, t0, t1, series: [{tag, unit, points: [[iso, value|null]]}], provenance: [{source_id, real, source_ref}], downsampled}` for the evidence-drawer chart (read-only, no passcode, per-IP limited, no model call; ADR-023).
+
 ### 4.3 `simulator/truth_schema.py`
 ```python
 class GroundTruth(BaseModel):

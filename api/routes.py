@@ -20,7 +20,7 @@ from agents.cmms import CMMSWriteError, WorkOrderAlreadyDecided
 from agents.llm import BudgetExhaustedError
 from agents.schemas import CONTRACT_VERSION, WorkOrder
 from agents.verifier import check_safety_steps
-from api import catalog
+from api import catalog, telemetry_view
 from api.audit import INCIDENT_ID_RE, AuditRecorder, public_view
 from api.context import AppContext
 from api.events import Event
@@ -140,6 +140,40 @@ def build_router(ctx: AppContext) -> APIRouter:
     @r.get("/api/scenarios")
     async def scenarios() -> dict:
         return catalog.group_scenarios(await ctx.scenarios(), ctx.replays.list())
+
+    @r.get("/api/scenarios/{scenario_id}/telemetry")
+    async def scenario_telemetry(
+        scenario_id: str,
+        request: Request,
+        asset_id: str = Query(..., max_length=32),
+        tags: str = Query(..., max_length=400),
+        t0: str | None = Query(None, max_length=40),
+        t1: str | None = Query(None, max_length=40),
+        max_points: int = Query(300),
+    ) -> dict:
+        """Downsampled series for the evidence drawer chart. Read-only, no passcode, no model."""
+        rows = {s["scenario_id"]: s for s in await ctx.scenarios()}
+        if not SCENARIO_ID_RE.match(scenario_id) or scenario_id not in rows:
+            raise err(404, "unknown_scenario", "unknown scenario")
+        ip = client_ip(request, st.trusted_proxy_hops)
+        decision = await asyncio.to_thread(ctx.telemetry_limiter.acquire, ip)
+        if not decision.allowed:
+            raise err(429, "rate_limited", "too many chart requests; slow down",
+                      {"Retry-After": str(decision.retry_after_s)}, scope="telemetry_ip_minute")  # fmt: skip
+        cap = max(telemetry_view.MIN_POINTS, min(telemetry_view.MAX_POINTS, max_points))
+        try:
+            _, tag_list = telemetry_view.parse_tags(asset_id, tags)
+            a, b = telemetry_view.resolve_window(rows[scenario_id]["stop_ts"], t0, t1)
+
+            def work() -> dict:
+                with ctx.provider.open(scenario_id) as store:
+                    return telemetry_view.build_view(
+                        store, scenario_id, asset_id, tag_list, a, b, cap
+                    )
+
+            return await asyncio.to_thread(work)
+        except telemetry_view.ViewError as exc:
+            raise err(exc.status, exc.code, exc.message) from None
 
     @r.get("/api/replays")
     async def replays() -> dict:
