@@ -113,3 +113,16 @@ def test_drafter_instruction_lists_only_conditional_steps():
     assert "Code inserts all 19 mandatory" in text
     assert "compressed_air:7 " in text and "compressed_air:10 " in text
     assert "compressed_air:16" not in text and "Test for absence of voltage" not in text
+
+
+@pytest.mark.parametrize(
+    ("text", "flagged"),
+    [
+        ("Replace the worn quick-disconnect fittings on the ST20 drop leg.", False),
+        ("Check the quick disconnect couplings for wear.", False),
+        ("Open the main disconnect switch.", True),
+        ("Disconnect the hose from the header.", True),
+    ],
+)
+def test_quick_disconnect_parts_are_not_energy_control_wording(text, flagged):
+    assert bool(D.SAFETY_WORDS.search(text)) is flagged

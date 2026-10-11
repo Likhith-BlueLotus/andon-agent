@@ -40,7 +40,7 @@ REQUIRED_PHASES = tuple(p for p, _ in L.PHASES)
 # Energy-control wording that must never appear in a model-written (non-safety) step.
 SAFETY_WORDS = re.compile(
     r"\b(lock\s*-?\s*out|tag\s*-?\s*out|loto|lock(s|ed)?\b|isolat\w*|de-?energi[sz]\w*|"
-    r"bleed\w*|disconnect\w*|stored energy|zero energy|energy control|energi[sz]e\w*)",
+    r"bleed\w*|(?<!quick-)(?<!quick )disconnect\w*|stored energy|zero energy|energy control|energi[sz]e\w*)",
     re.IGNORECASE,
 )
 MAX_REPAIR_STEPS = 8
