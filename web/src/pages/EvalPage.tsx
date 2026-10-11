@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Bar, BarChart, CartesianGrid, ErrorBar, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { ApiError, getEvalLatest } from "../lib/api";
 import { readMock } from "../lib/config";
 import { MOCK_EVAL, readEval, type EvalSet, type EvalView } from "../lib/evalData";
@@ -57,7 +57,7 @@ function SetBlock({ set }: { set: EvalSet }) {
   const metric = set.columns.find((c) => set.rows.some((r) => r.cells[c]?.value != null && r.cells[c].lo != null)) ?? set.columns.find((c) => set.rows.some((r) => r.cells[c]?.value != null && c !== "n"));
   const data = set.rows.map((r) => {
     const c = metric ? r.cells[metric] : null;
-    return { system: r.system, value: c?.value ?? 0, err: c && c.lo != null && c.hi != null && c.value != null ? [c.value - c.lo, c.hi - c.value] : [0, 0] };
+    return { system: r.system, value: c?.value ?? 0 };
   });
   return (
     <section aria-label={set.title} className="card p-4" data-eval-set={set.id}>
@@ -82,7 +82,7 @@ function SetBlock({ set }: { set: EvalSet }) {
         </table>
       </div>
       {metric && data.length > 0 && (
-        <div className="mt-3 h-56" role="img" aria-label={`Bar chart of ${metric.replace(/_/g, " ")} by system with Wilson intervals. Values are in the table above.`}>
+        <div className="mt-3 h-56" role="img" aria-label={`Bar chart of ${metric.replace(/_/g, " ")} by system. The Wilson 95% intervals are in the table above.`}>
           <ResponsiveContainer width="100%" height="100%" minWidth={200} minHeight={160}>
             <BarChart data={data} margin={{ top: 8, right: 12, bottom: 0, left: 0 }}>
               <CartesianGrid stroke="rgb(var(--line))" strokeDasharray="3 3" />
@@ -90,9 +90,7 @@ function SetBlock({ set }: { set: EvalSet }) {
               <YAxis domain={[0, 1]} stroke="rgb(var(--muted))" tick={{ fontSize: 11 }} width={36} />
               <Tooltip contentStyle={{ background: "rgb(var(--raised))", border: "1px solid rgb(var(--line))", fontSize: 12 }} />
               <Legend wrapperStyle={{ fontSize: 11 }} />
-              <Bar dataKey="value" name={metric.replace(/_/g, " ")} fill="rgb(var(--accent))" isAnimationActive={false}>
-                <ErrorBar dataKey="err" stroke="rgb(var(--fg))" width={4} />
-              </Bar>
+              <Bar dataKey="value" name={metric.replace(/_/g, " ")} fill="rgb(var(--accent))" isAnimationActive={false} />
             </BarChart>
           </ResponsiveContainer>
         </div>
