@@ -112,3 +112,10 @@ Template — copy for each entry:
 - **Fix:** a Flash *primary* judge runs MEDIUM (Pro stays HIGH) → judge ~30 s, full runs 78–95 s. Sync tools are wrapped as async twins that run in a worker thread under a per-agent FIFO lock (dispatch order → deterministic ids; the other branch keeps running); `cite_manual` reserves its id before awaiting. The `cost` event merges the app ledger and `get_llm()` for the invocation.
 - **Do differently / rule added:** replay determinism is a requirement: anything that assigns ids must do it in dispatch order, never completion order; never enable ADK's tool thread pool in this graph; every tool that calls Gemini must take its LLM/run id from the run, not a global.
 - **Cost (time / $):** ~1 h / $0.73 live (skeleton $0.10, R002 $0.17, S005 $0.15, S010 $0.15, R002 forced $0.19; Flash judge).
+
+### 2026-10-11 — CI red for 4 pushes unnoticed (phase 2, person A)
+- **What happened:** CI failed on edb20a3…74c5eb5: (1) a partial commit (`listen` imported the uncommitted `agents/prompts/__init__.py`); (2) gitleaks flagged `"key": "<sha256 prefix>"` in listen cache files; (3) one unformatted test.
+- **Root cause:** committing one agent's files while another agent's shared module was still uncommitted; a content-hash field named `key`; not checking CI after each push.
+- **Fix:** field renamed to `content_hash`; the 4 historical fingerprints (each inspected) in `.gitleaksignore`; full-history gitleaks clean (Docker `zricethezav/gitleaks:v8.24.3`).
+- **Do differently / rule added:** before committing a subset, test it in a clean worktree (`git worktree add` + apply the staged diff); check `gh run list` after every push; never name a hash field `key`/`token`/`secret`.
+- **Cost (time / $):** 25 min / $0.

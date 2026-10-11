@@ -1,3 +1,6 @@
-# One known false positive, reviewed 2026-10-11: a truncated sha256 content hash stored in a
+# Known false positives, each reviewed 2026-10-11: a truncated sha256 content hash stored in a
 # field named "key" in a listen() cache file (renamed to content_hash in the next commit).
 0157aa7e0917afa34523bba3f7b2d768910135ce:data/cache/listen/11/110bd2434f6310a0140ae9a17edbf081.json:generic-api-key:3
+edb20a3e053864f64fc1a826192d54508f133be3:data/cache/listen/41/41285c7d709cb47dca23ffb730ded532.json:generic-api-key:3
+edb20a3e053864f64fc1a826192d54508f133be3:data/cache/listen/64/64cc1f3022291e96bcd4ba7fd3a2c49b.json:generic-api-key:3
+edb20a3e053864f64fc1a826192d54508f133be3:data/cache/listen/af/afafbb88a864562f395b9d836dc78802.json:generic-api-key:3
