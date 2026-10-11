@@ -225,3 +225,147 @@ async def test_judge_falls_back_on_timeout():
 def test_residency_model_is_regional():
     assert config.location_for(config.RESIDENCY_FLASH) == "asia-south1"
     assert config.location_for(config.FLASH) == config.GEMINI_LOCATION
+
+
+# --- record(), failed-call rows, per-run totals, shared default ------------------------------
+def test_record_books_spend_ledger_and_run_totals():
+    llm = LLM(spend=SpendTracker(5.0))
+    u = Usage(config.FLASH, input_tokens=10_000, output_tokens=100, cached_tokens=8_000)
+    row = llm.record(u, agent="judge", run_id="inv-1", latency_ms=12)
+    assert row["usd"] == pytest.approx(u.usd, abs=1e-6) and row["outcome"] == "ok"
+    assert llm.spend.spent_today() == pytest.approx(u.usd)
+    rc = llm.run_cost("inv-1")
+    m = rc.by_model[config.FLASH]
+    assert (m.calls, m.input_tokens, m.cached_tokens) == (1, 10_000, 8_000)
+    p = config.PRICES[config.FLASH]
+    assert m.saved_usd == pytest.approx(8_000 * (p.input - p.cached_input) / 1e6)
+    data = rc.to_cost_data()
+    assert set(data) == {"input_tokens", "output_tokens", "cached_tokens", "usd", "by_model"}
+    assert data["by_model"] == {config.FLASH: pytest.approx(u.usd, abs=1e-6)}
+
+
+def test_record_failed_call_has_no_usd_and_no_spend():
+    llm = LLM(spend=SpendTracker(5.0))
+    row = llm.record(None, model_id=config.PRO_JUDGE, outcome="429", run_id="r")
+    assert row["usd"] is None and row["outcome"] == "429"
+    assert llm.spend.spent_today() == 0.0
+    m = llm.run_cost("r").by_model[config.PRO_JUDGE]
+    assert (m.calls, m.failed_calls) == (0, 1)
+
+
+def test_record_needs_a_model():
+    with pytest.raises(ValueError):
+        LLM().record(None)
+
+
+def test_record_usd_override_is_cost_not_a_call():
+    llm = LLM(spend=SpendTracker(5.0))
+    llm.record(None, model_id=config.FLASH, usd=0.01, run_id="r", event="cache_storage_estimate")
+    m = llm.run_cost("r").by_model[config.FLASH]
+    assert m.calls == 0 and m.usd == pytest.approx(0.01)
+    assert llm.spend.spent_today() == pytest.approx(0.01)
+
+
+async def test_generate_books_failed_call_row_then_raises():
+    async def transport(*a):
+        raise APIErr(400)
+
+    llm = LLM(transport=transport, sleep=no_sleep, spend=SpendTracker(5.0))
+    with pytest.raises(APIErr):
+        await llm.generate(config.FLASH, "hi", agent="x", run_id="r")
+    assert [(r["outcome"], r["usd"]) for r in llm.ledger] == [("error", None)]
+
+
+async def test_fallback_books_primary_failure_and_fallback_success():
+    async def transport(model, contents, cfg):
+        if model == config.PRO_JUDGE:
+            raise APIErr(429)
+        return fake_response()
+
+    llm = LLM(transport=transport, sleep=no_sleep, spend=SpendTracker(5.0))
+    await llm.generate(config.PRO_JUDGE, "rank", fallback_model=config.FLASH, run_id="r")
+    assert [(r["model_id"], r["outcome"]) for r in llm.ledger] == [
+        (config.PRO_JUDGE, "429"),
+        (config.FLASH, "ok"),
+    ]
+    assert llm.ledger[-1]["fallback_from"] == config.PRO_JUDGE
+    rc = llm.run_cost("r")
+    assert rc.fallbacks == [
+        {"from_model": config.PRO_JUDGE, "to_model": config.FLASH, "reason": "429"}
+    ]
+    assert rc.by_model[config.PRO_JUDGE].failed_calls == 1
+
+
+def test_run_costs_are_bounded_and_poppable(monkeypatch):
+    import agents.llm as llm_mod
+
+    monkeypatch.setattr(llm_mod, "MAX_TRACKED_RUNS", 2)
+    llm = LLM()
+    for r in ("a", "b", "c"):
+        llm.run_cost(r)
+    assert list(llm._runs) == ["b", "c"]
+    assert llm.pop_run_cost("c") is not None and "c" not in llm._runs
+    assert llm.pop_run_cost("missing").usd == 0.0
+
+
+def test_shared_default_llm_is_one_instance():
+    from agents.llm import get_llm, get_spend, set_default_llm
+
+    mine = LLM(spend=SpendTracker(1.0))
+    prev = set_default_llm(mine)
+    try:
+        assert get_llm() is mine and get_llm() is get_llm()
+        assert get_spend() is mine.spend
+    finally:
+        set_default_llm(prev)
+
+
+def test_cache_savings_usd_uses_the_cached_rate():
+    from agents.llm import cache_savings_usd
+
+    p = config.PRICES[config.FLASH]
+    assert cache_savings_usd(config.FLASH, 60_000, 50_000) == pytest.approx(
+        50_000 * (p.input - p.cached_input) / 1e6
+    )
+    assert cache_savings_usd(config.FLASH, 1_000, 0) == 0.0
+
+
+@pytest.mark.parametrize(
+    ("exc", "want"),
+    [
+        (APIErr(429), "429"),
+        (APIErr(503), "5xx"),
+        (TimeoutError(), "timeout"),
+        (APIErr(400), "error"),
+    ],
+)
+def test_classify_error(exc, want):
+    from agents.llm import classify_error
+
+    assert classify_error(exc) == want
+
+
+async def test_client_is_per_event_loop(monkeypatch):
+    """The aio client binds to its first loop, so a new loop must get a new client."""
+    from google import genai
+
+    made = []
+
+    class FakeClient:
+        def __init__(self, **kw):
+            made.append(kw)
+
+    monkeypatch.setattr(genai, "Client", FakeClient)
+    llm = LLM()
+    a = llm.client("global")
+    assert llm.client("global") is a  # same loop -> reused
+    assert made[0]["location"] == "global" and made[0]["vertexai"] is True
+
+    async def in_loop():
+        return llm.client("global")
+
+    def other_loop():
+        return asyncio.run(in_loop())
+
+    b = await asyncio.to_thread(other_loop)
+    assert b is not a and len(made) == 2

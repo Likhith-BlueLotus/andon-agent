@@ -101,6 +101,11 @@ LLM_BACKOFF_MAX_S = 20.0
 LLM_TIMEOUT_S = 120.0
 RETRYABLE_HTTP_CODES = frozenset({429, 500, 502, 503, 504})
 
+# Explicit context cache of the five manuals (agents/cache.py). Storage is billed per hour.
+MANUALS_CACHE_TTL_S = int(_env("MANUALS_CACHE_TTL_S", "3600"))
+MANUALS_CACHE_PREFIX = "andon-manuals-"  # display_name = prefix + content hash
+MANUALS_CACHE_MIN_REMAINING_S = 120  # a reused cache with less life left gets its TTL extended
+
 # Verifier tolerances (AGENTS_SPEC §5); tuned on the dev set only.
 VERIFIER_NUMERIC_REL_TOL = 0.05
 VERIFIER_TEMPORAL_TOL_S = 60
