@@ -41,3 +41,7 @@ data/work_orders_labels.parquet
 audio_index.json
 audio_truth.json
 vibration_index.json
+# raw public data read by spectrum() from GCS (never committed, never in the image)
+data/cache/gcs/
+# anomaly models: regenerable from the simulator (uv run python -m analytics.anomaly train)
+data/models/
