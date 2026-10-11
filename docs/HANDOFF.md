@@ -1,5 +1,13 @@
 # Handoff log (newest first)
 
+## 2026-10-11 — Person A — Phase 4 DONE (frontend live)
+**Live app:** https://andon-agent-b9c77.web.app (Firebase project `andon-agent-b9c77`, hosting only — ADR-024; API/data stay in `andon-agent-511218`). Deploy: `bash infra/deploy_web.sh` (tests → build → deploy → 200 + CORS checks); API CORS now allows only the b9c77 origins (`localhost` removed; `DEV=1` re-adds it).
+**Built (web/):** 3-pane console (mimic + utilities rail, agent trace with provenance chips, RCA + verifier + safety-gated WO), evidence drawer with real telemetry (`GET /api/scenarios/{id}/telemetry`, ADR-023), every state in UX_SPEC (`?mock=1|error|drop|budget|insufficient`), `/eval` page, attributions dialog. 42 vitest; Recharts lazy-loaded (main chunk 324 kB).
+**Exit checks on the deployed URL:** replay R002 keyboard-only → evidence drawer (Esc returns focus) → Accept → 17 safety boxes by Space → approver → Approve → APPROVED (demo record); live R002 with passcode: top-1 air_pressure_drop @ UT-AIR, verifier PASS iter 1, 128 s, $0.189. 375 px: no horizontal scroll. Screenshots `docs/screenshots/01–26`.
+**Found in the live run (fixing now, ADR-025):** (1) drafter LLM could omit unconditional LOTO steps (live WO had 16/21, missing the absence-of-voltage test) → code will insert every mandatory step; (2) a citation's premise ("sustained fall in header pressure") was not met by R002 evidence yet passed verbatim check → verifier will check passage preconditions against evidence. The live R002 WO from that run was left PENDING (not approved).
+**Not done:** stretch views (§9b gate closed until Run-20).
+**Next:** ADR-025 fixes → `/phase-5` (harness being built) → `/phase-6`.
+
 ## 2026-10-11 — Person A — Phase 3 DONE
 **Live API:** https://andon-api-891056416508.asia-south1.run.app (public; revision andon-api-00007). Replay for everyone, live behind `X-Demo-Passcode` (Secret Manager `demo-passcode`; read with `gcloud secrets versions access latest --secret demo-passcode` under config `andon` — never paste it anywhere).
 **Endpoints:** `POST /api/incidents/{id}/investigate?mode=live|replay&run_id=&speed=` (SSE), `POST /api/incidents/{id}/approve`, `GET /api/incidents/{id}/audit`, `/api/scenarios`, `/api/replays`, `/api/config`, `/api/sources`, `/api/eval/latest` (404 until phase 5), `/health`.
