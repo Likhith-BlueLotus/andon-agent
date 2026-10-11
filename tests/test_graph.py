@@ -284,3 +284,9 @@ async def test_recorded_runs_replay_identically(sid):
         assert [e.data.overall for e in events if e.type == "verifier_verdict"] == want
     final = [e.data for e in events if e.type == "rca_final"]
     assert final and final[0].status == meta.get("final_status", final[0].status)
+    # ADR-025: whatever the recorded drafter chose, every mandatory LOTO step is in the draft
+    from agents.loto_policy import mandatory_texts
+
+    for wo in [e.data for e in events if e.type == "work_order_draft"]:
+        texts = {s.text for s in wo.steps if s.is_safety}
+        assert set(mandatory_texts(wo.asset_id)) <= texts

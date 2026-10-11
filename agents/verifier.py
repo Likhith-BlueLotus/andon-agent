@@ -84,6 +84,7 @@ from google.adk.events import Event, EventActions
 from pydantic import ConfigDict, ValidationError
 
 import config
+from agents import loto_policy
 from agents.schemas import (
     Claim,
     ClaimVerdict,
@@ -696,13 +697,20 @@ def check_safety_steps(work_order: WorkOrder) -> list[str]:
     * a step *not* marked safety whose text reads like an energy-control step (lockout, tagout,
       isolation, de-energise, stored energy, PPE) unless it is itself a verified verbatim quote —
       relabelling is not a way around the verbatim rule;
-    * duplicate step order numbers.
+    * duplicate step order numbers;
+    * a missing **mandatory** energy-control step of the asset's manual (``agents.loto_policy``,
+      ADR-025): the drafter inserts them, this is defence in depth.
     """
     errs: list[str] = []
     orders = [s.order for s in work_order.steps]
     dup = sorted({o for o in orders if orders.count(o) > 1})
     if dup:
         errs.append(f"duplicate step order(s) {dup}")
+    present = {normalise(s.text) for s in work_order.steps if s.is_safety}
+    doc = loto_policy.manual_for(work_order.asset_id)
+    for text in loto_policy.mandatory_texts(work_order.asset_id):
+        if normalise(text) not in present:
+            errs.append(f"mandatory {doc} energy-control step missing: {text!r}")
     for s in work_order.steps:
         c = s.citation
         verbatim = (

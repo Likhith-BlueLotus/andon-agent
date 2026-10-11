@@ -26,6 +26,7 @@ from google.genai import types
 
 import config
 from agents import tools as T
+from agents import loto_policy
 from agents import verifier as V
 from agents.adk_budget import AndonBudgetPlugin
 from agents.llm import LLM, SpendTracker
@@ -421,9 +422,38 @@ def test_pass_requires_two_distinct_checkable_claims_and_no_failures(world, ev):
 
 
 # --- safety steps ----------------------------------------------------------------------------
-def _wo(*steps):
+def _mandatory_fill(given, start=100):
+    """Every mandatory compressed_air step not among ``given`` (orders from ``start``)."""
+    have = {s.text for s in given}
+    out = []
+    for i, t in enumerate(loto_policy.mandatory_texts("UT-AIR")):
+        if t not in have:
+            cit = Citation(doc="compressed_air", page=_page(t), quote=t)
+            out.append(WorkOrderStep(order=start + i, text=t, is_safety=True, citation=cit))
+    return out
+
+
+def _wo(*steps, fill=True):
+    steps_ = list(steps) + (_mandatory_fill(steps) if fill else [])
     return WorkOrder(wo_id="WO-1", incident_id="INC-S801", asset_id="UT-AIR",
-                     cause_class=C.AIR_PRESSURE_DROP, steps=list(steps), parts=[])  # fmt: skip
+                     cause_class=C.AIR_PRESSURE_DROP, steps=steps_, parts=[])  # fmt: skip
+
+
+def test_check_safety_steps_requires_every_mandatory_step():
+    """ADR-025: a work order missing any mandatory LOTO step of its manual fails (defence in
+    depth behind the drafter); the R002 gap was step 16, the absence-of-voltage test."""
+    full = _wo()
+    assert V.check_safety_steps(full) == []
+    step16 = LOTO["compressed_air"].steps[15].text
+    assert step16.startswith("Test for absence of voltage")
+    without = full.model_copy(update={"steps": [s for s in full.steps if s.text != step16]})
+    errs = V.check_safety_steps(without)
+    assert (
+        len(errs) == 1 and "mandatory compressed_air" in errs[0] and "absence of voltage" in errs[0]
+    )
+    # conditional steps are not required
+    cond = LOTO["compressed_air"].steps[6].text  # "For work on the compressor or the receiver..."
+    assert cond not in loto_policy.mandatory_texts("UT-AIR")
 
 
 def test_check_safety_steps():

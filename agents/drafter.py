@@ -1,15 +1,18 @@
 """Action Drafter (AGENTS_SPEC §6) and ``draft_work_order``, the only write tool.
 
-Safety text cannot be reworded because the model never writes it: the instruction lists the
-asset manual's energy-control steps with ids (``<doc>:<step>``) and the model picks ids. Code
-assembles each safety step from ``simulator.manuals.loto`` with its verbatim citation (doc, page
-located in the built manual), orders them as the manual does (apply -> repair -> release), and
-rejects the draft unless:
+Safety text cannot be reworded because the model never writes it, and which steps a job needs is
+decided by code (ADR-025): every **mandatory** step of the asset manual's energy-control procedure
+(``agents.loto_policy``) is always inserted; the model's ``safety_step_ids`` (``<doc>:<step>``) can
+only *add* conditional steps whose scope it judges to apply (ids of mandatory or not-applicable
+steps are accepted and ignored; unknown ids are an error). Code assembles each safety step from
+``simulator.manuals.loto`` with its verbatim citation (doc, page located in the built manual),
+orders them as the manual does (apply -> repair -> release), and rejects the draft unless:
 
 * every LOTO phase (prepare, shutdown, isolate, lock, stored, verify, release) is covered;
 * no non-safety repair step contains energy-control wording;
 * every safety step's quote is found verbatim on its cited page (own post-check), and
-  ``agents.verifier.check_safety_steps`` returns no errors.
+  ``agents.verifier.check_safety_steps`` returns no errors (which also fails a work order that
+  misses any mandatory step).
 
 Only then is the WorkOrder written, as ``PENDING_APPROVAL``, to the CMMS. Nothing the model or any
 untrusted text says can change that status: the tool has no status argument.
@@ -26,10 +29,9 @@ from google.adk.tools import ToolContext as AdkToolContext
 from google.genai import types
 
 import config
-from agents import prompts
+from agents import loto_policy, prompts
 from agents.runtime import Runtime, agent_marks
 from agents.schemas import CauseClass, Citation, RCAReport, WorkOrder, WorkOrderStep
-from simulator import plant
 from simulator.manuals import find_quote, locate_quote
 from simulator.manuals import loto as L
 
@@ -45,20 +47,24 @@ MAX_REPAIR_STEPS = 8
 
 
 # --- LOTO catalogue --------------------------------------------------------------------------
-def loto_steps(doc: str) -> list[dict]:
-    """``[{id, phase, step_no, text, page}]`` for one manual, numbered as in the manual."""
+def loto_steps(doc: str, asset_id: str | None = None) -> list[dict]:
+    """``[{id, phase, step_no, text, page, cls, condition}]`` for one manual, numbered as in the
+    manual. ``cls`` is mandatory / conditional / not_applicable for ``asset_id`` (default: the
+    first asset the procedure applies to)."""
     proc = L.LOTO[doc]
+    aid = asset_id or proc.applies_to[0]
     out = []
     for i, s in enumerate(proc.steps, start=1):
         pages = locate_quote(doc, s.text)
+        c = loto_policy.condition(doc, i)
         out.append({"id": f"{doc}:{i}", "phase": s.phase, "step_no": i, "text": s.text,
-                    "page": pages[0] if pages else None})  # fmt: skip
+                    "page": pages[0] if pages else None,
+                    "cls": loto_policy.step_class(doc, i, aid),
+                    "condition": c.condition if c else None})  # fmt: skip
     return out
 
 
-def manual_for(asset_id: str) -> str | None:
-    a = plant.ASSET_BY_ID.get(asset_id)
-    return a.manual if a is not None and a.manual in L.LOTO else None
+manual_for = loto_policy.manual_for
 
 
 def top_hypothesis(state: Any) -> tuple[RCAReport | None, str | None]:
@@ -116,13 +122,14 @@ def assemble(
     doc = manual_for(asset_id)
     if doc is None:
         return None, [f"no energy-control procedure for {asset_id}"]
-    catalogue = {s["id"]: s for s in loto_steps(doc)}
+    catalogue = {s["id"]: s for s in loto_steps(doc, asset_id)}
     errs: list[str] = []
     unknown = [i for i in safety_step_ids if i not in catalogue]
     if unknown:
         errs.append(f"unknown safety step ids {unknown}; valid ids are {doc}:1..{len(catalogue)}")
-    chosen = sorted({catalogue[i]["step_no"]: catalogue[i] for i in safety_step_ids
-                     if i in catalogue}.values(), key=lambda s: s["step_no"])  # fmt: skip
+    # Mandatory steps always; the model may only add conditional ones (ADR-025).
+    added = {i for i in safety_step_ids if i in catalogue and catalogue[i]["cls"] == "conditional"}
+    chosen = [s for s in catalogue.values() if s["cls"] == "mandatory" or s["id"] in added]
     missing = [p for p in REQUIRED_PHASES if p not in {s["phase"] for s in chosen}]
     if missing:
         errs.append(f"missing LOTO phases {missing}; pick at least one step from each")
@@ -167,8 +174,9 @@ def make_draft_work_order(rt: Runtime) -> Any:
         tool_context: AdkToolContext = None,  # type: ignore[assignment]
     ) -> dict:
         """Create the draft maintenance work order (status PENDING_APPROVAL; a human approves
-        it). safety_step_ids are ids from the energy-control step list; code inserts their
-        verbatim manual text. repair_steps are short non-safety steps; parts may be empty."""
+        it). Code inserts every mandatory energy-control step with its verbatim manual text;
+        safety_step_ids lists only the conditional step ids this job needs (may be empty).
+        repair_steps are short non-safety steps; parts may be empty."""
         state = tool_context.state
         scope = rt.scope_for(state)
         if state.get("work_order"):
@@ -211,8 +219,18 @@ def drafter_instruction(ctx: Any) -> str:
         lines.append("Verified claims:\n" + claims)
         doc = manual_for(top.asset_id)
         if doc:
-            steps = "\n".join(f"{s['id']} [{s['phase']}] {s['text']}" for s in loto_steps(doc))
-            lines.append(f"Energy-control steps of the {doc} manual (choose by id):\n{steps}")
+            steps = loto_steps(doc, top.asset_id)
+            n_mand = sum(s["cls"] == "mandatory" for s in steps)
+            cond = "\n".join(f"{s['id']} [{s['phase']}] ({s['condition']}) {s['text']}"
+                             for s in steps if s["cls"] == "conditional")  # fmt: skip
+            lines.append(
+                f"Code inserts all {n_mand} mandatory energy-control steps of the {doc} manual. "
+                + (
+                    f"Conditional steps (add by id only if the job needs them):\n{cond}"
+                    if cond
+                    else "This manual has no conditional steps: pass safety_step_ids=[]."
+                )
+            )
     return "\n\n".join(lines)
 
 
