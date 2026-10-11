@@ -63,6 +63,13 @@ class Triage(BaseModel):
     noise: list[str] = Field(default_factory=list, max_length=8)
 
 
+def _cache_gone(exc: BaseException) -> bool:
+    """A cached-content reference that no longer works (deleted, expired or mid-deletion)."""
+    code = getattr(exc, "code", None)
+    msg = str(exc).lower()
+    return code in (400, 403, 404) and ("cache" in msg or "cachedcontent" in msg)
+
+
 def _json(resp: Any) -> str:
     text = getattr(resp, "text", None)
     if text:
@@ -252,13 +259,33 @@ def make_cite_manual(rt: Runtime) -> Any:
             cfg.system_instruction = system
             contents = question if rt.mode == "replay" else [manuals_corpus(), question]
         try:
-            res = await rt.llm.generate(
-                rt.model_id(config.FLASH),
-                contents,
-                cfg,
-                agent=f"{AGENT}.cite_manual",
-                run_id=run_id,
-            )
+            try:
+                res = await rt.llm.generate(
+                    rt.model_id(config.FLASH),
+                    contents,
+                    cfg,
+                    agent=f"{AGENT}.cite_manual",
+                    run_id=run_id,
+                )
+            except Exception as exc:
+                if handle is None or not _cache_gone(exc):
+                    raise
+                # the shared cache was deleted or expired under us (another process): go inline
+                log.warning(
+                    "manuals cache %s unusable (%.120s); sending manuals inline", handle.name, exc
+                )
+                scope.manuals_failed = True
+                handle = None
+                cfg.cached_content = None
+                cfg.system_instruction = system
+                contents = [manuals_corpus(), question]
+                res = await rt.llm.generate(
+                    rt.model_id(config.FLASH),
+                    contents,
+                    cfg,
+                    agent=f"{AGENT}.cite_manual",
+                    run_id=run_id,
+                )
             cands = CitationCandidates.model_validate_json(_json(res.response)).citations
         except BudgetExhaustedError:
             raise

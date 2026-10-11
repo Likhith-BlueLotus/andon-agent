@@ -303,3 +303,37 @@ async def test_live_create_reuse_use_delete():
         f"\nlive cache: {h.token_count} tokens, hit {hit}, run usd {rc.usd:.4f}, "
         f"ledger {[(r['event'], r['usd']) for r in llm.ledger]}"
     )
+
+
+async def test_separate_instances_delete_a_cache_the_other_still_uses(fake, llm):
+    # The bug behind Run-20's 400 "Invalid resource state for cache content": per-run
+    # instances reuse one cache by display name but refcount it separately.
+    a, b = make(fake, llm), make(fake, llm)
+    async with a.session(config.FLASH) as ha:
+        async with b.session(config.FLASH) as hb:
+            assert ha.name == hb.name
+        assert ha.name not in fake.store  # b deleted it while a is still inside its session
+
+
+def test_shared_manuals_cache_is_one_instance_per_gateway():
+    from agents.cache import shared_manuals_cache
+
+    l1, l2 = LLM(spend=SpendTracker()), LLM(spend=SpendTracker())
+    assert shared_manuals_cache(l1, 600) is shared_manuals_cache(l1, 600)
+    assert shared_manuals_cache(l1, 600) is not shared_manuals_cache(l2, 600)
+    assert shared_manuals_cache(l1, 600) is not shared_manuals_cache(l1, 120)
+
+
+def test_cache_gone_classifies_dead_cache_references():
+    from agents.librarian import _cache_gone
+
+    class E(Exception):
+        def __init__(self, code, msg):
+            super().__init__(msg)
+            self.code = code
+
+    assert _cache_gone(E(400, "Invalid resource state for cache content 799452538028949504."))
+    assert _cache_gone(E(404, "CachedContent not found"))
+    assert not _cache_gone(E(400, "Invalid JSON payload"))
+    assert not _cache_gone(E(429, "Resource exhausted (cache)"))
+    assert not _cache_gone(RuntimeError("cache"))

@@ -1,0 +1,36 @@
+{
+ "run_id": "run20_dev_v2",
+ "generated_at": "2026-10-11T15:21:54+00:00",
+ "git_sha": "57a412f33a9ffe80cb652d073e9bcdaec6449390",
+ "dry_run": false,
+ "purpose": "dev",
+ "note": "S-set and R-set are never pooled. Intervals are 95% Wilson. ",
+ "sets": {
+  "S": [
+   {
+    "system": "S1 full pipeline (Flash judge)",
+    "n": 20,
+    "top1": {
+     "value": 0.85,
+     "lo": 0.6396,
+     "hi": 0.9476
+    },
+    "top3": {
+     "value": 0.95,
+     "lo": 0.7639,
+     "hi": 0.9911
+    },
+    "unsupported_claim_rate": {
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.0258
+    },
+    "median_time_s": 108.9,
+    "cost_per_run_usd": 0.124
+   }
+  ]
+ },
+ "tests": {
+  "S": []
+ }
+}

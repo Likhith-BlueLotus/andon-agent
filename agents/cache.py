@@ -120,7 +120,16 @@ class ManualsCache:
         self._corpus = corpus
         self._clock = clock or (lambda: datetime.now(UTC))
         self._refs: dict[str, int] = {}
-        self._lock = asyncio.Lock()
+        self._locks: dict[int, asyncio.Lock] = {}
+
+    @property
+    def _lock(self) -> asyncio.Lock:
+        """One lock per event loop: a shared instance may outlive a loop (tests, CLI reruns)."""
+        loop = asyncio.get_running_loop()
+        lock = self._locks.get(id(loop))
+        if lock is None:
+            lock = self._locks[id(loop)] = asyncio.Lock()
+        return lock
 
     # ---- plumbing ------------------------------------------------------------------------
     def client(self, model_id: str) -> Any:
@@ -316,3 +325,19 @@ def main(argv: list[str] | None = None) -> None:
 
 if __name__ == "__main__":
     main()
+
+
+_SHARED: dict[tuple[int, int], ManualsCache] = {}
+
+
+def shared_manuals_cache(llm: LLM, ttl_s: int) -> ManualsCache:
+    """The process-wide ManualsCache for this LLM gateway.
+
+    Every incident builds its own Runtime; if each had its own ManualsCache the refcount in
+    ``session`` would not span concurrent incidents, and the first to finish would delete a
+    cache the others are still reading (400 "Invalid resource state for cache content")."""
+    key = (id(llm), ttl_s)
+    mc = _SHARED.get(key)
+    if mc is None or mc.llm is not llm:
+        mc = _SHARED[key] = ManualsCache(llm, ttl_s=ttl_s)
+    return mc

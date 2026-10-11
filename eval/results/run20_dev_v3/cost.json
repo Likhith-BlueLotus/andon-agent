@@ -1,0 +1,23 @@
+{
+ "run_id": "run20_dev_v3",
+ "dry_run": false,
+ "total_usd": 2.38596,
+ "n_calls_rows": 20,
+ "by_system": {
+  "S1": {
+   "runs": 20,
+   "usd": 2.38596,
+   "by_model": {
+    "gemini-3.8-flash": 2.35198,
+    "gemini-3.1-flash-lite": 0.03398
+   },
+   "mean_usd": 0.1193
+  }
+ },
+ "by_model": {
+  "gemini-3.1-flash-lite": 0.03398,
+  "gemini-3.8-flash": 2.35198
+ },
+ "estimated_usd": 2.5232,
+ "note": "includes superseded rows (retried errors); a dry run bills nothing"
+}

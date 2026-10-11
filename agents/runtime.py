@@ -43,7 +43,7 @@ from google.adk.plugins.base_plugin import BasePlugin
 from google.genai import types
 
 import config
-from agents.cache import CacheHandle, ManualsCache
+from agents.cache import CacheHandle, ManualsCache, shared_manuals_cache
 from agents.cmms import CMMS, InMemoryCMMS
 from agents.llm import LLM, get_llm
 from agents.tools import ToolContext
@@ -301,7 +301,7 @@ class Runtime:
             rec.transport = RecordingTransport(rec)
             self.llm = rec
         if self.manuals_cache is None and self.mode != "replay":
-            self.manuals_cache = ManualsCache(self.llm, ttl_s=RUN_CACHE_TTL_S)
+            self.manuals_cache = shared_manuals_cache(self.llm, RUN_CACHE_TTL_S)
 
     # ---- models ------------------------------------------------------------------------
     def model_id(self, default: str) -> str:
