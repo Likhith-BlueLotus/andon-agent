@@ -50,3 +50,6 @@ data/cmms/
 # local API state (audit trail, mock CMMS) - Firestore in the cloud
 data/audit/
 data/cmms/
+
+# firebase deploy cache
+.firebase/
