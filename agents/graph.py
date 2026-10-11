@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import json
 import warnings
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -146,14 +147,16 @@ def build_commander(rt: Runtime) -> LlmAgent:
     )
 
 
-def build_signal_analyst(rt: Runtime) -> LlmAgent:
+def build_signal_analyst(rt: Runtime, exclude_tools: frozenset[str] = frozenset()) -> LlmAgent:
+    """``exclude_tools`` removes tools from the analyst (eval ablation S3 drops ``listen`` and
+    ``spectrum``); the default is the full tool set."""
     started, finished = agent_marks()
     return LlmAgent(
         name=ANALYST,
         description="Runs the numeric checks with telemetry tools.",
         model=rt.adk_model(ANALYST, config.FLASH, "LOW"),
         instruction=analyst_instruction,
-        tools=_bound(rt, ANALYST, signal_tool_names()),
+        tools=_bound(rt, ANALYST, tuple(n for n in signal_tool_names() if n not in exclude_tools)),
         include_contents="none",
         output_key="signal_findings",
         before_agent_callback=started,
@@ -203,11 +206,17 @@ def build_app(
     cmms: CMMS | None = None,
     llm: LLM | None = None,
     stages: tuple[str, ...] = ("commander", "evidence", "rca_loop", "drafter"),
+    verifier_factory: Callable[[Runtime], Any] | None = None,
+    exclude_signal_tools: frozenset[str] = frozenset(),
     **runtime_kw: Any,
 ) -> AndonApp:
     """Build the App for ``store``. ``mode`` is ``live`` (Gemini), ``replay`` (recorded fixtures,
     $0) or ``record`` (live, and capture fixtures). ``stages`` trims the graph (the skeleton run
-    uses ``("commander", "evidence")``)."""
+    uses ``("commander", "evidence")``).
+
+    Eval hooks (default: production behaviour): ``verifier_factory(rt)`` replaces the verifier
+    agent (S2 ablation: an always-PASS stub); ``exclude_signal_tools`` removes tools from the
+    Signal Analyst (S3 ablation)."""
     kw: dict[str, Any] = {
         "store": store,
         "mode": mode,
@@ -231,7 +240,7 @@ def build_app(
                 ParallelAgent(
                     name="evidence",
                     sub_agents=[
-                        build_signal_analyst(rt),
+                        build_signal_analyst(rt, exclude_signal_tools),
                         build_librarian(rt, librarian_instruction),
                     ],
                 )
@@ -240,7 +249,7 @@ def build_app(
             parts.append(
                 LoopAgent(
                     name="rca_loop",
-                    sub_agents=[build_judge(rt), build_verifier(rt)],
+                    sub_agents=[build_judge(rt), (verifier_factory or build_verifier)(rt)],
                     max_iterations=config.VERIFIER_MAX_ITERATIONS,
                 )
             )
