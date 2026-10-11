@@ -17,9 +17,10 @@ COPY api ./api
 COPY analytics ./analytics
 # simulator code only (plant model, store, manuals); generated data never enters the image
 COPY simulator ./simulator
-# replay files + data register; eval/results/latest.json is added by phase 5 (optional at build)
+# replay files, data register, published eval summary (/api/eval/latest)
 COPY data/replays ./data/replays
 COPY data/SOURCES.md ./data/SOURCES.md
+COPY eval/results/latest.json ./eval/results/latest.json
 
 FROM python:3.12-slim
 RUN useradd --create-home --uid 1000 app
