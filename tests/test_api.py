@@ -433,6 +433,30 @@ async def test_budget_is_shared_across_instances(tmp_path):
     await b.close()
 
 
+async def test_config_reports_the_shared_budget_on_a_fresh_instance(tmp_path):
+    """Regression (found on Cloud Run): /api/config read the cached shared total, which a fresh
+    instance had never refreshed, so it said 'live available' while the shared counter was
+    already over budget."""
+    fs = FakeFirestore()
+    a = Harness(tmp_path / "a", firestore_client=fs)
+    b = Harness(tmp_path / "b", firestore_client=fs)
+    a.spend.add(5.5)
+    a.app.state.ctx.budget.drain()
+    cfg = (await b.client.get("/api/config")).json()  # B has made no live call yet
+    assert cfg["budget"]["exhausted"] is True and cfg["modes"]["live"] is False
+    await a.close()
+    await b.close()
+
+
+async def test_config_survives_an_unreadable_counter(h):
+    def boom(day):
+        raise OSError("firestore down")
+
+    h.app.state.ctx.budget.store.read = boom
+    r = await h.client.get("/api/config")
+    assert r.status_code == 200
+
+
 async def test_budget_fails_closed_when_counter_unreadable(h):
     def boom(day):
         raise OSError("firestore down")

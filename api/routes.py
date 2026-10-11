@@ -111,6 +111,7 @@ def build_router(ctx: AppContext) -> APIRouter:
 
     @r.get("/api/config")
     async def get_config() -> dict:
+        await ctx.budget.refresh_if_stale()  # a fresh instance must not report a stale budget
         remaining = ctx.budget.remaining()
         exhausted = remaining <= 0
         return {

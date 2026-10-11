@@ -17,7 +17,7 @@ echo "$body"; echo "$body" | grep -Eq '"status" *: *"ok"' || fail "/health not o
 
 echo "== (b) GET /api/scenarios"
 sc=$(curl -fsS --max-time 30 ${AUTHH[@]+"${AUTHH[@]}"} "$URL/api/scenarios") || fail "/api/scenarios"
-echo "$sc" | python3 -c 'import sys,json;d=json.load(sys.stdin);n=sum(len(v) for v in d.values()) if isinstance(d,dict) else len(d);print("scenarios:",n);sys.exit(0 if n else 1)' || fail "no scenarios"
+echo "$sc" | python3 -c 'import sys,json;d=json.load(sys.stdin);g=d.get("groups") if isinstance(d,dict) else None;n=sum(len(x.get("scenarios",[])) for x in g) if g else (len(d) if isinstance(d,list) else 0);print("scenarios:",n);sys.exit(0 if n else 1)' || fail "no scenarios"
 
 # Stream an SSE endpoint, print per-event arrival time, succeed only if `done` arrives in time.
 # Many events arriving in one lump (all within 0.2 s of each other after a long wait) = buffering.
@@ -42,9 +42,14 @@ if len(names)>5 and gaps==0 and last>3: print("  WARN: events arrived in a lump 
   [[ ${PIPESTATUS[1]} -eq 0 ]] || fail "$label"
 }
 
-echo "== (c) replay SSE ($SCENARIO)"
-RUN="${REPLAY_RUN:-}"
-stream "replay" 120 "$URL/api/incidents/$SCENARIO/investigate?mode=replay${RUN:+&run_id=$RUN}" -X POST
+# Replay: default to the first run the API lists (a scenario without a recording is a 404 by design).
+RUN="${REPLAY_RUN:-}"; RSC="$SCENARIO"
+if [[ -z "$RUN" ]]; then
+  read -r RUN RSC < <(curl -fsS --max-time 30 ${AUTHH[@]+"${AUTHH[@]}"} "$URL/api/replays" | python3 -c 'import sys,json;r=json.load(sys.stdin)["replays"];print(r[0]["run_id"],r[0]["scenario_id"]) if r else print("","")') || fail "/api/replays"
+  [[ -n "$RUN" ]] || fail "no replays listed"
+fi
+echo "== (c) replay SSE ($RSC, run $RUN, speed 4)"
+stream "replay" 120 "$URL/api/incidents/$RSC/investigate?mode=replay&run_id=$RUN&speed=4" -X POST
 
 if [[ -n "${PASSCODE:-}" ]]; then
   echo "== (d) live run (spends real money, see DEVELOPMENT.md ledger)"

@@ -154,6 +154,20 @@ class BudgetGuard:
         self._set_remote(day, usd)
         self.check()
 
+    async def refresh_if_stale(self, max_age_s: float = 30.0) -> None:
+        """Re-read the shared counter if the cached value is older than ``max_age_s`` (blocking
+        I/O off the loop). For read-only views like /api/config: never raises, keeps the last
+        known value when the store is unreachable."""
+        if time.monotonic() - self._last_refresh <= max_age_s:
+            return
+        day = self.day()
+        try:
+            usd = await asyncio.to_thread(self.store.read, day)
+        except Exception:
+            log.warning("shared spend unreadable for /api/config; showing last known value")
+            return
+        self._set_remote(day, usd)
+
     def drain(self, timeout_s: float = 5.0) -> None:
         """Wait for queued flushes (shutdown, tests)."""
         self._exec.submit(lambda: None).result(timeout=timeout_s)

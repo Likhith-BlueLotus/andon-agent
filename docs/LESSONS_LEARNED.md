@@ -126,3 +126,10 @@ Template — copy for each entry:
 - **Also:** the committed `tests/fixtures/sample_stream.jsonl` work order has a step ("release-from-lockout") that the drafter post-check rejects as an unmarked safety step; the API tests reword it. Person B's mocks should not show that text as a verified work order. DuckDB `fetchall()` on `timestamptz` needs `pytz`; cast to VARCHAR in SQL instead of adding a dependency.
 - **Cost (time / $):** live R002 run through the API $0.148, 87 s.
 
+
+### 2026-10-11 — Phase 3 deploy findings (phase 3, person A)
+- **What happened:** (1) after a private redeploy, anonymous `/health` still returned 200 for ~1–2 min; (2) `smoke.sh` failed on the real API (assumed S001 had a replay; mis-counted `/api/scenarios`); (3) the kill-switch test on Cloud Run refused the live run correctly, but `/api/config` still said `exhausted: false` — a fresh instance had never refreshed the shared Firestore spend.
+- **Root cause:** (1) Cloud Run IAM changes propagate asynchronously; (2) the script was written against a fake server; (3) `/api/config` read the cached shared total, refreshed only by live-run checks.
+- **Fix:** (1) wait and re-check before trusting "private"; (2) smoke picks the first run from `/api/replays` and counts scenarios across groups; (3) `/api/config` calls `refresh_if_stale()` (30 s, off-loop, never raises); regression test failed first.
+- **Do differently / rule added:** every exit criterion is tested against the deployed URL, not only locally; a script is "done" only after it has passed against the real service.
+- **Cost (time / $):** 30 min / $0.33 (two live runs on Cloud Run).

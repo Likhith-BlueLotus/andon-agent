@@ -1,5 +1,11 @@
 {
+ "r002-cloud-1": {
+  "label": "Demo: real MetroPT-3 air leak, verified root cause + approved work order (live on Cloud Run)"
+ },
  "r002-live-1": {
   "label": "Verified root cause and safety-gated work order (recorded from a live run)"
+ },
+ "s014-cloud-1": {
+  "label": "Synthetic sealer cavitation: verifier rejects a reversed causal-order claim, Judge revises, PASS (live on Cloud Run)"
  }
 }
