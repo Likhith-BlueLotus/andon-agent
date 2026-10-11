@@ -133,3 +133,28 @@ Template — copy for each entry:
 - **Fix:** (1) wait and re-check before trusting "private"; (2) smoke picks the first run from `/api/replays` and counts scenarios across groups; (3) `/api/config` calls `refresh_if_stale()` (30 s, off-loop, never raises); regression test failed first.
 - **Do differently / rule added:** every exit criterion is tested against the deployed URL, not only locally; a script is "done" only after it has passed against the real service.
 - **Cost (time / $):** 30 min / $0.33 (two live runs on Cloud Run).
+
+### 2026-10-11 16:40 — Fixture shapes drift from real replays (phase 4, person A)
+- **What happened:** the console built against `tests/fixtures/sample_stream.jsonl` broke on real replays: `list_assets` returns objects (not ids), `query_telemetry` nests per-tag stats under `tags`, `stopped_station` is `ST30` in the fixture vs `ST30-WLD` from `/api/scenarios`, a failed tool is a normal `tool_result` with `evidence_id:""` + `summary.error`.
+- **Root cause:** the fixture was hand-written before phase 2 tools existed; `summary` is `Record<string, unknown>` so the contract test cannot catch it.
+- **Fix:** tolerant summary helpers (`web/src/lib/summary.ts`) handle both; prefix station matching; tool-error cards.
+- **Do differently / rule added:** build UI against a recorded real replay (`agents.cli --mode replay --json`) as early as the fixture; refresh the fixture from a real run before the next contract bump.
+- **Cost (time / $):** ~20 min agent time / $0.
+
+### 2026-10-11 16:40 — Live runs must not auto-reconnect (phase 4, person A)
+- **What happened:** the spec says "auto-reconnect"; the API has no Last-Event-ID resume, so reconnecting a live stream would start (and bill) a second live run.
+- **Fix:** auto-reconnect only in replay mode; a dropped live run offers the recorded replay instead.
+- **Do differently / rule added:** any retry that hits a paid endpoint needs an idempotency key or resume first.
+- **Cost (time / $):** 0 / $0 (caught in design).
+
+### 2026-10-11 16:40 — Recharts doubles the first-load bundle (phase 4, person A)
+- **What happened:** single 724 kB chunk; Recharts was only needed in the evidence drawer and `/eval`.
+- **Fix:** `React.lazy` for both → main chunk 324 kB.
+- **Do differently / rule added:** lazy-load anything only reachable behind a click.
+- **Cost (time / $):** 5 min / $0.
+
+### 2026-10-11 16:40 — Production deploys need a human in the loop (phase 4, person A)
+- **What happened:** Claude's auto mode refused `deploy_api.sh` as a production deploy; Firebase CLI was logged into a different account with an expired token.
+- **Fix:** batch deploys at the end of a phase and run them with the human present (`firebase login` as the GCP owner first).
+- **Do differently / rule added:** check `firebase login:list` and deploy permissions at phase start, not at the end.
+- **Cost (time / $):** 0 / $0.
