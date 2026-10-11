@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Catalog } from "../state/useCatalog";
 import { useIncidentStream } from "../state/useIncidentStream";
 import { readMock } from "../lib/config";
@@ -6,9 +6,10 @@ import { fmtDateTime } from "../lib/format";
 import { CostTicker, Mimic } from "./Mimic";
 import { TracePane } from "./Trace";
 import { RcaPane } from "./Rca";
-import { EvidenceDrawer } from "./EvidenceDrawer";
 import { PasscodeDialog } from "./PasscodeDialog";
 import { IconAlert, IconClock, IconInfo, Spinner } from "./ui";
+
+const EvidenceDrawer = lazy(() => import("./EvidenceDrawer").then((m) => ({ default: m.EvidenceDrawer })));
 
 type Tab = "line" | "trace" | "rca";
 
@@ -248,7 +249,7 @@ export function Console({ catalog }: { catalog: Catalog }) {
         </section>
 
         {/* ---- Right: RCA + action ---- */}
-        <section id="pane-rca" role="tabpanel" aria-labelledby="tab-rca" aria-label="Root cause and action" className={`${tab === "rca" ? "flex" : "hidden"} min-h-0 flex-1 flex-col bg-panel xl:flex xl:flex-none`}>
+        <section id="pane-rca" tabIndex={-1} role="tabpanel" aria-labelledby="tab-rca" aria-label="Root cause and action" className={`${tab === "rca" ? "flex" : "hidden"} min-h-0 flex-1 flex-col bg-panel xl:flex xl:flex-none`}>
           <RcaPane key={state.incidentId ?? "none"} state={state} passcode={state.mode === "live" ? passcode : null} isMock={!!mock} onEvidence={setEvidence} />
         </section>
       </main>
@@ -260,7 +261,7 @@ export function Console({ catalog }: { catalog: Catalog }) {
         ))}
       </div>
 
-      {evidence && <EvidenceDrawer state={state} evidenceId={evidence} scenarioId={state.scenarioId ?? scenarioId} isMock={!!mock} onClose={() => setEvidence(null)} />}
+      {evidence && <Suspense fallback={null}><EvidenceDrawer state={state} evidenceId={evidence} scenarioId={state.scenarioId ?? scenarioId} isMock={!!mock} onClose={() => setEvidence(null)} /></Suspense>}
       {askPass !== false && (
         <PasscodeDialog
           error={askPass}

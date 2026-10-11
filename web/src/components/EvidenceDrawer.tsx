@@ -93,7 +93,7 @@ export function EvidenceDrawer({ state, evidenceId, scenarioId, isMock, onClose 
                               <CartesianGrid stroke="rgb(var(--line))" strokeDasharray="3 3" />
                               <XAxis dataKey="ts" tickFormatter={(v) => fmtTime(String(v)).slice(0, 5)} stroke="rgb(var(--muted))" tick={{ fontSize: 10 }} minTickGap={28} hide={i < load.data.series.length - 1} />
                               <YAxis stroke="rgb(var(--muted))" tick={{ fontSize: 10 }} width={44} domain={["auto", "auto"]} />
-                              <Tooltip labelFormatter={(v) => fmtTime(String(v))} contentStyle={{ background: "rgb(var(--raised))", border: "1px solid rgb(var(--line))", fontSize: 12 }} />
+                              <Tooltip labelFormatter={(v) => fmtTime(String(v))} formatter={(v) => (typeof v === "number" ? Number(v.toPrecision(5)) : v)} contentStyle={{ background: "rgb(var(--raised))", border: "1px solid rgb(var(--line))", fontSize: 12 }} />
                               <Line type="monotone" dataKey={s.tag} name={s.unit ? `${s.tag} (${s.unit})` : s.tag} stroke={COLORS[i % COLORS.length]} dot={false} strokeWidth={1.8} connectNulls={false} isAnimationActive={false} />
                             </LineChart>
                           </ResponsiveContainer>

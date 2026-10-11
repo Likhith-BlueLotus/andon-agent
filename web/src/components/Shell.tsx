@@ -52,7 +52,7 @@ export function Footer({ catalog }: { catalog: Catalog }) {
     <footer className="shrink-0 border-t border-line bg-panel px-3 py-1.5 text-[11px] text-muted">
       <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5">
         <span className="font-mono">{THEME_STRING}</span>
-        <span>Real signals are mapped onto a synthetic line; this is not real plant data.</span>
+        <span className="hidden sm:inline">Real signals are mapped onto a synthetic line; this is not real plant data.</span>
         <button type="button" className="ml-auto rounded font-semibold text-accent underline" onClick={() => setOpen(true)}>
           Data attributions &amp; about
         </button>
