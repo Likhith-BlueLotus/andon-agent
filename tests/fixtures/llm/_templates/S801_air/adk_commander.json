@@ -1,0 +1,46 @@
+[
+ {
+  "content": {
+   "role": "model",
+   "parts": [
+    {
+     "function_call": {
+      "name": "get_stop_event",
+      "args": {
+       "line_id": "L1"
+      }
+     }
+    },
+    {
+     "function_call": {
+      "name": "list_assets",
+      "args": {
+       "line_id": "L1",
+       "upstream_of": "ST20-WLD"
+      }
+     }
+    }
+   ]
+  },
+  "usage_metadata": {
+   "prompt_token_count": 3000,
+   "candidates_token_count": 60,
+   "total_token_count": 3060
+  }
+ },
+ {
+  "content": {
+   "role": "model",
+   "parts": [
+    {
+     "text": "{\"steps\": [\"Check UT-AIR header pressure and compressor loaded fraction for change points in the 6 h before the stop\", \"Check ST30-WLD gun air pressure for a drop after the header (shared air supply)\", \"Check ST20-WLD gun air pressure at the stopped cell\", \"Sensor check: does the ST20 air reading move with UT-AIR header pressure, or alone?\", \"Search alarms and shift notes in the window\", \"Cite the compressed-air manual for low header pressure\"], \"upstream_step\": 0, \"sensor_step\": 3, \"suspects\": [\"UT-AIR\", \"ST20-WLD\"]}"
+    }
+   ]
+  },
+  "usage_metadata": {
+   "prompt_token_count": 4000,
+   "candidates_token_count": 200,
+   "total_token_count": 4200
+  }
+ }
+]

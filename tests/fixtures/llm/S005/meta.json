@@ -1,0 +1,21 @@
+{
+ "cost": {
+  "by_model": {
+   "gemini-3.1-flash-lite": 0.002431,
+   "gemini-3.8-flash": 0.150243
+  },
+  "cached_tokens": 120203,
+  "input_tokens": 249904,
+  "output_tokens": 11829,
+  "usd": 0.152674
+ },
+ "final_status": "verified",
+ "force_bad_claim": false,
+ "incident_id": "inc_s005_ce5b1af1",
+ "judge_model": "gemini-3.8-flash",
+ "recorded_at": "2026-10-11T05:10:54+00:00",
+ "scenario_id": "S005",
+ "verdicts": [
+  "PASS"
+ ]
+}

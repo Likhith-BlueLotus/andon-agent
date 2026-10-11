@@ -1,0 +1,5 @@
+{
+ "scenario_id": "S801",
+ "templated": true,
+ "note": "hand-written; $STOP / $EV{...} placeholders are resolved by tests/llm_replay.py against a store built in tmp"
+}

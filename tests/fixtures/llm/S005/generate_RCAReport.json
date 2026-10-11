@@ -1,0 +1,171 @@
+[
+ {
+  "model_id": "gemini-3.8-flash",
+  "response": {
+   "automatic_function_calling_history": [],
+   "candidates": [
+    {
+     "content": {
+      "parts": [
+       {
+        "text": "{\n  \"incident_id\": \"inc_s005_ce5b1af1\",\n  \"hypotheses\": [\n    {\n      \"cause_class\": \"air_pressure_drop\",\n      \"asset_id\": \"UT-AIR\",\n      \"confidence\": 0.9,\n      \"causal_chain\": [\"UT-AIR\", \"ST30-WLD\"],\n      \"claims\": [\n        {\n          \"claim_id\": \"h1c1\",\n          \"text\": \"UT-AIR header pressure averaged 5.5922 bar path: tags.header_pressure_bar.mean\",\n          \"kind\": \"numeric\",\n          \"evidence_ids\": [\"ev_query_telemetry_2\"],\n          \"asserted_value\": 5.5922,\n          \"asserted_ts\": null,\n          \"citation\": null\n        },\n        {\n          \"claim_id\": \"h1c2\",\n          \"text\": \"The header pressure low alarm A-UTAIR-HDR-LO fired at 2026-08-07T14:02:19Z\",\n          \"kind\": \"temporal\",\n          \"evidence_ids\": [\"ev_search_alarms_1\"],\n          \"asserted_value\": null,\n          \"asserted_ts\": \"2026-08-07T14:02:19Z\",\n          \"citation\": null\n        },\n        {\n          \"claim_id\": \"h1c3\",\n          \"text\": \"Compressor ran continuously loaded with loaded fraction of 1.0 path: tags.compressor_current_a.loaded_fraction\",\n          \"kind\": \"numeric\",\n          \"evidence_ids\": [\"ev_query_telemetry_2\"],\n          \"asserted_value\": 1.0,\n          \"asserted_ts\": null,\n          \"citation\": null\n        },\n        {\n          \"claim_id\": \"h1c4\",\n          \"text\": \"Compressor loading at UT-AIR began rising at 2026-08-07T09:58:15Z before ST30-WLD air pressure dropped at 2026-08-07T11:00:15Z\",\n          \"kind\": \"causal_order\",\n          \"evidence_ids\": [\"ev_detect_change_points_3\", \"ev_detect_change_points_1\"],\n          \"asserted_value\": null,\n          \"asserted_ts\": null,\n          \"citation\": null\n        },\n        {\n          \"claim_id\": \"h1c5\",\n          \"text\": \"A sustained fall in header pressure while the compressor runs loaded indicates demand exceeding supply, most often a distribution leak.\",\n          \"kind\": \"citation\",\n          \"evidence_ids\": [\"ev_cite_manual_1\"],\n          \"asserted_value\": null,\n          \"asserted_ts\": null,\n          \"citation\": {\n            \"doc\": \"compressed_air\",\n            \"page\": 15,\n            \"quote\": \"A sustained fall in header pressure while the compressor runs loaded indicates demand exceeding supply, most often a distribution leak.\"\n          }\n        }\n      ],\n      \"refuting_evidence_ids\": [],\n      \"next_check\": \"Perform ultrasonic leak survey across UT-AIR header and drop legs.\"\n    },\n    {\n      \"cause_class\": \"air_pressure_drop\",\n      \"asset_id\": \"ST30-WLD\",\n      \"confidence\": 0.05,\n      \"causal_chain\": [\"ST30-WLD\"],\n      \"claims\": [\n        {\n          \"claim_id\": \"h2c1\",\n          \"text\": \"ST30 weld cell air pressure dropped locally due to an isolated drop-leg or regulator failure.\",\n          \"kind\": \"qualitative\",\n          \"evidence_ids\": [\"ev_query_telemetry_1\"],\n          \"asserted_value\": null,\n          \"asserted_ts\": null,\n          \"citation\": null\n        }\n      ],\n      \"refuting_evidence_ids\": [\"ev_query_telemetry_3\", \"ev_cite_manual_2\"],\n      \"next_check\": null\n    },\n    {\n      \"cause_class\": \"sensor_drift\",\n      \"asset_id\": \"ST30-WLD\",\n      \"confidence\": 0.05,\n      \"causal_chain\": [\"ST30-WLD\"],\n      \"claims\": [\n        {\n          \"claim_id\": \"h3c1\",\n          \"text\": \"ST30 air pressure sensor drift or signal artifact falsely triggered the low air pressure stop.\",\n          \"kind\": \"qualitative\",\n          \"evidence_ids\": [\"ev_query_telemetry_1\"],\n          \"asserted_value\": null,\n          \"asserted_ts\": null,\n          \"citation\": null\n        }\n      ],\n      \"refuting_evidence_ids\": [\"ev_query_telemetry_2\", \"ev_query_telemetry_3\", \"ev_spectrum_1\"],\n      \"next_check\": null\n    }\n  ],\n  \"status\": \"verified\"\n}",
+        "thought_signature": "AY89a18P9BMgQrj20ok3x7yoNekK4tpzyuthzmmTBE3OJYgz7r1KrtRmvp6BKmJIL1iVxFl1tkZpsdGTwLvhvelRiFNQQKViBT3QngNvCZ4KQy7vUwra2sDYwjg3aoCH7xVtKmfoyuzPP6AuCjmoLzSf9RgYZqs8OSCJesfQJ9XJv8YsgcplvB83xqj_b9jYpCnAvcaiVogdOiyK-BjwHEiindJiyVCUk7oE89V2DTv4gx9vG1UQAu39QiirVVxYJ68rV4CTwcR7MxENpVlpqcx3EXJH1yzpVvAPny4RApc5YNnM6V5FSnqKm-p3SrPEng0ojsHfZRlohz6Y9vyVVvzyKvBLBnXOjiRWpjnDA1xD3LsJzy9ZuXABA5rL9thDONEO0Ud6tZJCzLLTkR2n3YlBHdxLV6GFrg6Ny6_iw0Um-12bvilFnGL4UunjMN55Q2OJHvWM9iTz_aY0EOiUDnQPCaJxReS6Covd5XXaqCWqs9z0zhnWjAAWxDEAFOWbi5SMWJ-VcORWiitFCEADqqZiUlnkaMPrIx8_x4R131mkewOJlYGhhsKkyTZ1nf8wJrqHY7_yyk72zSxiAoyNXfXmFyRQtFQlwxqQO2WNRmuPHcGWY35mhdnGZjGqU34wQm2oXxpWIZOdftShhv1BLtZG8Hp4RMRtwSgL8KjC0wtJUxgnOsiQO_lCasZvdoD3S-4or1hen3ybuVlgvn1gnKSf6jltzZEmpOBKpUM0IdB73ciR737ZXuv36ugxZkiIDM5WT6hjsKyiOTXfap66Now_dUtBCl8NWOsoayYkHIlEIC_CjPM-UBb4tgh1qo92-rYtbZsbFKeSPsojJl2AxJUxxfNxPuSfWZ7C4wkH7QJsFXYF0teH3-JM_jfRbsgGALJzRbvFDSJe5SYQaf9OKPS7JdpgnTwkrPENcxZfeXuC3PaV3wJ1kJLF7-Xhf0E-XSANNCKXbNataCwCXMwlSGDr5QIAzHvXXme3oPWV2cEyeBmapaq21hrG6YwZMsnhSLtEZAJd8PKL7YJrz8-JTXS9CIkGWnAAMJobBNKEgG5hmsFbyRGVnPyWDgljcRJM6K1TYGcZ5eXCaDwWmWQfEq3lrqkhTHMG16l9JPw_H1dKQqIwkUFZYeYRN_qVrO4qzPmV-pcVYoQkaEWotDPZ7zDKOgYiKRhsSK9Qc-h6pxl9KaOnPyF8dW10rpWo7Fy4VuGM6J9j3yEayJnOtdwGm4kFO7nPEdho2VAQb25DicB9kvKcl-9BrX9UMbqaGgBE_9vHDCcL8yEQpBAj8exEfIu9ti-0mqowPL5x1tmUvhYYBPgF7jTRth5fvQSanVbqmndEW9WXynEWqeCWVE0jyQTKGBh-hazavpsPZhlUxWHVmDmzeOshbhp0fxltHU2kUDfb1jPzTfj8v5P_2iIQy9GCEmp4uo7rmeF1S-t1X8vUQUG88g99mjTyI6wvUFj6ynxHKnmmpCOm2lll2HLYCW8M91OfvY3B7VVyJNbffDCsfnW2sjDsP8tme1dtmn1lY_uwY8TFG6ymWjMthwaloRRLBh3LS3NSyhd0fT8mBV2__VFtE1kW2dgKyuz69_f28_y6_rczy3xlTMFfJWXFuSQ5YXpdsIwXOIr0_eiPNh12KnTbYdPVyx05coOwVLq1LsbE4-9FJtIpxIzUZ1XZ74EATw9N322VPTq0DpeCEVsCh9t8t1DItSxnJc2OYOzwAWVGH7-2H_y3Gd79l1IEGuPaEcobGpLWZa5YnHweCXOvHWQGg4KiV7xRwGi8cTnfdL1dBfH5ZFnIVEMgHoo97533gQwcSRYGYVoieQR-9SGrHb8Y4dscT78hLZlwMBBqycAZCUwUvEPjEy_t_sHOzqBLlpk5abPQyWlTk4Az_MsHhRW8l2uhDWiqBgT1iowP0jFb4tl9OrL3w2qqjqpj4lMeX2z6Ae12E8cX2CmvD9Hjo7X9V1GnT6mu7Xvndic1aeF-7HkdY2k_rcxEMZX-E7QrVVjiv8n1208uJ1xT4cFvtmfx7L17XUWML-JEQPvndAtYfEkPTzEevogLbGG0Rvse5IynYfDQIKaNbtnXUVU6JCiwndw2Z2FP3BnB-NNhdAWFMxGjdmuzdpnRAF07DQyo1z-THF2vSWX_New_QUrvxqYmanO2JOypDKMN-mVDgwANYirOtlFDSldCIVrzg0RJlj49zoAzVQlahvryBkqrlhE3i04gR-p2ea5V7Tmcyes965QpiqjupgPyMIdiYQ19tMaksH4qv0NzzK8PI73iYEcCmjatvCZ7AByfnraMNIPXaZGA04mCcqHGbpp_sIX3Kl2h13BR_LXoqasTbRkFCfFw6mbWsNKj_LeBfFOSYa8cbSnPNOE3aYJI9rUYDWThNlh13n5RYFrrSSCNbqo6MM6mvLd43SVVmXUM2QRS7KNsKndgtNPbnfUIKMQmWB_P1e7lWpxVSQlTrgQPbrRnGJBc9Jhw8mcu0cHmsJPo6tdxlNUEnfLr2GwMhex29tvj2494Hs3tODJV35b7AOyLzqdaar2NtWQ5KAnBXppjiwGZ-hQdaAZhPyiOvcYUQFWBVGJnZKjeOkRH_fNxBdK_-7Pe6H2fedDeN4KptL_C_AwWQT_4bUPQSsMXRynfJ_LA8-amdPBTrWCxZ_6gahWg19iNrDClOxX-3-Dr_sPbUEaWoMmAeyDxnT_mzcMYQ6eAF0aQzVNM8dVspmZ8A_5o6ZSOga-q1Q8ZM-lf3XQ8b-BasJSs5KQwsy2wqhCcnfqATw8yNZKrofPua801cm_qEEBh6udC4zIFlpmz1a0NyT4VAsHMZRsgqfh7THmlB5LOAS1TH759ADs9-otJffMEtOcP9kBYDzXCmaXO5PT9oCBqqcCAezeCnrFQQU2YRwNfATGdIQlbZjrrTSIfPxvfOgb13ulMSkrS_cJjCd9LyPMF1_phA7f5-93sFkOCKZxjX_9bbhfJFaXL1ihqeJfS7hrWmdsat_kFLpfFKG3qKBNNSMGQ1qyGGiECQergRzyVYh36SpXaKpE3fyLvahCSbmJg77z5HUgVnzyt7fma2t1C-wlnh-BOdbJOmHZL2ghkPd0-C1LpSWRQoYmRyne0PxjcyIwIJhosXBf40Kd0X5_ug_-Rnz74kN2VCg8PhRWDzleKG7uirJhYYaFdYfrVF0E1z7i9IABB3hUWqeqnpzJbUPQawwESffXvoLq8MrgKRuyjjwORnYHjUHQ6Z8h6VSBehNLShMX5on4uWpFjY4WduWlQ-JRK7MZOOI_FaCmJA26MW4B2MpLw3BMTUusio_w-Wmq6m3qLfJ-9fHM-rFLIJRvZjpJqKhb-DIb4TsSx4IMmUa56QRFpr2J3n01p_XAJG-VnUuYRTb1Xq-A4ECSjbYSmBjMPF2842b06CZk_e9BnND1xoOQnT7oeNoHPuJH9nThYeyR0pe7TdGCrZifjjOHyqscCSrn0cg_KJh890YAU2y6jVAW-9yIwfnegM67qpgXgKKciwqnEW2VEgpysxBiN0b1MEKpFt5CW-nBlVfxPPbwVmDErUvP-TKnynf7TB_pQ8hqbSAHP43TYX-9CO5uOfgG1EjEUOkVajLvHoyoYRlzJuy6d2DcAA_r4WHF7tFPTXfJqRjkKN6RHGAmxV4AZbf-eYJToPAyC4FCfdnZar7NrbUlXfuokiM-SuuZCMl7v5jNeTmHJk3L5w3OFwtKKeg6a0rhWjg9kqhAETHdWZ1cVNnxrnyW-HezuovKit8q9PicABLZ9wAK_vJ9R5MOERJ92mh_JONF07qf_D4zHDbGN-OISe1M1ChiKK4T4dQ3B44caeRuFEu9rWuNW18XDqxvc6IhS8--pNbdkW7jmXMgW6gLFp2aTQ6dfpFXCF6NiBjejCLhw4z0ekxHEoCp1O9_Mu8zk2kDr886-09Q6GKjMS-j8d33DGglR3HNrCUzv-ucbk_KbKvDl8fd-jyNm3aJuZHglPfwsnnyi25qL6mAtFrfzX_4BHp9QzF8HHN7xeB28ldRffLeUKA4m3eFyYDbDl7qkjzo1QatlmdG6rhAiG8lAtYerExFzFYmdvntQaOvBxLnByqBcCoWiCcCRBQHTNanaPr_uaVBzL1ehDZKhvF6LaQBw7gh-M5VUAENNCF44vGGr-zQqDf9ZqYDtJ-arIA-HR6jPRIX-IxzOU7qx2zGEk9FA0Rs_1GoMqE1rZexoDAi2xukBGFeRc7vwF0wncX7UJdnyYAfEd40FIBsvr5sCqdWbV7pgAZ02r227uIXT5tnMWoTZElPchb2ngxZ1zPWzq39iuGAdc72zOyvj9L9g0jc81aFVijneqaP3lY_7485-ExTWGl_hvZzEixPKfHyqrKare1Ct8t4g0WrWp7t6I_QJ1lCk0hsOL5UxgEhGtnpreTZAz8L48umdrh17X-CaaiZHnjTOIOWl6oBGsm61qup4NTvs4F7LJQiEDRrJiCbXgEvZS8vY51LzvEwGx4R6GrefCApSyCU0z2v5y3_xNIh1L4vogyKjcG3qGNQ7IxvpcK3X6soK27I2iOAPyCWUDZS_mJlVDUya57AgINLN7jOTuRA5rrgfALnIxUFUpM9PXmxnqrt_hRGahRkrWE1xfxS1Lp2p-wdQeIq1CLw6Tyd8CEmdBr_DmPiX2pkmeBL-Kxr_gZcCMDOpmas-IBOAv8bhtj_32TLUlIXNeomtoUjG0Ld20tNmID5GWH0o2fT3v7nqjq6vkMPu9ShzRVrZJWxZx6hkD2EIGDA5X2hHwuP6wRe-wmmSbHvc2BOeEWSTGIfowCGeWtY4xS92sXNzoXs6vgGF4OAbqj_9Pc7Eennm5Twzc4yVZVxuXcmDxKVVLwqCqUFq2rr_xDNRsyIGyvPGl-hVPI_WHnLckqtMf0LKF8A2g-ETBQWldkmsZcAU5gnZzCwqkAX9cCndm3WFhd-0NN-T-6Ek-nKoKdq6_cB-I8bqvScmVt0zDG8duCXoiCah6tzoO1w0J_ZSsZ0KkHGGHURfKbE58RewjO6CJV7DwDhqfvTe0kASAZKgnVFuSJDEVia6eHKA119DW0ayWUoYSVemo4f67f1_8f0WyBex-jjsisZzxjswZ1xZVdO7sgm1_v4mdNK71x8SWLJlcoPHlU43Vex_Ax9O0tBx0pB7fxQV77sQbWvUpTOvAcxQQnus61q_vnCauurbMV4SsnddDd7hx6H65FtDnK4ockWKhv4_Q2C5kne0vx3yGW0YKahzQx1sJUmGKE9H0J3S85wdQOJTWODPjvFHvbB4LG6Bc_8ZijNPjpzhK4n3fzHhQy8ZefgGCzNwTr4mc_vc2z4B4eZjx7n0PI-XF3FABZj3dYKxd_1P3C6YX-Mz-S-U_ejFA8ZWnFD-WrM-eGM00DWtH4JubNdlv2s1EuTYi2oxIHMoh-x9w-C4PYUYwJf9sCBvN7O9cwMdcAcc1Bk8nvgBhFhu_mPiIaaBq3Hy_BaNMGhPMJmbkocT2528s0sqnR2U-xmmi1qKDGx9bSeXmklP215V0Fkbqa05p_-9_HkdsEpHmT8TvZSp2QGAIrrrEFm5R5Vq-T2FpOLwWmSVtotwkVjQYlXMDrVpOctUFPdm8spWjd05NYosVhV78Njo-VaCGKUGi0dm23yFbMvVK6DvrCWgFcfh4V3Fp9zBibHRMwVBeJoagCnsjE75_sQLoAv9hx4DPspmA34CsCWuZnEy_snQ2pvSv0lPEwE3CYFp9PckZoRQkLFvSo983lViT73435tXBlsRhVrkL0ZFrjD-s3BB8xDcK9r9piVcrURNG4okjRquIyMIIoQF7UptpSE5IdPo8hUbFOLKvXPdpUjOQz8Fp5sx7MjfHna6vpQegNt8hBn48CaZbht0Qkha02wJ-hxRSrhpBb33o-Ls8IrZxgFuBgTbvnWVQKAmE8vSdgF9gxrYW8DIlra9X_Ya-Rb_bSDg2XP4GZsaRS_uZW5GMhHMqcDOz4zXBz9MqoCqD_L1aBABPqKPDCPINs2XvuHRYyrrs_t_00zv1N7siXPS4z42iSTAZBnv4RAUeMm35d3XjDUvo4bgtdLQsDjclzfj-qEPJQ1UH2fifk9C0-RKHHcFwm80BuDt8LkXhf3nJraKQu6xLwVp-DhzXYwL4iyLhY7jPYGTuxT4hOI4P9pKfZMoQdPifpChmJx-F3QF1V5FqDmKk6Y2pxWzSuh73p1cWHI1dwsM3xOhah8Of5qvi1viEvsxWTfj-ttABtkJSETodEGpDxyNzAxeT9dEjSo4k-7W4Rcrq3f2EV6C-fDf_pcgPIGDj8HB8PZprxQN_rgHkg0EbcUFXKTiTyo4MrDUD8k8zpvvqBjfAhh7EAHf2RIfv7wp7-JIcGd2a1489N1kCnEPntrGh8vsXNrRlcRL13h5d27F3YOjNdK7beZK218b4n1bhAGTHj0g-8IgdtEwOkTXeQPwPjbkUQl1jXh6sja78y0-_4KiMxWW9Gpe6UCBJRu0jK_Tgv6Qjzn7yo2YCSjbBljv8RbI_txHaohQAsYsrn2gTQn2zP6-EcoSsXwTqQ2jEwVAryMC_5YrXkCJ_Lnx5Wvhebcn88X0FCTImGRXYERHuLEmOfhvtgEsD4lsFfXRXh29f7mVg1bH5ZpGsururRVa05cAmnI0OD0yOvPcxR_7cXOlNxRY2xU-1edgfMgqvBFtu9rTJj8RBpXacyTxFS59iw3aY1a_Ne6XihCjzyqxeu_zgneLzz-rfiNsmgjx4kTXAFU5fFjQB6ju__3AtQgUIJG-Ixx3lnQ5ybiSC5LQhaHicjkebYYsnYbHMU6fEK6a86TAeqj8wl7Xs5aUoS8NTe4SRPyYJCrNqw_QkjM51xKHIguj25XXakRg8RpOqC9P2ouSW355Caz9PJgMabiXTX21bBea1QLP4zfe-3nHga9rLVltr5-eUQ3gKFyp9vqzRQ3IzCo5eAFszHea2KDKLEWIVk91Qsb7PplU9czpHkyYJxG7PY-w-If50vdWlgxAeiGOAXLUEUGOFCiZgCDMzVXsp7vehPykFudvVDtGYeYyOuJBBzcPmQDKqA3A5jDYb5X8-cicqyJKypVeQ7lbli93Zs8Z9_g4cHya3JgMfWsYAU8CMz5ZWiat_WMufFkIiNdz5SG2p4omcB5ElbFL3Ka59XnB_9RFFM61jiS5w3TMGZ-ECm2Jxo2q3haxov8KPBZpt5EAnnebPZwa-n5hOVBLw2bqAeBLhfCSuW1ZWshAQtYxYfdgXKj_MeGcjjwb9IUjMvZ2XKFoYIMujmNEADmz1o1a-Wg8ZCxrn_2t_g4LXQsSw3fHg4HyV_FHn87iGXTNxhH7VjUrq04vsKeSZ9zNuF4t1-w5SR4a6F0sa9sOyv3p4sC1qFUtzKPmb8doS4TYL24k-yol7hGw24N3hpRk94illIIjDkptLfDTZ6MWjObeGI4LsOyegXZ8KgajoINJNq5S_UuPU0XB9PEuViEje-tiLIK_FCmiRmUx5er3Yb2tISUHqZ95yviV9d7cUbAWGzAcnByEHROdwi1FzLkCf-xIWbXtgyFtAGqUb4iHifnfRvaNE9OqqG3fPFHtlnvyVYcThcCEFDLdokPSbkQ7O2pUGFgksF74k_WTA7OyGte_Dk4nBvlxkyxrZzXtSOodtNJQ2WaHqB11XaeTRMYbFr2msRXDxAT4blkQ70nIoSQV1AHmLC2ylbMupejrl5KnUwYY-8SWjuk5byaOVEhfpgWvy85hyCZDdqKo2l_t07SXlmbh6nFZuvavwYjNHTsS1ZanH9Z7UOuyCnz73Lfu3ts8iDxo_xhu6wyfjkU5L7o69Q22EgRwoXU3KtibO_ZyzKxc8viFwZSjc3IWGxgrmtYOQdCUtnJ_fp32TRbOWcZdATPQFENY91lDccFXRY43BUhgxXgu-OndGlJlbNFQ7kz9pPgDt6lqddGVnzh41iNLsJCuXa1YEIzlBpgwWXXW9e9jZuPSiiVoW1A9TjuyiFU7zH79YgEhBgz9_c2udD59g2617e37AZbWrAHN39pOHCO_VXIpC9fkCJ_4d-MtQFe7WvZR6mK2BrPZoH_a67ErktkS_0kWv4kh-BYr0UM6vU6Od1LGtUceYZfnOa-TKaBYFq8B5Wrlh6xeVgh8JmkIQwD91pknhxr58XFvjlsX4rOAUWKNiHctzR2t_4Fq2iLZYqFsVC_wWPOKpHnUtfzov9ErNrx9_Q0G5sQ4YldK-YjO-0MBhn5McXkwGgIcpDo98kg6iFoJj--KIviH3h72dXkTSHYbtqw-0cPztKkJVJ10QDGM3ndBNt9HPyXcfZ2SvF_D1ktfxOhrKe7ubWPFCSvMRj2FyYyqysVy4KlGZHaPBj_KniMlbmz3i4K6mPN3jCuaEo245dyE9j0Vc2S37dzoLl05IY7Gtxt8z1b_vDYB2TXum8c2FoSXgMIZaORwzAMBBUBKIU3-5qLjHfeGh94hUziWxcLhp3nEjjcnNeVLQcYlKA_-BRYy1A9WFgCiDzw12Wl91Zv0uNUNS9WXce2YWkZYM0xlDoc1Szsb7R87TR4JFklgQhC3xuDl3Q4UfK1hcRvNYhk3oQGCIH6g_jGKb8mkbmKojIrymIHvtpGYAHeTiEAazvHDtbzd3n0yDieAVOJNTc5K2_YXY4dAJ6XYkKjj8FP9CbrBQSVX7lrvhu8YVTqGXx22FeBBOFRj0KLYxm1cpr7dioApSgUwAPfLkiKABL5TN5WeKw-nZSAUugL-Sa6dgOhti7OmKVaXmsUfUKvIlehKUYVc0A9JoyseIKp7KE-9Uar3nr9TM_JcITRzU1m7Fuu4vzNLXAHUiqeEWWRNBS1Z5CCYskOKa9iwfB-bGybf4mauxuH5hhheiM6p3JsX0axcjBI4HeR2Tm2wSJotDRJKuPnUDNMzspLNzlhNjtOcCmKpeCl3GxNUPn3j4toRf94VLZeYvMu_xO-8vfTacFrMVyUybXcuosvNjw-UrnRDFJh0sF_UvTUpeGD67Xi52fo_al5WXCSdtxdLXcHGOBxA6X3yXe2optv2CLn9rf2Ox2ZuBpoL8kIglPjx9_ZcUGw4VMMQlJn3Bprq1_1jKBaRVHYw90LDXrOfrykvyUDaG6KLm3Czc4HZtyMHv1OYhxJYN5lwJxBZxyuamkuVjzvpg15G7AtYEdbdbivMIUKgllFnMh-8Ex8tRY2LvfdY0EQmaxcwOHVm3nACxQ1iuEkox9yFjjdW8BVrsM1r0iG86KGjb3uHxNMhqHYl4CZZVVw8WURjs_w5esyAs4GbNgG3vIIVr9mDFJxBobWRp8x1ZsVGQOYo02HVUfOKzguAW_99-RXtmW2yJUdjrzWpAo4JFlr9qUQLQxuAf5RjleXYCh0CnCgJT8qqFSe5J4-BrpLxHARj8CTCubgSYSnGgtxOWSR8B00etHfApwcTPvMVw133WiPut-ExXW97cnsW-V0FL3b3aiP0_Jz8zqJXCzf3r0Ucw_ye_2fdUVkwbeQqrCwiTSWfrtl9xwV85CBtNHkYIRN84hyCMvEofhGNgb_aJi7yVUmc9kxEZ0QRlzjJi7Gr0ddyxWE95s-zQzaaM4OWu_ONfyT79FD2BP9iAgAvrirG0JilLuVMV3xrt6Bon4R_2IJzUTWda5d14iM-EamX3b1952mHne24Hji4o3q7MsY4M3Ebivj7Oy_WknkWH3zlqSXaY1QAlSPDfFc0PkmTDF0Ga_CvyHuNWndzt4bx5E2j36EptTVsCgYpmsmJjhUWW29eHCCY1gSAN-LGNet7_DRWwyQeDl8owfYRfUXvRfK3CwJ9AGJy4VTC1iq5UGWp2FPClw_WA-xH4r2mwYXK4TpYQnXhvHnBPkZCnq1IGpj3zpncEshIen66Bx6TVWi33p82LMRbrd8a_is34zA0OjAFxacEMsl-EdAwql1le4ZpUV7DgBKSSlj-bxtajGK26XI36eWlfG9-W9Y_dL7dvmXzHPb57xzVhjC1WZonw-zfxDop4OGvMVnqs_8IVghZMaRpm5oys21OeW77PTS9mCiBR58VuNRLT1on8vuU6XS_dHY1iV6kVsHkStwDj4q0KIZy8_YkVQ4PsVSc2i9R93DilQiy3cpMbDZhiBYyqlK6KQxD9j9La3NCTlNGo8ZdPtrzL2rM4TY8T0oo00dOz1HxkzviZI9xkXdmlkCEjFCIHks9dSV3OsSjZ8dAiQE6vKbzeXWgf_v87BvHwLITjpc9Wm4SsWiE2LWUSxf3jAjz6t4lO-8ogPH3rc0JmkT1gHA2lypmdLMpN1fXCCIRZkkubXFS2ICKNMr3TcE6QCwzr0uW5OkV5RCNzhG0iIs-IYsJCoGhJc_5Urezh0L3J07DSOWCxx7Iwj4e75bATDaqTLH9xPgoZdI6_0FGCT9Wm0ekA6vGXYEqzxZsxFb59NB3OaOP61D_yuAhReCzEKDEBfrpLNYENM-NVc1fUjwkMukvNg0sLrTEFOD6iejfB-27Td_iHQ9LVkqTZthTDFCSU4escBwRvnuQF1XbL9LdUn81cSjERGFaKjUevF8k7HpbEZlKWUmRywCF0kIQZXXWho5Lfd-ub8uEeZnbLeOIV7D61E68QFWEHaC8yM-8EA7ssd6c0a67lje7DZ-BnSauJ1_kzNDX3cg2iJUNupI6qwRpzgtwh9-X_b2USmvB5DfYIrWtiQaEqgZoMFDTZTQWMiecR2Zczqb6PUK6RhwVvQ3hjRpG4w4A5OSeZrF513uhNof5B8fyhevddWobN7Ys3PhAI0BCtnSW0ZnwnEiXVzINa_RgMJRxJS_tyIxsWl_EqRLL2IIQ9IiUNFQfgp9QuT4WVJcX1goHdvRMzgyIm6YjBFc5kx7Yz7VdebGv6tGD6-VQDy9kpy6sWTSdorLxs6v8_IIOqQvNOhLpEpzoTsXK7Bs0CF8J-ApCOuxhIopHl_kfY4_Bq-HpwfrVRpoSxTm5UZIq-duC9PeXLWha2_C8Lvc-37SD-EyKMsbHjVdX53J3Fnm16IBHnOL3wpbW4o4v-7e_KbxwGMEp672lLH3TYBeIaaPNiIY4btlXJQINeTm93p9NmdrmPCJk00J_v8T_aNj4Zs1VJgJfLT_G5_gV54lKzNBXurXH7tOGcQTw52o2AbBdHDVcQbtnV0r5jsqHlxns2RqaMxHLBE9eRbHVltU6kAlmRHX0XoJ3k_BDz-zZ5-ochdBmnB0QaMK3E51jl7dokhQylGdgHOtWugjmJatx1uRMI9yNUrzSbpqPke6BHSn8evJceMN7hwgah-RZ61C8xF90HnNDPb3-NMROFqKyY65eahcSWBB3lvkBf6wTLK2Wf7QaErGJOoNwTovsYe7HzpW9OzuJSzA3wrEBlPF5ceosJj6lDcwPYUKb-273nJu78kbVD6AOG6vlrKgy2v0pTTQ2zZSCoGTm4i63bv26SaFHqHDQjFFfUjWDxpx4gza3LLbry-fODYbfefFU1c5YLSfvFJ393C6P5ycVrEkQLtgGV2E8NxaMn63xNOBl3LKuCfXIUGe3mJCwDblj6ieGhlDjLM6Vjl7QaRxVNCtvo3CRaT2aQh_HP1gkJ1II3C9SpgZlqq1GEgqyHc2oSLTZ8z70dB1VnmALRA_lUJ8fayJZKZH28USRBPcK7YJbXanPGPovDEYiqrNSItw_AQm8IPMMKpaBsjoLt_TalQ_fiItd1GDJ_KzAeB2x5tIpprDPQkeWL-f0d1hszkSADaxrc5UWohYb7P-6qUAZpZ9xwcvVwAfK07DzI5YMltcUALBCRuIBR2lWAMTrLLOcg0k7z2qH543Tg4yXNnHulyCoZ3N05GeJaQOsfVUVL4jQ8e6lp27ihdMpDUbBrO1WKbV9sb2nCTaUDjdiaKbh_2Dbth42IQ7-2QF7XGH1gBMTBW-c6CbAlpFaFYRgUUFr-rvmMgXEQoqQh_Vp70ETeYSXesWbf4SF8jomeEGfiuKKP2oPFi0mSV47dt9HaQgvF6-WhSOiSe3-CYDzdtaiuwRZHAMWWv7yp4D9rjSqiIxywfAsPHxHLKFRKICuDaKV3UPvGZUeFLX0YhmeGHTptMbhwJt8tAFK73v1xy70wBdkJPJx61_ErNm5_j1-BmF8_n3y7j_NS-7B_jQ6O-J7x8JV6XqzLNUZlg=="
+       }
+      ],
+      "role": "model"
+     },
+     "finish_reason": "STOP"
+    }
+   ],
+   "create_time": "2026-10-11T05:11:41.425756Z",
+   "model_version": "gemini-3.8-flash",
+   "parsed": {
+    "hypotheses": [
+     {
+      "asset_id": "UT-AIR",
+      "causal_chain": [
+       "UT-AIR",
+       "ST30-WLD"
+      ],
+      "cause_class": "air_pressure_drop",
+      "claims": [
+       {
+        "asserted_value": 5.5922,
+        "claim_id": "h1c1",
+        "evidence_ids": [
+         "ev_query_telemetry_2"
+        ],
+        "kind": "numeric",
+        "text": "UT-AIR header pressure averaged 5.5922 bar path: tags.header_pressure_bar.mean"
+       },
+       {
+        "asserted_ts": "2026-08-07T14:02:19Z",
+        "claim_id": "h1c2",
+        "evidence_ids": [
+         "ev_search_alarms_1"
+        ],
+        "kind": "temporal",
+        "text": "The header pressure low alarm A-UTAIR-HDR-LO fired at 2026-08-07T14:02:19Z"
+       },
+       {
+        "asserted_value": 1.0,
+        "claim_id": "h1c3",
+        "evidence_ids": [
+         "ev_query_telemetry_2"
+        ],
+        "kind": "numeric",
+        "text": "Compressor ran continuously loaded with loaded fraction of 1.0 path: tags.compressor_current_a.loaded_fraction"
+       },
+       {
+        "claim_id": "h1c4",
+        "evidence_ids": [
+         "ev_detect_change_points_3",
+         "ev_detect_change_points_1"
+        ],
+        "kind": "causal_order",
+        "text": "Compressor loading at UT-AIR began rising at 2026-08-07T09:58:15Z before ST30-WLD air pressure dropped at 2026-08-07T11:00:15Z"
+       },
+       {
+        "citation": {
+         "doc": "compressed_air",
+         "page": 15,
+         "quote": "A sustained fall in header pressure while the compressor runs loaded indicates demand exceeding supply, most often a distribution leak."
+        },
+        "claim_id": "h1c5",
+        "evidence_ids": [
+         "ev_cite_manual_1"
+        ],
+        "kind": "citation",
+        "text": "A sustained fall in header pressure while the compressor runs loaded indicates demand exceeding supply, most often a distribution leak."
+       }
+      ],
+      "confidence": 0.9,
+      "next_check": "Perform ultrasonic leak survey across UT-AIR header and drop legs.",
+      "refuting_evidence_ids": []
+     },
+     {
+      "asset_id": "ST30-WLD",
+      "causal_chain": [
+       "ST30-WLD"
+      ],
+      "cause_class": "air_pressure_drop",
+      "claims": [
+       {
+        "claim_id": "h2c1",
+        "evidence_ids": [
+         "ev_query_telemetry_1"
+        ],
+        "kind": "qualitative",
+        "text": "ST30 weld cell air pressure dropped locally due to an isolated drop-leg or regulator failure."
+       }
+      ],
+      "confidence": 0.05,
+      "refuting_evidence_ids": [
+       "ev_query_telemetry_3",
+       "ev_cite_manual_2"
+      ]
+     },
+     {
+      "asset_id": "ST30-WLD",
+      "causal_chain": [
+       "ST30-WLD"
+      ],
+      "cause_class": "sensor_drift",
+      "claims": [
+       {
+        "claim_id": "h3c1",
+        "evidence_ids": [
+         "ev_query_telemetry_1"
+        ],
+        "kind": "qualitative",
+        "text": "ST30 air pressure sensor drift or signal artifact falsely triggered the low air pressure stop."
+       }
+      ],
+      "confidence": 0.05,
+      "refuting_evidence_ids": [
+       "ev_query_telemetry_2",
+       "ev_query_telemetry_3",
+       "ev_spectrum_1"
+      ]
+     }
+    ],
+    "incident_id": "inc_s005_ce5b1af1",
+    "status": "verified"
+   },
+   "response_id": "jRrLapz-GYLTi9sPjZmsqAI",
+   "sdk_http_response": {
+    "headers": {
+     "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+     "content-encoding": "gzip",
+     "content-type": "application/json; charset=UTF-8",
+     "date": "Sun, 11 Oct 2026 05:12:04 GMT",
+     "server": "scaffolding on HTTPServer2",
+     "transfer-encoding": "chunked",
+     "vary": "Origin, X-Origin, Referer",
+     "x-content-type-options": "nosniff",
+     "x-frame-options": "SAMEORIGIN",
+     "x-xss-protection": "0"
+    }
+   },
+   "usage_metadata": {
+    "candidates_token_count": 1212,
+    "candidates_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 1212
+     }
+    ],
+    "prompt_token_count": 16825,
+    "prompt_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 16825
+     }
+    ],
+    "thoughts_token_count": 3322,
+    "total_token_count": 21359,
+    "traffic_type": "ON_DEMAND"
+   }
+  }
+ }
+]

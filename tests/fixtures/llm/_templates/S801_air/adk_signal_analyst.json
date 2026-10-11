@@ -1,0 +1,90 @@
+[
+ {
+  "content": {
+   "role": "model",
+   "parts": [
+    {
+     "function_call": {
+      "name": "query_telemetry",
+      "args": {
+       "asset_id": "UT-AIR",
+       "tags": [
+        "header_pressure_bar",
+        "compressor_current_a"
+       ],
+       "t0": "$STOP-21600",
+       "t1": "$STOP"
+      }
+     }
+    },
+    {
+     "function_call": {
+      "name": "detect_change_points",
+      "args": {
+       "asset_id": "UT-AIR",
+       "tag": "header_pressure_bar",
+       "t0": "$STOP-21600",
+       "t1": "$STOP"
+      }
+     }
+    },
+    {
+     "function_call": {
+      "name": "detect_change_points",
+      "args": {
+       "asset_id": "ST30-WLD",
+       "tag": "air_pressure_bar",
+       "t0": "$STOP-21600",
+       "t1": "$STOP"
+      }
+     }
+    }
+   ]
+  },
+  "usage_metadata": {
+   "prompt_token_count": 3000,
+   "candidates_token_count": 60,
+   "total_token_count": 3060
+  }
+ },
+ {
+  "content": {
+   "role": "model",
+   "parts": [
+    {
+     "function_call": {
+      "name": "query_telemetry",
+      "args": {
+       "asset_id": "ST20-WLD",
+       "tags": [
+        "air_pressure_bar"
+       ],
+       "t0": "$STOP-21600",
+       "t1": "$STOP"
+      }
+     }
+    }
+   ]
+  },
+  "usage_metadata": {
+   "prompt_token_count": 3000,
+   "candidates_token_count": 60,
+   "total_token_count": 3060
+  }
+ },
+ {
+  "content": {
+   "role": "model",
+   "parts": [
+    {
+     "text": "1. UT-AIR header pressure fell (ev_detect_change_points_1). 2. ST30 gun air fell later (ev_detect_change_points_2)."
+    }
+   ]
+  },
+  "usage_metadata": {
+   "prompt_token_count": 4000,
+   "candidates_token_count": 200,
+   "total_token_count": 4200
+  }
+ }
+]

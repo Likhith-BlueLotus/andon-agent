@@ -1,0 +1,250 @@
+[
+ {
+  "model_id": "gemini-3.8-flash",
+  "response": {
+   "automatic_function_calling_history": [],
+   "candidates": [
+    {
+     "content": {
+      "parts": [
+       {
+        "text": "{\n  \"citations\": [\n    {\n      \"doc\": \"conveyor_drive\",\n      \"page\": 9,\n      \"quote\": \"| A-ST50-VIB-HH | ST50 Conveyor: vibration high-high | `vibration_rms_mms` above 7.1 mm/s; trip: the station stops |\"\n    },\n    {\n      \"doc\": \"conveyor_drive\",\n      \"page\": 15,\n      \"quote\": \"Drive-end bearing vibration (`vibration_rms_mms`) rises out of its normal range of 0.8 to 2.8 mm/s, slowly at first and then faster. The one-second RMS trend carries a ripple at the pulley rotation frequency (about 0.255 Hz at 12 m/min, one turn every 3.9 s). Bearing temperature (`bearing_temp_c`) follows some minutes later; motor current rises slightly and chain speed sags.\"\n    },\n    {\n      \"doc\": \"conveyor_drive\",\n      \"page\": 15,\n      \"quote\": \"Vibration that grows in an accelerating curve, with a ripple at the pulley rotation frequency and a delayed rise in bearing temperature, indicates a drive-end bearing defect.\"\n    },\n    {\n      \"doc\": \"conveyor_drive\",\n      \"page\": 15,\n      \"quote\": \"| `vibration_rms_mms` above 2.8 mm/s and accelerating, ripple at 1x pulley rotation | Drive-end bearing defect (race or rolling element damage) | Spectrum of a high-rate snapshot; listen with a stethoscope; check the grease condition | Plan a bearing replacement; reduce speed only under change control; replace at the next stop |\"\n    }\n  ]\n}",
+        "thought_signature": "AY89a18XZU26seV86XiG9b_Ra3M7THeR-kMvTkabyXZF4JqwxcQqMnhYpAan7lwBwlcKOQbaP0VvDgSwmsex7TD3ErYbjaLQHsawmJboCyeqgKHD9fUT"
+       }
+      ],
+      "role": "model"
+     },
+     "finish_reason": "STOP"
+    }
+   ],
+   "create_time": "2026-10-11T05:12:49.945309Z",
+   "model_version": "gemini-3.8-flash",
+   "parsed": {
+    "citations": [
+     {
+      "doc": "conveyor_drive",
+      "page": 9,
+      "quote": "| A-ST50-VIB-HH | ST50 Conveyor: vibration high-high | `vibration_rms_mms` above 7.1 mm/s; trip: the station stops |"
+     },
+     {
+      "doc": "conveyor_drive",
+      "page": 15,
+      "quote": "Drive-end bearing vibration (`vibration_rms_mms`) rises out of its normal range of 0.8 to 2.8 mm/s, slowly at first and then faster. The one-second RMS trend carries a ripple at the pulley rotation frequency (about 0.255 Hz at 12 m/min, one turn every 3.9 s). Bearing temperature (`bearing_temp_c`) follows some minutes later; motor current rises slightly and chain speed sags."
+     },
+     {
+      "doc": "conveyor_drive",
+      "page": 15,
+      "quote": "Vibration that grows in an accelerating curve, with a ripple at the pulley rotation frequency and a delayed rise in bearing temperature, indicates a drive-end bearing defect."
+     },
+     {
+      "doc": "conveyor_drive",
+      "page": 15,
+      "quote": "| `vibration_rms_mms` above 2.8 mm/s and accelerating, ripple at 1x pulley rotation | Drive-end bearing defect (race or rolling element damage) | Spectrum of a high-rate snapshot; listen with a stethoscope; check the grease condition | Plan a bearing replacement; reduce speed only under change control; replace at the next stop |"
+     }
+    ]
+   },
+   "response_id": "0RrLap3ZOcG7i9sPsO_4qA8",
+   "sdk_http_response": {
+    "headers": {
+     "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+     "content-encoding": "gzip",
+     "content-type": "application/json; charset=UTF-8",
+     "date": "Sun, 11 Oct 2026 05:12:54 GMT",
+     "server": "scaffolding on HTTPServer2",
+     "transfer-encoding": "chunked",
+     "vary": "Origin, X-Origin, Referer",
+     "x-content-type-options": "nosniff",
+     "x-frame-options": "SAMEORIGIN",
+     "x-xss-protection": "0"
+    }
+   },
+   "usage_metadata": {
+    "cache_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 50277
+     }
+    ],
+    "cached_content_token_count": 50277,
+    "candidates_token_count": 402,
+    "candidates_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 402
+     }
+    ],
+    "prompt_token_count": 50451,
+    "prompt_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 50451
+     }
+    ],
+    "total_token_count": 50853,
+    "traffic_type": "ON_DEMAND"
+   }
+  }
+ },
+ {
+  "model_id": "gemini-3.8-flash",
+  "response": {
+   "automatic_function_calling_history": [],
+   "candidates": [
+    {
+     "content": {
+      "parts": [
+       {
+        "text": "{\n  \"citations\": [\n    {\n      \"doc\": \"conveyor_drive\",\n      \"page\": 16,\n      \"quote\": \"A reading that jumps beyond a trip limit for one to three seconds and then returns, with no change in related tags before or after, is a measurement spike; reset, record it and keep the station running.\"\n    },\n    {\n      \"doc\": \"conveyor_drive\",\n      \"page\": 16,\n      \"quote\": \"A real process change moves more than one signal; a single tag that trends steadily while every physically related tag stays normal points to the instrument, not the process.\"\n    },\n    {\n      \"doc\": \"conveyor_drive\",\n      \"page\": 17,\n      \"quote\": \"| Station stopped on a high-high or low-low trip after a one- to three-second excursion | Measurement spike (electrical noise, loose shield, vibration on the cable) | Check the trend either side of the trip; check related tags; inspect cable shield and gland | Reset and restart; if spikes repeat, re-terminate the shield and re-route the cable away from power cables |\"\n    },\n    {\n      \"doc\": \"conveyor_drive\",\n      \"page\": 14,\n      \"quote\": \"Before performing physical adjustments or component replacements, inspect instrument cabling and sensor mountings to rule out faulty sensor data.\"\n    }\n  ]\n}",
+        "thought_signature": "AY89a182JD0DOspRgSyfimhz1CImWAEPVu_oxWIcIjyFG9nthP4A41SfYc3JGPBxK8tTD9Y6SazvtB_oAF0OC3FfO_rZPBXtQIC7ixS8lqJh-VrfPQFs"
+       }
+      ],
+      "role": "model"
+     },
+     "finish_reason": "STOP"
+    }
+   ],
+   "create_time": "2026-10-11T05:12:58.345433Z",
+   "model_version": "gemini-3.8-flash",
+   "parsed": {
+    "citations": [
+     {
+      "doc": "conveyor_drive",
+      "page": 16,
+      "quote": "A reading that jumps beyond a trip limit for one to three seconds and then returns, with no change in related tags before or after, is a measurement spike; reset, record it and keep the station running."
+     },
+     {
+      "doc": "conveyor_drive",
+      "page": 16,
+      "quote": "A real process change moves more than one signal; a single tag that trends steadily while every physically related tag stays normal points to the instrument, not the process."
+     },
+     {
+      "doc": "conveyor_drive",
+      "page": 17,
+      "quote": "| Station stopped on a high-high or low-low trip after a one- to three-second excursion | Measurement spike (electrical noise, loose shield, vibration on the cable) | Check the trend either side of the trip; check related tags; inspect cable shield and gland | Reset and restart; if spikes repeat, re-terminate the shield and re-route the cable away from power cables |"
+     },
+     {
+      "doc": "conveyor_drive",
+      "page": 14,
+      "quote": "Before performing physical adjustments or component replacements, inspect instrument cabling and sensor mountings to rule out faulty sensor data."
+     }
+    ]
+   },
+   "response_id": "2hrLatmKFbnRi9sP_a-ouQQ",
+   "sdk_http_response": {
+    "headers": {
+     "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+     "content-encoding": "gzip",
+     "content-type": "application/json; charset=UTF-8",
+     "date": "Sun, 11 Oct 2026 05:13:02 GMT",
+     "server": "scaffolding on HTTPServer2",
+     "transfer-encoding": "chunked",
+     "vary": "Origin, X-Origin, Referer",
+     "x-content-type-options": "nosniff",
+     "x-frame-options": "SAMEORIGIN",
+     "x-xss-protection": "0"
+    }
+   },
+   "usage_metadata": {
+    "cache_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 50277
+     }
+    ],
+    "cached_content_token_count": 50277,
+    "candidates_token_count": 317,
+    "candidates_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 317
+     }
+    ],
+    "prompt_token_count": 50450,
+    "prompt_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 50450
+     }
+    ],
+    "total_token_count": 50767,
+    "traffic_type": "ON_DEMAND"
+   }
+  }
+ },
+ {
+  "model_id": "gemini-3.8-flash",
+  "response": {
+   "automatic_function_calling_history": [],
+   "candidates": [
+    {
+     "content": {
+      "parts": [
+       {
+        "text": "{\n  \"citations\": [\n    {\n      \"doc\": \"sealer_pump\",\n      \"page\": 9,\n      \"quote\": \"| A-ST40-BLOCKED | ST40 Sealer: station blocked (outfeed full) | Consequence of a slow or stopped station downstream; not a fault at this station |\"\n    },\n    {\n      \"doc\": \"sealer_pump\",\n      \"page\": 13,\n      \"quote\": \"| Stations downstream starved and stations upstream blocked after a shift start | A slower cycle at one station propagating along the line | Find the first station whose cycle time changed; downstream starvation and upstream blocking are consequences | Correct the parameter at the first station only |\"\n    }\n  ]\n}",
+        "thought_signature": "AY89a189Tn55HmRUya1KuAk9g8iYuLbpKeSuCenFneGfkDo6ZHfGQ2nFZFjxOtFqV1e8mcCAcnfG6YfNn4byVWlVzWqmnhCTd2p0ixK6wgPWwafJEUPj"
+       }
+      ],
+      "role": "model"
+     },
+     "finish_reason": "STOP"
+    }
+   ],
+   "create_time": "2026-10-11T05:13:03.946312Z",
+   "model_version": "gemini-3.8-flash",
+   "parsed": {
+    "citations": [
+     {
+      "doc": "sealer_pump",
+      "page": 9,
+      "quote": "| A-ST40-BLOCKED | ST40 Sealer: station blocked (outfeed full) | Consequence of a slow or stopped station downstream; not a fault at this station |"
+     },
+     {
+      "doc": "sealer_pump",
+      "page": 13,
+      "quote": "| Stations downstream starved and stations upstream blocked after a shift start | A slower cycle at one station propagating along the line | Find the first station whose cycle time changed; downstream starvation and upstream blocking are consequences | Correct the parameter at the first station only |"
+     }
+    ]
+   },
+   "response_id": "3xrLaojhOZm3i9sPpfvAuQE",
+   "sdk_http_response": {
+    "headers": {
+     "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+     "content-encoding": "gzip",
+     "content-type": "application/json; charset=UTF-8",
+     "date": "Sun, 11 Oct 2026 05:13:06 GMT",
+     "server": "scaffolding on HTTPServer2",
+     "transfer-encoding": "chunked",
+     "vary": "Origin, X-Origin, Referer",
+     "x-content-type-options": "nosniff",
+     "x-frame-options": "SAMEORIGIN",
+     "x-xss-protection": "0"
+    }
+   },
+   "usage_metadata": {
+    "cache_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 50277
+     }
+    ],
+    "cached_content_token_count": 50277,
+    "candidates_token_count": 166,
+    "candidates_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 166
+     }
+    ],
+    "prompt_token_count": 50450,
+    "prompt_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 50450
+     }
+    ],
+    "total_token_count": 50616,
+    "traffic_type": "ON_DEMAND"
+   }
+  }
+ }
+]

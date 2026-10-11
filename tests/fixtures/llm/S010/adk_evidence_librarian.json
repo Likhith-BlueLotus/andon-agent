@@ -1,0 +1,251 @@
+[
+ {
+  "content": {
+   "parts": [
+    {
+     "function_call": {
+      "args": {
+       "line_id": "L1",
+       "t0": "2026-09-02T05:00:00Z",
+       "t1": "2026-09-02T11:20:00Z"
+      },
+      "name": "search_alarms"
+     },
+     "thought_signature": "AY89a19RrDTGtjYeS46qs_4KCleosJra2wOyZdNeR6hws34aKTQlQfx0IL_2H65KQ57ox_4Hw0JcGwx-Vwrl07buhmiss8X1v8eJA7MwxbMxjMAPUcut"
+    },
+    {
+     "function_call": {
+      "args": {
+       "asset_id": "ST50-CNV",
+       "since": "2026-06-01T00:00:00Z"
+      },
+      "name": "get_work_orders"
+     }
+    },
+    {
+     "function_call": {
+      "args": {
+       "asset_id": "ST40-SLR",
+       "since": "2026-06-01T00:00:00Z"
+      },
+      "name": "get_work_orders"
+     }
+    },
+    {
+     "function_call": {
+      "args": {
+       "line_id": "L1",
+       "t0": "2026-09-01T20:00:00Z",
+       "t1": "2026-09-02T12:00:00Z"
+      },
+      "name": "get_shift_notes"
+     }
+    },
+    {
+     "text": ""
+    }
+   ],
+   "role": "model"
+  },
+  "finish_reason": "STOP",
+  "model_version": "gemini-3.8-flash",
+  "partial": false,
+  "usage_metadata": {
+   "candidates_token_count": 245,
+   "candidates_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 245
+    }
+   ],
+   "prompt_token_count": 1762,
+   "prompt_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 1762
+    }
+   ],
+   "total_token_count": 2007,
+   "traffic_type": "ON_DEMAND"
+  }
+ },
+ {
+  "content": {
+   "parts": [
+    {
+     "function_call": {
+      "args": {
+       "asset_type": "conveyor_drive",
+       "symptom": "vibration high-high bearing wear"
+      },
+      "name": "cite_manual"
+     },
+     "thought_signature": "AY89a1_WxGXP6Sx-3ZGaUo34il4pOBQ4ychA8DJuJyHzAp49xOKs63cFDpKNkH72u3F6l-OdArCGQtn2DY6wr2CQtl2EFwREOE3Pz6Tgyr0Aqh_px7dk"
+    },
+    {
+     "text": ""
+    }
+   ],
+   "role": "model"
+  },
+  "finish_reason": "STOP",
+  "model_version": "gemini-3.8-flash",
+  "partial": false,
+  "usage_metadata": {
+   "candidates_token_count": 35,
+   "candidates_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 35
+    }
+   ],
+   "prompt_token_count": 7304,
+   "prompt_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 7304
+    }
+   ],
+   "total_token_count": 7339,
+   "traffic_type": "ON_DEMAND"
+  }
+ },
+ {
+  "content": {
+   "parts": [
+    {
+     "function_call": {
+      "args": {
+       "asset_type": "conveyor_drive",
+       "symptom": "vibration sensor wiring fault spike"
+      },
+      "name": "cite_manual"
+     },
+     "thought_signature": "AY89a1_0z2U2MuTD44os1vYphmo4MFR4ZZYWhWw6q2300muSf9FRY3VX5xdrG0uAjx9PXw5eZgeCNZLHF8vKqvp_7ufMJxhw0Y8tm0eZNs-qA0ukKGj4"
+    },
+    {
+     "text": ""
+    }
+   ],
+   "role": "model"
+  },
+  "finish_reason": "STOP",
+  "model_version": "gemini-3.8-flash",
+  "partial": false,
+  "usage_metadata": {
+   "cache_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 3236
+    }
+   ],
+   "cached_content_token_count": 3236,
+   "candidates_token_count": 34,
+   "candidates_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 34
+    }
+   ],
+   "prompt_token_count": 7701,
+   "prompt_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 7701
+    }
+   ],
+   "total_token_count": 7735,
+   "traffic_type": "ON_DEMAND"
+  }
+ },
+ {
+  "content": {
+   "parts": [
+    {
+     "function_call": {
+      "args": {
+       "asset_type": "sealer_pump",
+       "symptom": "station blocked outfeed full"
+      },
+      "name": "cite_manual"
+     },
+     "thought_signature": "AY89a19QchIoLnsiBZblcjvsxepfGosHm10qPKif3S5cjR8NcdJR_iJVp30tdwMIAjhW9oXWPqm6n-VNl3oexF7KDj7UP_MJoZdoLo_Tc9lzsjUaRuJk"
+    },
+    {
+     "text": ""
+    }
+   ],
+   "role": "model"
+  },
+  "finish_reason": "STOP",
+  "model_version": "gemini-3.8-flash",
+  "partial": false,
+  "usage_metadata": {
+   "cache_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 3232
+    }
+   ],
+   "cached_content_token_count": 3232,
+   "candidates_token_count": 33,
+   "candidates_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 33
+    }
+   ],
+   "prompt_token_count": 8011,
+   "prompt_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 8011
+    }
+   ],
+   "total_token_count": 8044,
+   "traffic_type": "ON_DEMAND"
+  }
+ },
+ {
+  "content": {
+   "parts": [
+    {
+     "text": "### Summary of Retrieved Evidence\n\n#### 1. Alarms (`search_alarms`)\n- **Evidence ID**: `ev_search_alarms_1`\n- **Findings**:\n  - Prior to the stop, an early high vibration alarm occurred on ST50-CNV at `2026-09-02T08:51:04Z` (`A-ST50-VIB-HI`).\n  - Intermittent upstream blocked warnings (`A-ST40-BLOCKED`, 8 occurrences starting at `07:50:38Z`) and downstream starved warnings (`A-ST60-STARVED`, 5 occurrences starting at `07:50:05Z`) were logged throughout the morning.\n  - The first line stop occurred at `2026-09-02T11:17:51Z` with code `S-ST50-VIB-HH` on station `ST50-CNV` (\"Conveyor drive stopped: vibration high-high\"), immediately followed by an Andon stop (`A-L1-ANDON`) and upstream station blocks (`A-ST40-BLOCKED`, `A-ST30-BLOCKED`, `A-ST20-BLOCKED`).\n- **Hypothesis Impact**: Supports a persistent/escalating mechanical issue on `ST50-CNV` leading up to the trip.\n\n---\n\n#### 2. Past Work Orders (`get_work_orders`)\n- **Evidence ID**: `ev_get_work_orders_1` (`ST50-CNV`)\n  - Frequent maintenance history on bearings and drive chain/tensioner over June–July 2026:\n    - `WO-2601991` (2026-07-28): Chain loose, adjusted tension.\n    - `WO-2601988` (2026-07-26): Bearing noise, replaced drive bearing.\n    - `WO-2601934` (2026-07-04): Bearing heat/noise, greased housing and checked alignment.\n    - `WO-2601929` (2026-06-30): Drive bearing whine, lubricated motor drive bearing.\n    - `WO-2601901` (2026-06-19): Persistent bearing noise, replaced main drive output bearing set.\n    - `WO-2601895` (2026-06-17): Replaced drive-end bearing.\n  - **Hypothesis Impact**: Strongly supports recurring drive-end bearing and mechanical transmission wear/degradation (Step 0 & Step 1).\n- **Evidence ID**: `ev_get_work_orders_2` (`ST40-SLR`)\n  - Past work orders relate to nozzle heating elements (`WO-2601995`), nozzle clogs (`WO-2601985`, `WO-2601968`), and pump seal leaks (`WO-2601893`, `WO-2601872`). None indicate mechanical interference or jamming transferring into ST50.\n  - **Hypothesis Impact**: Refutes upstream transfer mechanical obstruction as the origin of ST50's vibration trip (Step 3).\n\n---\n\n#### 3. Shift Notes (`get_shift_notes`)\n- **Evidence ID**: `ev_get_shift_notes_1`\n  - Note `S010-N03` (`08:58:00Z`): Reported ST50 vibration high alarm x5 around 08:23, alongside ST60 starved and ST40 blocked.\n  - Note `S010-N04` (`09:59:51Z`): ST40 blocked x3, ST50 vibration high alarm at 14:21 (local), ST60 starved.\n  - Notes `S010-N05` / `S010-N05d` (`11:22:51Z`): ST60 starved, ST40 blocked, line stop at 16:47 (local) due to ST50 vibration high-high; maintenance called.\n  - **Hypothesis Impact**: Confirms that high vibration on ST50 was not an isolated instantaneous glitch, but an ongoing progression during Shift B that culminated in the High-High trip.\n\n---\n\n#### 4. Equipment Manual Citations (`cite_manual`)\n- **Evidence ID**: `ev_cite_manual_1` (`conveyor_drive`, p. 9, 15):\n  - *Quote*: \"`vibration_rms_mms` above 7.1 mm/s; trip: the station stops\" (`A-ST50-VIB-HH`).\n  - *Quote*: \"Drive-end bearing vibration (`vibration_rms_mms`) rises out of its normal range of 0.8 to 2.8 mm/s, slowly at first and then faster... Bearing temperature (`bearing_temp_c`) follows some minutes later; motor current rises slightly and chain speed sags.\"\n  - *Quote*: \"Vibration that grows in an accelerating curve, with a ripple at the pulley rotation frequency and a delayed rise in bearing temperature, indicates a drive-end bearing defect.\"\n  - **Hypothesis Impact**: Establishes diagnostic criteria matching progressive bearing failure (Steps 0, 1, 4).\n- **Evidence ID**: `ev_cite_manual_2` (`conveyor_drive`, p. 14, 16, 17):\n  - *Quote*: \"A reading that jumps beyond a trip limit for one to three seconds and then returns, with no change in related tags before or after, is a measurement spike...\"\n  - *Quote*: \"A real process change moves more than one signal; a single tag that trends steadily while every physically related tag stays normal points to the instrument, not the process.\"\n  - **Hypothesis Impact**: Provides criteria to evaluate whether the vibration event is sensor electrical noise vs genuine mechanical damage (Step 2).\n- **Evidence ID**: `ev_cite_manual_3` (`sealer_pump`, p. 9):\n  - *Quote*: \"`A-ST40-BLOCKED` | ST40 Sealer: station blocked (outfeed full) | Consequence of a slow or stopped station downstream; not a fault at this station\"\n  - **Hypothesis Impact**: Confirms that ST40 blockage alarms are secondary consequences of the downstream ST50 conveyor slowing or stopping, refuting an upstream sealer root cause (Step 3)."
+    },
+    {
+     "text": "",
+     "thought_signature": "AY89a18ui_yYjFrENhdBkbg-fz6xZaTP4olfIZ-qEFyPA_MpOCfWj6U8tcD6khO0_CPnKuEujpcO4TgoakMVieP6BtCt2rje39UvaEflfqpeQgQRaUHc"
+    }
+   ],
+   "role": "model"
+  },
+  "finish_reason": "STOP",
+  "model_version": "gemini-3.8-flash",
+  "partial": false,
+  "usage_metadata": {
+   "cache_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 6451
+    }
+   ],
+   "cached_content_token_count": 6451,
+   "candidates_token_count": 1497,
+   "candidates_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 1497
+    }
+   ],
+   "prompt_token_count": 8214,
+   "prompt_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 8214
+    }
+   ],
+   "total_token_count": 9711,
+   "traffic_type": "ON_DEMAND"
+  }
+ }
+]

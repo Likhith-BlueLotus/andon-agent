@@ -1,0 +1,70 @@
+[
+ {
+  "content": {
+   "role": "model",
+   "parts": [
+    {
+     "function_call": {
+      "name": "search_alarms",
+      "args": {
+       "line_id": "L1",
+       "t0": "$STOP-21600",
+       "t1": "$STOP"
+      }
+     }
+    },
+    {
+     "function_call": {
+      "name": "get_shift_notes",
+      "args": {
+       "line_id": "L1",
+       "t0": "$STOP-21600",
+       "t1": "$STOP"
+      }
+     }
+    }
+   ]
+  },
+  "usage_metadata": {
+   "prompt_token_count": 3000,
+   "candidates_token_count": 60,
+   "total_token_count": 3060
+  }
+ },
+ {
+  "content": {
+   "role": "model",
+   "parts": [
+    {
+     "function_call": {
+      "name": "cite_manual",
+      "args": {
+       "asset_type": "compressed_air",
+       "symptom": "header pressure low, compressor loaded continuously"
+      }
+     }
+    }
+   ]
+  },
+  "usage_metadata": {
+   "prompt_token_count": 3000,
+   "candidates_token_count": 60,
+   "total_token_count": 3060
+  }
+ },
+ {
+  "content": {
+   "role": "model",
+   "parts": [
+    {
+     "text": "Alarms in ev_search_alarms_1; manual citations in ev_cite_manual_1."
+    }
+   ]
+  },
+  "usage_metadata": {
+   "prompt_token_count": 4000,
+   "candidates_token_count": 200,
+   "total_token_count": 4200
+  }
+ }
+]

@@ -1,0 +1,26 @@
+[
+ {
+  "model_id": "gemini-3.8-flash",
+  "response": {
+   "candidates": [
+    {
+     "content": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "{\"citations\": [{\"doc\": \"compressed_air\", \"page\": 15, \"quote\": \"A sustained fall in header pressure while the compressor runs loaded indicates demand exceeding supply, most often a distribution leak.\"}, {\"doc\": \"compressed_air\", \"page\": 14, \"quote\": \"Check drop-leg fittings and quick couplings at the weld cells first; they account for most leaks on this header.\"}, {\"doc\": \"compressed_air\", \"page\": 15, \"quote\": \"Leaks are always caused by the operator ignoring the manual.\"}]}"
+       }
+      ]
+     },
+     "finish_reason": "STOP"
+    }
+   ],
+   "usage_metadata": {
+    "prompt_token_count": 52000,
+    "cached_content_token_count": 50200,
+    "candidates_token_count": 300,
+    "total_token_count": 52300
+   }
+  }
+ }
+]

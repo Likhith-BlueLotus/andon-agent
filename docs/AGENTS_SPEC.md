@@ -28,6 +28,7 @@ Every tool stores its result with a fresh `evidence_id` and returns `{evidence_i
 - **Job:** read the stop event, list assets upstream of the stopped station, write a plan of 4–8 checks that test *competing* hypotheses (must include at least one upstream station and one "is it a sensor problem?" check).
 - **Tools:** `get_stop_event(line_id: str) -> StopEvent` · `list_assets(line_id: str, upstream_of: str | None) -> list[Asset]`
 - **Output:** `state["plan"]` (list[str]) via `output_key`.
+- **Output schema:** `PlanOut{steps (4–8), upstream_step, sensor_step, suspects}` (`agents/graph.py`); the `plan` SSE event carries `steps`.
 - **Stop:** single turn, max 3 tool calls.
 
 ## 2. Signal Analyst
@@ -39,6 +40,7 @@ Every tool stores its result with a fresh `evidence_id` and returns `{evidence_i
   - `spectrum(asset_id: str, tag: str, t0: str, t1: str) -> list[{freq_hz, amplitude}]` (top 5 peaks; for real-sourced vibration it reads the raw high-rate snapshots from GCS via the provenance table, otherwise the 1 Hz series)
   - `anomaly_score(asset_id: str, t0: str, t1: str) -> {score, top_tags}` (IsolationForest trained on synthetic normal data, loaded lazily)
   - `listen(asset_id: str, t0: str, t1: str) -> {clip_uri, finding, normal_vs_abnormal_confidence}` — sends the `gs://` clip to Gemini audio with a fixed rubric prompt; also returns a classical baseline score (MFCC distance) so the verifier has a number to check.
+- **Tools as built:** `SIGNAL_TOOLS` + `listen` when it is in `TOOL_REGISTRY`. `listen`'s `finding`/`abnormal` is qualitative only; numeric audio claims use `mfcc_distance`/`mfcc_z`.
 - **Stop:** max 12 tool calls total; stop early when every plan step has evidence.
 
 ## 3. Evidence Librarian
@@ -49,6 +51,7 @@ Every tool stores its result with a fresh `evidence_id` and returns `{evidence_i
   - `get_work_orders(asset_id: str, since: str) -> list[{wo_id, date, symptom, action, outcome}]` (SQL, max 20 rows, Flash-Lite summarises if more)
   - `get_shift_notes(line_id: str, t0: str, t1: str) -> list[{ts, author_role, text}]`
   - `cite_manual(asset_type: str, symptom: str) -> list[Citation]` — model answers from the cache of 5 manuals; **code then checks each quote exists verbatim** in the cached text and drops any that don't.
+- **As built (`agents/librarian.py`):** the model sees free-text fields wrapped in `<untrusted_data>` (delimiters defanged; stored Evidence keeps raw text). Floods (alarms `count` > 30, work orders `truncated`) get a Flash-Lite `triage` note in the tool result, labelled "not evidence", with row references filtered to rows that exist. `cite_manual` validates `asset_type` against the 5 manual ids, asks Flash (thinking LOW, `response_schema=CitationCandidates`, `cached_content` = per-run manuals cache created lazily on the first call and deleted at run end, TTL 900 s), keeps quotes `find_quote` verifies, re-pages quotes found verbatim on another page (`page_corrected`), drops the rest (`dropped_unverified`), stores Evidence (`tool=cite_manual`, synthetic provenance) and emits `cache_hit`. If the cache cannot be created the manuals go inline (same instruction).
 - **Stop:** max 8 tool calls.
 
 ## 4. RCA Judge
@@ -56,7 +59,10 @@ Every tool stores its result with a fresh `evidence_id` and returns `{evidence_i
 - **Job:** rank up to 3 hypotheses. Each claim must cite `evidence_id`s and declare a `kind`. Must state refuting evidence for its top hypothesis. Must pick `no_fault` / `sensor_drift` when the evidence says the "fault" is a sensor artefact, and must not treat data gaps, stuck values or alarm chatter as root causes. `confidence` must be calibrated (the eval measures it). On iteration ≥2, it receives `rejected_claims` and must fix or drop them.
 - **Output:** `RCAReport` as structured output — in ADK that is `LlmAgent(output_schema=RCAReport)`; `generate_content_config.response_schema` is rejected by ADK. Validated with Pydantic; one retry on parse failure, then fail closed.
 - **Fallback implementation:** ADK's experimental `FallbackModel` fails over on 429/5xx only, not on the 60 s timeout. Since the judge needs no tools, implement it as a `BaseAgent` that builds the prompt from state and calls `LLM.generate(PRO_JUDGE, ..., fallback_model=FLASH, primary_timeout_s=60, run_id=ctx.invocation_id)` with `response_schema=RCAReport` (covers 429/5xx/timeout and books cost); emit `model_fallback` from `on_fallback`.
-- **Stop:** one call per loop iteration.
+- **Thinking (as built):** HIGH on Pro (and on its Flash fallback, which reuses the request). A Flash *primary* judge (dev default `JUDGE_MODEL=gemini-3.8-flash`) runs MEDIUM: live on R002, Flash HIGH used 15k thinking tokens and timed out at 120 s once (206 s total).
+- **Code-owned fields:** `incident_id`, unique claim ids. Prompt: evidence summaries in an `<evidence>` JSON block (list_assets reduced to ids; long row lists trimmed), notes from the analysts (librarian notes wrapped as untrusted), and from iteration 2 the previous draft + `rejected_claims`. Numeric claims end with `path: <field path>` (the verifier resolves it).
+- **Test hook:** `force_bad_claim` (CLI `--force-bad-claim`) inflates the first numeric claim of the iteration-1 draft ×1.5 and prefixes its text with `[TEST HOOK --force-bad-claim ...]`.
+- **Stop:** one call per loop iteration (plus one retry on invalid output).
 
 ## 5. Verifier (deterministic `BaseAgent`, no LLM in the default path)
 Rules per claim kind:
@@ -77,7 +83,8 @@ Unknown `evidence_id` → fail. A claim that says data is "real"/"measured on th
 - **Model:** `gemini-3.8-flash`, thinking LOW.
 - **Job:** draft a work order for the verified top hypothesis. Safety steps (LOTO, isolation, PPE) are copied **verbatim** from `cite_manual` results; the drafter may only select and order them, not reword them. Code checks this.
 - **Tool:** `draft_work_order(incident_id, asset_id, cause_class, steps, parts) -> WorkOrder` — the **only write tool**; writes `PENDING_APPROVAL` to the mock CMMS.
-- **Stop:** single call.
+- **As built (`agents/drafter.py`):** the instruction lists the asset manual's LOTO steps as `<doc>:<n> [phase] text`; the model passes `safety_step_ids`, `repair_steps`, `parts` (no status, no incident id). Code builds the steps (apply phases → repair steps → release phase, manual order), cites each with the page `locate_quote` finds, and rejects the draft unless every phase (prepare, shutdown, isolate, lock, stored, verify, release) is covered, no repair step contains energy-control wording, its own verbatim check and `verifier.check_safety_steps` both return no errors, and asset/cause match the verified top hypothesis. It writes through `agents/cmms.py` (`InMemoryCMMS` tests, `JsonlCMMS` local `data/cmms/work_orders.jsonl`, `FirestoreCMMS` collection `work_orders` when `STORE_BACKEND=bigquery` or `FIRESTORE` is set; create-only, `PENDING_APPROVAL` only). Skipped (no model call) when `rca_final` is not verified, the cause is `no_fault`, or the asset has no LOTO procedure.
+- **Stop:** one successful call (budget 2: one retry after a rejection).
 
 ## Stretch agents (only per DEVELOPMENT.md §9b)
 - **CSV Mapper** (`gemini-3.1-flash-lite`, structured output): given an uploaded CSV's header + 50 sample rows, propose `{column → (asset_id, tag, unit, scale)}` with confidence; a human confirms in the UI before anything loads. Never guesses silently.
@@ -85,7 +92,7 @@ Unknown `evidence_id` → fail. A claim that says data is "real"/"measured on th
 - **WO translator** (`gemini-3.1-flash-lite`): non-safety steps translated; safety steps kept verbatim with a labelled side-by-side translation.
 
 ## Prompts
-Live in `agents/prompts/{commander,signal_analyst,librarian,judge,drafter,listen_rubric}.md`, each with a version header. Keep them short; the schemas and tools carry the structure. Instructions to every LLM agent include: "You never see ground truth. You may not state a number you did not get from a tool. If evidence is insufficient, say so."
+Live in `agents/prompts/{commander,signal_analyst,librarian,judge,drafter,cite_manual,listen_rubric}.md` (loader `agents/prompts/__init__.py`; header `<!-- version: <name> vN date -->`), each with a version header. Keep them short; the schemas and tools carry the structure. Instructions to every LLM agent include: "You never see ground truth. You may not state a number you did not get from a tool. If evidence is insufficient, say so."
 
 ## Baselines (for the eval, live in `eval/baselines.py`)
 - **B1 naive long-context:** one `gemini-3.8-flash` call with all telemetry summaries, alarms, notes, WOs and the manuals stuffed in; same `RCAReport` schema; no tools, no verifier.
@@ -100,3 +107,10 @@ Live in `agents/prompts/{commander,signal_analyst,librarian,judge,drafter,listen
 - **`generate_content_config`:** must not carry `tools`, `system_instruction` or `response_schema` (use `tools=`, `instruction=`, `output_schema=`). Thinking goes in `thinking_config` (or on the model via `make_model`). Never temperature/top_p/top_k — the plugin rejects them.
 - **Custom events:** a `BaseAgent` can `yield Event(author=..., invocation_id=ctx.invocation_id, custom_metadata={"andon_event": "...", ...}, actions=EventActions(state_delta=...))`; the event mapper (`api/`) turns these and ADK tool/model events into `api/events.py` events, so the UI never sees ADK types.
 - **Cost:** `AndonBudgetPlugin` books every ADK model call; `plugin.run_cost(invocation_id).to_cost_data()` is the `cost` event payload (includes tool-internal `LLM.generate(run_id=...)` calls and manuals-cache creation).
+
+## Runtime as built (agents/runtime.py, agents/events_map.py; 2026-10-11)
+- **Per-run scope.** `build_app(store, *, judge_model, mode)` builds the App once; `run_incident(app, scenario_id)` opens a `RunScope` (incident id, scenario id, one `ToolContext`, recording) and seeds session state: `andon_run` (scope key), `scenario_id`, `incident_id`, `stop_event`, `force_bad_claim`. Every tool, the verifier's `ctx_factory` and the judge resolve the ToolContext from `andon_run`; the model never chooses the scenario. `ToolContext.run_id` = ADK invocation id, so tool-internal Gemini calls book to the run.
+- **Tool budgets** (commander 3, analyst 12, librarian 8, drafter 2) are enforced in a `before_tool_callback` wrapper: an over-budget call is not executed and returns `{"evidence_id": null, "error": {"code": "budget_reached", ...}}`.
+- **Determinism.** Sync tools run in a worker thread (never blocking the other parallel branch) under a per-agent FIFO `asyncio.Lock`, so parallel function calls of one model turn get evidence ids in dispatch order. Do **not** use `RunConfig.tool_thread_pool_config`: completion order then decides `ev_<tool>_<n>` and replays break. One store lock per process (DuckDB connection).
+- **Modes.** `live`; `replay` (ADK agents get `ReplayLlm`, `LLM.generate` gets `ReplayTransport`; fixtures `tests/fixtures/llm/<scenario>/adk_<agent>.json`, `generate_<ResponseSchema>.json`, `meta.json`; own ledger, $0); `record` (live + `RecorderPlugin` + recording transport). CLI: `--mode replay`, `--record`.
+- **Event mapping conventions.** Agent start/finish = `before/after_agent_callback` writing `state["andon:agent:<name>"]` (ADK emits a state-only event; works in ParallelAgent branches). Tools emit events by writing `state["andon_event:<key>"] = {type, data}` (e.g. `cache_hit`). BaseAgents emit `custom_metadata={"andon_event": <type>, "data": {...}}`. `plan`/`rca_final`/`work_order_draft` come from state deltas. The judge's answering model is `state["andon:model:rca_judge"]` (shown on `agent_finished` after a fallback). `tool_result.summary` is the stored (raw) Evidence summary, not the model's wrapped view; tool errors have `evidence_id: ""`.

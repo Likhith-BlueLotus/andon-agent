@@ -1,0 +1,171 @@
+[
+ {
+  "model_id": "gemini-3.1-flash-lite",
+  "response": {
+   "automatic_function_calling_history": [],
+   "candidates": [
+    {
+     "content": {
+      "parts": [
+       {
+        "text": "{\n  \"themes\": [\n    \"compressed air leaks\",\n    \"condensate drain valve malfunctions\",\n    \"air dryer system failures\",\n    \"routine preventative maintenance\",\n    \"oil consumption and filtration issues\"\n  ],\n  \"likely_relevant\": [\n    \"WO-2601932\",\n    \"WO-2601930\",\n    \"WO-2601887\",\n    \"WO-2601869\",\n    \"WO-2601844\",\n    \"WO-2601814\",\n    \"WO-2601800\",\n    \"WO-2601865\"\n  ],\n  \"noise\": [\n    \"WO-2601923\",\n    \"WO-2601890\",\n    \"WO-2601862\",\n    \"WO-2601791\",\n    \"WO-2601773\",\n    \"WO-2601996\",\n    \"WO-2601851\"\n  ]\n}",
+        "thought_signature": "AY89a1-wj5xkln0huOtPNTLcLVZJO9svsD6-D2hDA8NctgaF56ux113u-cUe0Dy7vQQKQh7qEW6tzAbkZMI-stMbK5VuS_dJPftejM9sVZG3_edBZy2Bcv5inao2PKkYPnxjLQ4GmgX140mdTM-OVJC5G911ZDcESPNK5GXXIUEE6FjFU_3zlqbyqLKAdr2IYX_MOFKuiHwPkTyuhSupY5oxVCjybiEYVm1AV7GGDKzhqEDIT1OzHAG3lEPez1C_dkZmh6fBVvPAyPFMKQRPjgv9pSPLg2Hza86pRss_ZP8-XjTpKJ_Q6QCXYqi4LnV-OW5Alsd-WUks3uthK3Ka8EoLBeRxxGQ-sf8cpIwprktDchdNXgO4ZN8Q-aIcAed8v-m2F8NTXIYq59-4ErlOKdzUwqYyyqqludvCPmEbM54yZb69WYn-L5qA8VElUPpkL5zA7vUgfbkrBKnUE6vYp8BrlcLdcCJBg-c9_WW3kCQq7gzwC95Awal19D02fKaUFs6f5yGQUG1s8az7WfZskLJc_A9ja6CPLKUotHzGAnywAgwVjAkCV_iX5ub6dlrRyM7oUb-s1HPKsUBFuZ1JiTuYT19UdkNpW_7k9TqHcB_Kur0iBBHeK8pDPqNauASBe39-pMx5HvXVQjjNlFwJz9FdXP1GagU="
+       }
+      ],
+      "role": "model"
+     },
+     "finish_reason": "STOP"
+    }
+   ],
+   "create_time": "2026-10-11T05:11:19.118008Z",
+   "model_version": "gemini-3.1-flash-lite",
+   "parsed": {
+    "likely_relevant": [
+     "WO-2601932",
+     "WO-2601930",
+     "WO-2601887",
+     "WO-2601869",
+     "WO-2601844",
+     "WO-2601814",
+     "WO-2601800",
+     "WO-2601865"
+    ],
+    "noise": [
+     "WO-2601923",
+     "WO-2601890",
+     "WO-2601862",
+     "WO-2601791",
+     "WO-2601773",
+     "WO-2601996",
+     "WO-2601851"
+    ],
+    "themes": [
+     "compressed air leaks",
+     "condensate drain valve malfunctions",
+     "air dryer system failures",
+     "routine preventative maintenance",
+     "oil consumption and filtration issues"
+    ]
+   },
+   "response_id": "dxrLaviZB8G7i9sPsO_4qA8",
+   "sdk_http_response": {
+    "headers": {
+     "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+     "content-encoding": "gzip",
+     "content-type": "application/json; charset=UTF-8",
+     "date": "Sun, 11 Oct 2026 05:11:20 GMT",
+     "server": "scaffolding on HTTPServer2",
+     "transfer-encoding": "chunked",
+     "vary": "Origin, X-Origin, Referer",
+     "x-content-type-options": "nosniff",
+     "x-frame-options": "SAMEORIGIN",
+     "x-xss-protection": "0"
+    }
+   },
+   "usage_metadata": {
+    "candidates_token_count": 268,
+    "candidates_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 268
+     }
+    ],
+    "prompt_token_count": 2489,
+    "prompt_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 2489
+     }
+    ],
+    "thoughts_token_count": 119,
+    "total_token_count": 2876,
+    "traffic_type": "ON_DEMAND"
+   }
+  }
+ },
+ {
+  "model_id": "gemini-3.1-flash-lite",
+  "response": {
+   "automatic_function_calling_history": [],
+   "candidates": [
+    {
+     "content": {
+      "parts": [
+       {
+        "text": "{\n  \"themes\": [\n    \"welding gun pressure stability\",\n    \"locator pin mechanical alignment\",\n    \"weld shunt degradation\",\n    \"cooling system flow blockages\",\n    \"cycle timer parameter instability\"\n  ],\n  \"likely_relevant\": [\n    \"WO-2601997\",\n    \"WO-2601979\",\n    \"WO-2690051\",\n    \"WO-2601967\",\n    \"WO-2601956\",\n    \"WO-2601987\",\n    \"WO-2601969\",\n    \"WO-2601993\"\n  ],\n  \"noise\": [\n    \"WO-2602000\",\n    \"WO-2601972\",\n    \"WO-2601958\",\n    \"WO-2601936\",\n    \"WO-2601928\",\n    \"WO-2601964\",\n    \"WO-2601953\",\n    \"WO-2601943\"\n  ]\n}",
+        "thought_signature": "AY89a1-E2CEvwZHogkZoUS0acCLg4l1KwFUKP8KjdALkJmhCkfy9DJlbiUhAdE_ixS7LSSuUTZ4Z1uXeoCowRy2HwYu93InLce1v5431fGMWMxdCRqpQYMxaBGAqTPBxwZsTdnQhDZ1F3wp0tRbEQ2Io9eMrVzGdy7Lpd9ImzLpRKV3fa3dcqzn_i1EOB8Lwy14e5qqK34E29eNKzyGWvbf9M4d785GU3BRiMMZRdSuoJ2149-goDaLInXfthqnFdUH50eX9ulxWb74u7WWKKq8QhvpkIaKdBtf0ofjAUQHnjmXjfB_ZeHDtkW91j0cewTCZoPG3jpbgm8L_CuJE2IMMgNaGxZQ3zIpK4VvBGdosGA1iDnvQuAmGicyO7JDdCe1RmWV_qmRVTDkG6KA3b1Ku6_X6CLwwJGlvY5jUZDRXfPSig5rD6X3xqWUnh9R-lhDzPdK_BCQMu0xnGt8Rgj4COXHoA6NcbTIViUuVFCJErCiqWd6GwK10HirQaEeTW-qVRo_6FbL6HgfmxXGKqJtkJjHWSyslmbLZcssIZqTRvJA-hZpUv0DESP67KKoCnTi9IIfMm-YLvybsVC5tIXP8eA2AMXV9QxOccebJonpLdanaw6GdLguefh_C3qg1oQZtgfy_ajYSd0uHwL2O6Cl--Ok-3UkRWY7MvG5gLTO3DGNVDX04r9TIV15sXhXNpUEzQfjWRtnR-APusl2H0HFLE-wTPYVnt-6gX21EhLXtnt_d"
+       }
+      ],
+      "role": "model"
+     },
+     "finish_reason": "STOP"
+    }
+   ],
+   "create_time": "2026-10-11T05:11:19.057980Z",
+   "model_version": "gemini-3.1-flash-lite",
+   "parsed": {
+    "likely_relevant": [
+     "WO-2601997",
+     "WO-2601979",
+     "WO-2690051",
+     "WO-2601967",
+     "WO-2601956",
+     "WO-2601987",
+     "WO-2601969",
+     "WO-2601993"
+    ],
+    "noise": [
+     "WO-2602000",
+     "WO-2601972",
+     "WO-2601958",
+     "WO-2601936",
+     "WO-2601928",
+     "WO-2601964",
+     "WO-2601953",
+     "WO-2601943"
+    ],
+    "themes": [
+     "welding gun pressure stability",
+     "locator pin mechanical alignment",
+     "weld shunt degradation",
+     "cooling system flow blockages",
+     "cycle timer parameter instability"
+    ]
+   },
+   "response_id": "dxrLavzEA5TTi9sP7ZSbCA",
+   "sdk_http_response": {
+    "headers": {
+     "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+     "content-encoding": "gzip",
+     "content-type": "application/json; charset=UTF-8",
+     "date": "Sun, 11 Oct 2026 05:11:21 GMT",
+     "server": "scaffolding on HTTPServer2",
+     "transfer-encoding": "chunked",
+     "vary": "Origin, X-Origin, Referer",
+     "x-content-type-options": "nosniff",
+     "x-frame-options": "SAMEORIGIN",
+     "x-xss-protection": "0"
+    }
+   },
+   "usage_metadata": {
+    "candidates_token_count": 282,
+    "candidates_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 282
+     }
+    ],
+    "prompt_token_count": 2428,
+    "prompt_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 2428
+     }
+    ],
+    "thoughts_token_count": 132,
+    "total_token_count": 2842,
+    "traffic_type": "ON_DEMAND"
+   }
+  }
+ }
+]

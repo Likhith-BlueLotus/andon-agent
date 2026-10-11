@@ -1,0 +1,164 @@
+[
+ {
+  "content": {
+   "parts": [
+    {
+     "function_call": {
+      "args": {
+       "line_id": "L1",
+       "t0": "2026-09-19T18:00:00Z",
+       "t1": "2026-09-19T21:45:00Z"
+      },
+      "name": "search_alarms"
+     },
+     "thought_signature": "AY89a19qGHpfPPKzvdSxtYoFN0OQI4K8iGpgaQ7NvipDBLwx1lHy90grHF6KyOb0-Sa93GQto1yhcmwCTDsFQ6Ez4UrFCsZegp1aQ-LZ-ADl-EjvOiW0"
+    },
+    {
+     "function_call": {
+      "args": {
+       "line_id": "L1",
+       "t0": "2026-09-19T14:00:00Z",
+       "t1": "2026-09-19T22:30:00Z"
+      },
+      "name": "get_shift_notes"
+     }
+    },
+    {
+     "function_call": {
+      "args": {
+       "asset_id": "UT-AIR",
+       "since": "2026-06-20T00:00:00Z"
+      },
+      "name": "get_work_orders"
+     }
+    },
+    {
+     "function_call": {
+      "args": {
+       "asset_id": "ST20-WLD",
+       "since": "2026-06-20T00:00:00Z"
+      },
+      "name": "get_work_orders"
+     }
+    },
+    {
+     "text": ""
+    }
+   ],
+   "role": "model"
+  },
+  "finish_reason": "STOP",
+  "model_version": "gemini-3.8-flash",
+  "partial": false,
+  "usage_metadata": {
+   "candidates_token_count": 242,
+   "candidates_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 242
+    }
+   ],
+   "prompt_token_count": 2009,
+   "prompt_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 2009
+    }
+   ],
+   "total_token_count": 2251,
+   "traffic_type": "ON_DEMAND"
+  }
+ },
+ {
+  "content": {
+   "parts": [
+    {
+     "function_call": {
+      "args": {
+       "asset_type": "compressed_air",
+       "symptom": "compressor running loaded continuously"
+      },
+      "name": "cite_manual"
+     },
+     "thought_signature": "AY89a18lC5kKDdCDtRTXYCLyFc5-uCsyWI2KEsGYmgL9LY6z9UoE9lqRc1cRfpd7oqsJ1TGe4O3OETxsVob150qVchCbL7xIgkU4knNornHfbOxGhnmF"
+    },
+    {
+     "function_call": {
+      "args": {
+       "asset_type": "weld_controller",
+       "symptom": "low air pressure"
+      },
+      "name": "cite_manual"
+     }
+    },
+    {
+     "text": ""
+    }
+   ],
+   "role": "model"
+  },
+  "finish_reason": "STOP",
+  "model_version": "gemini-3.8-flash",
+  "partial": false,
+  "usage_metadata": {
+   "candidates_token_count": 63,
+   "candidates_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 63
+    }
+   ],
+   "prompt_token_count": 6401,
+   "prompt_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 6401
+    }
+   ],
+   "total_token_count": 6464,
+   "traffic_type": "ON_DEMAND"
+  }
+ },
+ {
+  "content": {
+   "parts": [
+    {
+     "text": "### Evidence Report\n\n#### 1. Alarms (`search_alarms`)\n* **Evidence ID:** `ev_search_alarms_1`\n* **Findings:**\n  * **2026-09-19T20:19:46Z:** Info alarm `A-ST20-DOOR-OPN` (cell door opened via key switch).\n  * **2026-09-19T21:32:59Z:** Stop alarm `S-ST20-AIR-HOLD` on `ST20-WLD`: *\"ST20 Weld cell A: line held by line lead, plant air compressor running loaded continuously (utilities check)\"*.\n  * **2026-09-19T21:33:01Z to 21:35:14Z:** Downstream and upstream cascading starve/block alarms (`A-L1-ANDON`, `A-ST10-BLOCKED`, `A-ST30-STARVED`, `A-ST40-STARVED`, `A-ST50-STARVED`, `A-ST60-STARVED`).\n  * No automated low-pressure trip alarms (such as `A-UTAIR-HDR-LO` or station interlock trips) fired prior to the manual line hold.\n* **Hypothesis Evaluation:** Supports the premise that the stoppage was an operator/line-lead hold prompted by observing the compressor running loaded, rather than an automatic mechanical trip.\n\n---\n\n#### 2. Shift Notes (`get_shift_notes`)\n* **Evidence ID:** `ev_get_shift_notes_1`\n* **Findings:**\n  * **2026-09-19T16:55:00Z:** Note `R002-N03` reports product model changeover completed (Model A to Model B) with no major prior alarms.\n  * **2026-09-19T21:38:59Z & 21:39:47Z:** Notes `R002-N04` / `R002-N04d` report: *\"03:02 line stop ST20 weld cell A held by lead. Plant air compressor loaded continuously. Maintenance called.\"*\n* **Hypothesis Evaluation:** Corroborates the alarm record that the cell was manually held due to the compressor running loaded continuously.\n\n---\n\n#### 3. Maintenance Work Orders (`get_work_orders`)\n* **Asset `UT-AIR` (Evidence ID: `ev_get_work_orders_1`):**\n  * Past work orders show leak and filter/coupling issues: `WO-2601996` (2026-07-30: replaced coupling for air leak), `WO-2601930` (2026-06-30: tightened leaking hose clamp, outcome noted \"hiss continues\"), and dryer maintenance (`WO-2601992`, `WO-2601932`, `WO-2601922`).\n* **Asset `ST20-WLD` (Evidence ID: `ev_get_work_orders_2`):**\n  * History includes regulator replacements: `WO-2601950` (2026-07-11: replaced gauge and regulator for pressure spike) and `WO-2601942` (2026-07-07: replaced air regulator assembly for erratic gun force).\n* **Hypothesis Evaluation:** Supports the possibility of pneumatic distribution leaks on `UT-AIR` or regulator/pressure drift at `ST20-WLD`.\n\n---\n\n#### 4. Manual Citations (`cite_manual`)\n* **Compressed Air Manual (`ev_cite_manual_1`, Page 15):**\n  * *\"When leakage plus demand exceed what the compressor can deliver, the compressor stays loaded, header pressure falls below the cut-in pressure, and the 5.6 bar low alarm (A-UTAIR-HDR-LO) follows.\"*\n  * *\"A sustained fall in header pressure while the compressor runs loaded indicates demand exceeding supply, most often a distribution leak.\"*\n  * Directs an *\"Ultrasonic leak survey of the header and the ST20/ST30 drop legs with the cells stopped\"*.\n* **Weld Controller Manual (`ev_cite_manual_2`, Page 19):**\n  * *\"Regulated gun air (`air_pressure_bar`) normally sits at 5.6 bar within 5.3 to 5.9 bar. Below 5 bar the cell raises a low-air alarm; at 4.6 bar the supply-air interlock stops the cell.\"*\n  * *\"When gun air pressure falls at ST20 and ST30 together, the cause is upstream in the plant air supply; check the header pressure... When gun air falls at one cell only, check that cell's filter-regulator, drop-leg ball valve and quick couplings.\"*\n* **Hypothesis Evaluation:** Defines diagnostic criteria: if header pressure drops and both ST20 and ST30 are depressed, an upstream utility distribution fault is indicated; if only ST20 drops, a station branch/regulator failure is indicated."
+    },
+    {
+     "text": "",
+     "thought_signature": "AY89a1_yMQcBHEaOqw-s5VkBbq3AHqfUHToG7-5Hj0u439teoqYJyY770tfhqLkTdZruIgGa4qF8cbJBq1FWD5Ypi1-1N5yWMMIb4rLsMEDmXrmzQdZK"
+    }
+   ],
+   "role": "model"
+  },
+  "finish_reason": "STOP",
+  "model_version": "gemini-3.8-flash",
+  "partial": false,
+  "usage_metadata": {
+   "cache_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 3261
+    }
+   ],
+   "cached_content_token_count": 3261,
+   "candidates_token_count": 1184,
+   "candidates_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 1184
+    }
+   ],
+   "prompt_token_count": 7044,
+   "prompt_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 7044
+    }
+   ],
+   "total_token_count": 8228,
+   "traffic_type": "ON_DEMAND"
+  }
+ }
+]

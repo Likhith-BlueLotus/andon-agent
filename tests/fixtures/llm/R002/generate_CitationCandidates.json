@@ -1,0 +1,174 @@
+[
+ {
+  "model_id": "gemini-3.8-flash",
+  "response": {
+   "automatic_function_calling_history": [],
+   "candidates": [
+    {
+     "content": {
+      "parts": [
+       {
+        "text": "{\n  \"citations\": [\n    {\n      \"doc\": \"compressed_air\",\n      \"page\": 15,\n      \"quote\": \"When leakage plus demand exceed what the compressor can deliver, the compressor stays loaded, header pressure falls below the cut-in pressure, and the 5.6 bar low alarm (A-UTAIR-HDR-LO) follows.\"\n    },\n    {\n      \"doc\": \"compressed_air\",\n      \"page\": 15,\n      \"quote\": \"A sustained fall in header pressure while the compressor runs loaded indicates demand exceeding supply, most often a distribution leak.\"\n    },\n    {\n      \"doc\": \"compressed_air\",\n      \"page\": 15,\n      \"quote\": \"| Header pressure falling, compressor loaded continuously | Distribution leak (drop legs, couplings, hoses) or a new air user | Ultrasonic leak survey of the header and the ST20/ST30 drop legs with the cells stopped | Repair the leaks; confirm the header holds pressure (see Table 3-2) |\"\n    },\n    {\n      \"doc\": \"compressed_air\",\n      \"page\": 15,\n      \"quote\": \"If the combined total of line leakage and weld cell demand exceeds compressor output capacity, the unit remains loaded continuously without reaching 7.3 bar.\"\n    }\n  ]\n}",
+        "thought_signature": "AY89a1_ZlsIW1pkUg_oSZ40xWfPnJgwWHuNjlAp1K5ouKCQkkM1iU_lTYMan2Uz13B22PFisB2Td_nmyZPquzRRD84octuaD830Oq-KXOlzx7sF4bH5C"
+       }
+      ],
+      "role": "model"
+     },
+     "finish_reason": "STOP"
+    }
+   ],
+   "create_time": "2026-10-11T05:02:53.911918Z",
+   "model_version": "gemini-3.8-flash",
+   "parsed": {
+    "citations": [
+     {
+      "doc": "compressed_air",
+      "page": 15,
+      "quote": "When leakage plus demand exceed what the compressor can deliver, the compressor stays loaded, header pressure falls below the cut-in pressure, and the 5.6 bar low alarm (A-UTAIR-HDR-LO) follows."
+     },
+     {
+      "doc": "compressed_air",
+      "page": 15,
+      "quote": "A sustained fall in header pressure while the compressor runs loaded indicates demand exceeding supply, most often a distribution leak."
+     },
+     {
+      "doc": "compressed_air",
+      "page": 15,
+      "quote": "| Header pressure falling, compressor loaded continuously | Distribution leak (drop legs, couplings, hoses) or a new air user | Ultrasonic leak survey of the header and the ST20/ST30 drop legs with the cells stopped | Repair the leaks; confirm the header holds pressure (see Table 3-2) |"
+     },
+     {
+      "doc": "compressed_air",
+      "page": 15,
+      "quote": "If the combined total of line leakage and weld cell demand exceeds compressor output capacity, the unit remains loaded continuously without reaching 7.3 bar."
+     }
+    ]
+   },
+   "response_id": "fRjLaq7UN8q5i9sPjJyWkQw",
+   "sdk_http_response": {
+    "headers": {
+     "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+     "content-encoding": "gzip",
+     "content-type": "application/json; charset=UTF-8",
+     "date": "Sun, 11 Oct 2026 05:02:57 GMT",
+     "server": "scaffolding on HTTPServer2",
+     "transfer-encoding": "chunked",
+     "vary": "Origin, X-Origin, Referer",
+     "x-content-type-options": "nosniff",
+     "x-frame-options": "SAMEORIGIN",
+     "x-xss-protection": "0"
+    }
+   },
+   "usage_metadata": {
+    "cache_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 50277
+     }
+    ],
+    "cached_content_token_count": 50277,
+    "candidates_token_count": 299,
+    "candidates_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 299
+     }
+    ],
+    "prompt_token_count": 50449,
+    "prompt_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 50449
+     }
+    ],
+    "total_token_count": 50748,
+    "traffic_type": "ON_DEMAND"
+   }
+  }
+ },
+ {
+  "model_id": "gemini-3.8-flash",
+  "response": {
+   "automatic_function_calling_history": [],
+   "candidates": [
+    {
+     "content": {
+      "parts": [
+       {
+        "text": "{\n  \"citations\": [\n    {\n      \"doc\": \"weld_controller\",\n      \"page\": 19,\n      \"quote\": \"Regulated gun air (`air_pressure_bar`) normally sits at 5.6 bar within 5.3 to 5.9 bar. Below 5 bar the cell raises a low-air alarm; at 4.6 bar the supply-air interlock stops the cell. Gun force alarms (A-ST20-GUN-FRC, A-ST30-GUN-FRC) can appear as the air falls.\"\n    },\n    {\n      \"doc\": \"weld_controller\",\n      \"page\": 19,\n      \"quote\": \"When gun air pressure falls at ST20 and ST30 together, the cause is upstream in the plant air supply; check the header pressure (see Section 6.2 of AM-CA-01 (Plant Air System and Utilities)) before working on either cell.\"\n    },\n    {\n      \"doc\": \"weld_controller\",\n      \"page\": 19,\n      \"quote\": \"When gun air falls at one cell only, check that cell's filter-regulator, drop-leg ball valve and quick couplings.\"\n    },\n    {\n      \"doc\": \"weld_controller\",\n      \"page\": 19,\n      \"quote\": \"| Gun air low at one cell only | Filter-regulator element clogged, regulator drifted, or local leak | Read the cell gauge; listen for leaks at the drop leg and couplings | Replace the filter element; reset the regulator; repair the leak |\"\n    }\n  ]\n}",
+        "thought_signature": "AY89a18FQbtYhbziyIszcoWW7IcCEJ3ZRHwnRKx6BFWhjv48qQI3up2MzueFcxQm7x7-uIaV3qbtKuVe5FubJe6hL321BTUW81ML5YwSgXU-PkngQ07w"
+       }
+      ],
+      "role": "model"
+     },
+     "finish_reason": "STOP"
+    }
+   ],
+   "create_time": "2026-10-11T05:02:54.044702Z",
+   "model_version": "gemini-3.8-flash",
+   "parsed": {
+    "citations": [
+     {
+      "doc": "weld_controller",
+      "page": 19,
+      "quote": "Regulated gun air (`air_pressure_bar`) normally sits at 5.6 bar within 5.3 to 5.9 bar. Below 5 bar the cell raises a low-air alarm; at 4.6 bar the supply-air interlock stops the cell. Gun force alarms (A-ST20-GUN-FRC, A-ST30-GUN-FRC) can appear as the air falls."
+     },
+     {
+      "doc": "weld_controller",
+      "page": 19,
+      "quote": "When gun air pressure falls at ST20 and ST30 together, the cause is upstream in the plant air supply; check the header pressure (see Section 6.2 of AM-CA-01 (Plant Air System and Utilities)) before working on either cell."
+     },
+     {
+      "doc": "weld_controller",
+      "page": 19,
+      "quote": "When gun air falls at one cell only, check that cell's filter-regulator, drop-leg ball valve and quick couplings."
+     },
+     {
+      "doc": "weld_controller",
+      "page": 19,
+      "quote": "| Gun air low at one cell only | Filter-regulator element clogged, regulator drifted, or local leak | Read the cell gauge; listen for leaks at the drop leg and couplings | Replace the filter element; reset the regulator; repair the leak |"
+     }
+    ]
+   },
+   "response_id": "fhjLap7dApTTi9sP7ZSbCA",
+   "sdk_http_response": {
+    "headers": {
+     "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+     "content-encoding": "gzip",
+     "content-type": "application/json; charset=UTF-8",
+     "date": "Sun, 11 Oct 2026 05:02:58 GMT",
+     "server": "scaffolding on HTTPServer2",
+     "transfer-encoding": "chunked",
+     "vary": "Origin, X-Origin, Referer",
+     "x-content-type-options": "nosniff",
+     "x-frame-options": "SAMEORIGIN",
+     "x-xss-protection": "0"
+    }
+   },
+   "usage_metadata": {
+    "cache_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 50277
+     }
+    ],
+    "cached_content_token_count": 50277,
+    "candidates_token_count": 368,
+    "candidates_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 368
+     }
+    ],
+    "prompt_token_count": 50448,
+    "prompt_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 50448
+     }
+    ],
+    "total_token_count": 50816,
+    "traffic_type": "ON_DEMAND"
+   }
+  }
+ }
+]

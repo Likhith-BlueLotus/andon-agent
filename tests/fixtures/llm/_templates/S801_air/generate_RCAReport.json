@@ -1,0 +1,50 @@
+[
+ {
+  "model_id": "gemini-3.8-flash",
+  "response": {
+   "candidates": [
+    {
+     "content": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "{\"incident_id\": \"x\", \"status\": \"verified\", \"hypotheses\": [{\"cause_class\": \"air_pressure_drop\", \"asset_id\": \"UT-AIR\", \"confidence\": 0.75, \"causal_chain\": [\"UT-AIR\", \"ST30-WLD\", \"ST20-WLD\"], \"claims\": [{\"claim_id\": \"h1c1\", \"kind\": \"numeric\", \"evidence_ids\": [\"ev_query_telemetry_1\"], \"asserted_value\": \"$EV{ev_query_telemetry_1:tags.header_pressure_bar.mean}\", \"text\": \"UT-AIR mean header pressure in the 6 h before the stop was $EV{ev_query_telemetry_1:tags.header_pressure_bar.mean} bar path: tags.header_pressure_bar.mean\"}, {\"claim_id\": \"h1c2\", \"kind\": \"numeric\", \"evidence_ids\": [\"ev_detect_change_points_2\"], \"asserted_value\": \"$EV{ev_detect_change_points_2:change_points.0.magnitude_pct}\", \"text\": \"ST30 gun air pressure changed by $EV{ev_detect_change_points_2:change_points.0.magnitude_pct} % path: change_points[0].magnitude_pct\"}, {\"claim_id\": \"h1c3\", \"kind\": \"temporal\", \"evidence_ids\": [\"ev_detect_change_points_2\"], \"asserted_ts\": \"$EV{ev_detect_change_points_2:change_points.0.ts}\", \"text\": \"ST30 gun air started falling at $EV{ev_detect_change_points_2:change_points.0.ts}\"}, {\"claim_id\": \"h1c4\", \"kind\": \"citation\", \"evidence_ids\": [\"ev_cite_manual_1\"], \"citation\": {\"doc\": \"compressed_air\", \"page\": 15, \"quote\": \"A sustained fall in header pressure while the compressor runs loaded indicates demand exceeding supply, most often a distribution leak.\"}, \"text\": \"The manual links a sustained header-pressure fall with a loaded compressor to a distribution leak\"}], \"refuting_evidence_ids\": [], \"next_check\": \"Ultrasonic leak survey of the drop legs\"}, {\"cause_class\": \"sensor_drift\", \"asset_id\": \"ST20-WLD\", \"confidence\": 0.08, \"causal_chain\": [\"ST20-WLD\"], \"claims\": [{\"claim_id\": \"h2c1\", \"kind\": \"qualitative\", \"evidence_ids\": [\"ev_query_telemetry_2\"], \"text\": \"ST20 air moves with the header, which argues against a drifting cell sensor\"}], \"refuting_evidence_ids\": [\"ev_detect_change_points_2\"], \"next_check\": null}]}"
+       }
+      ]
+     },
+     "finish_reason": "STOP"
+    }
+   ],
+   "usage_metadata": {
+    "prompt_token_count": 20000,
+    "cached_content_token_count": 0,
+    "candidates_token_count": 1500,
+    "total_token_count": 21500
+   }
+  }
+ },
+ {
+  "model_id": "gemini-3.8-flash",
+  "response": {
+   "candidates": [
+    {
+     "content": {
+      "role": "model",
+      "parts": [
+       {
+        "text": "{\"incident_id\": \"x\", \"status\": \"verified\", \"hypotheses\": [{\"cause_class\": \"air_pressure_drop\", \"asset_id\": \"UT-AIR\", \"confidence\": 0.75, \"causal_chain\": [\"UT-AIR\", \"ST30-WLD\", \"ST20-WLD\"], \"claims\": [{\"claim_id\": \"h1c1\", \"kind\": \"numeric\", \"evidence_ids\": [\"ev_query_telemetry_1\"], \"asserted_value\": \"$EV{ev_query_telemetry_1:tags.header_pressure_bar.mean}\", \"text\": \"UT-AIR mean header pressure in the 6 h before the stop was $EV{ev_query_telemetry_1:tags.header_pressure_bar.mean} bar path: tags.header_pressure_bar.mean\"}, {\"claim_id\": \"h1c2\", \"kind\": \"numeric\", \"evidence_ids\": [\"ev_detect_change_points_2\"], \"asserted_value\": \"$EV{ev_detect_change_points_2:change_points.0.magnitude_pct}\", \"text\": \"ST30 gun air pressure changed by $EV{ev_detect_change_points_2:change_points.0.magnitude_pct} % path: change_points[0].magnitude_pct\"}, {\"claim_id\": \"h1c3\", \"kind\": \"temporal\", \"evidence_ids\": [\"ev_detect_change_points_2\"], \"asserted_ts\": \"$EV{ev_detect_change_points_2:change_points.0.ts}\", \"text\": \"ST30 gun air started falling at $EV{ev_detect_change_points_2:change_points.0.ts}\"}, {\"claim_id\": \"h1c4\", \"kind\": \"citation\", \"evidence_ids\": [\"ev_cite_manual_1\"], \"citation\": {\"doc\": \"compressed_air\", \"page\": 15, \"quote\": \"A sustained fall in header pressure while the compressor runs loaded indicates demand exceeding supply, most often a distribution leak.\"}, \"text\": \"The manual links a sustained header-pressure fall with a loaded compressor to a distribution leak\"}], \"refuting_evidence_ids\": [], \"next_check\": \"Ultrasonic leak survey of the drop legs\"}, {\"cause_class\": \"sensor_drift\", \"asset_id\": \"ST20-WLD\", \"confidence\": 0.08, \"causal_chain\": [\"ST20-WLD\"], \"claims\": [{\"claim_id\": \"h2c1\", \"kind\": \"qualitative\", \"evidence_ids\": [\"ev_query_telemetry_2\"], \"text\": \"ST20 air moves with the header, which argues against a drifting cell sensor\"}], \"refuting_evidence_ids\": [\"ev_detect_change_points_2\"], \"next_check\": null}]}"
+       }
+      ]
+     },
+     "finish_reason": "STOP"
+    }
+   ],
+   "usage_metadata": {
+    "prompt_token_count": 22000,
+    "cached_content_token_count": 0,
+    "candidates_token_count": 1500,
+    "total_token_count": 23500
+   }
+  }
+ }
+]

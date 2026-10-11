@@ -1,0 +1,114 @@
+[
+ {
+  "content": {
+   "parts": [
+    {
+     "function_call": {
+      "args": {
+       "asset_id": "UT-AIR",
+       "cause_class": "air_pressure_drop",
+       "parts": [
+        "Air hose couplings",
+        "Hose clamps",
+        "Replacement seals / gaskets",
+        "Unloader valve rebuild kit"
+       ],
+       "repair_steps": [
+        "Conduct an ultrasonic leak survey along the main plant air header and branch drop legs to ST20 and ST30 to locate any audible or pneumatic leaks.",
+        "Inspect the compressor intake unloader valve and actuator linkage for sticking, contamination, or mechanical failure.",
+        "Inspect drop-leg ball valves, couplings, and filter-regulator assemblies feeding weld cells ST20 and ST30.",
+        "Replace or repair identified leaking fittings, clamps, or damaged unloader valve components.",
+        "Re-pressurize system and verify compressor cycles normally between load and unload setpoints."
+       ],
+       "safety_step_ids": [
+        "compressed_air:1",
+        "compressed_air:2",
+        "compressed_air:3",
+        "compressed_air:4",
+        "compressed_air:5",
+        "compressed_air:6",
+        "compressed_air:7",
+        "compressed_air:8",
+        "compressed_air:9",
+        "compressed_air:10",
+        "compressed_air:11",
+        "compressed_air:12",
+        "compressed_air:13",
+        "compressed_air:14",
+        "compressed_air:15",
+        "compressed_air:16",
+        "compressed_air:17",
+        "compressed_air:18",
+        "compressed_air:19",
+        "compressed_air:20",
+        "compressed_air:21"
+       ]
+      },
+      "name": "draft_work_order"
+     },
+     "thought_signature": "AY89a1-umL5tyjIoDd1uDuy_BxQSypt6dkUd2gbdIGMHUW055cRZYOVacGq016jFlEJ1X8xdEaiqUV1rKcOiagI26tQ-ZeqwS33DK-iAqQx0YKcOeyx-"
+    },
+    {
+     "text": ""
+    }
+   ],
+   "role": "model"
+  },
+  "finish_reason": "STOP",
+  "model_version": "gemini-3.8-flash",
+  "partial": false,
+  "usage_metadata": {
+   "candidates_token_count": 378,
+   "candidates_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 378
+    }
+   ],
+   "prompt_token_count": 2616,
+   "prompt_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 2616
+    }
+   ],
+   "total_token_count": 2994,
+   "traffic_type": "ON_DEMAND"
+  }
+ },
+ {
+  "content": {
+   "parts": [
+    {
+     "text": "The draft maintenance work order has been created successfully.\n\n### Work Order Summary\n- **Work Order ID:** `WO-DRAFT-R002-0687E1`\n- **Status:** `PENDING_APPROVAL` (requires human approval)\n- **Asset ID:** `UT-AIR`\n- **Cause Class:** `air_pressure_drop`\n- **Safety Steps:** 21 energy-control steps applied covering all required phases (prepare, shutdown, isolate, lock, stored, verify, release) from the compressed air manual.\n- **Repair Steps:**\n  1. Conduct an ultrasonic leak survey along the main plant air header and branch drop legs to ST20 and ST30 to locate any audible or pneumatic leaks.\n  2. Inspect the compressor intake unloader valve and actuator linkage for sticking, contamination, or mechanical failure.\n  3. Inspect drop-leg ball valves, couplings, and filter-regulator assemblies feeding weld cells ST20 and ST30.\n  4. Replace or repair identified leaking fittings, clamps, or damaged unloader valve components.\n  5. Re-pressurize system and verify compressor cycles normally between load and unload setpoints.\n- **Parts / Consumables:** Air hose couplings, hose clamps, replacement seals / gaskets, unloader valve rebuild kit."
+    },
+    {
+     "text": "",
+     "thought_signature": "AY89a1_DZoXPGKWYKmLr6IfdY40MT6pqOKIAOXbfjkBxZkjoRvr-q8X2mGs_Fe_5VJlCIhp9XkZbmueXMUB3GZrmEDocvdxRaZg6p_9SmTsJ2l4ba9hk"
+    }
+   ],
+   "role": "model"
+  },
+  "finish_reason": "STOP",
+  "model_version": "gemini-3.8-flash",
+  "partial": false,
+  "usage_metadata": {
+   "candidates_token_count": 282,
+   "candidates_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 282
+    }
+   ],
+   "prompt_token_count": 2931,
+   "prompt_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 2931
+    }
+   ],
+   "total_token_count": 3213,
+   "traffic_type": "ON_DEMAND"
+  }
+ }
+]

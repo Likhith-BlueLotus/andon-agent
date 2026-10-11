@@ -1,0 +1,171 @@
+[
+ {
+  "model_id": "gemini-3.8-flash",
+  "response": {
+   "automatic_function_calling_history": [],
+   "candidates": [
+    {
+     "content": {
+      "parts": [
+       {
+        "text": "{\n  \"incident_id\": \"inc_s010_77de32e7\",\n  \"hypotheses\": [\n    {\n      \"cause_class\": \"conveyor_bearing_defect\",\n      \"asset_id\": \"ST50-CNV\",\n      \"confidence\": 0.9,\n      \"causal_chain\": [\"ST50-CNV\"],\n      \"claims\": [\n        {\n          \"claim_id\": \"h1c1\",\n          \"text\": \"The conveyor drive manual confirms that accelerating vibration with a ripple at pulley rotation frequency and delayed bearing temperature rise indicates a drive-end bearing defect.\",\n          \"kind\": \"citation\",\n          \"evidence_ids\": [\"ev_cite_manual_1\"],\n          \"citation\": {\n            \"doc\": \"conveyor_drive\",\n            \"page\": 15,\n            \"quote\": \"Vibration that grows in an accelerating curve, with a ripple at the pulley rotation frequency and a delayed rise in bearing temperature, indicates a drive-end bearing defect.\"\n          }\n        },\n        {\n          \"claim_id\": \"h1c2\",\n          \"text\": \"Vibration spectrum analysis showed a prominent fundamental peak at 0.2549 Hz corresponding directly to the pulley rotation frequency. path: peaks[0].freq_hz\",\n          \"kind\": \"numeric\",\n          \"evidence_ids\": [\"ev_spectrum_1\"],\n          \"asserted_value\": 0.2549\n        },\n        {\n          \"claim_id\": \"h1c3\",\n          \"text\": \"ST50-CNV bearing temperature was significantly elevated during the hour leading up to the trip, averaging 60.678 degC. path: tags.bearing_temp_c.mean\",\n          \"kind\": \"numeric\",\n          \"evidence_ids\": [\"ev_query_telemetry_1\"],\n          \"asserted_value\": 60.678\n        },\n        {\n          \"claim_id\": \"h1c4\",\n          \"text\": \"Vibration RMS began a sustained progressive ramp at 2026-08-31T22:06:51Z.\",\n          \"kind\": \"temporal\",\n          \"evidence_ids\": [\"ev_detect_change_points_3\"],\n          \"asserted_ts\": \"2026-08-31T22:06:51Z\"\n        },\n        {\n          \"claim_id\": \"h1c5\",\n          \"text\": \"The station tripped on vibration high-high code S-ST50-VIB-HH at 2026-09-02T11:17:51Z.\",\n          \"kind\": \"temporal\",\n          \"evidence_ids\": [\"ev_search_alarms_1\"],\n          \"asserted_ts\": \"2026-09-02T11:17:51Z\"\n        },\n        {\n          \"claim_id\": \"h1c6\",\n          \"text\": \"Audio surveillance registered normal operation despite clear sensor evidence of bearing overheating and frequency-specific vibration.\",\n          \"kind\": \"qualitative\",\n          \"evidence_ids\": [\"ev_listen_1\"]\n        }\n      ],\n      \"refuting_evidence_ids\": [\"ev_listen_1\"],\n      \"next_check\": \"Inspect and replace the drive-end bearing on ST50-CNV and verify pulley alignment.\"\n    },\n    {\n      \"cause_class\": \"sensor_drift\",\n      \"asset_id\": \"ST50-CNV\",\n      \"confidence\": 0.05,\n      \"causal_chain\": [\"ST50-CNV\"],\n      \"claims\": [\n        {\n          \"claim_id\": \"h2c1\",\n          \"text\": \"Manual states that sensor drift or instrument failure is indicated when only one tag moves while related physical tags remain nominal.\",\n          \"kind\": \"citation\",\n          \"evidence_ids\": [\"ev_cite_manual_2\"],\n          \"citation\": {\n            \"doc\": \"conveyor_drive\",\n            \"page\": 16,\n            \"quote\": \"A real process change moves more than one signal; a single tag that trends steadily while every physically related tag stays normal points to the instrument, not the process.\"\n          }\n        },\n        {\n          \"claim_id\": \"h2c2\",\n          \"text\": \"Bearing temperature was 100% outside normal range, refuting an isolated vibration sensor artifact. path: tags.bearing_temp_c.pct_outside_normal\",\n          \"kind\": \"numeric\",\n          \"evidence_ids\": [\"ev_query_telemetry_1\"],\n          \"asserted_value\": 100.0\n        }\n      ],\n      \"refuting_evidence_ids\": [\"ev_detect_change_points_2\", \"ev_query_telemetry_1\"],\n      \"next_check\": null\n    }\n  ],\n  \"status\": \"verified\"\n}",
+        "thought_signature": "AY89a18RtL2F2ARU9696efTl2xLwHxHq01GQR7yIXIeNLCaYw5UO1n7VuaP0XKJERZxSEUDcPmVBf3lnRLU-apZvLlRrSNdGcpgavi6Dc9YxxrKjLGvCKPRbm8-Np8Omwp5aK3FiKLgynZr_YON-YaCgelmDfRqrw3W_UJjbph3_fThESfp2NuiRfQWOXPwEv4fUe1gAivULSysKMFly3lnMKD3fheqEX8CbIIBLy0BQAJjluOOo5Q3orlT_WJEvaqhNcMVfB5PBxB0jWKyeGOquvyTe0ZFnSeplE72inja7QL4JP-djBOkuAhBLudbMtgmu1m0aH0g97Kk-nRVb08ZQfrNQYOACxwb4AJw4poyoo27VPsFmjwAT36J6dIqJtRlrRt9wCKSQt92gGq8OzQcXGG6di7rUCEqJAW-aQZi2TUz9hnuBuMnN_0X6tDRYda_Ci7L0eQUxJcNkZE4Hp5CyYcvOuDc0PkHdlIfJLl1BZ2o-KV9iup47ceL3oY184k4r8bbupkDszE0f_2Tt0v49-Usrcp4qYgJ_SDn8RE6mwM9eeT8pCkBBfpKfAeKzCPF_BBkWmmMR1reANpe9oQub-MMKHl5uxnTVVcwUbbJrJLERFo4S2-SbK_k_HEXfIx4BktbrqFWy4i6fpEUxtk7Ne2mRed9pdtuzvOjQTPyT6I05H1q0_2Rbn2t9bNQhrlLF_y0cDFNP5gnbxBcc9ctgmp15XK8YXAwPgdHG0px3ha1Uf5JWWLpwf12VtP6DhQoEukyer2Vyo-DBSvBIa8OSCyAv1t13H0yVFA7RwwEbHcdTVK1EraC329ZCfsihd19VRoxQTWBB0miGjayu4kSWNhg1LT7m4FMGPVPcB_w151YAcS5CLDtF-nnPf9PX59-rOW9L__43bBYkoSecvWYFAydqer36fBhHo73iqMbd0AuDTb9xiI83LOYK-8hxNpgOpasXb5mUphAWAFKrh3eeHkvUo29Az5f0TX5Sh5DYDf9WZG6whwc1OJCsHgFxdPcw2A_By53FB87CQSbVeHjCwq8S1f_yHdAY5uA2-3j9FcTfhNIWRMObBE3nRBmyr6TY9Y0r1rsWiCq7kBP_ICm17a7FAwZZ2CAes4e6cTLW7-aW8tZMfBjzQII1yOJYIYEH-ULPdaPMcL0cBf5Ui5I2XZ-fs3m_p1Ik4I7MNVacYkcL3_xQHpWzeSRm8aeBCbCEIM9kdkZamct7rHBkHVe6joHQE07NNdw6Ql_UBIOInBIfu6EGakPfzNIQXxPq46fyqxvDgXwTQMq1EZLdUbSVUihCo43JCCEVO2C-GIz77UNXlYcfD09pjkpFekALlN-_fPlayaEqeZdWHfe1q-dgzpdKUg-xUljvI-wrmsaJsxgxrPAs20MiQxyAnIFCi3kzTGxZbjhLNPHF2_crmnA0KFCemXv2qdRznga1BXhjVkMazdG8xxTEUE_peAaBOYIl_tKseCwXboRHmHh_F3ddrsgxxstBsXdC9dJNrmakYFPnvzCW5WdlvcYGZHCjGy0Uey1bTVMS7uBa6l90JZI6KE9J7w4Bc1QUI1XoYgrIOVP1iQWtCPLQrenrcKlZIBdSXSUO6GFm_PsZZS7KdT-SXp05Xth9FzzhWJMEGYMve-vK4wrKp2dI5JSMGVC4YXWfJnK9bSU2yi-luT68UxCXuGKOI0ht7_2TQnKt8GZh2NISPY-YV_w3KbMZUg1HzWAN77fGshmRGpz7xVRbirzXh9klv4NzHsuFl8XFQA2_whAahuT1CDacKeMYrqJIC982wA5j823NLr9zD5UAWCRb4PCJ6u5Aud6Fm13Nn85gR8xlBqZBTorKVqSYDi-gg-_OH6e6Rysv_8Iu8lD8X7q-5g32Vx2HfCX8-4ywV6_XYX9rT9rDk-nHHCpzy_BeFkJkV9-mH7HKz5ijTPxRIZis59LcMtLkyPjXFqPO5G3mL7feFEBJ7SUXc0tBOtH8ZvrN4Q_vsqu1d6XFB9NJRcq5yy_nJvjRAiGcp50H0qqoIDg72h5B06Ckjz6F03e3E_iY9QCJonZoyp4BydZMdydHYMsZmH1F7dJTmrsqAtUo_8b3Zbr0jUlBlMfvxOATH1H9ewCgX9rYf7LyJjnTtu9Hmq7N8z6Jy9Sy-durldiNjXQJQjfFOJxi1sjholKKqTV9G0-KkRwNjIRl8Zf-VKFgjoD2jtFZy6lee7RJtL-zbCbgTzzV-pzkfDgu1NwqY7DLrCNZuCVlVPBMLC1YY0qt1vULrnuh-htmaBslcjx7CAiuNHmKH4IYHJQDpNlmbygO2hRyjzYX1ZKk9bKMOdIOhTSkAYCQfaq4VUtMupNvX9zQBhYyDHTbUpERVDEmEirHemB1RWhDJoEygQgupuCn6Ct3dTjGn5fwVashwfAtFqq4R4jSaIBEOLHqHSotFd4FKvakB8OpPJ8cRh5NgXAPDNPB2-61YpULx6KsN8aEGrniv3Xg6HiAqNgh7bbtDJyFufFnF-f6fIvRiKKbYx9ReyXDoA7kvwaeQNKqx7m4EPwxXMEf6YXZ6qIYiXT_gI2kO5V3ineS5b_-wM90g4s0lYzCP-hcnz3bQstp_1p023KqJQI1Ky77qKszyZ84YranbeYXzWfvD3Ce9eqbuXIeLRGcCfYBjPi91fvB4eUwBjvyvJGByJxlXuFIquQot6Yf-9Y0jj6lF0dLFESew4FeGZIC-QtBabcLG1xV8mfGXxINyIJS1k6sCCfCd1RCjSze_rApDNwfL53t0crX1_i6QYLRhabul45AQGpAc7WS3AfnsuPHGUjPVM9K8Kiv1JVinqetWAblOOIZtsMOm1aSTMYRD30VSxW64E01AoEzvlrmIre6ENvAZ2dcsR_jYSaw1InJljCbN_bVVWu86GT9tmx7r7b1DhlqTX4B35kiRKUIyykDsW1zep1tsUrtSBN_QFTs_IcXrzc2v1P1czHMxAvTKTQQrig2dRNek-ldnMKGbyGiKODhKnROCOv4WiS03HR9lOrs5U1meKMRp6XXocz3CTG5v1vTCon-eDaICly0v9X1Sjqxy60iM6RhPOSaIGSuBbFs7cw1fA9vnoIMVXM-2iNTUEarW83JXc-CbnQlhjwBRzwMhm6o_S9QJ-fWocnhpIqf_Mb8evZkhl9HhJLpctUUvIDJ60_ODH166ZKSzlZdxViw5KYZ2LPu6dEmYqzAwoj15vxf4Vr5VOwLc3DeGT9kY-_ye9gz3NFg5EmU-RPiyj5AiOANcjXINlKgbQ4BHC55gdDm4pQEt4kqkm_pB1YQwNuEmnysj142q_3qrZq2CrYp-nauJ-AZqRkS2T4G3BK1fI8LLuWIFqxt7Ydk-llQIpbCNcxGWDSDy7EULd0hhcUEROKWUjPT6umPhbQiAqeeeDfSEmZeMhlZWwKAfX11WPltAQ4r-BmTLjxzFl7ru34U2-y8ISLGv7K-CDpEmUdSjxLzTFojqUGcCuVtx-BYHso_eJFd7SSkkTvXWGPed9qOL_OJozi_bIPGE7hy2LRTkeketKaH6vVgqy5kLp-WWkQ5Zd0Y__T6jLW9T65wW4Yu8NgR5YE0nzHgypuVreFbbbWi1nkBbo8qfAevBqCYbYOtHSohj9mhOd148RrA89LA815vngjLXy-aNIyoh1ErAg5IHZ1wmprmLohxnciEDHV_3GrEVhsa8YIT8f1qRQ9Q2jcNAHvB86zF1RY78L4CoOg-48GPwgyP-O_TQU184tPEr1gpLiypIK_jZ7nSgcDmJDSvN3_bUJlwOlxuxD1Vm3bpt8iS9npKjasBR4JKLhobE6QnWgehTdA_QpfoMQ3NZ8UGDMSZPfUpamQ4rwe_cfKvLMSjBfJozcOwQIu2iv5q3OTLQow7gkdY6DqZolpx1MYPASI7tGlHxIJ_URWxolpUaQcjikep-MBhlX7tfXo1NnRwHBbem8T2ZMhm7pmXZMgCo7xyyFQtYNOivtrXg-_7aeY70jRgvJLM7DiClLTDZV_0kWR-gmth2ojyIbupcFXnJl9zlzNtA90mN_hUIBrSZPGmHM1YmWKHeaI44c-kwZxHg3IDE-H1FUU2dWEUFo8_J-g7ahNPigYJKAOqGBkiuZb1FI-aKUcOWrxbHnBX4wHAi29wgaNqdswHmIOSXHTDTvgr4GGM7FJQrzQMq6eek2-RrAiUuKEe0AiebYoIXs_APVoB1fzRLt91VcPOZi7vfnENkFtL4w_fhc7gHwTE5CVtd9UuCXIsQxr4axKt7DgjLBuP_MOv3TD5JL8K-Gdz6Y1YMs5YAefAvdXSlnvl-H8u4LlmFpG2WqRN5rOtsC83rpIQS_eNVa7qC9xJuU5i42XI6BlqKefg0bnuPjfIsxhgzmXMxAywdV7X_1CbKwzPPmbYzYtCr99Wm4tmtS-3Btin2RJNFqQTt7LgVfPq2lu77DE3-adEODG4yrUFkhKng-7FS3Ku3qqzvVr2HKNoGcAWppG0fSBs7zhlvuxecoRfcdtiewZry60TFuF0sAvWDAc7a9Eer2kKbyEnfddSodK3K8vx-wjdZ1ID8N0Fp1ZLu62WsZYSFuMHnLK7UN-suV84mquJ-HVpTg990Y-SH5raBNNSdJ9l6mpWEqnyspJBaq5IYWT06-J3JHbUi-91y7qulYk4SDiQpvRGMK-2nCGxl5CVWWKBmE6XWQONYdzIXD4pwGeupvwKB5FYLWNT_EVIWrakXYK3dKWIH6qv_iD8fgY2PhlfRCtuE-2MohOvBloZWAJrBN0opthbYLhDze_s2YKAdCCBaXw3lFJqxz042Yfzbg1NlSbQ-F6RMwk-WSqY08ulHNTm9_663AjPF01dkC_oag4eIcMhp2LqE8TzDYSvErywMO3VyflIhEnDy5bBEY1bs3GwMbEZ1z3lo1eVOl2Fc9uXuuXRGOB7YCeXob5cGEWwAG85-vYuk-tVE1NFd9gJa2rSma9ViNklnePXM-rrtLBLAxmPuOf8GsQqjaF2U4BL2WCNHH-vOM8kKzWwbXlbeaMZFUwtiqwNf8AEUWGfGqmQiOtU5F3exDBwXH42XwwCy7DwW_xAxXf3TJLed43jAiW0zHk31FuX5UyUOiKk0vHZ0Pn_XZQrIFoDsQAWvZKor7c0ef-Zd6GZ4fICLARq6Fg8nVFqcpq-4hbYT4qaRQyyqd31kNu_j1UVobg7qt-Ml0EK_sG-qK0bSOVPWZo-220MZULnt--ioXO2V_JvljYIYmfnEXIeSfndLp3e5nVALwd8WIaYpEGcvAimT8y-OWhuPmUgXTZbmPm1d4X36ZGQ56DtZ6YPKVYh9M0pQOBvOGfQsRxbnIatiFD1kFMg8bldSWD18gJKGRNXA9PsB0XAATtVj7PFwe71nZO0KkYdRpKF6M0_zgWnACuRq3hHKX-6HCwv8EghkC2AA70OsFDZTr8_Gb2EdRxud0uPNtDZfgxL28E2nnnR70fvstdCOr1XM5E1v7a--ba66uNEn1BpoR4Ed7gAIVVXkCrFfOhmJSAQoAgd8WHlrHQIOUsp0mcs8QAlSiU1WxvePiOe32NSbVuVG0M03x3YSdm5tSkh8n7Bi4N2YJvq-H1yOBmMGXBJ5yVUwn8SAM7Waq8bALQCJrCxdE_Mc4ZEBOcCA_z8PiwxppR7yHtpujELLpVEPwIdk-0DkfFade15ATiZovDtdWc7sz93h79xVpW4buRRIY_z_0jer2slwH_qLFqmOQQ_15hqmS6oGPzlykYK503RbGj6S1XnHD-ln1csR481s3reCZyvYHyjCY7rQZ6hBlNfMSPpVqo3MV2RcXY-1IANMX4EF3S1tg_CcFb4MSRV5CzNi4iIao5yiZyV1mSiQqVwOT4DKHi25dJKCn87FLnYrztSX_eLW56qGrUJys_wbCa_tBVyPEpj6xyp5fsMMrdpK6FqumabKrn_QTOx-cCiigTuzJyKHDTl6oh2NxG_l0HkXsvUoCEqF9PLxAp0zwil0U1JgfiCyUf0c8g1Q8cvnbKUpFp5DmzLoOZBfQ-5hgNEEu5XDg5gNKB4x65h1y3epS7GLWQ1xikVNb3Wfs-7XeHhQ7UHD-OOdXT7IFm2OUsC0hUbjMshlmOSiXspd3BqX_6voHNh7xayVPlSBTk8HiI6yqvxQVD9dAe8Ey-qalmK9N3QGl5tt8YGAEZAfGDcuFgfYFEY1zRKWauIpLhve8lqKmEAbYbMjyP_1oLpdMuQPanMG1tZsNnvXrJESufdNBIeO-2rUw13FybL_hAnw1GoOOYU_EBOgjlFzSUT6GcdoudbrJof8PxNZjiGdKHF-cLqaggddnlv4FUuk1J0l_jNwR9P3BPefih51Cb7w74h-qrBNMtYGxDee0NnrzahuLMYZGwvGRPspAWysE8hwgmPxd88tNnZmYjYj9qa_kOs8NaYqqR-zQo1RaAkENJg7o2UBODDTzpI-G_c7eN__MVqd9wdOTgThkdN3XxCL6mjIakA6Xg61Uovo_DlwMj8JTeZUpKUmv5ejZhduhH1jvul-v_IgknQfJ-9kkI9sC4SNSeBUEDdb7FgisF3nmRyBRCtbtE_IJ_qiWIZYLm8cRx1GROQKbywHJlhvZVkVh_RqFWr77zupMy-DB0MXB0sZU9iAMiUzoZl54Y50v6kGdzXgOxHaDHwdLPdUOx_nYmkRcjbPt8kpmWAeVMszyCZnBTPcFDa9X8MkhXHIaRAITpKBbwEKcGbzqwCRcuxi1enVLxM2NydyYUY50g17SzMdHB7GH2to86rTh2M-_32lScdCGnxEM281MtNDKTUIC9xLiKm3AUJvhOPQ5DzKuraY4ExyMuHIwZ4I3a-sahJuF0_Iqh-pnaPfLZm5GNchT4SBm3U6WyLrdIhJRRb-2fhEwrnMDJ-lHuMSkDB7XljDnoG_lEzHQrXye0gtyCW7N-x-67XW8Xsqpes5A8bJH5ZMvfMOiZvjLZwl9BJ8qJwYwyGxNIzW9bjGcxmlkeptrs_8Ou2uDelYhjIBP4W2IgRdSA6jon-SDMNvaPmHRyC8Hgl6WOEAM2s05GaIdKBfJrjk3uc_pIEH3nLrQIUjtfGvgKHTdV0lciyMOsif6IvNDlSI456GyvuR4qdwuSfmkV3bsew3ZpXvsUCyjUJHJJtwqtMRSz--ooCAvNfc8xSHn3AFOuRAio1Q0WmmN9MthEUESqTvdayN9ZCAG8DTTU-T2x_Hrsdv9QG_HdEuw9DiAJv1lq-OKbBIGTHXeEily5QcBVvN0hY1qdyYorxkjcB5o0GVNk1Qp7lVxI3zLqJOtIXfIDVyIYle7SFlcoZjGLqmXL8YWBhfhl4CRMWfw7aT6ukCYSlmGZ74NPCvEgpzDfNK56AlqAMeUQ-V3fSMvK2EMkN6Osta2munvypaW3nP0W6rDzCHxzzRW5rh48ChgQiar-3e7fqN95_e6EHFIrdwcNig6afcTs40SjrxzNo5WOsOL201EpPaBxZ4t6mghIeqkZEA3k1HkRwqQe51QnPmgSsPS3DsSlLjWD2Hnty7l4i6XmRQFH1Ix_KHvPRQTNlAIL6gzfOod_4-IEiNOYRk4PHXIgKpmwSbNE-oGjqVLgvEkEEw1uE9V85WOLCkWPGyUurTe9d99WXpGCcTmVRXPI47bbFse7jJzCc8BDSiLFwJPIMsIr8Iir3xirHV5N5qi0QrpzXRH-x8ePZiE8jcOy7vVi6vfr0o20rjMS0zhPmpNmJUi8FGn22gnxVj829O2dwH4JOuFd1oIMQjRe6FPENbrX1JD1cPrpMAf3d61In0iUiiTXq6jrmy5iBcZtm45Dst-_ipEP3CHzBBQUjAI2poJuUwHARr9uL9j9sv0WEjCVa1yEQ9AGli_Yz41UJc-1GwxdNOnljQfdZ_Hb2rLUW62NRxCB3tXzFbbfSBanBJN6ooyMJ9E2StTaYg7sGpFsdQ_x9hPqbP6OxLddu8iw8UEp_OIZMdnspPSoH--BCissyR3g2AGD8PKPPaE8onH2u8pnoMCbusvGxhzLVIALwNJRAcPduqp8L246wfFa50GOrIUSMH3Q_PBr0NS9X_ANM9w7lf8Qb2ItlT84RJ6nmuk-gK0KTc0eu1s3WdBUaa6MQC3dbsvBgugPdCMLuVl5DL7-O0yv3GYQ-AOg8wrUsvS25qO6pSyzCZ2iNaGbq1Pyp3iSUG-6QNOHiCciGu6PIBz6lHWnpxa7hNecEbFM7g4j0bkYo0fvyNmTEgytHtr8GcQArXpLUPURw3MprhwtR5SdJ92KIlPeC6cQixyyWRuhCpWg_M4182KttbUulqvuyDUEHRmOm27J3MAlVTntIj_R41c-0fbdRt4pTnSkLaSDVGWRzWX8zTpqPtOSi2J4QNqd4Obsaisapx96J2hy9NQ4hZgL4ikR1fd2o8UBtTovpupGWwBAKLABoeDbasEronFELrpl6wSz28_pbrcv3YPckDKWCUTInes4p7uxs-ytIJFlFrlYPcJ6eWr-nS9BwQHDgHIeL-Kvvfs4QRbT51R-O4JgHFqqyGomziZyk6pHlAh7Yh0o4NqNQGlU6kM2xfbuY0I-y3NHsd3KashRbjQiZGCe-zkqO1vC2c_XvuvsdScoxo82IwdnEPaZ41p9QBH8Q3LoROdnYaiRf0OygCDwqOvS1359gbdWskXaFiN5gRZ30fA_QVXamRhkIXI7PiAtisoTGO3GHDM2WS5PWwcub7npw_AuQ7BgRdcLMZ8TzFSaCeA0luxVM0gZnbkrjvqLZwZuHuRW1E2V1cJF7VAdm0KBZ0EsxUpDjBEjGeP8p3qGLymkM4Ia_eT8vhKdjVQyFHdY_C0U5GTnLOcvoNEvJCsIfkt2eGuMzf_fFhxEAzrGJuDtorJQ4iqgIACNy_S0OB5PgtSjsdHjPALWYqB3Fa3ASveQfzfjuB_nqUbsSGlbPTJpZXeBltfqk3sdGqi2Qcei7OEBpDT8DZx-zjm1uemWLXlgbeG_pot4ReSF-zqIVH25NT4SrJ4wMgIRN96jfUNk-XRfCJW8qiHxfmeXQe64KKJIym4BIAlklckvsisrMc8BtOE95vNfhxhXq8LyoGGdThMxntnLU82uEqd-mQ9hFm-d3OK7phMxpYX2ZVjM28QuzM8qGGvLuGpb6psPyxrz1gcTNGB2HOeg1tFRd4QPgnf3qwlytoUoCH50YWXlTJYDUHduj-ivCTcfVFpe8dbA3NP_pPCZ-BSINOT0qjAFc-6u-AhIuAL-NEEGeTT04qZ9g3-zwk6lIDhGW0qUadod8-ID_XOPdZVfWuAoxWSCt0g74jRu5dT_fLTK7RRL0wBg9mQ2RbfkP2YS75ELegvCN5HT12Os9YIws3iXy-BdQo1sFFpApE0WuDa7MbyP0J-Oqd-Ht9-1dMjhoSimobde4w6EZB-UNqftCN2piLIgR2Tbb7-ZrUuScf9YUB9f-hH-5wglLIDg91JR6I4NQ-ALwt0uJAzuxnkHkaEJw_vmD_uC3Zs0BYTDYKpMxW3yDmV5X05dQzZxMHY8sb6BHeYB596mT198julOc-6CG_8TKnI5gWjgiu96-zgx-phXAmSW6PngPTWfwUJYahYM_RziUHzXzd3cfesX4tPKCQ_7-E_aT5SzXEYse_u_9d3aK4YcYuBnGdyEP7_SF2x4HKKIxwW0n2x_AOOW5m9Eytb6SeiyK2P14DCROvmiwLAz7Pbn_kX4ppja_cJzA0LqKzLzOLHDYWYltCNfEDHGaaxiOvpC3RGDmz0pkhnla8C6fmSf-SOJhKb4yypR2WdPHDXUcQUg8AtmWDbYLUztacRbf3NipOe8WRdRkNLktOzs9bZFW0JXm7AJkg5U03l6MyVjEIOpQI-4lTamQ0NHq65Bna7fftP55AcADy5cU-ggN3OyAuerjYWnaN31YXtnOwLbA5UcDmtfI1Pa2i9HwYEL_wTcOkZFieLlZQxAV7jI_6lbcOpLkmS_k3Drit9FK-RJyfwCuAgsCpOps95j0GRFsGgl7Ik1RxPhApB2eoZ8dk9W8MlcvtwTguhfMe55u0NqMssQ7xiIvMLU_lm0DnbpbS36dxAQW3h_va5kZM2XqhOBbVtJV5J9O4U0UcUNPnwNDh7Usq87gS3e5KEOEoaIsFIot4CgLuecdCBkPDMJWw6za7AA1n0qFHq1xUyQ13EENAi7SxdbbUQTXh6P-Y2AI9p6zcink-QX-w-trGOIR4hsT56dblglkGPiLpXVY7ZcujBmiTXjURG9prjG81hPam7Mi34Ec_6qZJXJLmxcZBAxB2ovK5HHU3tFpUx9w8fzVipfphF8kHlMp2RWZ6P0jHsm2hQPRhSrRlZJTxFtqoeX-5MV4um57GcQv8vd99dHQFTKS5bMHJAmrBXTB4jQ2wf4qdacjqhYZR851YqeZRCSV2yE3bXGNGeJw6DeLHVTyeB9a2tLE5gEs44Lv5Kf5xVuSvLFsHv-JGQrC-FCRjYjRdxKbB2xDsLxuSUOIaoEJN861aX06kOehRPx8IPjQpBi7mdiB43EnPi32HXT5mYq8ex9Jqipq4HBrEN9djDGYDw4UohUcRRB65ZlO-D57305t0mUH4S2kKlMiZqojSpZ8gQo31ny4hNcccCtBSoUWHlEsrnmvZu0AtaNEepuu6Fw16p3zVjJ2WDlxFKE0ZEpKtXCRIVFFzyty4kVrLxMHHNMNS8vgZRy3kP6765DHjDAC6s95r-aaU6jO0bbcTa5-JTtnohwyJdJ4nXk62Fa-E4K2E0Gbp36hvjIN8sLn_fbHfE7jRxmDCMpSS0qG-a6-mEIuU7Q0L2r4ol_MMP5NCTfkquKy29VW_jiRQRNb8J-6kVokPU46wvIl5yVKusdJc9LzN_xSUZzareuHpLtY7-bDR-bEmY92hGLsSt742HRdiSKttQWcPixPgPT8P5au9t0q6njEnyN5yJeOkqPFTKrxpb7IVO9yL1QndE5qkubIWj00DCEFpugDo-uVc-yIMjfcY1IaDZYdSMaTrIhjp-I-3YKp6Yr7gqXGpY87bGNI1fvAnPt-qs2wXmyRWH5C8DG-xWsv1ZI="
+       }
+      ],
+      "role": "model"
+     },
+     "finish_reason": "STOP"
+    }
+   ],
+   "create_time": "2026-10-11T05:13:16.628795Z",
+   "model_version": "gemini-3.8-flash",
+   "parsed": {
+    "hypotheses": [
+     {
+      "asset_id": "ST50-CNV",
+      "causal_chain": [
+       "ST50-CNV"
+      ],
+      "cause_class": "conveyor_bearing_defect",
+      "claims": [
+       {
+        "citation": {
+         "doc": "conveyor_drive",
+         "page": 15,
+         "quote": "Vibration that grows in an accelerating curve, with a ripple at the pulley rotation frequency and a delayed rise in bearing temperature, indicates a drive-end bearing defect."
+        },
+        "claim_id": "h1c1",
+        "evidence_ids": [
+         "ev_cite_manual_1"
+        ],
+        "kind": "citation",
+        "text": "The conveyor drive manual confirms that accelerating vibration with a ripple at pulley rotation frequency and delayed bearing temperature rise indicates a drive-end bearing defect."
+       },
+       {
+        "asserted_value": 0.2549,
+        "claim_id": "h1c2",
+        "evidence_ids": [
+         "ev_spectrum_1"
+        ],
+        "kind": "numeric",
+        "text": "Vibration spectrum analysis showed a prominent fundamental peak at 0.2549 Hz corresponding directly to the pulley rotation frequency. path: peaks[0].freq_hz"
+       },
+       {
+        "asserted_value": 60.678,
+        "claim_id": "h1c3",
+        "evidence_ids": [
+         "ev_query_telemetry_1"
+        ],
+        "kind": "numeric",
+        "text": "ST50-CNV bearing temperature was significantly elevated during the hour leading up to the trip, averaging 60.678 degC. path: tags.bearing_temp_c.mean"
+       },
+       {
+        "asserted_ts": "2026-08-31T22:06:51Z",
+        "claim_id": "h1c4",
+        "evidence_ids": [
+         "ev_detect_change_points_3"
+        ],
+        "kind": "temporal",
+        "text": "Vibration RMS began a sustained progressive ramp at 2026-08-31T22:06:51Z."
+       },
+       {
+        "asserted_ts": "2026-09-02T11:17:51Z",
+        "claim_id": "h1c5",
+        "evidence_ids": [
+         "ev_search_alarms_1"
+        ],
+        "kind": "temporal",
+        "text": "The station tripped on vibration high-high code S-ST50-VIB-HH at 2026-09-02T11:17:51Z."
+       },
+       {
+        "claim_id": "h1c6",
+        "evidence_ids": [
+         "ev_listen_1"
+        ],
+        "kind": "qualitative",
+        "text": "Audio surveillance registered normal operation despite clear sensor evidence of bearing overheating and frequency-specific vibration."
+       }
+      ],
+      "confidence": 0.9,
+      "next_check": "Inspect and replace the drive-end bearing on ST50-CNV and verify pulley alignment.",
+      "refuting_evidence_ids": [
+       "ev_listen_1"
+      ]
+     },
+     {
+      "asset_id": "ST50-CNV",
+      "causal_chain": [
+       "ST50-CNV"
+      ],
+      "cause_class": "sensor_drift",
+      "claims": [
+       {
+        "citation": {
+         "doc": "conveyor_drive",
+         "page": 16,
+         "quote": "A real process change moves more than one signal; a single tag that trends steadily while every physically related tag stays normal points to the instrument, not the process."
+        },
+        "claim_id": "h2c1",
+        "evidence_ids": [
+         "ev_cite_manual_2"
+        ],
+        "kind": "citation",
+        "text": "Manual states that sensor drift or instrument failure is indicated when only one tag moves while related physical tags remain nominal."
+       },
+       {
+        "asserted_value": 100.0,
+        "claim_id": "h2c2",
+        "evidence_ids": [
+         "ev_query_telemetry_1"
+        ],
+        "kind": "numeric",
+        "text": "Bearing temperature was 100% outside normal range, refuting an isolated vibration sensor artifact. path: tags.bearing_temp_c.pct_outside_normal"
+       }
+      ],
+      "confidence": 0.05,
+      "refuting_evidence_ids": [
+       "ev_detect_change_points_2",
+       "ev_query_telemetry_1"
+      ]
+     }
+    ],
+    "incident_id": "inc_s010_77de32e7",
+    "status": "verified"
+   },
+   "response_id": "7BrLaruwJpTTi9sP7ZSbCA",
+   "sdk_http_response": {
+    "headers": {
+     "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+     "content-encoding": "gzip",
+     "content-type": "application/json; charset=UTF-8",
+     "date": "Sun, 11 Oct 2026 05:13:35 GMT",
+     "server": "scaffolding on HTTPServer2",
+     "transfer-encoding": "chunked",
+     "vary": "Origin, X-Origin, Referer",
+     "x-content-type-options": "nosniff",
+     "x-frame-options": "SAMEORIGIN",
+     "x-xss-protection": "0"
+    }
+   },
+   "usage_metadata": {
+    "candidates_token_count": 1158,
+    "candidates_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 1158
+     }
+    ],
+    "prompt_token_count": 20498,
+    "prompt_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 20498
+     }
+    ],
+    "thoughts_token_count": 2739,
+    "total_token_count": 24395,
+    "traffic_type": "ON_DEMAND"
+   }
+  }
+ }
+]

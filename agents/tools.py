@@ -167,6 +167,7 @@ class ToolContext:
     gcs: BlobReader | None = None
     model_dir: Path = anomaly_mod.DEFAULT_DIR
     limits: dict[str, int] = field(default_factory=dict)  # optional per-tool call caps
+    run_id: str | None = None  # ADK invocation id: tools that call Gemini book cost to the run
     calls: Counter[str] = field(default_factory=Counter)
     _seq: dict[str, int] = field(default_factory=dict, repr=False)
     _lock: Any = field(default_factory=threading.RLock, repr=False)

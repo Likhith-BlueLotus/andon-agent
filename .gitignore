@@ -45,3 +45,4 @@ vibration_index.json
 data/cache/gcs/
 # anomaly models: regenerable from the simulator (uv run python -m analytics.anomaly train)
 data/models/
+data/cmms/

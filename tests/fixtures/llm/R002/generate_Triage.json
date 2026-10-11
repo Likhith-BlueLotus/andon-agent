@@ -1,0 +1,87 @@
+[
+ {
+  "model_id": "gemini-3.1-flash-lite",
+  "response": {
+   "automatic_function_calling_history": [],
+   "candidates": [
+    {
+     "content": {
+      "parts": [
+       {
+        "text": "{\n  \"themes\": [\n    \"servo motor and cabinet overheating\",\n    \"coolant system flow issues\",\n    \"mechanical pin and force instability\",\n    \"parameter and timing control errors\",\n    \"electrical connectivity and component failures\"\n  ],\n  \"likely_relevant\": [\n    \"WO-2601984\",\n    \"WO-2601974\",\n    \"WO-2601962\",\n    \"WO-2601961\",\n    \"WO-2601960\",\n    \"WO-2601951\",\n    \"WO-2601948\",\n    \"WO-2601939\"\n  ],\n  \"noise\": [\n    \"WO-2601999\",\n    \"WO-2601994\",\n    \"WO-2601982\",\n    \"WO-2601981\",\n    \"WO-2601959\",\n    \"WO-2601955\",\n    \"WO-2601952\",\n    \"WO-2601950\"\n  ]\n}",
+        "thought_signature": "AY89a1-n7fN4Hz8OlJ-Cg41cyDTmg4rgbo2Iw__nYWyWvIr61Ku9oeXGbgv4Ujym5EEqy6HiSOJS5KiiFnyADhW6zdUegq2EoeozNipDRRqMcWPgez3vPRpIKbROWe_xceP2yefndxg9TVZPu414Frvp2HnU7BAkAiHTRl4Ta04_1bRATGdJvCzSaWCeQybETByo2pW0ojO7ltJwwVwJfBkgysYeqv2LhI-LzQTtTFSMmdicMtxN0rx9cM4nMSpKt77SlqEMevhXRm8cBkoTD8yAmtPINnH-3SNsvj2vp_OeY8SuEypASGL6mLq1zP9X90D1h62V4C84VEQFwCwcB987nIJkkjB2i9elVw7UHr9sb3ILPX_8HAJHjB3Mm_L4wuE6jkXKX5PQnZQDkdXZWIWhupSHM5X724RWufcwaqVBsEe_EEO6GKHQCEXyUJc0ofjunPgDor1izqlHxfvVX2rqSsiYiwHlbq4Hio4xUgvErmaBj1UJZKVeOz9pfZKsgy2P5eJ8QCThMLyr0nqExBmYIu32yaoKNvciGovG-XQ0cm_pcfFrDbjsuSsd_Br6k3APE5vNE1EZ70bu22FodN3bcuKS8iMCe3ML0CBK1qQ0zdEGlnbkgezJ2WBZjYU="
+       }
+      ],
+      "role": "model"
+     },
+     "finish_reason": "STOP"
+    }
+   ],
+   "create_time": "2026-10-11T05:01:32.819525Z",
+   "model_version": "gemini-3.1-flash-lite",
+   "parsed": {
+    "likely_relevant": [
+     "WO-2601984",
+     "WO-2601974",
+     "WO-2601962",
+     "WO-2601961",
+     "WO-2601960",
+     "WO-2601951",
+     "WO-2601948",
+     "WO-2601939"
+    ],
+    "noise": [
+     "WO-2601999",
+     "WO-2601994",
+     "WO-2601982",
+     "WO-2601981",
+     "WO-2601959",
+     "WO-2601955",
+     "WO-2601952",
+     "WO-2601950"
+    ],
+    "themes": [
+     "servo motor and cabinet overheating",
+     "coolant system flow issues",
+     "mechanical pin and force instability",
+     "parameter and timing control errors",
+     "electrical connectivity and component failures"
+    ]
+   },
+   "response_id": "LBjLasWCMo2t7PkPq7Po6Ac",
+   "sdk_http_response": {
+    "headers": {
+     "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+     "content-encoding": "gzip",
+     "content-type": "application/json; charset=UTF-8",
+     "date": "Sun, 11 Oct 2026 05:01:39 GMT",
+     "server": "scaffolding on HTTPServer2",
+     "transfer-encoding": "chunked",
+     "vary": "Origin, X-Origin, Referer",
+     "x-content-type-options": "nosniff",
+     "x-frame-options": "SAMEORIGIN",
+     "x-xss-protection": "0"
+    }
+   },
+   "usage_metadata": {
+    "candidates_token_count": 285,
+    "candidates_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 285
+     }
+    ],
+    "prompt_token_count": 2433,
+    "prompt_tokens_details": [
+     {
+      "modality": "TEXT",
+      "token_count": 2433
+     }
+    ],
+    "thoughts_token_count": 103,
+    "total_token_count": 2821,
+    "traffic_type": "ON_DEMAND"
+   }
+  }
+ }
+]

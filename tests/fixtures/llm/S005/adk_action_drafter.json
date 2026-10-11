@@ -1,0 +1,107 @@
+[
+ {
+  "content": {
+   "parts": [
+    {
+     "function_call": {
+      "args": {
+       "asset_id": "UT-AIR",
+       "cause_class": "air_pressure_drop",
+       "parts": [
+        "Pneumatic push-in fittings",
+        "Thread sealant / PTFE tape",
+        "Replacement hose and clamps"
+       ],
+       "repair_steps": [
+        "Perform ultrasonic acoustic leak survey along UT-AIR header distribution line and drop legs to ST20 and ST30.",
+        "Identify loose fittings, degraded hoses, or leaking drain valves causing distribution pressure drop.",
+        "Disassemble damaged couplings or pipe sections identified during inspection.",
+        "Install replacement fittings or hose sections and apply approved thread sealant.",
+        "Inspect header joints and verify mechanical integrity of all distribution connections."
+       ],
+       "safety_step_ids": [
+        "compressed_air:1",
+        "compressed_air:2",
+        "compressed_air:3",
+        "compressed_air:4",
+        "compressed_air:5",
+        "compressed_air:6",
+        "compressed_air:8",
+        "compressed_air:9",
+        "compressed_air:13",
+        "compressed_air:15",
+        "compressed_air:17",
+        "compressed_air:18",
+        "compressed_air:19",
+        "compressed_air:20",
+        "compressed_air:21"
+       ]
+      },
+      "name": "draft_work_order"
+     },
+     "thought_signature": "AY89a18KgZhHoqQx0eSeWLbLlX563gJuKWZdQGG0XBlWEebd5nanvtuR96WPO70WhvXglKHsw966o8yNMnwJN5NlUOSM0cbH0HKc92_AKtAKrD8JvEGr"
+    },
+    {
+     "text": ""
+    }
+   ],
+   "role": "model"
+  },
+  "finish_reason": "STOP",
+  "model_version": "gemini-3.8-flash",
+  "partial": false,
+  "usage_metadata": {
+   "candidates_token_count": 288,
+   "candidates_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 288
+    }
+   ],
+   "prompt_token_count": 2690,
+   "prompt_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 2690
+    }
+   ],
+   "total_token_count": 2978,
+   "traffic_type": "ON_DEMAND"
+  }
+ },
+ {
+  "content": {
+   "parts": [
+    {
+     "text": "Draft work order **WO-DRAFT-S005-EA0948** has been successfully created with status `PENDING_APPROVAL`.\n\n### Work Order Summary\n- **Asset ID**: `UT-AIR`\n- **Cause Class**: `air_pressure_drop`\n- **Status**: `PENDING_APPROVAL` (awaiting human approval)\n- **Safety Steps**: 15 energy-control steps selected across all lockout/tagout phases (`prepare`, `shutdown`, `isolate`, `lock`, `stored`, `verify`, `release`) per the `compressed_air` manual.\n- **Repair Steps**:\n  1. Perform ultrasonic acoustic leak survey along UT-AIR header distribution line and drop legs to ST20 and ST30.\n  2. Identify loose fittings, degraded hoses, or leaking drain valves causing distribution pressure drop.\n  3. Disassemble damaged couplings or pipe sections identified during inspection.\n  4. Install replacement fittings or hose sections and apply approved thread sealant.\n  5. Inspect header joints and verify mechanical integrity of all distribution connections.\n- **Parts / Consumables**:\n  - Pneumatic push-in fittings\n  - Thread sealant / PTFE tape\n  - Replacement hose and clamps"
+    },
+    {
+     "text": "",
+     "thought_signature": "AY89a1_LoUxeyR1F9yb8V-9sZyDuN2Gryd6-C7oNIP4J7fvt-kxfri3_3BgHl6XHQBSfuFPsXojuD2_lNtXfy5VUnXBLtE0FV0yTkcrPsCgc_P8EVlNn"
+    }
+   ],
+   "role": "model"
+  },
+  "finish_reason": "STOP",
+  "model_version": "gemini-3.8-flash",
+  "partial": false,
+  "usage_metadata": {
+   "candidates_token_count": 263,
+   "candidates_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 263
+    }
+   ],
+   "prompt_token_count": 2935,
+   "prompt_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 2935
+    }
+   ],
+   "total_token_count": 3198,
+   "traffic_type": "ON_DEMAND"
+  }
+ }
+]

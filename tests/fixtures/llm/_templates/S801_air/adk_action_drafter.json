@@ -1,0 +1,65 @@
+[
+ {
+  "content": {
+   "role": "model",
+   "parts": [
+    {
+     "function_call": {
+      "name": "draft_work_order",
+      "args": {
+       "asset_id": "UT-AIR",
+       "cause_class": "air_pressure_drop",
+       "safety_step_ids": [
+        "compressed_air:1",
+        "compressed_air:2",
+        "compressed_air:3",
+        "compressed_air:4",
+        "compressed_air:5",
+        "compressed_air:6",
+        "compressed_air:8",
+        "compressed_air:9",
+        "compressed_air:13",
+        "compressed_air:14",
+        "compressed_air:15",
+        "compressed_air:17",
+        "compressed_air:18",
+        "compressed_air:19",
+        "compressed_air:20",
+        "compressed_air:21"
+       ],
+       "repair_steps": [
+        "Survey the header and the ST20/ST30 drop legs for leaks with an ultrasonic detector",
+        "Replace leaking fittings and quick couplings",
+        "Confirm the header holds pressure (Table 3-2)"
+       ],
+       "parts": [
+        "drop-leg fittings",
+        "quick couplings"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  "usage_metadata": {
+   "prompt_token_count": 3000,
+   "candidates_token_count": 60,
+   "total_token_count": 3060
+  }
+ },
+ {
+  "content": {
+   "role": "model",
+   "parts": [
+    {
+     "text": "Drafted the work order."
+    }
+   ]
+  },
+  "usage_metadata": {
+   "prompt_token_count": 4000,
+   "candidates_token_count": 200,
+   "total_token_count": 4200
+  }
+ }
+]

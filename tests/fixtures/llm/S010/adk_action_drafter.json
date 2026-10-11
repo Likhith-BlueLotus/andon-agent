@@ -1,0 +1,108 @@
+[
+ {
+  "content": {
+   "parts": [
+    {
+     "function_call": {
+      "args": {
+       "asset_id": "ST50-CNV",
+       "cause_class": "conveyor_bearing_defect",
+       "parts": [
+        "drive-end bearing assembly",
+        "bearing grease",
+        "drive chain lubricant"
+       ],
+       "repair_steps": [
+        "Inspect the drive-end bearing housing, shaft, and mounting for thermal damage, wear, or physical play.",
+        "Remove the damaged drive-end bearing assembly from the ST50-CNV conveyor drive shaft.",
+        "Install a new drive-end bearing assembly and apply specified lubrication.",
+        "Check and adjust drive pulley alignment and chain tensioning.",
+        "Perform a test run to inspect bearing temperature and vibration levels across normal operating speeds."
+       ],
+       "safety_step_ids": [
+        "conveyor_drive:1",
+        "conveyor_drive:2",
+        "conveyor_drive:3",
+        "conveyor_drive:4",
+        "conveyor_drive:5",
+        "conveyor_drive:6",
+        "conveyor_drive:7",
+        "conveyor_drive:8",
+        "conveyor_drive:9",
+        "conveyor_drive:10",
+        "conveyor_drive:11",
+        "conveyor_drive:12",
+        "conveyor_drive:13",
+        "conveyor_drive:14",
+        "conveyor_drive:15",
+        "conveyor_drive:16"
+       ]
+      },
+      "name": "draft_work_order"
+     },
+     "thought_signature": "AY89a19H0h-JiT1wB1Bv55WbiXUplchOxCLKF-P1fbaJ1riTTsudl16435lrQjAbrdu1V-ckOciDTmRQ0-_sTplXQes1w7qKbNL_-m-WkFNzIGINdxiN"
+    },
+    {
+     "text": ""
+    }
+   ],
+   "role": "model"
+  },
+  "finish_reason": "STOP",
+  "model_version": "gemini-3.8-flash",
+  "partial": false,
+  "usage_metadata": {
+   "candidates_token_count": 317,
+   "candidates_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 317
+    }
+   ],
+   "prompt_token_count": 2814,
+   "prompt_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 2814
+    }
+   ],
+   "total_token_count": 3131,
+   "traffic_type": "ON_DEMAND"
+  }
+ },
+ {
+  "content": {
+   "parts": [
+    {
+     "text": "Draft maintenance work order **WO-DRAFT-S010-453BEF** has been created with status **PENDING_APPROVAL** for asset **ST50-CNV** (cause class: `conveyor_bearing_defect`).\n\n### Summary of Draft Work Order:\n- **Work Order ID**: `WO-DRAFT-S010-453BEF`\n- **Asset ID**: `ST50-CNV`\n- **Cause Class**: `conveyor_bearing_defect`\n- **Status**: `PENDING_APPROVAL`\n- **Safety Steps**: 16 energy-control (LOTO) steps across all required phases (*prepare, shutdown, isolate, lock, stored, verify, release*) sourced directly from the `conveyor_drive` manual.\n- **Repair Steps**:\n  1. Inspect the drive-end bearing housing, shaft, and mounting for thermal damage, wear, or physical play.\n  2. Remove the damaged drive-end bearing assembly from the ST50-CNV conveyor drive shaft.\n  3. Install a new drive-end bearing assembly and apply specified lubrication.\n  4. Check and adjust drive pulley alignment and chain tensioning.\n  5. Perform a test run to inspect bearing temperature and vibration levels across normal operating speeds.\n- **Parts / Consumables**: Drive-end bearing assembly, bearing grease, drive chain lubricant."
+    },
+    {
+     "text": "",
+     "thought_signature": "AY89a1-Rk8rHEAjHUoGuLKflwEs6yDLi-2_MFvQXnYE2jAKa1qDNlHwB9s-yqn-KsfhBcy0JCxCMiCh5HkamzACqfYyLUDD0i_6JNuwX6yyn8e1MCfM6"
+    }
+   ],
+   "role": "model"
+  },
+  "finish_reason": "STOP",
+  "model_version": "gemini-3.8-flash",
+  "partial": false,
+  "usage_metadata": {
+   "candidates_token_count": 303,
+   "candidates_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 303
+    }
+   ],
+   "prompt_token_count": 3085,
+   "prompt_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 3085
+    }
+   ],
+   "total_token_count": 3388,
+   "traffic_type": "ON_DEMAND"
+  }
+ }
+]
