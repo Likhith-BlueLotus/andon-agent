@@ -173,3 +173,20 @@ Template — copy for each entry:
 - **Surprise (ADK 2.11.0, from the installed source):** a function call naming a tool missing from `tools_dict` still goes through the `before_tool_callback`s before ADK's tool-not-found response, so budget refusals cover hallucinated calls too; `skip_summarization` on any response of a parallel batch makes the merged event final and ends the agent's turn (`end_invocation` would end the whole run); with `GOOGLE_GENAI_USE_ENTERPRISE=true` Gemini 3 takes `response_schema` natively next to tools, so clearing `config.tools` leaves the schema in place.
 - **Do differently / rule added:** a stop condition the model has to obey is not a stop condition; enforce it in the request (no tools) and test it with a fake model that never obeys.
 - **Cost (time / $):** ~1 h / $0.280 (two live S009 runs).
+
+### 2026-10-12 01:30 — The eval found two production bugs before it found accuracy problems (phase 5, person A)
+- **What happened:** the first final run lost 5/154 graph runs to `llm_call_limit` (commander called `list_assets` 40× ignoring `budget_reached`) and 3 `cite_manual` calls to 400 "Invalid resource state for cache content" (per-run ManualsCache instances deleting a shared cache).
+- **Root cause:** a refusal is text the model may ignore; a refcount only works if every user shares the counter.
+- **Fix:** ADR-027 (tools withdrawn after the budget, hard stop), one ManualsCache per process + inline fallback; failed LLM calls now log their message.
+- **Do differently / rule added:** log the exception text on every failed paid call; enforce limits by removing capability, not by asking.
+- **Cost (time / $):** ~1.5 h / ~$24 for the superseded `final_flash` run.
+
+### 2026-10-12 01:30 — Single-run accuracy hides variance; the demo scenario is unstable (phase 5, person A)
+- **What happened:** final_v2 S1 R002 correct, but 0/3 correct in the variance repeats (no_fault); S-set subset top-1 ranged 0.73–0.87 across three repeats vs 0.93 single-pass on the same 15.
+- **Do differently / rule added:** quote variance next to every headline number; never pick the demo scenario from one run. R-set fixes need the owner's call (post-hoc).
+- **Cost (time / $):** $5 for the variance run.
+
+### 2026-10-12 01:30 — The Pro judge was worse and slower than Flash (phase 5, person A)
+- **What happened:** S1 with `gemini-3.1-pro-preview` judge: S 0.90 / R 0.71 vs Flash 0.98 / 0.76; 2 timeouts, 14 fallbacks, $0.16 vs $0.11 per run.
+- **Do differently / rule added:** don't assume the bigger model wins; measure on the eval before paying for it. Flash stays the deployed judge.
+- **Cost (time / $):** $12.15.

@@ -1,0 +1,60 @@
+{
+ "run_id": "final_pro",
+ "generated_at": "2026-10-11T20:58:59+00:00",
+ "git_sha": "c3c588476def128b5d523fa0909d9e4309edde88",
+ "dry_run": false,
+ "purpose": "final",
+ "note": "S-set and R-set are never pooled. Intervals are 95% Wilson. ",
+ "sets": {
+  "S": [
+   {
+    "system": "S1 full pipeline (Pro judge)",
+    "n": 60,
+    "top1": {
+     "value": 0.9,
+     "lo": 0.7985,
+     "hi": 0.9534
+    },
+    "top3": {
+     "value": 0.9167,
+     "lo": 0.8193,
+     "hi": 0.9639
+    },
+    "unsupported_claim_rate": {
+     "value": 0.0052,
+     "lo": 0.0014,
+     "hi": 0.0189
+    },
+    "median_time_s": 106.9,
+    "cost_per_run_usd": 0.159
+   }
+  ],
+  "R": [
+   {
+    "system": "S1 full pipeline (Pro judge)",
+    "n": 17,
+    "top1": {
+     "value": 0.7059,
+     "lo": 0.4687,
+     "hi": 0.8672
+    },
+    "top3": {
+     "value": 0.7647,
+     "lo": 0.5274,
+     "hi": 0.9044
+    },
+    "unsupported_claim_rate": {
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.0374
+    },
+    "median_time_s": 83.3,
+    "cost_per_run_usd": 0.153
+   }
+  ]
+ },
+ "tests": {
+  "S": [],
+  "R": []
+ }
+}

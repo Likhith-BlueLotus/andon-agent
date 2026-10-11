@@ -1,5 +1,12 @@
 # Handoff log (newest first)
 
+## 2026-10-12 — Person A — Phase 5 DONE (eval), ADR-025/026/027
+**Results (final_v2, Flash judge, `eval/results/final_v2`, slide `results_slide.png`, live at /eval):** S-set top-1 S1 0.98 [0.91, 1.00] · S2 1.00 · B1 0.92 · B2 0.15; held-out S051–S060 S1 10/10, B1 9/10. R-set S1 0.76 [0.53, 0.90] · S2 0.76 · B1 0.59 · B2 0.24. Unsupported claims S1 1/586 vs B1 54/645. S1 vs B1 top-1 not significant (McNemar p 0.219 S / 0.375 R). Variance (15×3): 0.80/0.73/0.87. S3 (no audio/spectrum) 1.00 on the audio subset. S1 Pro judge: S 0.90 / R 0.71, $0.16/run → Flash stays.
+**Honest reading:** the win over one long prompt is grounding, not accuracy; the verifier loop adds little over S2 in this eval (its value is code-checked LOTO + premises); UCI R009–R011 missed by every system; R002 (demo) unstable across repeats.
+**Fixed because of the eval:** ADR-025 mandatory LOTO + citation premises; ADR-027 runaway tool loop; shared manuals cache. Deployed API = evaluated build. Replays: r002-cloud-1 re-recorded (19 safety steps), r002-live-1 removed.
+**Spend:** eval $70.24 of $110; live/dev today ≈ $1.
+**Open for the owner:** (1) R002 instability — fix (makes R-set post-hoc) or leave; (2) freeze timing — `/freeze-check` + `v1.0-freeze` before phase 6; stretch gate (§9b) is open on Run-20 numbers.
+
 ## 2026-10-11 — Person A — Phase 4 DONE (frontend live)
 **Live app:** https://andon-agent-b9c77.web.app (Firebase project `andon-agent-b9c77`, hosting only — ADR-024; API/data stay in `andon-agent-511218`). Deploy: `bash infra/deploy_web.sh` (tests → build → deploy → 200 + CORS checks); API CORS now allows only the b9c77 origins (`localhost` removed; `DEV=1` re-adds it).
 **Built (web/):** 3-pane console (mimic + utilities rail, agent trace with provenance chips, RCA + verifier + safety-gated WO), evidence drawer with real telemetry (`GET /api/scenarios/{id}/telemetry`, ADR-023), every state in UX_SPEC (`?mock=1|error|drop|budget|insufficient`), `/eval` page, attributions dialog. 42 vitest; Recharts lazy-loaded (main chunk 324 kB).
