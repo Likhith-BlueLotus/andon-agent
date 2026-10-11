@@ -1,0 +1,35 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "21:28 plant air header pressure low alarm. 22:00 model A to B changeover finished."
+   },
+   {
+    "slot": 2,
+    "text": "Last shift mein koi major alarm nahi tha. 06:00 model B to A changeover done."
+   },
+   {
+    "slot": 3,
+    "text": "Previous shift mein koi major alarm nahi tha. 14:00 shift start, model A running."
+   },
+   {
+    "slot": 4,
+    "text": "14:38 plant air header oil temperature high alarm triggered twice."
+   },
+   {
+    "slot": 5,
+    "text": "16:58 oil temp high, 17:24 air header pressure low, 17:25 ST30 gun air pressure low alarm. Maintenance called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 963,
+  "output_tokens": 236,
+  "thinking_tokens": 0,
+  "usd": 0.000595
+ }
+}

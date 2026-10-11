@@ -1,0 +1,31 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "14:00 changeover done model B to A. No major alarms during previous shift."
+   },
+   {
+    "slot": 2,
+    "text": "22:00 changeover done model A to B. No major alarms during previous shift."
+   },
+   {
+    "slot": 3,
+    "text": "06:00 shift start, model B running. No major alarms."
+   },
+   {
+    "slot": 4,
+    "text": "13:06 line stopped. ST10 Press hydraulic fault. Maintenance called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 810,
+  "output_tokens": 166,
+  "thinking_tokens": 0,
+  "usd": 0.000452
+ }
+}

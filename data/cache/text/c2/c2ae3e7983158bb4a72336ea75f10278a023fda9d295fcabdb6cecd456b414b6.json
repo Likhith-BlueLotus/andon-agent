@@ -1,0 +1,31 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "04:38 plant air header pressure low, ST20 and ST30 gun air pressure low-low alarms. 06:00 changeover model A to B completed."
+   },
+   {
+    "slot": 2,
+    "text": "No major alarms during previous shift. 14:00 changeover model B to A completed."
+   },
+   {
+    "slot": 3,
+    "text": "Previous shift mein koi major alarm nahi tha. 22:00 shift start, model A chal raha hai."
+   },
+   {
+    "slot": 4,
+    "text": "04:04 line stopped, ST20 held by line lead. Plant air compressor continuous loaded, maintenance called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 925,
+  "output_tokens": 202,
+  "thinking_tokens": 0,
+  "usd": 0.000534
+ }
+}

@@ -390,7 +390,8 @@ def write_scenario(out: Path, sid: str, built: dict[str, Any]) -> Path:
         "text": pa.array([x.text for x in nt]),
     }), d / "shift_notes.parquet")  # fmt: skip
     _write(wo_table(built["wos"], sid), d / "work_orders.parquet")
-    _write(provenance_table(sid, tl), d / "provenance.parquet")
+    prov = built.get("provenance")  # R-set: per-segment real-source provenance
+    _write(prov if prov is not None else provenance_table(sid, tl), d / "provenance.parquet")
     (d / "stop_event.json").write_text(
         json.dumps(built["stop_event"], indent=2, sort_keys=True) + "\n"
     )
@@ -453,6 +454,12 @@ def ensure_work_orders(data_dir: Path, gen: TextGen, seed: int, n: int = N_WORK_
                        maintie_dir: Path = Path("data/raw/maintie")) -> list[dict[str, Any]]:  # fmt: skip
     """Build (or rebuild from the text cache) data/work_orders.parquet + labels."""
     wos, labels = gen.run(text_artifacts.build_work_orders(gen, n, seed, maintie_dir))
+    # The 4 MetroPT-3 failure reports, rewritten as UT-AIR work orders (source_id metropt3).
+    from simulator.real_signals import metropt3_work_orders  # lazy: real_signals imports us
+
+    src_wos, src_labels = metropt3_work_orders()
+    wos = wos + src_wos  # appended (not re-sorted) so the S-set's WO pool order is unchanged
+    labels += src_labels
     data_dir.mkdir(parents=True, exist_ok=True)
     _write(wo_table(wos, None), data_dir / "work_orders.parquet")
     lab = pa.Table.from_pylist(labels)

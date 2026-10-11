@@ -1,0 +1,31 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "last shift koi major alarm nahi tha. 14:00 changeover done, model A to model B shift complete."
+   },
+   {
+    "slot": 2,
+    "text": "No major alarms reported. 22:00 shift start, running model B."
+   },
+   {
+    "slot": 3,
+    "text": "No major alarms. 06:00 shift start, line running model B."
+   },
+   {
+    "slot": 4,
+    "text": "09:00 line stopped. ST50 conveyor pe vibration warning aaya tha. Maintenance inspection done."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 814,
+  "output_tokens": 176,
+  "thinking_tokens": 0,
+  "usd": 0.000467
+ }
+}

@@ -89,9 +89,13 @@ def apply(
     asset_onsets: dict[str, int],
     excluded_assets: set[str],
     excluded_tags: set[TagKey],
+    real_tags: frozenset[TagKey] = frozenset(),
 ) -> ImperfectionResult:
     """``excluded_assets``: never host a stuck tag / skew / chatter (root + chain assets).
-    ``excluded_tags``: tags touched by any fault or red herring (never stuck)."""
+    ``excluded_tags``: tags touched by any fault or red herring (never stuck).
+    ``real_tags`` (R-set): real-sourced tags keep only the source's own gaps, so no synthetic
+    missing samples or comms gaps are added to them (and assets with a real tag get no synthetic
+    comms gap). Empty for the S-set, which leaves its RNG stream and output unchanged."""
     n = tl.n
     prot = protected_windows(asset_onsets)
     keep = {k: np.ones(n, dtype=bool) for k in values}
@@ -103,11 +107,18 @@ def apply(
     for aid in assets:
         pct = float(rng.uniform(0.5, 2.0))
         for t in plant.asset(aid).tags:
+            if (aid, t.tag) in real_tags:
+                continue
             drop = rng.random(n) < pct / 100.0
             for a, b in prot.get(aid, []):
                 drop[max(a, 0) : max(b, 0)] = False
             keep[(aid, t.tag)] &= ~drop
-        items.append(Imperfection("missing", aid, "*", tl.start, tl.stop, f"pct={pct:.2f}"))
+        if all((aid, t.tag) in real_tags for t in plant.asset(aid).tags):
+            continue
+        tags = "*"
+        if any((aid, t.tag) in real_tags for t in plant.asset(aid).tags):
+            tags = ",".join(t.tag for t in plant.asset(aid).tags if (aid, t.tag) not in real_tags)
+        items.append(Imperfection("missing", aid, tags, tl.start, tl.stop, f"pct={pct:.2f}"))
 
     # comms gaps: 1-3 per day
     days = max(1, int(np.ceil(n / 86400)))
@@ -121,6 +132,8 @@ def apply(
                     break
                 s = int(rng.integers(day_lo, day_hi - dur - 1))
                 if s + dur >= n - 60 or _overlaps(s, s + dur, prot.get(aid, [])):
+                    continue
+                if any((aid, t.tag) in real_tags for t in plant.asset(aid).tags):
                     continue
                 for t in plant.asset(aid).tags:
                     keep[(aid, t.tag)][s : s + dur] = False

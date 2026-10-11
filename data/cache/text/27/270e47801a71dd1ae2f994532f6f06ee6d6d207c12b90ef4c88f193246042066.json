@@ -1,0 +1,31 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "22:00 shift start, model B running. Koi major alarm nahi tha."
+   },
+   {
+    "slot": 2,
+    "text": "06:00 changeover done, model B se model A shift hua. No major alarms."
+   },
+   {
+    "slot": 3,
+    "text": "14:00 shift start, running model A. No major alarms."
+   },
+   {
+    "slot": 4,
+    "text": "Line stopped at 14:48. ST10 Press HPU not ready. Maintenance called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 811,
+  "output_tokens": 169,
+  "thinking_tokens": 0,
+  "usd": 0.000456
+ }
+}

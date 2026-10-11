@@ -1,0 +1,27 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "Previous shift koi major alarm nahi tha. 22:00 baje changeover done, model B se model A pe shift kiya."
+   },
+   {
+    "slot": 2,
+    "text": "Previous shift koi major alarm nahi. 06:00 shift start, model A chal raha hai."
+   },
+   {
+    "slot": 3,
+    "text": "14:07 ST50 Conveyor pe fieldbus watchdog timeout ki wajah se line stop thi, maintenance called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 731,
+  "output_tokens": 148,
+  "thinking_tokens": 0,
+  "usd": 0.000405
+ }
+}

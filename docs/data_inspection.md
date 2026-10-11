@@ -63,6 +63,8 @@ What the data shows inside each window, compared with the preceding 24 h:
 - Window #3 contains a 3.8 h gap (after 2020-06-06 15:55:17), and a 21.5 h gap starts 11 min before its end (2020-06-07 14:19:39).
 - Window #1 has a 6 min gap at 00:18. Window #4 has a 2 min gap at 17:22.
 - Raw TP3 dips below 1 bar are very short (hourly minimum only). They happen outside the failure windows and look like compressor-off/start transients, not leaks. They are good red-herring material.
+- **Unlabelled continuous-load episodes (Part E).** The R-set stop rule (trailing 4 h with Motor_current > 4.8 A in ≥ 95 % of samples) fires ~4 h after the start of reports #1–#3 (04-18 04:04, 05-30 03:03, 06-05 13:37) and in #4 at 17:44, but also on 2020-03-12, 03-27, 03-29, 04-12, 05-13, 05-20 and 06-22, which are not in the failure report. They may be unreported leaks or long post-parking recharges; we do not label them. The R005–R008 normal windows avoid them; R001's history contains the 04-12 episode, which is real data and was left in.
+- Motor current is a start/stop compressor, not load/unload: ~0.04 A off, 3–4 A running unloaded, 5.5–7 A loaded, ~9 A at start. Mapped ×11.5 it reads 0.5 / 35–46 / 63–80 / ~104 A, so the plant tag's "loaded ~92 A, unloaded ~38 A" description fits the S-set only.
 
 ---
 
@@ -94,12 +96,14 @@ What the data shows inside each window, compared with the preceding 24 h:
 
 | Condition (others optimal, stable) | Cycles | Cycle indices |
 |---|---|---|
-| all optimal (healthy) | **10** | 1664–1673 (plus unstable 1756, 1787–1796) |
-| pump leak = 2 (severe) | 10 | within 1674–1714 |
+| all optimal (healthy) | **10** | 1787–1796 (1664–1673 and 1756 are all-optimal but flag 1 = *unstable*; corrected 2026-10-11 in Part E, see below) |
+| pump leak = 2 (severe) | 10 | 1705–1714 |
 | valve = 80 (severe lag) | 10 | 1767–1776 |
 | valve = 73 (near failure) | 10 | 1757–1766 |
-| accumulator = 90 (near failure) | 19 | within 1464–2204 |
-| cooler = 3 (near failure) | 10 | within 0–332 |
+| accumulator = 90 (near failure) | 19 | 2186–2204 |
+| cooler = 3 (near failure) | 10 | 323–332 (and cycles 0–209: cooler 3 %, all else optimal, flag 1 = the rig's warm-up) |
+
+**Correction (Part E, re-derived from `profile.txt` by `tests/test_real_signals.py`):** the first version of this table listed 1664–1673 as the stable healthy cycles; their stable flag is 1 (unstable). The stable all-optimal cycles are 1787–1796. What R009–R014 use: healthy = 1787–1796 looped; pump 2 = 1705–1714; valve 80 = 1767–1776; accumulator 90 = 2186–2204; cooler 3 = the rig's real warm-up 0–209 (cooler 3 %, all else optimal, still settling) followed by the stable 323–332, so the oil temperature rises over ~3.5 h instead of jumping 20 °C at a splice.
 
 **This limits R009–R014.** Each clean single-fault condition is only about 10 min of real signal (10 cycles × 60 s). An R scenario will be a short real segment of labelled cycles, stitched in label order, inside a synthetic week. The stitching must be recorded in provenance with the cycle numbers. Alternatively, include multi-fault cycles and say in `truth.detail` that other components were also off-nominal. The two "healthy" scenarios share one pool of only 10 stable all-optimal cycles. Don't invent labels. If more healthy data is needed, R013/R014 can use stable cycles where valve/pump/accumulator are optimal and the cooler is at 20%; label that cooler state honestly (cooler is a separate sub-type).
 

@@ -77,6 +77,9 @@ data/raw/<source_id>/...            (gitignored; from scripts/fetch_datasets.py)
 data/scenarios/{S001..S060,R001..R017}/
   telemetry.parquet  alarms.parquet  shift_notes.parquet  audio_index.json
   provenance.parquet stop_event.json truth.json   (truth never readable from agents/ or api/ — guard test)
+  audio_truth.json  sim_meta.json                 (eval/QA only, never loaded: clip labels, hidden fault metadata)
+  vibration_index.json                            (R015–R017: raw IMS snapshots in gs://…/vibration/{scenario_id}/)
+data/audio/clips/                                 (downmixed mono MIMII clips, gitignored; served from gs://…/audio/)
 data/work_orders.parquet
 data/SOURCES.md                      (generated: licences, URLs, dates, SHA-256, transforms, citations)
 ```

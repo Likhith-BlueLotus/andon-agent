@@ -35,7 +35,7 @@ import config
 from simulator import plant
 
 SCENARIO_FILES = ("alarms", "shift_notes", "work_orders", "provenance")
-NEVER_LOAD = ("truth.json", "sim_meta.json", "work_orders_labels.parquet")
+NEVER_LOAD = ("truth.json", "sim_meta.json", "work_orders_labels.parquet", "audio_truth.json")
 TABLES = (
     "telemetry",
     "alarms",
@@ -422,10 +422,17 @@ def _relpath(target: Path, start: Path) -> str:
     return os.path.relpath(target, start)
 
 
-def load_bigquery(root: Path, project: str | None = None, dataset: str = config.BQ_DATASET) -> None:
+def load_bigquery(
+    root: Path,
+    project: str | None = None,
+    dataset: str = config.BQ_DATASET,
+    ids: Iterable[str] | None = None,
+) -> None:
     """Load into BigQuery. Telemetry is integer-range partitioned on ``scenario_num`` and clustered
     by (scenario_id, asset_id, tag); each scenario replaces only its own partition, so reloads
-    are idempotent. Small tables are replaced wholesale and clustered by scenario_id."""
+    are idempotent. ``ids`` limits the (slow) telemetry load to those scenarios - e.g. append the
+    R-set without reloading the S-set. Small tables are always rebuilt wholesale from *every*
+    scenario directory (cheap, and idempotent) and clustered by scenario_id."""
     import tempfile
 
     from google.cloud import bigquery as bq
@@ -452,8 +459,11 @@ def load_bigquery(root: Path, project: str | None = None, dataset: str = config.
     client.create_table(tel, exists_ok=True)
 
     with tempfile.TemporaryDirectory() as tmpd:
+        wanted = set(ids) if ids else None
         for d in scenario_dirs(root):
             sid = d.name
+            if wanted is not None and sid not in wanted:
+                continue
             t = pq.read_table(d / "telemetry.parquet")
             t = pa.table({
                 "scenario_id": t["scenario_id"].cast(pa.string()), "asset_id": t["asset_id"].cast(pa.string()),
@@ -498,6 +508,12 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--telemetry", choices=["view", "table"], default="view")
     ap.add_argument("--project", default=None)
     ap.add_argument("--dataset", default=config.BQ_DATASET)
+    ap.add_argument(
+        "--ids",
+        default="",
+        help="bigquery: comma list or prefix (e.g. R) of scenarios whose telemetry is (re)loaded; "
+        "small tables are always rebuilt from every scenario",
+    )
     args = ap.parse_args(argv)
     t0 = time.time()
     if args.target == "duckdb":
@@ -508,7 +524,15 @@ def main(argv: list[str] | None = None) -> int:
             f"duckdb: {n} scenarios -> {args.db} ({args.db.stat().st_size / 1e6:.1f} MB, telemetry={args.telemetry})"
         )
     else:
-        load_bigquery(args.scenarios, args.project, args.dataset)
+        tokens = [x.strip() for x in args.ids.split(",") if x.strip()]
+        ids = [
+            d.name
+            for d in scenario_dirs(args.scenarios)
+            if any(d.name == t or (len(t) == 1 and d.name.startswith(t)) for t in tokens)
+        ]
+        if tokens and not ids:
+            ap.error(f"--ids {args.ids!r} matches no scenario (refusing to reload all telemetry)")
+        load_bigquery(args.scenarios, args.project, args.dataset, ids or None)
         print(f"bigquery: loaded into {args.dataset}")
     print(f"done in {time.time() - t0:.1f}s", file=sys.stderr)
     return 0

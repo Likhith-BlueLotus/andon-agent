@@ -513,6 +513,9 @@ class Modifiers:
     cycle_excess: dict[str, np.ndarray] = field(default_factory=dict)  # s, propagates
     reject_p: np.ndarray | None = None  # extra per-part reject probability at ST60
     event_rate: dict[tuple[str, str], np.ndarray] = field(default_factory=dict)  # per second
+    # R-set only: a real-mapped, gap-bridged header pressure that replaces the simulated header
+    # before the weld-cell regulator coupling is computed (simulator/real_signals.py).
+    header_override: np.ndarray | None = None
 
     def get(self, which: str, key: object) -> np.ndarray:
         d: dict = getattr(self, which)
@@ -634,6 +637,8 @@ def simulate(tl: Timeline, mods: Modifiers, seed: int) -> SimResult:
 
     # Plant air
     p, cur, oil = _air_system(tl, activity, mods.leak(), rng_phys)
+    if mods.header_override is not None:  # R-set: real header drives the regulator model
+        p = np.asarray(mods.header_override, dtype=float)
     U[("UT-AIR", "header_pressure_bar")] = p + add(("UT-AIR", "header_pressure_bar"))
     U[("UT-AIR", "compressor_current_a")] = cur + add(("UT-AIR", "compressor_current_a"))
     U[("UT-AIR", "oil_temp_c")] = oil + 0.3 * (ambient - 28.0) + add(("UT-AIR", "oil_temp_c"))

@@ -1,0 +1,35 @@
+{
+ "model_id": "gemini-3.1-flash-lite",
+ "output": {
+  "notes": [
+   {
+    "slot": 1,
+    "text": "No major alarms. 22:00 changeover model B to A completed."
+   },
+   {
+    "slot": 2,
+    "text": "No major alarms. 06:00 changeover model A to B completed."
+   },
+   {
+    "slot": 3,
+    "text": "12:27 ST10 Press alarm: oil temperature high."
+   },
+   {
+    "slot": 4,
+    "text": "ST10 Press high oil temp alarm at 12:27. 14:00 shift start, model B running."
+   },
+   {
+    "slot": 5,
+    "text": "15:37 line stop, ST10 Press hydraulic fault. Maintenance called."
+   }
+  ]
+ },
+ "prompt": "shift_notes",
+ "prompt_version": "1",
+ "usage": {
+  "input_tokens": 889,
+  "output_tokens": 210,
+  "thinking_tokens": 0,
+  "usd": 0.000537
+ }
+}

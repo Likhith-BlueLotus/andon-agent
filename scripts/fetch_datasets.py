@@ -267,8 +267,12 @@ def render_sources_md(manifests: list[dict[str, Any]]) -> str:
         )
         out.append(f"- **Downloaded:** {m['downloaded_date']}")
         out.append(f"- **Maps to:** {m.get('maps_to', '')}")
-        if m.get("redistribution_note"):
-            out.append(f"- **Redistribution:** {m['redistribution_note']}")
+        # the current spec's note wins, so usage notes can be updated without a re-fetch
+        note = (SPECS[m["id"]].redistribution_note if m["id"] in SPECS else "") or m.get(
+            "redistribution_note", ""
+        )
+        if note:
+            out.append(f"- **Redistribution:** {note}")
         out.append("- **Fetch transforms:**")
         for t in m.get("transforms", []):
             out.append(f"  - {t}")
@@ -764,9 +768,13 @@ SPECS: dict[str, DatasetSpec] = {
             ),
             fetcher=fetch_mimii,
             redistribution_note=(
-                "CC BY-SA 4.0 share-alike: clips we redistribute (GCS audio bucket) and any "
-                "derived audio dataset stay CC BY-SA 4.0 with this attribution. MIMII DUE/DG "
-                "(CC BY-NC-SA) are NOT used."
+                "CC BY-SA 4.0 share-alike: clips we redistribute and any derived audio dataset "
+                "stay CC BY-SA 4.0 with this attribution. Usage: `simulator/audio.py` downmixes "
+                "each clip to mono (mean of the 8 channels, 16 kHz, 16-bit; some get added plant "
+                "background noise) and serves it from "
+                "`gs://andon-agent-511218-assets/audio/{scenario_id}/{asset_id}/{ts}.wav` "
+                "(object metadata `licence: CC BY-SA 4.0`); each placement has a provenance row. "
+                "MIMII DUE/DG (CC BY-NC-SA) are NOT used."
             ),
         ),
         DatasetSpec(

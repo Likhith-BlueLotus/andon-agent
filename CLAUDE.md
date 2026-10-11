@@ -72,7 +72,8 @@ uv run ruff check . && uv run ruff format .
 uv run python scripts/fetch_datasets.py --only metropt3,uci_hydraulic,ims_bearings,mimii,maintie
 uv run python -m simulator.generate --set S --n 60 --seed 2026 --out data/scenarios
 uv run python -m simulator.real_signals --out data/scenarios                 # R001–R017
-uv run python -m simulator.load --scenarios data/scenarios --target duckdb   # or bigquery
+uv run python -m simulator.audio --scenarios data/scenarios --upload        # MIMII clips → GCS + audio_index.json
+uv run python -m simulator.load --scenarios data/scenarios --target duckdb   # or bigquery; --ids R reloads only those
 uv run python -m agents.cli --scenario S001                                 # one diagnosis in terminal
 uv run uvicorn api.main:app --reload --port 8080
 cd web && npm i && npm run dev                                               # VITE_API_URL=http://localhost:8080
