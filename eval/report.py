@@ -428,11 +428,11 @@ def render_slide(summary: dict, path: Path) -> None:
         ax.set_ylim(0, 1)
         cols = [
             ("System", 0.0, "left"),
-            ("n", 0.40, "right"),
-            ("Top-1 [95% CI]", 0.425, "left"),
-            ("Top-3", 0.70, "right"),
-            ("Unsupported\nclaims", 0.835, "right"),
-            ("Median\ntime", 0.915, "right"),
+            ("n", 0.34, "right"),
+            ("Top-1 [95% CI]", 0.365, "left"),
+            ("Top-3", 0.63, "right"),
+            ("Unsupported\nclaims", 0.80, "right"),
+            ("Median\ntime", 0.905, "right"),
             ("$/run", 1.0, "right"),
         ]
         ax.text(

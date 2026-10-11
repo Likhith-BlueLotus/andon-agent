@@ -1,0 +1,109 @@
+{
+ "run_id": "run20_dev",
+ "generated_at": "2026-10-11T15:10:18+00:00",
+ "git_sha": "9b29571f16d6a01d33e65adf54b4fd86d07b351e",
+ "dry_run": false,
+ "purpose": "dev",
+ "note": "S-set and R-set are never pooled. Intervals are 95% Wilson. ",
+ "sets": {
+  "S": [
+   {
+    "system": "S1 full pipeline (Flash judge)",
+    "n": 20,
+    "top1": {
+     "value": 0.7,
+     "lo": 0.481,
+     "hi": 0.8545
+    },
+    "top3": {
+     "value": 0.85,
+     "lo": 0.6396,
+     "hi": 0.9476
+    },
+    "unsupported_claim_rate": {
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.0242
+    },
+    "median_time_s": 93.5,
+    "cost_per_run_usd": 0.129
+   },
+   {
+    "system": "B1 single prompt",
+    "n": 20,
+    "top1": {
+     "value": 0.9,
+     "lo": 0.699,
+     "hi": 0.9721
+    },
+    "top3": {
+     "value": 0.9,
+     "lo": 0.699,
+     "hi": 0.9721
+    },
+    "unsupported_claim_rate": {
+     "value": 0.0904,
+     "lo": 0.0564,
+     "hi": 0.1418
+    },
+    "median_time_s": 40.3,
+    "cost_per_run_usd": 0.093
+   },
+   {
+    "system": "B2 classical",
+    "n": 20,
+    "top1": {
+     "value": 0.2,
+     "lo": 0.0807,
+     "hi": 0.416
+    },
+    "top3": {
+     "value": 0.2,
+     "lo": 0.0807,
+     "hi": 0.416
+    },
+    "unsupported_claim_rate": {
+     "value": null,
+     "lo": null,
+     "hi": null
+    },
+    "median_time_s": 0.4,
+    "cost_per_run_usd": 0.0
+   }
+  ]
+ },
+ "tests": {
+  "S": [
+   {
+    "a_only": 0,
+    "b_only": 4,
+    "both_right": 14,
+    "both_wrong": 2,
+    "n": 20,
+    "p": 0.125,
+    "test": "exact McNemar (two-sided binomial on discordant pairs)",
+    "a": "S1",
+    "b": "B1",
+    "metric": "top1",
+    "a_rate": 0.7,
+    "b_rate": 0.9,
+    "significant_at_0.05": false
+   },
+   {
+    "a_only": 11,
+    "b_only": 1,
+    "both_right": 3,
+    "both_wrong": 5,
+    "n": 20,
+    "p": 0.006348,
+    "test": "exact McNemar (two-sided binomial on discordant pairs)",
+    "a": "S1",
+    "b": "B2",
+    "metric": "top1",
+    "a_rate": 0.7,
+    "b_rate": 0.2,
+    "significant_at_0.05": true
+   }
+  ]
+ }
+}

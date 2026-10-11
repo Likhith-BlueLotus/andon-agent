@@ -1,0 +1,37 @@
+{
+ "run_id": "run20_dev",
+ "dry_run": false,
+ "total_usd": 4.4431,
+ "n_calls_rows": 60,
+ "by_system": {
+  "S1": {
+   "runs": 20,
+   "usd": 2.5763,
+   "by_model": {
+    "gemini-3.8-flash": 2.53984,
+    "gemini-3.1-flash-lite": 0.03646
+   },
+   "mean_usd": 0.12881
+  },
+  "B1": {
+   "runs": 20,
+   "usd": 1.8668,
+   "by_model": {
+    "gemini-3.8-flash": 1.8668
+   },
+   "mean_usd": 0.09334
+  },
+  "B2": {
+   "runs": 20,
+   "usd": 0.0,
+   "by_model": {},
+   "mean_usd": 0.0
+  }
+ },
+ "by_model": {
+  "gemini-3.1-flash-lite": 0.03646,
+  "gemini-3.8-flash": 4.40664
+ },
+ "estimated_usd": 7.7523,
+ "note": "includes superseded rows (retried errors); a dry run bills nothing"
+}
