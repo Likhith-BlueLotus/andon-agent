@@ -461,7 +461,7 @@ def render_slide(summary: dict, path: Path) -> None:
                 )
             bold = "bold" if base_of(s) == "S1" else "normal"
             u = m["unsupported_claim_rate"]
-            unsup = "n/a" if u["n"] == 0 else f"{u['value']:.2f} ({u['k']}/{u['n']})"
+            unsup = "n/a" if u["n"] == 0 else f"{100 * u['value']:.1f}% ({u['k']}/{u['n']})"
             t = m["time_s"]["median"]
             vals = [
                 label(s, judge).replace(" judge", ""),
@@ -533,7 +533,8 @@ def render_slide(summary: dict, path: Path) -> None:
                 f"{iv['value']:.2f}",
                 ha="center",
                 va="bottom",
-                fontsize=12,
+                fontsize=11,
+                rotation=90,  # adjacent bars near 100% would otherwise print over each other
                 color=ink,
             )
     ax.set_xticks(range(len(systems)))
@@ -549,7 +550,7 @@ def render_slide(summary: dict, path: Path) -> None:
         ],
         fontsize=15,
     )
-    ax.set_ylim(0, 1.12)
+    ax.set_ylim(0, 1.2)
     ax.set_yticks([0, 0.25, 0.5, 0.75, 1.0])
     ax.set_yticklabels(["0", "25%", "50%", "75%", "100%"], fontsize=14)
     ax.set_title(
@@ -557,7 +558,10 @@ def render_slide(summary: dict, path: Path) -> None:
     )
     ax.spines[["top", "right"]].set_visible(False)
     ax.grid(axis="y", alpha=0.25)
-    ax.legend(fontsize=12, loc="upper right", frameon=False, ncol=1)
+    # one row in the free space under the tables: inside the axes it covers bars near 100%
+    handles, labels = ax.get_legend_handles_labels()
+    ax.figure.legend(handles, labels, fontsize=14, loc="lower left", bbox_to_anchor=(0.025, 0.15),
+                     frameon=False, ncol=len(labels), title="Bars (right):", title_fontsize=13)  # fmt: skip
 
     # ---- tests + footnote ----
     tests = []
