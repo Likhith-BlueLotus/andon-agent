@@ -6,6 +6,8 @@ import { fmtDateTime } from "../lib/format";
 import { CostTicker, Mimic } from "./Mimic";
 import { TracePane } from "./Trace";
 import { RcaPane } from "./Rca";
+import { getPasscode, setPasscode as storePasscode } from "../lib/passcode";
+import { adHocScenario, isUploadId, uploadLabel } from "../lib/uploadMapping";
 import { PasscodeDialog } from "./PasscodeDialog";
 import { IconAlert, IconClock, IconInfo, Spinner } from "./ui";
 
@@ -16,10 +18,16 @@ type Tab = "line" | "trace" | "rca";
 export function Console({ catalog }: { catalog: Catalog }) {
   const mock = readMock();
   const { all, scenarios, replays, config } = catalog;
-  const [scenarioId, setScenarioId] = useState<string | null>(null);
-  const [mode, setMode] = useState<"replay" | "live">("replay");
+  // `/?scenario=U001&mode=live` arrives from the upload page: an ad-hoc scenario that is not in /api/scenarios.
+  const urlScenario = useMemo(() => {
+    const q = new URLSearchParams(window.location.search);
+    const id = q.get("scenario");
+    return id && /^[A-Za-z0-9_-]{1,32}$/.test(id) ? { id, live: q.get("mode") === "live" } : null;
+  }, []);
+  const [scenarioId, setScenarioId] = useState<string | null>(urlScenario?.id ?? null);
+  const [mode, setMode] = useState<"replay" | "live">(urlScenario && isUploadId(urlScenario.id) ? "live" : "replay");
   const [runId, setRunId] = useState<string | null>(null);
-  const [passcode, setPasscode] = useState<string | null>(null); // memory only: never in URLs or storage
+  const [passcode, setPasscode] = useState<string | null>(getPasscode()); // memory only: never in URLs or storage
   const [askPass, setAskPass] = useState<string | null | false>(false); // false = closed, string|null = open with optional error
   const [evidence, setEvidence] = useState<string | null>(null);
   const [tab, setTab] = useState<Tab>("line");
@@ -31,7 +39,8 @@ export function Console({ catalog }: { catalog: Catalog }) {
   });
   const fellBack = useRef(false);
 
-  const scenario = useMemo(() => all.find((s) => s.id === scenarioId) ?? null, [all, scenarioId]);
+  const adHoc = isUploadId(scenarioId);
+  const scenario = useMemo(() => all.find((s) => s.id === scenarioId) ?? (adHoc && scenarioId ? adHocScenario(scenarioId) : null), [all, scenarioId, adHoc]);
   const { state, conn, httpError, start, abort, reset } = useIncidentStream(scenarioId, mode);
 
   // Default scenario: the first real-signal one with a recorded replay (the demo path).
@@ -46,7 +55,10 @@ export function Console({ catalog }: { catalog: Catalog }) {
     setRunId(runs[0] ?? null);
   }, [scenarioId]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const liveAllowed = !!config?.modes.live && !config.budget.exhausted;
+  const liveAllowed = (!!config?.modes.live || (adHoc && !!mock)) && !config?.budget.exhausted;
+  useEffect(() => {
+    if (adHoc && mode !== "live") setMode("live"); // uploads have no recorded replay
+  }, [adHoc, mode]);
   const streaming = conn === "connecting" || conn === "streaming" || conn === "reconnecting";
   const canReplay = runs.length > 0;
   const replayInfo = useMemo(() => replays.find((r) => r.run_id === active?.runId) ?? null, [replays, active]);
@@ -62,6 +74,19 @@ export function Console({ catalog }: { catalog: Catalog }) {
     [start, speed],
   );
 
+  // Arriving from the upload page: start the live run at once with the in-memory passcode (ask if it is missing).
+  const autoStarted = useRef(false);
+  useEffect(() => {
+    if (autoStarted.current || !urlScenario?.live || !isUploadId(urlScenario.id) || !config || scenarioId !== urlScenario.id) return;
+    // Deferred and cancellable so React StrictMode's mount/unmount/mount in dev cannot abort the stream it just opened.
+    const t = setTimeout(() => {
+      autoStarted.current = true;
+      if (passcode) void go("live", null, passcode);
+      else setAskPass(null);
+    }, 0);
+    return () => clearTimeout(t);
+  }, [config, scenarioId]); // eslint-disable-line react-hooks/exhaustive-deps
+
   function investigate() {
     if (mode === "live" && !passcode) {
       setAskPass(null);
@@ -74,6 +99,7 @@ export function Console({ catalog }: { catalog: Catalog }) {
   useEffect(() => {
     if (httpError?.status === 401) {
       setPasscode(null);
+      storePasscode(null);
       setAskPass("That passcode was not accepted. Try again, or use a recorded replay.");
     }
   }, [httpError]);
@@ -153,13 +179,14 @@ export function Console({ catalog }: { catalog: Catalog }) {
               <select
                 id="scenario"
                 value={scenarioId ?? ""}
-                disabled={streaming || !scenarios}
+                disabled={streaming || (!scenarios && !adHoc)}
                 onChange={(e) => {
                   setScenarioId(e.target.value);
                   reset();
                 }}
                 className="mt-1 w-full rounded border border-line bg-raised px-2 py-2 text-sm"
               >
+                {adHoc && scenarioId && <optgroup label="Your upload"><option value={scenarioId}>{uploadLabel(scenarioId)}</option></optgroup>}
                 {scenarios?.groups.map((g) => (
                   <optgroup key={g.id} label={g.id === "synthetic" ? "Synthetic scenarios" : "Real-signal scenarios"}>
                     {g.scenarios.map((s) => (
@@ -173,7 +200,7 @@ export function Console({ catalog }: { catalog: Catalog }) {
               </select>
               {scenario && (
                 <p className="mt-1 text-[11px] text-muted">
-                  {scenario.real_signal ? "Real signals" : "Simulated"} · <span className="font-mono">{scenario.source_label}</span> · stop at {fmtDateTime(scenario.stop_ts)}
+                  {adHoc ? "Your data" : scenario.real_signal ? "Real signals" : "Simulated"} · <span className="font-mono">{scenario.source_label}</span>{scenario.stop_ts && <> · stop at {fmtDateTime(scenario.stop_ts)}</>}
                 </p>
               )}
             </div>
@@ -181,8 +208,8 @@ export function Console({ catalog }: { catalog: Catalog }) {
             <fieldset className="space-y-1" disabled={streaming}>
               <legend className="text-xs font-semibold">Mode</legend>
               <div className="flex gap-2">
-                <label className={`flex flex-1 cursor-pointer items-center gap-2 rounded border px-2 py-1.5 text-sm ${mode === "replay" ? "border-accent" : "border-line"}`}>
-                  <input type="radio" name="mode" value="replay" checked={mode === "replay"} onChange={() => setMode("replay")} className="accent-[rgb(var(--accent))]" />
+                <label className={`flex flex-1 items-center gap-2 rounded border px-2 py-1.5 text-sm ${mode === "replay" ? "border-accent" : "border-line"} ${adHoc ? "cursor-not-allowed opacity-60" : "cursor-pointer"}`}>
+                  <input type="radio" name="mode" value="replay" checked={mode === "replay"} disabled={adHoc} onChange={() => setMode("replay")} className="accent-[rgb(var(--accent))]" />
                   Replay
                 </label>
                 <label className={`flex flex-1 items-center gap-2 rounded border px-2 py-1.5 text-sm ${mode === "live" ? "border-accent" : "border-line"} ${liveAllowed ? "cursor-pointer" : "cursor-not-allowed opacity-60"}`}>
@@ -190,6 +217,7 @@ export function Console({ catalog }: { catalog: Catalog }) {
                   Run live
                 </label>
               </div>
+              {adHoc && <p className="text-[11px] text-muted" data-testid="no-replay-note">Replay is not available for uploaded data. This investigates your file live.</p>}
               {!liveAllowed && <p className="text-[11px] text-muted">{config?.budget.exhausted ? "Live is paused: today's budget is used up. Replays are free." : "Live runs are not enabled here."}</p>}
               {mode === "live" && liveAllowed && <p className="text-[11px] text-muted">Needs the demo passcode. Calls Gemini; costs real money.</p>}
               {mode === "replay" && runs.length > 1 && (
@@ -268,6 +296,7 @@ export function Console({ catalog }: { catalog: Catalog }) {
           onCancel={() => setAskPass(false)}
           onSubmit={(p) => {
             setPasscode(p);
+            storePasscode(p);
             setAskPass(false);
             void go("live", null, p);
           }}

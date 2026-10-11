@@ -40,6 +40,9 @@ export interface ApiConfig {
   budget: { daily_usd: number; remaining_usd: number; exhausted: boolean };
   limits: { live_runs_per_day: number; live_runs_per_min_per_ip: number };
   replays_available: number;
+  /** Not in the contract yet: stretch feature flags, if the API ever reports them (see lib/features.ts). */
+  stretch?: unknown;
+  features?: unknown;
 }
 export interface SourceDataset {
   id: string;

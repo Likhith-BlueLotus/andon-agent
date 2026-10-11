@@ -4,7 +4,7 @@ import { BADGE_TEXT, THEME_STRING, readMock } from "../lib/config";
 import { IconMoon, IconSun } from "./ui";
 import { Dialog } from "./Dialog";
 
-export function Header({ path, navigate, theme, onTheme, catalog }: { path: string; navigate: (p: string) => void; theme: "dark" | "light"; onTheme: () => void; catalog: Catalog }) {
+export function Header({ path, navigate, theme, onTheme, catalog, showUpload = false }: { path: string; navigate: (p: string) => void; theme: "dark" | "light"; onTheme: () => void; catalog: Catalog; showUpload?: boolean }) {
   const mock = readMock();
   const link = (to: string, label: string) => (
     <a
@@ -36,6 +36,7 @@ export function Header({ path, navigate, theme, onTheme, catalog }: { path: stri
       <nav aria-label="Views" className="ml-auto flex items-center gap-1">
         {link("/", "Console")}
         {link("/eval", "Eval")}
+        {showUpload && link("/upload", "Upload")}
         <button type="button" onClick={onTheme} className="btn !min-h-[32px] !px-2" aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}>
           {theme === "dark" ? <IconSun /> : <IconMoon />}
           <span className="hidden sm:inline">{theme === "dark" ? "Light" : "Dark"}</span>

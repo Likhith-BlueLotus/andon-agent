@@ -62,22 +62,23 @@ export function ProvenanceChip({ provenance }: { provenance: ProvenanceRef[] }) 
     <span className="inline-flex flex-wrap gap-1">
       {[...groups.values()].map((refs) => {
         const r = refs[0];
-        const text = r.real ? `REAL · ${sourceName(r.source_id)}` : "SYNTHETIC";
+        const upload = r.source_id === "user_upload";
+        const text = upload ? "USER UPLOAD" : r.real ? `REAL · ${sourceName(r.source_id)}` : "SYNTHETIC";
         return (
           <Popover
             key={`${r.source_id}${r.real}`}
             label={`${text}. Show source rows and transform`}
             trigger={
               <span
-                className={`chip ${r.real ? "border-fg bg-transparent font-semibold text-fg" : "border-transparent bg-raised text-muted"}`}
-                data-provenance={r.real ? "real" : "synthetic"}
+                className={`chip ${upload ? "border-dashed border-accent bg-accent/10 font-semibold text-accent" : r.real ? "border-fg bg-transparent font-semibold text-fg" : "border-transparent bg-raised text-muted"}`}
+                data-provenance={upload ? "upload" : r.real ? "real" : "synthetic"}
               >
                 {text}
               </span>
             }
           >
             <span className="block font-mono text-[11px] uppercase tracking-wider text-muted">
-              {r.real ? "Real signal mapped onto a synthetic line" : "Simulated on the synthetic line"}
+              {upload ? "Your uploaded file, mapped by you onto the synthetic line. Not a verified public source." : r.real ? "Real signal mapped onto a synthetic line" : "Simulated on the synthetic line"}
             </span>
             <ul className="mt-1 space-y-1">
               {refs.map((x, i) => (

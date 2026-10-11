@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Dialog } from "./Dialog";
 
-export function PasscodeDialog({ error, onSubmit, onCancel }: { error: string | null; onSubmit: (p: string) => void; onCancel: () => void }) {
+export function PasscodeDialog({ error, onSubmit, onCancel, intro, cta = "Run live" }: { error: string | null; onSubmit: (p: string) => void; onCancel: () => void; intro?: string; cta?: string }) {
   const [v, setV] = useState("");
   return (
-    <Dialog title="Demo passcode for live runs" onClose={onCancel} labelId="pass-title">
+    <Dialog title={cta === "Run live" ? "Demo passcode for live runs" : "Demo passcode"} onClose={onCancel} labelId="pass-title">
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -12,7 +12,7 @@ export function PasscodeDialog({ error, onSubmit, onCancel }: { error: string | 
         }}
         className="space-y-3"
       >
-        <p className="text-sm">A live run calls Gemini and spends real budget, so it needs the demo passcode. Replays need none.</p>
+        <p className="text-sm">{intro ?? "A live run calls Gemini and spends real budget, so it needs the demo passcode. Replays need none."}</p>
         {error && <p role="alert" className="text-sm text-bad">{error}</p>}
         <div>
           <label htmlFor="passcode" className="text-xs font-semibold">Passcode</label>
@@ -21,7 +21,7 @@ export function PasscodeDialog({ error, onSubmit, onCancel }: { error: string | 
         </div>
         <div className="flex justify-end gap-2">
           <button type="button" className="btn" onClick={onCancel}>Cancel</button>
-          <button type="submit" className="btn-primary" disabled={!v.trim()}>Run live</button>
+          <button type="submit" className="btn-primary" disabled={!v.trim()}>{cta}</button>
         </div>
       </form>
     </Dialog>
