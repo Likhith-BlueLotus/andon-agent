@@ -481,7 +481,9 @@ class LLM:
                     )
         except Exception as exc:
             # the ledger row has no message field; log it so failures are diagnosable
-            log.warning("llm call failed (%s, %s): %s: %.300s", agent, used, type(exc).__name__, exc)
+            log.warning(
+                "llm call failed (%s, %s): %s: %.300s", agent, used, type(exc).__name__, exc
+            )
             self.record(
                 None,
                 agent=agent,
