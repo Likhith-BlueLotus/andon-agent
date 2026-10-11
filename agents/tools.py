@@ -760,6 +760,23 @@ def rerun(ctx: ToolContext, evidence: Evidence | dict[str, Any]) -> dict:
             "provenance": [p.model_dump(mode="json") for p in res["provenance"]]}  # fmt: skip
 
 
+def probe(ctx: ToolContext, name: str, args: dict[str, Any]) -> dict:
+    """Run a read-only tool for the Verifier's own checks (citation premises, ADR-025). Same
+    return shape as :func:`rerun`; records nothing in state and does not count toward limits."""
+    if name not in TOOL_REGISTRY:
+        return {"error": {"code": "unknown_tool", "message": f"no tool {name!r}"}}
+    res = _execute(name, ctx, dict(args))
+    if "error" in res:
+        return res
+    return {"summary": res["summary"],
+            "provenance": [p.model_dump(mode="json") for p in res["provenance"]]}  # fmt: skip
+
+
+def stop_epoch(ctx: ToolContext) -> int:
+    """Stop time of the incident (epoch seconds)."""
+    return _epoch(_stop(ctx)["stop_ts"])
+
+
 # --- public tools (docstrings are the model-facing descriptions) ------------------------------
 def get_stop_event(ctx: ToolContext, line_id: str) -> dict:
     """Get the line stop being investigated: stopped station, stop time and code, shift, product
@@ -915,5 +932,5 @@ __all__ = [
     "COMMANDER_TOOLS", "LIBRARIAN_TOOLS", "SIGNAL_TOOLS", "TOOL_REGISTRY", "BlobReader",
     "EvidenceView", "GCSReader", "ToolContext", "ToolSpec", "anomaly_score", "bind_tools",
     "detect_change_points", "get_shift_notes", "get_stop_event", "get_work_orders",
-    "list_assets", "query_telemetry", "rerun", "search_alarms", "spectrum",
+    "list_assets", "probe", "query_telemetry", "rerun", "search_alarms", "spectrum", "stop_epoch",
 ]  # fmt: skip

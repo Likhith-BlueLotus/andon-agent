@@ -25,8 +25,8 @@ from google.adk.sessions import InMemorySessionService
 from google.genai import types
 
 import config
-from agents import tools as T
 from agents import loto_policy
+from agents import tools as T
 from agents import verifier as V
 from agents.adk_budget import AndonBudgetPlugin
 from agents.llm import LLM, SpendTracker
@@ -571,3 +571,120 @@ async def test_adk_verifier_invalid_draft_is_fail(world, ev):
         "status": "insufficient_evidence",
     }
     assert "invalid" in state["rejected_claims"][0]["reason"]
+
+
+# --- citation premises (ADR-025) -------------------------------------------------------------
+SUSTAINED_FALL = ("A sustained fall in header pressure while the compressor runs loaded indicates "
+                  "demand exceeding supply, most often a distribution leak.")  # fmt: skip
+LONGER_LOADED = "Compressor loaded longer than usual, header pressure still normal"
+
+
+def _cite(quote, cid="c1"):
+    return claim(cid, "citation", [], text="The manual says so.",
+                 citation=Citation(doc="compressed_air", page=_page(quote), quote=quote))  # fmt: skip
+
+
+_AIR_HYP = Hypothesis(cause_class=C.AIR_PRESSURE_DROP, asset_id="UT-AIR", confidence=0.8,
+                      causal_chain=["UT-AIR"], claims=[])  # fmt: skip
+
+
+def test_citation_premise_met_on_an_air_leak(world, ev):
+    """S801 is an injected air leak: the header falls below cut-in while the compressor is
+    loaded, so the 'sustained fall' note applies."""
+    idx = V._EvidenceIndex(_vctx(world, ev))
+    v, why, _ = V._check_citation(_cite(SUSTAINED_FALL), _AIR_HYP, idx)
+    assert v == "pass", why
+    assert "verbatim" in why and "premises met" in why and "header_pressure_bar" in why
+
+
+def test_citation_without_premises_is_wording_only(world, ev):
+    q = "Check drop-leg fittings and quick couplings at the weld cells first; they account for most leaks on this header."
+    v, why, _ = V._check_citation(_cite(q), _AIR_HYP, V._EvidenceIndex(_vctx(world, ev)))
+    assert v == "pass" and "premises" not in why
+
+
+class _FakeStore:
+    def get_stop_event(self, scenario_id):
+        return {"stop_ts": "2026-09-19T21:32:59Z", "history_start": "2026-09-12T21:32:59Z",
+                "history_end": "2026-09-19T21:32:59Z", "line_id": "L1"}  # fmt: skip
+
+
+class _FakeIdx:
+    """R002-like world without a store: the compressor runs loaded, the header saw-tooth only
+    shifts inside its band (ADR-018). ``probes`` maps tool -> summary (or an error)."""
+
+    def __init__(self, probes):
+        self.ctx = T.ToolContext(_FakeStore(), "R002", state={})
+        self.probes = probes
+
+    def all_evidence(self):
+        return []
+
+    def rerun(self, eid):  # pragma: no cover - no gathered evidence here
+        raise AssertionError
+
+    def probe(self, tool, args):
+        out = self.probes[(tool, args.get("tag") or args["tags"][0])]
+        return out if "error" in out else {"summary": out, "provenance": []}
+
+
+def _r002_like(header_cps=(), header_mean=6.414):
+    def q(tag, **st):
+        return {"t0": "a", "t1": "b", "tags": {tag: {"status": "ok", "unit": "", **st}}}
+
+    return {
+        ("query_telemetry", "header_pressure_bar"): q("header_pressure_bar", mean=header_mean, min=6.4, max=6.43),
+        ("detect_change_points", "header_pressure_bar"): {"t0": "a", "t1": "b", "change_points": list(header_cps)},
+        ("query_telemetry", "compressor_current_a"): q("compressor_current_a", mean=64.2, min=56.7, max=67.1, loaded_fraction=1.0),
+        ("detect_change_points", "compressor_current_a"): {"t0": "a", "t1": "b", "change_points": [
+            {"ts": "2026-09-19T17:43:59Z", "direction": "up", "delta": 0.887, "after_mean": 1.0,
+             "magnitude_pct": 782.4, "shape": "step"}]},
+    }  # fmt: skip
+
+
+def test_citation_premise_not_met_r002_like():
+    """The live R002 bug: header pressure did not fall (it shifted -5 % inside its band, never
+    below cut-in) while the compressor ran loaded. The quote is verbatim, but its premise fails."""
+    cps = [{"ts": "2026-09-19T17:37:59Z", "direction": "down", "delta": -0.33, "after_mean": 6.4269,
+            "magnitude_pct": -4.989, "shape": "step"}]  # fmt: skip
+    idx = _FakeIdx(_r002_like(header_cps=cps))
+    v, why, measured = V._check_citation(_cite(SUSTAINED_FALL), _AIR_HYP, idx)
+    assert v == "fail", why
+    assert why.startswith("premise not met: UT-AIR header_pressure_bar did not stay below 6.2")
+    assert measured == 6.414
+    # the passage that does describe R002 passes on the same evidence
+    v2, why2, _ = V._check_citation(_cite(LONGER_LOADED), _AIR_HYP, idx)
+    assert v2 == "pass" and "compressor_current_a rises" in why2
+
+
+def test_citation_premise_without_evidence_is_unverifiable():
+    err = {"error": {"code": "tool_failed"}}
+    idx = _FakeIdx({k: err for k in _r002_like()})
+    v, why, _ = V._check_citation(_cite(SUSTAINED_FALL), _AIR_HYP, idx)
+    assert v == "unverifiable" and "could not be checked" in why
+    # no change point detected at all is absence of evidence, not a contradiction
+    v, why, _ = V._check_citation(_cite(LONGER_LOADED), _AIR_HYP, _FakeIdx(
+        {**_r002_like(), ("detect_change_points", "compressor_current_a"): {"change_points": []}}))  # fmt: skip
+    assert v == "unverifiable", why
+
+
+def test_citation_premise_fails_in_the_report_and_feeds_the_revision_loop(world, ev):
+    """A premise failure is an ordinary failed claim: overall FAIL and a rejected_claims entry
+    with the reason and measured value, so the Judge revises (max 3 iterations)."""
+    n = claim("n1", "numeric", [ev["q_air"]["evidence_id"]], text="loaded path: tags.compressor_current_a.loaded_fraction",
+              asserted_value=ev["q_air"]["summary"]["tags"]["compressor_current_a"]["loaded_fraction"])  # fmt: skip
+    pump = "Pressure pulsing at the stroke rate, flow low"  # premise: ST40 flow below normal
+    bad = claim("c9", "citation", [], text="Pump starving.",
+                citation=Citation(doc="sealer_pump", page=_page(pump, "sealer_pump"), quote=pump))  # fmt: skip
+    rep = RCAReport(incident_id="x", status="verified", hypotheses=[
+        Hypothesis(cause_class=C.AIR_PRESSURE_DROP, asset_id="UT-AIR", confidence=0.8,
+                   causal_chain=["UT-AIR"], claims=[n, _cite(SUSTAINED_FALL, "c1"), bad])])  # fmt: skip
+    v, cvs = V.verify_report(rep, _vctx(world, ev), 1)
+    by = {c.claim_id: c for c in cvs}
+    assert by["c1"].verdict == "pass", by["c1"].reason
+    assert by["c9"].verdict == "fail", by["c9"].reason
+    assert by["c9"].reason.startswith("premise not met: ST40-SLR flow_rate_ccm was not below")
+    assert by["c9"].measured_value is not None
+    assert v.overall == "FAIL"
+    assert any(r["claim_id"] == "c9" and r["reason"] == by["c9"].reason
+               for r in V.rejected_claims(cvs, rep))  # fmt: skip

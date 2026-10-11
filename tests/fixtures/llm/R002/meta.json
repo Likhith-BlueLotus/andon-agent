@@ -1,20 +1,19 @@
 {
  "cost": {
   "by_model": {
-   "gemini-3.1-flash-lite": 0.00119,
-   "gemini-3.8-flash": 0.168945
+   "gemini-3.1-flash-lite": 0.00122,
+   "gemini-3.8-flash": 0.146034
   },
-  "cached_tokens": 119341,
-  "input_tokens": 211761,
-  "output_tokens": 23380,
-  "usd": 0.170136
+  "cached_tokens": 107088,
+  "input_tokens": 222805,
+  "output_tokens": 12876,
+  "usd": 0.147254
  },
  "final_status": "verified",
  "force_bad_claim": false,
- "incident_id": "inc_r002_2220f1b5",
+ "incident_id": "inc_r002_6a53696d",
  "judge_model": "gemini-3.8-flash",
- "note": "recorded live 2026-10-11 before the judge MEDIUM-thinking change; replay is model-independent",
- "recorded_at": "2026-10-11T05:01:10+00:00",
+ "recorded_at": "2026-10-11T14:24:31+00:00",
  "scenario_id": "R002",
  "verdicts": [
   "PASS"

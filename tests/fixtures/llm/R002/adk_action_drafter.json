@@ -8,45 +8,21 @@
        "asset_id": "UT-AIR",
        "cause_class": "air_pressure_drop",
        "parts": [
-        "Air hose couplings",
-        "Hose clamps",
-        "Replacement seals / gaskets",
-        "Unloader valve rebuild kit"
+        "pneumatic quick couplings",
+        "hose clamps",
+        "sealing tape"
        ],
        "repair_steps": [
-        "Conduct an ultrasonic leak survey along the main plant air header and branch drop legs to ST20 and ST30 to locate any audible or pneumatic leaks.",
-        "Inspect the compressor intake unloader valve and actuator linkage for sticking, contamination, or mechanical failure.",
-        "Inspect drop-leg ball valves, couplings, and filter-regulator assemblies feeding weld cells ST20 and ST30.",
-        "Replace or repair identified leaking fittings, clamps, or damaged unloader valve components.",
-        "Re-pressurize system and verify compressor cycles normally between load and unload setpoints."
+        "Conduct ultrasonic leak survey along main plant air distribution header and drop legs.",
+        "Inspect identified joints, hose clamps, and quick-disconnect fittings for physical damage or leakage.",
+        "Replace damaged quick couplings or hose sections and retorque loose fittings.",
+        "Verify header pressure recovers above cut-in setpoint and compressor resumes normal load/unload cycling."
        ],
-       "safety_step_ids": [
-        "compressed_air:1",
-        "compressed_air:2",
-        "compressed_air:3",
-        "compressed_air:4",
-        "compressed_air:5",
-        "compressed_air:6",
-        "compressed_air:7",
-        "compressed_air:8",
-        "compressed_air:9",
-        "compressed_air:10",
-        "compressed_air:11",
-        "compressed_air:12",
-        "compressed_air:13",
-        "compressed_air:14",
-        "compressed_air:15",
-        "compressed_air:16",
-        "compressed_air:17",
-        "compressed_air:18",
-        "compressed_air:19",
-        "compressed_air:20",
-        "compressed_air:21"
-       ]
+       "safety_step_ids": []
       },
       "name": "draft_work_order"
      },
-     "thought_signature": "AY89a1-umL5tyjIoDd1uDuy_BxQSypt6dkUd2gbdIGMHUW055cRZYOVacGq016jFlEJ1X8xdEaiqUV1rKcOiagI26tQ-ZeqwS33DK-iAqQx0YKcOeyx-"
+     "thought_signature": "AY89a18_Giv6InDp8pJcpd3h-C-Fju2yDHf5P6Kh3fKxcRZ1emhnnn3mkSVBSOsSWPWWeKi7QzeMs2MtndFaTUgxZMegNKZ8w9tL4kjI43MQDabTsTpY"
     },
     {
      "text": ""
@@ -58,21 +34,21 @@
   "model_version": "gemini-3.8-flash",
   "partial": false,
   "usage_metadata": {
-   "candidates_token_count": 378,
+   "candidates_token_count": 142,
    "candidates_tokens_details": [
     {
      "modality": "TEXT",
-     "token_count": 378
+     "token_count": 142
     }
    ],
-   "prompt_token_count": 2616,
+   "prompt_token_count": 2258,
    "prompt_tokens_details": [
     {
      "modality": "TEXT",
-     "token_count": 2616
+     "token_count": 2258
     }
    ],
-   "total_token_count": 2994,
+   "total_token_count": 2400,
    "traffic_type": "ON_DEMAND"
   }
  },
@@ -80,11 +56,29 @@
   "content": {
    "parts": [
     {
-     "text": "The draft maintenance work order has been created successfully.\n\n### Work Order Summary\n- **Work Order ID:** `WO-DRAFT-R002-0687E1`\n- **Status:** `PENDING_APPROVAL` (requires human approval)\n- **Asset ID:** `UT-AIR`\n- **Cause Class:** `air_pressure_drop`\n- **Safety Steps:** 21 energy-control steps applied covering all required phases (prepare, shutdown, isolate, lock, stored, verify, release) from the compressed air manual.\n- **Repair Steps:**\n  1. Conduct an ultrasonic leak survey along the main plant air header and branch drop legs to ST20 and ST30 to locate any audible or pneumatic leaks.\n  2. Inspect the compressor intake unloader valve and actuator linkage for sticking, contamination, or mechanical failure.\n  3. Inspect drop-leg ball valves, couplings, and filter-regulator assemblies feeding weld cells ST20 and ST30.\n  4. Replace or repair identified leaking fittings, clamps, or damaged unloader valve components.\n  5. Re-pressurize system and verify compressor cycles normally between load and unload setpoints.\n- **Parts / Consumables:** Air hose couplings, hose clamps, replacement seals / gaskets, unloader valve rebuild kit."
+     "function_call": {
+      "args": {
+       "asset_id": "UT-AIR",
+       "cause_class": "air_pressure_drop",
+       "parts": [
+        "pneumatic quick couplings",
+        "hose clamps",
+        "sealing tape"
+       ],
+       "repair_steps": [
+        "Conduct ultrasonic acoustic leak survey along main plant air distribution header and branch legs.",
+        "Examine leaking points found during acoustic survey.",
+        "Replace damaged quick couplings or pneumatic hoses.",
+        "Verify header pressure stabilizes and compressor returns to normal load/unload cycling."
+       ],
+       "safety_step_ids": []
+      },
+      "name": "draft_work_order"
+     },
+     "thought_signature": "AY89a1_VTKj6Z-vAydVYytT2Oapeoa-c6X1id5wzFN42ibjssxelN4G50XM0BzjBwZnd_tXNNMG8fsSP9uwbDr7JFLG15XfQ-RKovPuZe1wnYvsxxDqT"
     },
     {
-     "text": "",
-     "thought_signature": "AY89a1_DZoXPGKWYKmLr6IfdY40MT6pqOKIAOXbfjkBxZkjoRvr-q8X2mGs_Fe_5VJlCIhp9XkZbmueXMUB3GZrmEDocvdxRaZg6p_9SmTsJ2l4ba9hk"
+     "text": ""
     }
    ],
    "role": "model"
@@ -93,21 +87,56 @@
   "model_version": "gemini-3.8-flash",
   "partial": false,
   "usage_metadata": {
-   "candidates_token_count": 282,
+   "candidates_token_count": 123,
    "candidates_tokens_details": [
     {
      "modality": "TEXT",
-     "token_count": 282
+     "token_count": 123
     }
    ],
-   "prompt_token_count": 2931,
+   "prompt_token_count": 2411,
    "prompt_tokens_details": [
     {
      "modality": "TEXT",
-     "token_count": 2931
+     "token_count": 2411
     }
    ],
-   "total_token_count": 3213,
+   "total_token_count": 2534,
+   "traffic_type": "ON_DEMAND"
+  }
+ },
+ {
+  "content": {
+   "parts": [
+    {
+     "text": "Draft work order `WO-DRAFT-R002-E467DD` has been created with status **PENDING_APPROVAL** for asset `UT-AIR` under cause class `air_pressure_drop`.\n\n### Work Order Details\n- **Work Order ID**: `WO-DRAFT-R002-E467DD`\n- **Asset ID**: `UT-AIR`\n- **Cause Class**: `air_pressure_drop`\n- **Status**: `PENDING_APPROVAL` (requires human approval)\n- **Safety Steps**: 19 mandatory energy-control steps automatically inserted from the compressed air manual.\n- **Conditional Safety Steps**: None (`safety_step_ids: []` as work focuses on the distribution line leak detection and line repair rather than work on the compressor/receiver body itself).\n- **Parts**:\n  - Pneumatic quick couplings\n  - Hose clamps\n  - Sealing tape\n- **Repair Steps**:\n  1. Conduct ultrasonic acoustic leak survey along main plant air distribution header and branch legs.\n  2. Examine leaking points found during acoustic survey.\n  3. Replace damaged quick couplings or pneumatic hoses.\n  4. Verify header pressure stabilizes and compressor returns to normal load/unload cycling."
+    },
+    {
+     "text": "",
+     "thought_signature": "AY89a1-iczR93T1964uZqEwryKDSntnUAWV5u_IDIF4jUXAe0cAJ44vyh59_kpCwPE6aM_Eh_-8PLfX5JDQ1tw01JRVCGWllNI1gL7ifX2SEFaBHvmZu"
+    }
+   ],
+   "role": "model"
+  },
+  "finish_reason": "STOP",
+  "model_version": "gemini-3.8-flash",
+  "partial": false,
+  "usage_metadata": {
+   "candidates_token_count": 269,
+   "candidates_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 269
+    }
+   ],
+   "prompt_token_count": 2538,
+   "prompt_tokens_details": [
+    {
+     "modality": "TEXT",
+     "token_count": 2538
+    }
+   ],
+   "total_token_count": 2807,
    "traffic_type": "ON_DEMAND"
   }
  }

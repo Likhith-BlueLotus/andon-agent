@@ -158,3 +158,12 @@ Template — copy for each entry:
 - **Fix:** batch deploys at the end of a phase and run them with the human present (`firebase login` as the GCP owner first).
 - **Do differently / rule added:** check `firebase login:list` and deploy permissions at phase start, not at the end.
 - **Cost (time / $):** 0 / $0.
+
+### 2026-10-11 — Verbatim is not applicable; "pick the safety steps" is not safe (agents, person A)
+- **What happened:** a live R002 WO dropped an unconditional LOTO step (absence-of-voltage test) because the model chose the step ids; a verbatim manual quote whose premise ("sustained fall in header pressure") was false in this incident passed the verifier.
+- **Fix:** ADR-025 — code inserts mandatory steps (text-pinned classification), the verifier checks citation premises against telemetry with its own deterministic probe.
+- **Surprise:** the change-point detector is window-sensitive: on R002 the analyst's 9.5 h window found no header change point while a 24 h window found a −5 % step inside the normal band. A direction check alone would have re-passed the bad citation; the premise had to be the manual's own level (below cut-in), and "no change point detected" had to be unverifiable, not a contradiction (short UCI faults are invisible to it).
+- **Also seen:** the drafter's repair-step filter rejects "quick-disconnect fittings" (`disconnect\w*` in `SAFETY_WORDS`); the model recovered on its second call.
+- **Do differently / rule added:** anything safety-relevant that an LLM "selects" must have a code-side floor; every quoted fact needs a code-checked applicability condition, not just a string match.
+- **Cost (time / $):** ~3 h / $0.147 (one live R002 run, also used to re-record the fixture).
+

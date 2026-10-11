@@ -42,7 +42,10 @@ Kind rules:
   the signed offset in seconds (asserted minus closest event).
 * ``citation`` — ``citation`` must be present and :func:`simulator.manuals.find_quote` true on the
   stated page (whitespace-normalised; quotes under 20 characters never pass). A quote found on a
-  different page fails with the pages it is on.
+  different page fails with the pages it is on. A verbatim quote that overlaps a passage with
+  measurable premises (``simulator.manuals.premises``) must also be *applicable*: each premise is
+  checked against this incident's telemetry by :mod:`agents.premise_check` (ADR-025);
+  contradicted -> fail ("premise not met: ..."), not checkable -> unverifiable.
 * ``causal_order`` — assets are read from ``hypothesis.causal_chain`` (asset ids, or station codes
   such as ``ST30``); the root is ``hypothesis.asset_id`` (or the first chain asset). Onsets come
   from the claim's cited ``detect_change_points`` evidence (re-run): the earliest change point
@@ -84,7 +87,7 @@ from google.adk.events import Event, EventActions
 from pydantic import ConfigDict, ValidationError
 
 import config
-from agents import loto_policy
+from agents import loto_policy, premise_check
 from agents.schemas import (
     Claim,
     ClaimVerdict,
@@ -94,9 +97,10 @@ from agents.schemas import (
     VerifierVerdict,
     WorkOrder,
 )
-from agents.tools import EVIDENCE_PREFIX, ToolContext, rerun
+from agents.tools import EVIDENCE_PREFIX, ToolContext, probe, rerun
 from simulator import plant
 from simulator.manuals import DOCS, MIN_QUOTE_CHARS, find_quote, locate_quote, normalise
+from simulator.manuals.premises import premises_for
 
 MIN_PASSING_CHECKABLE = 2  # distinct passing non-qualitative claims needed on the top hypothesis
 TRANSIENT_RERUN_ERRORS = frozenset({"tool_failed", "raw_unavailable"})
@@ -261,6 +265,20 @@ class _EvidenceIndex:
         self.ctx = ctx
         self._ev: dict[str, Evidence | None] = {}
         self._reruns: dict[str, _Rerun] = {}
+        self._probes: dict[str, dict[str, Any]] = {}
+
+    def all_evidence(self) -> list[Evidence]:
+        """Every evidence item gathered in this incident (state order)."""
+        ids = [k[len(EVIDENCE_PREFIX) :] for k in list(self.ctx.state)
+               if isinstance(k, str) and k.startswith(EVIDENCE_PREFIX)]  # fmt: skip
+        return [ev for i in ids if (ev := self.get(i)) is not None]
+
+    def probe(self, tool: str, args: dict[str, Any]) -> dict[str, Any]:
+        """The Verifier's own read-only tool run (cached per report; records nothing)."""
+        key = _dump([tool, args])
+        if key not in self._probes:
+            self._probes[key] = probe(self.ctx, tool, args)
+        return self._probes[key]
 
     def get(self, evidence_id: str) -> Evidence | None:
         if evidence_id not in self._ev:
@@ -458,7 +476,8 @@ def _check_temporal(claim: Claim, idx: _EvidenceIndex) -> Result:
     return "fail", f"{iso} is {off:+.0f} s from the closest event {eid}:{path} ({ts:%Y-%m-%dT%H:%M:%SZ}); tolerance ±{tol} s", off  # fmt: skip
 
 
-def _check_citation(claim: Claim) -> Result:
+def _check_citation(claim: Claim, hyp: Hypothesis | None = None,
+                    idx: _EvidenceIndex | None = None) -> Result:  # fmt: skip
     c = claim.citation
     if c is None:
         return "fail", "citation claim has no citation", None
@@ -467,7 +486,16 @@ def _check_citation(claim: Claim) -> Result:
     if len(normalise(c.quote)) < MIN_QUOTE_CHARS:
         return "fail", f"quote shorter than {MIN_QUOTE_CHARS} characters proves nothing", None
     if find_quote(c.doc, c.page, c.quote):
-        return "pass", f"quote found verbatim in {c.doc} p.{c.page}", None
+        where = f"quote found verbatim in {c.doc} p.{c.page}"
+        premises = premises_for(c.doc, c.page, c.quote)
+        if not premises:
+            return "pass", where, None
+        if idx is None:
+            return "unverifiable", f"{where}; its premises need incident evidence", None
+        v, why, measured = premise_check.check(
+            premises, c.doc, hyp.asset_id if hyp is not None else None, idx, _cp_artefact
+        )
+        return v, f"{where}; {why}" if v == "pass" else why, measured
     elsewhere = locate_quote(c.doc, c.quote)
     if elsewhere:
         return "fail", f"quote is in {c.doc} on page(s) {elsewhere}, not page {c.page}", None
@@ -574,7 +602,7 @@ def _check_claim(claim: Claim, hyp: Hypothesis, idx: _EvidenceIndex) -> Result:
     if claim.kind == "temporal":
         return _check_temporal(claim, idx)
     if claim.kind == "citation":
-        return _check_citation(claim)
+        return _check_citation(claim, hyp, idx)
     if claim.kind == "causal_order":
         return _check_causal(claim, hyp, idx)
     if claim.evidence_ids:

@@ -6,7 +6,8 @@
   Flash-Lite triage note, labelled as a model summary, never as evidence.
 * ``cite_manual(asset_type, symptom)`` asks Flash, with the manuals context cache, for candidate
   quotes as structured output; code keeps only quotes that :func:`simulator.manuals.find_quote`
-  verifies verbatim (a quote found on another page gets that page), stores them as Evidence and
+  verifies verbatim (a quote found on another page gets that page), attaches the passage's
+  measurable premises (``applies_if``, ADR-025), stores them as Evidence and
   emits a ``cache_hit`` event with the tokens and dollars the cache saved.
 """
 
@@ -31,6 +32,7 @@ from agents.runtime import EVENT_PREFIX, Runtime, agent_marks
 from agents.schemas import Evidence, ProvenanceRef
 from agents.untrusted import NOTICE, wrap, wrap_summary
 from simulator.manuals import DOCS, find_quote, locate_quote
+from simulator.manuals.premises import premises_for
 
 log = logging.getLogger("andon.librarian")
 
@@ -205,7 +207,11 @@ def verify_candidates(cands: list[CandidateCitation]) -> tuple[list[dict], int, 
         if key in seen:
             continue
         seen.add(key)
-        kept.append({"doc": c.doc, "page": page, "quote": c.quote.strip()})
+        cit: dict[str, Any] = {"doc": c.doc, "page": page, "quote": c.quote.strip()}
+        prem = premises_for(c.doc, page, c.quote)
+        if prem:  # ADR-025: the Verifier checks these against this incident's telemetry
+            cit["applies_if"] = [p.as_dict() for p in prem]
+        kept.append(cit)
     return kept[:MAX_CITATIONS], dropped, corrected
 
 

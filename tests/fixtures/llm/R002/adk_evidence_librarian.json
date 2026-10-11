@@ -7,18 +7,18 @@
       "args": {
        "line_id": "L1",
        "t0": "2026-09-19T18:00:00Z",
-       "t1": "2026-09-19T21:45:00Z"
+       "t1": "2026-09-19T21:40:00Z"
       },
       "name": "search_alarms"
      },
-     "thought_signature": "AY89a19qGHpfPPKzvdSxtYoFN0OQI4K8iGpgaQ7NvipDBLwx1lHy90grHF6KyOb0-Sa93GQto1yhcmwCTDsFQ6Ez4UrFCsZegp1aQ-LZ-ADl-EjvOiW0"
+     "thought_signature": "AY89a185ARYjonYUuCm8ewAeK-N8Kp_W6mZXsnlj6u0AHgyl9qVNUwO6CA_fSg8_EPlCblAcyQwzPFZClQGQfsCxjY6oX8ZAGWiLYKp4SxI8gfvUTKOK"
     },
     {
      "function_call": {
       "args": {
        "line_id": "L1",
-       "t0": "2026-09-19T14:00:00Z",
-       "t1": "2026-09-19T22:30:00Z"
+       "t0": "2026-09-19T12:00:00Z",
+       "t1": "2026-09-19T22:00:00Z"
       },
       "name": "get_shift_notes"
      }
@@ -58,14 +58,14 @@
      "token_count": 242
     }
    ],
-   "prompt_token_count": 2009,
+   "prompt_token_count": 2063,
    "prompt_tokens_details": [
     {
      "modality": "TEXT",
-     "token_count": 2009
+     "token_count": 2063
     }
    ],
-   "total_token_count": 2251,
+   "total_token_count": 2305,
    "traffic_type": "ON_DEMAND"
   }
  },
@@ -76,17 +76,17 @@
      "function_call": {
       "args": {
        "asset_type": "compressed_air",
-       "symptom": "compressor running loaded continuously"
+       "symptom": "running loaded continuously"
       },
       "name": "cite_manual"
      },
-     "thought_signature": "AY89a18lC5kKDdCDtRTXYCLyFc5-uCsyWI2KEsGYmgL9LY6z9UoE9lqRc1cRfpd7oqsJ1TGe4O3OETxsVob150qVchCbL7xIgkU4knNornHfbOxGhnmF"
+     "thought_signature": "AY89a186NlM-fMJL-bYh8Rtkj-jzGYLCFeihbPmP_bUI14pdl6w2eIY5gCHUwF4W9W7Zv4PS9m9KfZA3SJCfe3_ZMmWEXHYvyQJRngryXaFIRX-EqYL-"
     },
     {
      "function_call": {
       "args": {
        "asset_type": "weld_controller",
-       "symptom": "low air pressure"
+       "symptom": "air pressure"
       },
       "name": "cite_manual"
      }
@@ -101,21 +101,21 @@
   "model_version": "gemini-3.8-flash",
   "partial": false,
   "usage_metadata": {
-   "candidates_token_count": 63,
+   "candidates_token_count": 60,
    "candidates_tokens_details": [
     {
      "modality": "TEXT",
-     "token_count": 63
+     "token_count": 60
     }
    ],
-   "prompt_token_count": 6401,
+   "prompt_token_count": 6457,
    "prompt_tokens_details": [
     {
      "modality": "TEXT",
-     "token_count": 6401
+     "token_count": 6457
     }
    ],
-   "total_token_count": 6464,
+   "total_token_count": 6517,
    "traffic_type": "ON_DEMAND"
   }
  },
@@ -123,11 +123,11 @@
   "content": {
    "parts": [
     {
-     "text": "### Evidence Report\n\n#### 1. Alarms (`search_alarms`)\n* **Evidence ID:** `ev_search_alarms_1`\n* **Findings:**\n  * **2026-09-19T20:19:46Z:** Info alarm `A-ST20-DOOR-OPN` (cell door opened via key switch).\n  * **2026-09-19T21:32:59Z:** Stop alarm `S-ST20-AIR-HOLD` on `ST20-WLD`: *\"ST20 Weld cell A: line held by line lead, plant air compressor running loaded continuously (utilities check)\"*.\n  * **2026-09-19T21:33:01Z to 21:35:14Z:** Downstream and upstream cascading starve/block alarms (`A-L1-ANDON`, `A-ST10-BLOCKED`, `A-ST30-STARVED`, `A-ST40-STARVED`, `A-ST50-STARVED`, `A-ST60-STARVED`).\n  * No automated low-pressure trip alarms (such as `A-UTAIR-HDR-LO` or station interlock trips) fired prior to the manual line hold.\n* **Hypothesis Evaluation:** Supports the premise that the stoppage was an operator/line-lead hold prompted by observing the compressor running loaded, rather than an automatic mechanical trip.\n\n---\n\n#### 2. Shift Notes (`get_shift_notes`)\n* **Evidence ID:** `ev_get_shift_notes_1`\n* **Findings:**\n  * **2026-09-19T16:55:00Z:** Note `R002-N03` reports product model changeover completed (Model A to Model B) with no major prior alarms.\n  * **2026-09-19T21:38:59Z & 21:39:47Z:** Notes `R002-N04` / `R002-N04d` report: *\"03:02 line stop ST20 weld cell A held by lead. Plant air compressor loaded continuously. Maintenance called.\"*\n* **Hypothesis Evaluation:** Corroborates the alarm record that the cell was manually held due to the compressor running loaded continuously.\n\n---\n\n#### 3. Maintenance Work Orders (`get_work_orders`)\n* **Asset `UT-AIR` (Evidence ID: `ev_get_work_orders_1`):**\n  * Past work orders show leak and filter/coupling issues: `WO-2601996` (2026-07-30: replaced coupling for air leak), `WO-2601930` (2026-06-30: tightened leaking hose clamp, outcome noted \"hiss continues\"), and dryer maintenance (`WO-2601992`, `WO-2601932`, `WO-2601922`).\n* **Asset `ST20-WLD` (Evidence ID: `ev_get_work_orders_2`):**\n  * History includes regulator replacements: `WO-2601950` (2026-07-11: replaced gauge and regulator for pressure spike) and `WO-2601942` (2026-07-07: replaced air regulator assembly for erratic gun force).\n* **Hypothesis Evaluation:** Supports the possibility of pneumatic distribution leaks on `UT-AIR` or regulator/pressure drift at `ST20-WLD`.\n\n---\n\n#### 4. Manual Citations (`cite_manual`)\n* **Compressed Air Manual (`ev_cite_manual_1`, Page 15):**\n  * *\"When leakage plus demand exceed what the compressor can deliver, the compressor stays loaded, header pressure falls below the cut-in pressure, and the 5.6 bar low alarm (A-UTAIR-HDR-LO) follows.\"*\n  * *\"A sustained fall in header pressure while the compressor runs loaded indicates demand exceeding supply, most often a distribution leak.\"*\n  * Directs an *\"Ultrasonic leak survey of the header and the ST20/ST30 drop legs with the cells stopped\"*.\n* **Weld Controller Manual (`ev_cite_manual_2`, Page 19):**\n  * *\"Regulated gun air (`air_pressure_bar`) normally sits at 5.6 bar within 5.3 to 5.9 bar. Below 5 bar the cell raises a low-air alarm; at 4.6 bar the supply-air interlock stops the cell.\"*\n  * *\"When gun air pressure falls at ST20 and ST30 together, the cause is upstream in the plant air supply; check the header pressure... When gun air falls at one cell only, check that cell's filter-regulator, drop-leg ball valve and quick couplings.\"*\n* **Hypothesis Evaluation:** Defines diagnostic criteria: if header pressure drops and both ST20 and ST30 are depressed, an upstream utility distribution fault is indicated; if only ST20 drops, a station branch/regulator failure is indicated."
+     "text": "### Alarm Summary (`search_alarms`)\n- **Evidence ID**: `ev_search_alarms_1`\n- **Initial info event**: `2026-09-19T20:19:46Z` – `A-ST20-DOOR-OPN` (ST20 cell door opened via key switch).\n- **First stop event**: `2026-09-19T21:32:59Z` – `S-ST20-AIR-HOLD` on `ST20-WLD` (*\"ST20 Weld cell A: line held by line lead, plant air compressor running loaded continuously (utilities check)\"*).\n- **Subsequent cascade**:\n  - `2026-09-19T21:33:01Z`: `A-L1-ANDON` on `ST20-WLD`.\n  - `2026-09-19T21:33:46Z`: `A-ST10-BLOCKED` on `ST10-PRS`.\n  - `2026-09-19T21:33:58Z` to `21:35:14Z`: `STARVED` alarms across downstream stations (`ST30-WLD`, `ST40-SLR`, `ST50-CNV`, `ST60-VIS`).\n- **Support / Refutation**: Supports hypothesis that the stop was initiated manually at `ST20-WLD` (`S-ST20-AIR-HOLD`) due to compressed air system behavior rather than an automatic low gun air interlock trip (no `A-UTAIR-HDR-LO` or `A-ST20-GUN-FRC` alarms were recorded prior to the hold).\n\n---\n\n### Shift Notes (`get_shift_notes`)\n- **Evidence ID**: `ev_get_shift_notes_1`\n- **2026-09-19T16:55:00Z** (`R002-N03`): Model A to Model B changeover completed at 22:00 (shift schedule reference), no major alarms in previous shift.\n- **2026-09-19T21:38:59Z** (`R002-N04` / duplicate `R002-N04d`): Maintenance technician noted: *\"03:02 line stop ST20 weld cell A held by lead. Plant air compressor loaded continuously. Maintenance called.\"*\n- **Support / Refutation**: Corroborates the stop code description that the line lead held `ST20` due to observing the plant air compressor running continuously loaded.\n\n---\n\n### Work Orders (`get_work_orders`)\n- **UT-AIR** (`ev_get_work_orders_1`):\n  - `WO-2601996` (2026-07-30): Replaced coupling for air leak symptom (*\"no hiss\"*).\n  - `WO-2601992` (2026-07-28): Replaced filter on dryer alarm.\n  - `WO-2601932` (2026-07-03): Replaced faulty drain solenoid after `WO-2601930` failed.\n  - `WO-2601930` (2026-06-30): Tightened leaking hose clamp (*\"hiss continues\"*).\n  - `WO-2601923` & `WO-2601922` (2026-06-27): Compressor oil and desiccant cartridge maintenance.\n  - **Support / Refutation**: Shows historical leakage at couplings and hose clamps on the compressed air distribution.\n- **ST20-WLD** (`ev_get_work_orders_2`):\n  - `WO-2601950` (2026-07-11): Replaced gauge and regulator for pressure spike.\n  - `WO-2601942` (2026-07-07): Replaced air regulator assembly for erratic gun force.\n  - Multiple past work orders for servo cooling/fans and pin sticking.\n  - **Support / Refutation**: Demonstrates past regulator assembly replacements on `ST20-WLD`.\n\n---\n\n### Manual Citations (`cite_manual`)\n- **Compressed Air Manual** (`ev_cite_manual_1`, page 15):\n  - *\"When leakage plus demand exceed what the compressor can deliver, the compressor stays loaded, header pressure falls below the cut-in pressure, and the 5.6 bar low alarm (A-UTAIR-HDR-LO) follows.\"*\n  - *\"A sustained fall in header pressure while the compressor runs loaded indicates demand exceeding supply, most often a distribution leak.\"*\n  - Diagnostic: *\"Ultrasonic leak survey of the header and the ST20/ST30 drop legs with the cells stopped\"* to address distribution leaks (drop legs, couplings, hoses).\n- **Weld Controller Manual** (`ev_cite_manual_2`, page 19):\n  - *\"Regulated gun air (`air_pressure_bar`) normally sits at 5.6 bar within 5.3 to 5.9 bar. Below 5 bar the cell raises a low-air alarm; at 4.6 bar the supply-air interlock stops the cell.\"*\n  - *\"When gun air pressure falls at ST20 and ST30 together, the cause is upstream in the plant air supply; check the header pressure... When gun air falls at one cell only, check that cell's filter-regulator, drop-leg ball valve and quick couplings.\"*\n- **Support / Refutation**: Directly addresses the discrimination criteria between upstream air header loss (`UT-AIR`) versus localized drop leg / regulator faults at `ST20-WLD` or `ST30-WLD`."
     },
     {
      "text": "",
-     "thought_signature": "AY89a1_yMQcBHEaOqw-s5VkBbq3AHqfUHToG7-5Hj0u439teoqYJyY770tfhqLkTdZruIgGa4qF8cbJBq1FWD5Ypi1-1N5yWMMIb4rLsMEDmXrmzQdZK"
+     "thought_signature": "AY89a1-KahR8J1jlDY3A5UQdTWBLQg6EuzBskXb5s_f9OVZ6kBB2cGhNY11eYtDqwkdAw8u9c7j9XOaXVOnS11r5xouUJPF88E4Hu1CY6pjKEGU4Wz9N"
     }
    ],
    "role": "model"
@@ -139,25 +139,25 @@
    "cache_tokens_details": [
     {
      "modality": "TEXT",
-     "token_count": 3261
+     "token_count": 3231
     }
    ],
-   "cached_content_token_count": 3261,
-   "candidates_token_count": 1184,
+   "cached_content_token_count": 3231,
+   "candidates_token_count": 1360,
    "candidates_tokens_details": [
     {
      "modality": "TEXT",
-     "token_count": 1184
+     "token_count": 1360
     }
    ],
-   "prompt_token_count": 7044,
+   "prompt_token_count": 7259,
    "prompt_tokens_details": [
     {
      "modality": "TEXT",
-     "token_count": 7044
+     "token_count": 7259
     }
    ],
-   "total_token_count": 8228,
+   "total_token_count": 8619,
    "traffic_type": "ON_DEMAND"
   }
  }
