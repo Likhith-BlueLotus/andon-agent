@@ -46,3 +46,7 @@ data/cache/gcs/
 # anomaly models: regenerable from the simulator (uv run python -m analytics.anomaly train)
 data/models/
 data/cmms/
+
+# local API state (audit trail, mock CMMS) - Firestore in the cloud
+data/audit/
+data/cmms/

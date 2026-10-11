@@ -119,3 +119,10 @@ Template — copy for each entry:
 - **Fix:** field renamed to `content_hash`; the 4 historical fingerprints (each inspected) in `.gitleaksignore`; full-history gitleaks clean (Docker `zricethezav/gitleaks:v8.24.3`).
 - **Do differently / rule added:** before committing a subset, test it in a clean worktree (`git worktree add` + apply the staged diff); check `gh run list` after every push; never name a hash field `key`/`token`/`secret`.
 - **Cost (time / $):** 25 min / $0.
+
+### 2026-10-11 — API streaming and tests (phase 3, person A)
+- **What happened:** `httpx.ASGITransport` and `TestClient` buffer the whole response, so they cannot show incremental SSE or a disconnect. Starlette cancels the response generator with an anyio cancel scope, where any `await` in `finally` is cancelled again, so an "audit the cancellation" write after a disconnect never ran.
+- **Fix:** streaming and disconnect tests drive the ASGI app directly (`Stream` in `tests/test_api.py`: queue-based `send`, `http.disconnect` on demand); the audit writer is a background task outside the request scope, `finally` only enqueues and cancels the producer (no await).
+- **Also:** the committed `tests/fixtures/sample_stream.jsonl` work order has a step ("release-from-lockout") that the drafter post-check rejects as an unmarked safety step; the API tests reword it. Person B's mocks should not show that text as a verified work order. DuckDB `fetchall()` on `timestamptz` needs `pytz`; cast to VARCHAR in SQL instead of adding a dependency.
+- **Cost (time / $):** live R002 run through the API $0.148, 87 s.
+

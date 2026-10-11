@@ -223,3 +223,12 @@ def test_ts_interface_fields_match(py_model, ts_name):
     body = re.search(rf"export interface {ts_name} \{{(.*?)\n\}}", src, re.S).group(1)
     ts_fields = set(re.findall(r"^\s+(\w+):", body, re.M))
     assert ts_fields == set(py_model.model_fields)
+
+
+def test_fixture_work_order_passes_the_drafter_safety_check():
+    """The frontend builds against this fixture, so its WO must be one the real drafter would
+    accept: verbatim LOTO quotes, and no unmarked step that reads like energy control."""
+    from agents.verifier import check_safety_steps
+
+    wo = next(E.parse_event(r) for r in load_fixture() if r["type"] == "work_order_draft").data
+    assert check_safety_steps(wo) == []

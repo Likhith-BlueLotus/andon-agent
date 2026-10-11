@@ -74,6 +74,7 @@ uv run python -m simulator.generate --set S --n 60 --seed 2026 --out data/scenar
 uv run python -m simulator.real_signals --out data/scenarios                 # R001–R017
 uv run python -m simulator.audio --scenarios data/scenarios --upload        # MIMII clips → GCS + audio_index.json
 uv run python -m simulator.load --scenarios data/scenarios --target duckdb   # or bigquery; --ids R reloads only those
+uv run python -m simulator.publish --scenarios data/scenarios               # agent-visible files → gs://…/store/v1 (live serving, ADR-021)
 uv run python -m agents.cli --scenario S001                                 # one diagnosis in terminal
 uv run uvicorn api.main:app --reload --port 8080
 cd web && npm i && npm run dev                                               # VITE_API_URL=http://localhost:8080

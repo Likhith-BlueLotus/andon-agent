@@ -13,6 +13,10 @@ DuckDB backend rewrites them to ``$name``). Only SQL both engines support is use
 DuckDB telemetry modes: ``view`` (default) reads the per-scenario Parquet files in place via a
 view created at connect time (no copy, ~10 MB/scenario on disk); ``table`` copies rows into the
 database file (self-contained, larger).
+
+Live serving (ADR-021): ``simulator.publish`` uploads the agent-visible files to GCS and
+``agents.store_cache`` rebuilds a per-scenario DuckDB from them through :func:`load_duckdb`
+(``history=`` / ``static=`` point it at the published shared tables).
 """
 
 from __future__ import annotations
@@ -360,26 +364,42 @@ def _static_tables() -> dict[str, pa.Table]:
     }
 
 
-def gather(root: Path, data_dir: Path) -> dict[str, pa.Table]:
+def gather(
+    root: Path,
+    data_dir: Path,
+    *,
+    history: Path | None = None,
+    static: dict[str, pa.Table] | None = None,
+) -> dict[str, pa.Table]:
+    """Every non-telemetry table, built from the scenario dirs under ``root``. Historical work
+    orders come from ``history`` (default ``data_dir/work_orders.parquet``); ``static`` replaces
+    the asset / spec-limit tables computed from :mod:`simulator.plant` (e.g. published copies)."""
     dirs = scenario_dirs(root)
     if not dirs:
         raise FileNotFoundError(f"no scenarios under {root}")
     out = {name: _concat(dirs, name) for name in SCENARIO_FILES}
-    hist = data_dir / "work_orders.parquet"
+    hist = history if history is not None else data_dir / "work_orders.parquet"
     if hist.exists():
         out["work_orders"] = pa.concat_tables(
             [pq.read_table(hist), out["work_orders"]], promote_options="default"
         )
     out["stop_events"] = _stop_events(dirs)
-    out.update(_static_tables())
+    out.update(static if static is not None else _static_tables())
     return out
 
 
-def load_duckdb(root: Path, db: Path, telemetry: Literal["view", "table"] = "view") -> DuckDBStore:
+def load_duckdb(
+    root: Path,
+    db: Path,
+    telemetry: Literal["view", "table"] = "view",
+    *,
+    history: Path | None = None,
+    static: dict[str, pa.Table] | None = None,
+) -> DuckDBStore:
     import duckdb
 
     data_dir = root.parent
-    tables = gather(root, data_dir)
+    tables = gather(root, data_dir, history=history, static=static)
     tmp = db.with_suffix(".tmp.duckdb")
     tmp.unlink(missing_ok=True)
     con = duckdb.connect(str(tmp))

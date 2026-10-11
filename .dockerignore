@@ -1,9 +1,13 @@
 .git
 .venv
 .claude
-data
+data/*
+# shipped: committed replays (replay mode), the data register (/api/sources)
+!data/replays
+!data/SOURCES.md
 docs
-eval/results
+eval/results/*
+!eval/results/latest.json
 web
 tests
 **/__pycache__

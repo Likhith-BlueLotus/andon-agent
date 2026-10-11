@@ -125,6 +125,17 @@ class SpendTracker:
         self._clock = clock or (lambda: datetime.now(self._tz))
         self._day: date = self._today()
         self._spent = 0.0
+        # Phase 3 hooks (api/budget.py): listeners see every booked amount (to persist it in a
+        # counter shared across instances); guards run inside check() and may raise
+        # BudgetExhaustedError, so a run already in flight stops at the shared budget too.
+        self._listeners: list[Callable[[float], None]] = []
+        self._guards: list[Callable[[], None]] = []
+
+    def add_listener(self, fn: Callable[[float], None]) -> None:
+        self._listeners.append(fn)
+
+    def add_guard(self, fn: Callable[[], None]) -> None:
+        self._guards.append(fn)
 
     def _today(self) -> date:
         return self._clock().astimezone(self._tz).date()
@@ -137,6 +148,11 @@ class SpendTracker:
     def add(self, usd: float) -> None:
         self._roll()
         self._spent += usd
+        for fn in self._listeners:
+            try:
+                fn(usd)
+            except Exception:  # a broken listener must never break a model call
+                log.exception("spend listener failed")
 
     def spent_today(self) -> float:
         self._roll()
@@ -151,6 +167,8 @@ class SpendTracker:
                 f"daily budget ${self.daily_budget_usd:.2f} exhausted "
                 f"(spent ${self._spent:.4f} on {self._day.isoformat()})"
             )
+        for fn in self._guards:
+            fn()
 
 
 # --- Client ----------------------------------------------------------------------------------

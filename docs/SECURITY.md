@@ -13,8 +13,10 @@ Secret Manager holds: `DEMO_PASSCODE`, `DAILY_BUDGET_USD` override. Mounted as e
 
 ## Public surface
 - CORS allow-list: the Firebase Hosting domain + localhost only.
-- Anonymous visitors get **replay mode**. Live runs require the passcode (header `X-Demo-Passcode`) and are rate-limited (e.g., 30 live runs/day, 3/minute per IP).
-- Daily spend kill switch in `agents/llm.py`: when the day's measured cost exceeds `DAILY_BUDGET_USD`, live runs return a `budget_exhausted` error event and the UI falls back to replay.
+- Anonymous visitors get **replay mode**. Live runs require the passcode (header `X-Demo-Passcode`, constant-time compare; no passcode configured = live disabled; 10 wrong attempts per IP per 5 min = 429) and are rate-limited: 30 live runs/day globally, 3/minute per IP, 2 concurrent per instance. Counters live in Firestore (`ratelimit_ip`, `ratelimit_day`) so instances share them; only passcode holders can consume quota.
+- Client IP = the `X-Forwarded-For` entry `TRUSTED_PROXY_HOPS` from the right (default 1): Cloud Run appends the real peer, so a leading, client-supplied hop is ignored.
+- Daily spend kill switch: `agents/llm.py` `SpendTracker` per process plus a shared Firestore counter `spend/{IST date}` (atomic increment on every booked call, `api/budget.py`). It is checked before a live run (fail closed if the counter is unreadable) and inside `SpendTracker.check()` before every model call, so a run in flight stops too. Exceeded -> `budget_exhausted` error event and the UI falls back to replay.
+- Request bodies over 64 KB get 413. Replay approvals of anonymous visitors go to `demo_work_orders`, never to the CMMS collection `work_orders`; approving a live incident needs the passcode.
 - Cloud Run `--max-instances=3` to cap blast radius.
 
 ## No physical actions
@@ -38,7 +40,7 @@ Only the USE list in `docs/DATA_SOURCES.md`. `/data-audit` checks: no raw extern
 All data is synthetic or from licensed public datasets with attribution (see `docs/DATA_SOURCES.md`). Gemini runs on `location=global` for availability; Cloud Run, BigQuery, GCS and Firestore live in `asia-south1`. Pitch-only "residency mode" (`RESIDENCY_MODE=asia-south1`): all agents switch to `gemini-3.5-flash` pinned to the regional endpoint and the Pro judge is disabled. Document honestly that the prototype uses global.
 
 ## Audit
-Note: `roles/datastore.user` cannot express create-only on a collection via IAM. Append-only is enforced in code (the API only calls `create()` on `audit/{id}/steps/{seq}`, never update/delete) and tested; `andon-api@` has no access to the eval bucket (verified) and `demo-passcode`/`daily-budget-usd` are readable only by `andon-api@`. Rate-limit counters live in `ratelimits/*` with a Firestore TTL policy on `expire_at`.
+Note: `roles/datastore.user` cannot express create-only on a collection via IAM. Append-only is enforced in code (the API only calls `create()` on `audit/{id}/steps/{seq}`, never update/delete) and tested; `andon-api@` has no access to the eval bucket (verified) and `demo-passcode`/`daily-budget-usd` are readable only by `andon-api@`. Per-IP rate-limit counters live in `ratelimit_ip/*` with a Firestore TTL policy on `expires_at` (per-day counters in `ratelimit_day/*`, one tiny doc per IST day).
 
 Every model call, tool call, verdict and human action is an append-only Firestore document with model ID, input hash, token counts, latency and verdict. No deletes from the API service account: the audit module exposes create-only operations (Firestore security rules do not bind server SDKs, so this is enforced in code and by a test).
 

@@ -10,6 +10,10 @@ Implementations behind one interface:
 * :class:`JsonlCMMS` — local runs, append-only ``data/cmms/work_orders.jsonl``;
 * :class:`FirestoreCMMS` — cloud, collection ``work_orders`` (create-only), selected by
   :func:`default_cmms` when ``STORE_BACKEND=bigquery`` or ``FIRESTORE`` is set.
+
+Human decisions (APPROVED / REJECTED) are recorded by the API through :meth:`decide` on the
+concrete classes (:class:`Decidable`), never through the agent-facing :class:`CMMS` protocol. A
+decision is final: it is only accepted on a ``PENDING_APPROVAL`` work order, exactly once.
 """
 
 from __future__ import annotations
@@ -32,10 +36,23 @@ class CMMSWriteError(RuntimeError):
     """A write the mock CMMS refuses (wrong status, duplicate id)."""
 
 
+class WorkOrderAlreadyDecided(CMMSWriteError):
+    """The work order is not PENDING_APPROVAL (a second approve/reject)."""
+
+
 class CMMS(Protocol):
     def create_draft(self, wo: WorkOrder) -> WorkOrder: ...
     def get(self, wo_id: str) -> WorkOrder | None: ...
     def list(self, incident_id: str | None = None) -> list[WorkOrder]: ...
+
+
+class Decidable(CMMS, Protocol):
+    def decide(self, wo_id: str, status: str, decision: dict) -> WorkOrder: ...
+
+
+def _check_decision(status: str) -> None:
+    if status not in ("APPROVED", "REJECTED"):
+        raise CMMSWriteError(f"a decision must be APPROVED or REJECTED, got {status}")
 
 
 def _check_new(wo: WorkOrder) -> None:
@@ -46,6 +63,7 @@ def _check_new(wo: WorkOrder) -> None:
 class InMemoryCMMS:
     def __init__(self) -> None:
         self._rows: dict[str, WorkOrder] = {}
+        self.decisions: dict[str, dict] = {}
         self._lock = threading.Lock()
 
     def create_draft(self, wo: WorkOrder) -> WorkOrder:
@@ -61,6 +79,19 @@ class InMemoryCMMS:
 
     def list(self, incident_id: str | None = None) -> list[WorkOrder]:
         return [w for w in self._rows.values() if incident_id in (None, w.incident_id)]
+
+    def decide(self, wo_id: str, status: str, decision: dict) -> WorkOrder:
+        """Human decision, exactly once, only on a PENDING_APPROVAL work order."""
+        _check_decision(status)
+        with self._lock:
+            wo = self._rows.get(wo_id)
+            if wo is None:
+                raise KeyError(wo_id)
+            if wo.status != "PENDING_APPROVAL":
+                raise WorkOrderAlreadyDecided(f"work order {wo_id} is already {wo.status}")
+            self._rows[wo_id] = wo = wo.model_copy(update={"status": status})
+            self.decisions[wo_id] = dict(decision)
+            return wo
 
 
 class JsonlCMMS(InMemoryCMMS):
@@ -82,13 +113,25 @@ class JsonlCMMS(InMemoryCMMS):
             f.write(wo.model_dump_json() + "\n")
         return wo
 
+    def decide(self, wo_id: str, status: str, decision: dict) -> WorkOrder:
+        wo = super().decide(wo_id, status, decision)
+        with self._lock, self.path.open("a", encoding="utf-8") as f:  # later row wins on reload
+            f.write(wo.model_dump_json() + "\n")
+        return wo
 
-class FirestoreCMMS:  # pragma: no cover - needs Firestore; exercised in Phase 3 deploy checks
+
+class FirestoreCMMS:
+    """``work_orders/{wo_id}``. Drafts are create-only; a decision is one atomic batch that
+    creates ``work_orders/{wo_id}/decisions/final`` (fails if it exists, so a second decision
+    cannot win) and flips ``status``. ``collection`` lets the API keep anonymous replay approvals
+    in ``demo_work_orders`` instead of the CMMS."""
+
     def __init__(self, client: Any = None, collection: str = COLLECTION) -> None:
         if client is None:
             from google.cloud import firestore
 
             client = firestore.Client(project=config.PROJECT or None)
+        self._client = client
         self._col = client.collection(collection)
 
     def create_draft(self, wo: WorkOrder) -> WorkOrder:
@@ -104,6 +147,25 @@ class FirestoreCMMS:  # pragma: no cover - needs Firestore; exercised in Phase 3
     def list(self, incident_id: str | None = None) -> list[WorkOrder]:
         q = self._col if incident_id is None else self._col.where("incident_id", "==", incident_id)
         return [WorkOrder.model_validate(d.to_dict()) for d in q.stream()]
+
+    def decide(self, wo_id: str, status: str, decision: dict) -> WorkOrder:
+        from google.api_core.exceptions import AlreadyExists, Conflict
+
+        _check_decision(status)
+        wo = self.get(wo_id)
+        if wo is None:
+            raise KeyError(wo_id)
+        if wo.status != "PENDING_APPROVAL":
+            raise WorkOrderAlreadyDecided(f"work order {wo_id} is already {wo.status}")
+        ref = self._col.document(wo_id)
+        batch = self._client.batch()
+        batch.create(ref.collection("decisions").document("final"), {"status": status, **decision})
+        batch.update(ref, {"status": status})
+        try:
+            batch.commit()
+        except (AlreadyExists, Conflict) as exc:
+            raise WorkOrderAlreadyDecided(f"work order {wo_id} was decided concurrently") from exc
+        return wo.model_copy(update={"status": status})
 
 
 def default_cmms() -> CMMS:
