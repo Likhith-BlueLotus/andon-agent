@@ -1,0 +1,278 @@
+{
+ "run_id": "final_flash",
+ "generated_at": "2026-10-11T17:21:49+00:00",
+ "git_sha": "8e471e0f733ba91f7156b545e0e471713f070dbe",
+ "dry_run": false,
+ "purpose": "final",
+ "note": "S-set and R-set are never pooled. Intervals are 95% Wilson. ",
+ "sets": {
+  "S": [
+   {
+    "system": "S1 full pipeline (Flash judge)",
+    "n": 60,
+    "top1": {
+     "value": 0.9333,
+     "lo": 0.8407,
+     "hi": 0.9738
+    },
+    "top3": {
+     "value": 0.95,
+     "lo": 0.863,
+     "hi": 0.9829
+    },
+    "unsupported_claim_rate": {
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.0084
+    },
+    "median_time_s": 99.8,
+    "cost_per_run_usd": 0.112
+   },
+   {
+    "system": "S2 no verifier (Flash judge)",
+    "n": 60,
+    "top1": {
+     "value": 0.9667,
+     "lo": 0.8864,
+     "hi": 0.9908
+    },
+    "top3": {
+     "value": 0.9833,
+     "lo": 0.9114,
+     "hi": 0.9971
+    },
+    "unsupported_claim_rate": {
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.0084
+    },
+    "median_time_s": 91.1,
+    "cost_per_run_usd": 0.108
+   },
+   {
+    "system": "B1 single prompt",
+    "n": 60,
+    "top1": {
+     "value": 0.9167,
+     "lo": 0.8193,
+     "hi": 0.9639
+    },
+    "top3": {
+     "value": 0.95,
+     "lo": 0.863,
+     "hi": 0.9829
+    },
+    "unsupported_claim_rate": {
+     "value": 0.0798,
+     "lo": 0.0592,
+     "hi": 0.1069
+    },
+    "median_time_s": 43.3,
+    "cost_per_run_usd": 0.092
+   },
+   {
+    "system": "B2 classical",
+    "n": 60,
+    "top1": {
+     "value": 0.15,
+     "lo": 0.081,
+     "hi": 0.2611
+    },
+    "top3": {
+     "value": 0.15,
+     "lo": 0.081,
+     "hi": 0.2611
+    },
+    "unsupported_claim_rate": {
+     "value": null,
+     "lo": null,
+     "hi": null
+    },
+    "median_time_s": 0.4,
+    "cost_per_run_usd": 0.0
+   }
+  ],
+  "R": [
+   {
+    "system": "S1 full pipeline (Flash judge)",
+    "n": 17,
+    "top1": {
+     "value": 0.5882,
+     "lo": 0.3601,
+     "hi": 0.7839
+    },
+    "top3": {
+     "value": 0.8235,
+     "lo": 0.5897,
+     "hi": 0.9381
+    },
+    "unsupported_claim_rate": {
+     "value": 0.0086,
+     "lo": 0.0015,
+     "hi": 0.0472
+    },
+    "median_time_s": 90.8,
+    "cost_per_run_usd": 0.114
+   },
+   {
+    "system": "S2 no verifier (Flash judge)",
+    "n": 17,
+    "top1": {
+     "value": 0.7059,
+     "lo": 0.4687,
+     "hi": 0.8672
+    },
+    "top3": {
+     "value": 0.9412,
+     "lo": 0.7302,
+     "hi": 0.9895
+    },
+    "unsupported_claim_rate": {
+     "value": 0.0315,
+     "lo": 0.0123,
+     "hi": 0.0782
+    },
+    "median_time_s": 79.3,
+    "cost_per_run_usd": 0.108
+   },
+   {
+    "system": "B1 single prompt",
+    "n": 17,
+    "top1": {
+     "value": 0.5882,
+     "lo": 0.3601,
+     "hi": 0.7839
+    },
+    "top3": {
+     "value": 0.8824,
+     "lo": 0.6566,
+     "hi": 0.9671
+    },
+    "unsupported_claim_rate": {
+     "value": 0.0972,
+     "lo": 0.0588,
+     "hi": 0.1566
+    },
+    "median_time_s": 55.0,
+    "cost_per_run_usd": 0.097
+   },
+   {
+    "system": "B2 classical",
+    "n": 17,
+    "top1": {
+     "value": 0.2353,
+     "lo": 0.0956,
+     "hi": 0.4726
+    },
+    "top3": {
+     "value": 0.2353,
+     "lo": 0.0956,
+     "hi": 0.4726
+    },
+    "unsupported_claim_rate": {
+     "value": null,
+     "lo": null,
+     "hi": null
+    },
+    "median_time_s": 0.4,
+    "cost_per_run_usd": 0.0
+   }
+  ]
+ },
+ "tests": {
+  "S": [
+   {
+    "a_only": 2,
+    "b_only": 4,
+    "both_right": 54,
+    "both_wrong": 0,
+    "n": 60,
+    "p": 0.6875,
+    "test": "exact McNemar (two-sided binomial on discordant pairs)",
+    "a": "S1",
+    "b": "S2",
+    "metric": "top1",
+    "a_rate": 0.9333333333333333,
+    "b_rate": 0.9666666666666667,
+    "significant_at_0.05": false
+   },
+   {
+    "a_only": 5,
+    "b_only": 4,
+    "both_right": 51,
+    "both_wrong": 0,
+    "n": 60,
+    "p": 1.0,
+    "test": "exact McNemar (two-sided binomial on discordant pairs)",
+    "a": "S1",
+    "b": "B1",
+    "metric": "top1",
+    "a_rate": 0.9333333333333333,
+    "b_rate": 0.9166666666666666,
+    "significant_at_0.05": false
+   },
+   {
+    "a_only": 47,
+    "b_only": 0,
+    "both_right": 9,
+    "both_wrong": 4,
+    "n": 60,
+    "p": 0.0,
+    "test": "exact McNemar (two-sided binomial on discordant pairs)",
+    "a": "S1",
+    "b": "B2",
+    "metric": "top1",
+    "a_rate": 0.9333333333333333,
+    "b_rate": 0.15,
+    "significant_at_0.05": true
+   }
+  ],
+  "R": [
+   {
+    "a_only": 0,
+    "b_only": 2,
+    "both_right": 10,
+    "both_wrong": 5,
+    "n": 17,
+    "p": 0.5,
+    "test": "exact McNemar (two-sided binomial on discordant pairs)",
+    "a": "S1",
+    "b": "S2",
+    "metric": "top1",
+    "a_rate": 0.5882352941176471,
+    "b_rate": 0.7058823529411765,
+    "significant_at_0.05": false
+   },
+   {
+    "a_only": 2,
+    "b_only": 2,
+    "both_right": 8,
+    "both_wrong": 5,
+    "n": 17,
+    "p": 1.0,
+    "test": "exact McNemar (two-sided binomial on discordant pairs)",
+    "a": "S1",
+    "b": "B1",
+    "metric": "top1",
+    "a_rate": 0.5882352941176471,
+    "b_rate": 0.5882352941176471,
+    "significant_at_0.05": false
+   },
+   {
+    "a_only": 8,
+    "b_only": 2,
+    "both_right": 2,
+    "both_wrong": 5,
+    "n": 17,
+    "p": 0.109375,
+    "test": "exact McNemar (two-sided binomial on discordant pairs)",
+    "a": "S1",
+    "b": "B2",
+    "metric": "top1",
+    "a_rate": 0.5882352941176471,
+    "b_rate": 0.23529411764705882,
+    "significant_at_0.05": false
+   }
+  ]
+ }
+}

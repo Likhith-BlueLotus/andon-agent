@@ -1,0 +1,46 @@
+{
+ "run_id": "final_flash",
+ "dry_run": false,
+ "total_usd": 24.24622,
+ "n_calls_rows": 313,
+ "by_system": {
+  "S1": {
+   "runs": 77,
+   "usd": 8.63326,
+   "by_model": {
+    "gemini-3.8-flash": 8.5116,
+    "gemini-3.1-flash-lite": 0.12166
+   },
+   "mean_usd": 0.11212
+  },
+  "S2": {
+   "runs": 79,
+   "usd": 8.45189,
+   "by_model": {
+    "gemini-3.8-flash": 8.31554,
+    "gemini-3.1-flash-lite": 0.13635
+   },
+   "mean_usd": 0.10699
+  },
+  "B1": {
+   "runs": 80,
+   "usd": 7.16108,
+   "by_model": {
+    "gemini-3.8-flash": 7.16108
+   },
+   "mean_usd": 0.08951
+  },
+  "B2": {
+   "runs": 77,
+   "usd": 0.0,
+   "by_model": {},
+   "mean_usd": 0.0
+  }
+ },
+ "by_model": {
+  "gemini-3.1-flash-lite": 0.25801,
+  "gemini-3.8-flash": 23.98822
+ },
+ "estimated_usd": 0.2126,
+ "note": "includes superseded rows (retried errors); a dry run bills nothing"
+}
