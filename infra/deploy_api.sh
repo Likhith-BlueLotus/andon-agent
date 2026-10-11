@@ -11,7 +11,8 @@ export CLOUDSDK_ACTIVE_CONFIG_NAME="${CLOUDSDK_ACTIVE_CONFIG_NAME:-andon}"
 PROJECT="${PROJECT:-andon-agent-511218}"
 REGION="${REGION:-asia-south1}"
 EXTRA_ENV="${EXTRA_ENV:-}"   # e.g. ";REPLAY_ONLY=1" (leading ';' because of the ^;^ delimiter)
-ORIGINS="${ALLOWED_ORIGINS:-https://$PROJECT.web.app,https://$PROJECT.firebaseapp.com}"
+FIREBASE_PROJECT="${FIREBASE_PROJECT:-andon-agent-b9c77}"  # hosting lives in its own Firebase project (ADR-024)
+ORIGINS="${ALLOWED_ORIGINS:-https://$FIREBASE_PROJECT.web.app,https://$FIREBASE_PROJECT.firebaseapp.com}"
 [[ "${DEV:-0}" == "1" ]] && ORIGINS="$ORIGINS,http://localhost:5173"
 MIN=0; [[ "${WARM:-0}" == "1" ]] && MIN=1
 AUTH=(--no-allow-unauthenticated); [[ "${PUBLIC:-0}" == "1" ]] && AUTH=(--allow-unauthenticated)
