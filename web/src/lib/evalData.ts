@@ -43,14 +43,16 @@ export function toCell(v: unknown): Cell {
     const ci = Array.isArray(v.ci) ? (v.ci as unknown[]) : Array.isArray(v.wilson) ? (v.wilson as unknown[]) : null;
     const lo = pick(v, ["lo", "ci_lo", "wilson_lo", "low", "lower"]) ?? (ci ? numOf(ci[0]) : null);
     const hi = pick(v, ["hi", "ci_hi", "wilson_hi", "high", "upper"]) ?? (ci ? numOf(ci[1]) : null);
-    const text = value == null ? "n/a" : lo != null && hi != null ? `${fmt(value)} [${fmt(lo)}, ${fmt(hi)}]` : fmt(value);
+    const text = value == null ? "n/a" : lo != null && hi != null ? `${rate(value)} [${rate(lo)}, ${rate(hi)}]` : fmt(value);
     return { value, lo, hi, text };
   }
   const n = numOf(v);
   if (n != null) return { value: n, lo: null, hi: null, text: fmt(n) };
   return { value: null, lo: null, hi: null, text: v == null ? "n/a" : String(v) };
 }
-const fmt = (n: number) => (Number.isInteger(n) ? String(n) : n.toFixed(2));
+// rates with intervals always show two decimals (1.00, not 1); plain numbers: whole above 10 (81 s), else two decimals
+const rate = (n: number) => n.toFixed(2);
+const fmt = (n: number) => (Number.isInteger(n) || Math.abs(n) >= 10 ? String(Math.round(n)) : n.toFixed(2));
 
 function rowsOf(v: unknown): EvalRow[] {
   const toRow = (system: string, o: Obj): EvalRow => {

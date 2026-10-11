@@ -86,7 +86,7 @@ function SetBlock({ set }: { set: EvalSet }) {
           <ResponsiveContainer width="100%" height="100%" minWidth={200} minHeight={160}>
             <BarChart data={data} margin={{ top: 8, right: 12, bottom: 0, left: 0 }}>
               <CartesianGrid stroke="rgb(var(--line))" strokeDasharray="3 3" />
-              <XAxis dataKey="system" stroke="rgb(var(--muted))" tick={{ fontSize: 11 }} />
+              <XAxis dataKey="system" stroke="rgb(var(--muted))" tick={{ fontSize: 11 }} interval={0} tickFormatter={(v: string) => v.split(" ")[0]} />
               <YAxis domain={[0, 1]} stroke="rgb(var(--muted))" tick={{ fontSize: 11 }} width={36} />
               <Tooltip contentStyle={{ background: "rgb(var(--raised))", border: "1px solid rgb(var(--line))", fontSize: 12 }} />
               <Legend wrapperStyle={{ fontSize: 11 }} />
