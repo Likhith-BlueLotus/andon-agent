@@ -1,0 +1,120 @@
+{
+ "attempts": 1,
+ "doc": "press_hydraulics",
+ "model_id": "gemini-3.8-flash",
+ "output": {
+  "sections": [
+   {
+    "id": "about",
+    "paragraphs": [
+     "This manual serves operators, maintenance technicians, and reliability engineers working on the ST10-PRS hydraulic press and power unit. It provides operational instructions, technical specifications, and maintenance guidelines for line L1.",
+     "The manual is structured into numbered chapters. Chapter 1 addresses safety, Chapter 2 describes the equipment, and Chapter 3 presents technical data. Operational steps appear in Chapter 4, followed by Chapter 5 on control parameters, cycle timers, and change control. Chapter 6 contains troubleshooting assistance, Chapter 7 covers preventative maintenance tasks, and Chapter 8 details the energy control procedure. Supplementary definitions reside in Appendix A Glossary.",
+     "The troubleshooting material in Chapter 6 is organised by observed symptoms. This symptom-based structure allows rapid fault identification and systematic resolution during production."
+    ]
+   },
+   {
+    "id": "safety_intro",
+    "paragraphs": [
+     "Only trained personnel may operate, inspect, or service the ST10-PRS equipment. Safety devices, fixed guards, and interlocks are installed to safeguard personnel from severe hazards, including high-pressure fluid injection, mechanical crushing around the slide and die area, burns from hot surfaces, and electric shock.",
+     "Guards and interlocks must never be bypassed, altered, or disabled under any circumstances. Operating personnel must verify that all protective enclosures and safety barriers are fully in place before initiating motion. If any guard, hose, electrical enclosure, or safety device shows signs of damage or wear, personnel must stop work and report the condition immediately.",
+     "A routine production stop leaves stored pressure in the accumulator and electrical potential in the motor circuit. All maintenance tasks inside guarded areas require that personnel apply the energy control procedure in Chapter 8 before touching any components."
+    ]
+   },
+   {
+    "id": "overview",
+    "paragraphs": [
+     "The ST10-PRS hydraulic press operates as a core forming station on line L1 of the demonstration car body-in-white assembly line. It shapes sheet metal body components by driving an upper die downward onto matched tooling. Line L1 operates 24 hours a day across three consecutive shifts, requiring steady throughput and continuous reliability.",
+     "The station relies on a dedicated hydraulic power unit that delivers pressurized oil to execute each press stroke. The output of the station directly feeds downstream operations, specifically the ST20 weld cell. Proper geometry and material forming at ST10-PRS are critical to overall line flow. If parts depart this station with incorrect dimensions, downstream assembly processes encounter immediate fit-up errors and operational faults. Maintaining nominal stroke timing and pressure consistency ensures balanced transfer across the entire body shop line."
+    ]
+   },
+   {
+    "id": "principle",
+    "paragraphs": [
+     "The operating cycle begins when the electric pump motor drives the variable displacement hydraulic pump, drawing oil from the reservoir tank through suction filters. The proportional pressure valve regulates the main system pressure according to the active product recipe loaded for the run.",
+     "When the control system initiates a forming stroke, directional valves shift to route high-pressure hydraulic oil directly to the press cylinder. The nitrogen-precharged bladder accumulator discharges fluid into the main line, supplying peak flow during the stroke to smooth out pressure drops and accelerate slide motion. The cylinder advances the slide and upper die to form the part. After forming, the directional valves reverse fluid flow to retract the slide, and the returning oil passes through return filters and the oil cooler before entering the tank.",
+     "Throughout this sequence, multiple sensors monitor system health. The signal hyd_pressure_bar measures main system pressure, normally holding between 170 and 200 bar depending on the recipe. The signal motor_current_a monitors pump motor draw, staying within 34 to 50 A under typical load. Vibration velocity on the pump and motor assembly is tracked by vibration_rms_mms, which maintains a baseline of 1 to 4.5 mm/s. Tank temperature is registered by oil_temp_c, running between 35 and 55 degC as the oil cooler removes excess heat. Finally, cycle_time_s records the total duration of the completed press stroke, maintaining a nominal duration of 48 s within an acceptable range of 45 to 54 s."
+    ]
+   },
+   {
+    "id": "startup",
+    "paragraphs": [
+     "Shift start-up begins at the planned shift changeover times of 06:00, 14:00, or 22:00. Personnel conduct pre-start visual checks, verifying hydraulic oil levels in the main tank, inspecting the way-lube reservoir, checking filter clogging indicators, and ensuring that no oil leaks or puddles exist on the floor. Confirm all perimeter guards, doors, and interlocks are closed and secured.",
+     "Once pre-start inspections pass, the operator starts the pump motor. The motor current should settle within the normal range of 34 to 50 A. Main system pressure should rise and stabilize between 170 and 200 bar, matching the selected product recipe within the allowable setpoint tolerance of +/- 5 bar. Hydraulic oil temperature must be between 35 and 55 degC, and pump vibration must remain within 1 to 4.5 mm/s before releasing production."
+    ]
+   },
+   {
+    "id": "operation",
+    "paragraphs": [
+     "During production, the operator oversees equipment performance by checking cycle consistency and monitoring live instrumentation on the operator interface. Key parameters must remain within normal limits, including motor current between 34 and 50 A, main pressure between 170 and 200 bar, oil temperature between 35 and 55 degC, and vibration velocity between 1 and 4.5 mm/s. The nominal cycle time should remain near 48 s.",
+     "Any operational deviation must be reported to maintenance immediately. Operators must log and escalate conditions where motor current exceeds the alarm threshold of 55 A, vibration exceeds 7.1 mm/s, oil temperature exceeds 60 degC, or cycle time exceeds 58 s. Likewise, if main pressure drifts past the alarm thresholds of 165 bar or 205 bar, or if fluid leaks appear, notify maintenance personnel without delay."
+    ]
+   },
+   {
+    "id": "shutdown",
+    "paragraphs": [
+     "A normal production stop is executed from the control interface at the conclusion of a run or shift. Halting the station de-energizes the electric pump motor, centers the directional valves, and parks the press slide in its resting position.",
+     "Operating personnel must understand that a normal production stop does not establish an energy-isolated state. High electrical voltage remains present inside control enclosures, and pressurized hydraulic fluid stays stored within the bladder accumulator and main fluid circuits. Any maintenance, tooling adjustment, or intervention requires personnel to apply the energy control procedure in Chapter 8."
+    ]
+   },
+   {
+    "id": "controls_intro",
+    "paragraphs": [
+     "The ST10-PRS press relies on specific adjustable control parameters to ensure uniform mechanical operation. These parameters include product recipe pressure targets, directional valve switching intervals, and cycle timers that coordinate slide extension, dwell, and retraction. Each manufactured part requires defined force and timing to achieve proper structural dimensions.",
+     "Uncontrolled or unauthorized modifications to these settings introduce severe risks to both product quality and overall line throughput. Altering a pressure setpoint or cycle timer can result in under-formed metal panels, erratic press motion, and starved downstream operations. For these reasons, all operational modifications must adhere to formal change control procedures. Every parameter change must be reviewed, authorized, and validated against product specifications before release."
+    ]
+   },
+   {
+    "id": "ts_intro",
+    "paragraphs": [
+     "When addressing an operational issue, technicians should begin by consulting the symptom index in Chapter 6. Match the observed operational anomaly with the corresponding entry to locate the relevant troubleshooting section.",
+     "Review the typical signal signature to evaluate system behavior across pressure, cycle time, motor current, oil temperature, and vibration. Always verify that sensors and instrumentation are functioning correctly to rule out false transmitter readings. Technicians must methodically perform the inspections detailed in the check column before executing any suggested remedy. If physical intervention, disassembly, or component adjustment is required, apply the energy control procedure in Chapter 8 before starting hands-on work."
+    ]
+   },
+   {
+    "id": "maint_intro",
+    "paragraphs": [
+     "Strict adherence to preventive maintenance schedules ensures the operational reliability, safety, and pressing precision of the ST10-PRS. Routine servicing maintains proper fluid cleanliness, preserves accumulator performance, detects mechanical wear, and prevents unpredicted line stoppages on line L1.",
+     "Maintenance intervals range from per-shift fluid checks to weekly indicator inspections, quarterly cooler and accumulator services, and semi-annual or annual component overhauls. Whenever a technician completes a maintenance task, all findings, measurements, component replacements, and test results must be recorded in the equipment logbook. Complete records provide essential baseline data for reliability tracking and equipment health assessments."
+    ]
+   },
+   {
+    "id": "glossary",
+    "paragraphs": [
+     "Pump motor: An electric motor that supplies mechanical rotational energy to drive the hydraulic pump.",
+     "Hydraulic pump: A variable displacement pump that converts mechanical input into hydraulic fluid flow, developing increased internal leakage as mechanical wear accumulates.",
+     "Proportional pressure valve: An electrically commanded hydraulic valve that establishes the main circuit operating pressure based on the active product recipe.",
+     "Directional valves: Hydraulic spool valves that route pressurized oil to alternate sides of the press cylinder to execute stroke extension and retraction.",
+     "Bladder accumulator: A nitrogen-precharged hydraulic vessel that stores fluid under pressure to supply peak volume during the press stroke and smooth pressure spikes.",
+     "Oil cooler: A heat exchange device that extracts thermal energy from the hydraulic fluid to keep operating temperatures within specified limits.",
+     "Press cylinder and slide: The hydraulic actuator and structural ram assembly that carries the upper die downward to form sheet metal components.",
+     "Return and pressure filters: Porous filtration elements located in the supply and return lines that capture contaminants to preserve oil cleanliness.",
+     "Changeover: A 15 min planned operational window scheduled at shift start times 06:00, 14:00, and 22:00 to configure tooling, parameters, and recipes."
+    ]
+   },
+   {
+    "id": "bg_changeover",
+    "paragraphs": [
+     "Line L1 incorporates planned 15 min changeovers at the start of each shift at 06:00, 14:00, and 22:00. Product forming relies on specific recipe data loaded into the machine controller. Each product variant demands a distinct main pressure setpoint to achieve required metal deformation: product model A requires 180 bar, whereas product model B requires 190 bar, as detailed in Table 3-3. The acceptable setpoint tolerance after a changeover is +/- 5 bar.",
+     "When an incorrect recipe or an erroneous pressure value is loaded during changeover, the proportional pressure valve responds immediately. The sensor signal hyd_pressure_bar reflects this setting by shifting cleanly to the wrong pressure value right after the changeover and holding steady at that incorrect level. Because this error originates purely in software configuration, it appears as an abrupt step rather than a gradual drift. When pressure remains at an improper low setpoint, parts exit under-formed. Downstream at the ST20 weld cell, mismatched part geometries cause poor mating fit-up, triggering weld quality alarms and scatter in tip resistance."
+    ]
+   },
+   {
+    "id": "bg_hyd",
+    "paragraphs": [
+     "Hydraulic component degradation develops slowly over hours or days of continuous production, contrasting sharply with immediate changeover parameter steps. Four primary physical mechanisms drive this wear: variable pump internal leakage, switching valve lag, loss of bladder accumulator nitrogen precharge, and reduced oil cooler efficiency. As internal clearances in the pump widen, slip flow returns directly to the tank instead of the main line, reducing available volume under load.",
+     "Each wear mechanism alters sensor signatures in a distinctive manner across motor current, vibration, pressure, oil temperature, and cycle time. For instance, pump leakage and valve lag delay cylinder motion, while depleted accumulator precharge eliminates supplemental peak flow, causing severe pressure dips during the stroke. Reduced cooling capacity permits tank temperatures to climb toward the alarm limit of 60 degC and trip limit of 65 degC. Regardless of the specific mechanism, hydraulic degradation inevitably lengthens cycle_time_s beyond the nominal 48 s value, eventually exceeding the 58 s alarm threshold and starving downstream stations such as the ST20 weld cell."
+    ]
+   }
+  ]
+ },
+ "prompt": "manuals",
+ "prompt_version": "1",
+ "usage": [
+  {
+   "input_tokens": 2368,
+   "output_tokens": 2800,
+   "thinking_tokens": 0,
+   "usd": 0.012276
+  }
+ ]
+}

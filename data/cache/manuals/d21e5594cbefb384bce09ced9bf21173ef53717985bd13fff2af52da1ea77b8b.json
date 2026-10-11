@@ -1,0 +1,155 @@
+{
+ "attempts": 3,
+ "doc": "weld_controller",
+ "model_id": "gemini-3.8-flash",
+ "output": {
+  "sections": [
+   {
+    "id": "about",
+    "paragraphs": [
+     "This manual serves operators, maintenance technicians, and reliability engineers working on the resistance spot weld cells ST20-WLD and ST30-WLD on line L1.",
+     "The content is organized across eight chapters and an appendix. Chapter 1 introduces safety fundamentals, Chapter 2 outlines system description, and Chapter 3 provides technical data. Chapter 4 guides normal operation, while Chapter 5 addresses control parameters, cycle timers, and change control. Chapter 6 details troubleshooting, Chapter 7 establishes maintenance requirements, and Chapter 8 provides the energy control procedure. Appendix A supplies the glossary.",
+     "To expedite fault resolution, Chapter 6 organizes troubleshooting topics by symptom. Technical personnel can match observed line behavior directly to diagnostic signatures and targeted remedies."
+    ]
+   },
+   {
+    "id": "safety_intro",
+    "paragraphs": [
+     "Only trained personnel may operate, inspect, or maintain the spot weld cells. Safety devices, fixed guards, and interlocks protect personnel from electric shock, mechanical crushing, burns, flying weld spatter, stored air pressure, and hot coolant.",
+     "Guards and safety interlocks must never be bypassed, modified, or defeated under any operational condition. Operating personnel must inspect the cell surroundings continuously and immediately report any damaged cabling, guard fencing, pipework, or mechanical components.",
+     "Entering the cell enclosure or undertaking any maintenance, cleaning, or mechanical repair inside guarded areas presents severe hazards from the servo drive DC bus, transformer primary, servo gun, and pneumatic clamps. All maintenance tasks inside guarded areas require technicians to apply the energy control procedure in Chapter 8 before proceeding."
+    ]
+   },
+   {
+    "id": "overview",
+    "paragraphs": [
+     "The resistance spot weld cells ST20-WLD and ST30-WLD perform structural joining on car body-in-white assemblies on line L1. Line L1 operates 24 hours a day across three shifts, with each shift starting after a planned changeover.",
+     "Within the operational sequence, parts arrive at ST20-WLD from the ST10 press station. The cell fixtures clamp incoming sheet assemblies, verify alignment, and apply programmed resistance spot welds using the servo gun. Station ST30-WLD provides additional spot welding capability with an integrated coolant monitoring circuit.",
+     "Completed assemblies transfer downstream to subsequent stations including ST60, where finished weld quality and dimensions undergo verification. Reliable operation and steady cycle timing at ST20-WLD and ST30-WLD prevent part starvation and eliminate downstream assembly defects at ST60."
+    ]
+   },
+   {
+    "id": "principle",
+    "paragraphs": [
+     "A cycle begins when the part transfers into the fixture onto locating pins and net pads. Pneumatic clamps close to secure the part, and proximity switches confirm full clamp engagement before welding starts. Regulated gun air pressure feeds the cell at 5.6 bar, monitored within a normal range of 5.3 to 5.9 bar by the air pressure transmitter.",
+     "The servo drive energizes the servo gun motor and roller screw to close the water-cooled electrode arms against the part at the programmed electrode force. The weld controller executes the designated weld schedule, directing the weld transformer and rectifier to deliver the low-voltage, high-current secondary weld current. The controller measures secondary current, which remains between 9.8 and 11.2 kA in normal operation, while tracking dynamic tip resistance between 0.135 and 0.175 mOhm.",
+     "Between weld cycles, the controller current stepper raises weld current incrementally as the replaceable copper alloy caps wear. The motor-driven tip dresser cuts and restores the electrode tip face every 250 welds. On ST30-WLD, a coolant manifold and flow transmitter monitor gun and servo cooling, maintaining a nominal flow of 12 L/min within a normal range of 10 to 14 L/min.",
+     "The servo drive monitors internal drive temperature, operating normally between 35 and 65 degC. Filtered air from the cabinet fan cools the drive cabinet. After the weld sequence completes, the servo gun opens, pneumatic clamps release, and the part transfers out. The total nominal cycle time equals 50 s, with completed cycles measuring between 46 and 55 s."
+    ]
+   },
+   {
+    "id": "startup",
+    "paragraphs": [
+     "Shift start-up begins with thorough pre-start inspections following the planned changeover. Technicians clean fixture net pads and locators, check the electrode tip face using the tip gauge, and inspect the tip dresser cutter blade.",
+     "Personnel confirm all cell guards are closed, interlocks are active, and no fluid leaks or loose cables exist. The cell air panel filter-regulator must indicate regulated air pressure within the normal 5.3 to 5.9 bar window.",
+     "Upon powering the cell, operators confirm cabinet fan operation and check instrumentation. ST20-WLD and ST30-WLD must display normal baseline signals: servo drive temperature between 35 and 65 degC, regulated air near 5.6 bar, and on ST30-WLD, coolant flow between 10 and 14 L/min. Initial dry cycles must show completed cycle durations within 46 to 55 s."
+    ]
+   },
+   {
+    "id": "operation",
+    "paragraphs": [
+     "During regular production, the operator monitors real-time cell signals to maintain joining stability across the nominal 50 s cycle. Normal welding displays secondary current between 9.8 and 11.2 kA and dynamic tip resistance between 0.135 and 0.175 mOhm. Servo drive temperature must remain within 35 to 65 degC, cycle time between 46 and 55 s, and air pressure between 5.3 to 5.9 bar.",
+     "On ST30-WLD, coolant flow must register between 10 and 14 L/min. Operators must report deviations promptly to maintenance. Key warning signs include tip resistance drifting toward the 0.185 mOhm alarm, servo temperature rising past 66 degC, air pressure dropping toward 5 bar, or coolant flow falling toward 8 L/min. Any recurring clamp retries or abnormal cabinet fan noise also require immediate reporting."
+    ]
+   },
+   {
+    "id": "shutdown",
+    "paragraphs": [
+     "A normal production stop concludes current cycles cleanly at the end of a shift or changeover. The operator initiates the stop command, allowing the weld controller to complete active welds, open the servo gun, unclamp the part, and return all mechanisms to home positions.",
+     "A normal production stop leaves pneumatic, electrical, and coolant systems fully pressurized. It is not an energy-isolated state. Before conducting any inspection, mechanical adjustment, cleaning, or repair inside guarded areas, maintenance personnel must apply the energy control procedure in Chapter 8."
+    ]
+   },
+   {
+    "id": "controls_intro",
+    "paragraphs": [
+     "The cell incorporates several adjustable control parameters, including weld schedules, current stepper profiles, electrode force values, cycle timers, pneumatic pressure settings, and tip dressing frequencies. The tip dressing interval is configured for 250 welds, while cap replacement occurs every 40 dressings.",
+     "Uncontrolled changes to these parameters compromise weld integrity and production throughput. Modifying weld current or force can cause undersized nuggets, excessive spatter, or premature electrode failure. Altering cycle timers or clamp sequence settings risks fixture misalignments and cycle delays.",
+     "To ensure product quality and operational stability, personnel must process every parameter adjustment through formal change control before implementing updates on ST20-WLD or ST30-WLD."
+    ]
+   },
+   {
+    "id": "ts_intro",
+    "paragraphs": [
+     "Chapter 6 provides structured troubleshooting for operational faults. When diagnosing an issue, begin at the symptom index to locate the relevant functional area.",
+     "Verify observed cell behavior against the documented typical signature, noting secondary current, tip resistance, servo drive temperature, air pressure, cycle time, and ST30-WLD coolant flow. Rule out instrument faults or loose sensor wiring before assuming mechanical failure. Follow the designated check steps before implementing any corrective remedy.",
+     "If investigation or component replacement requires entry into the cell or physical contact with equipment, personnel must apply the energy control procedure in Chapter 8 before performing any hands-on work."
+    ]
+   },
+   {
+    "id": "maint_intro",
+    "paragraphs": [
+     "Adhering to preventive maintenance intervals ensures process reliability, nugget quality, and prolonged component life across three daily production shifts. Scheduled maintenance prevents unexpected downtime caused by worn electrode caps, clogged coolant passages, dry roller screws, and drive overheating.",
+     "Technicians must perform shift, weekly, monthly, quarterly, semi-annual, and annual tasks exactly as scheduled. Following completion, personnel must record every maintenance action, inspection finding, and component replacement in the station logbook to preserve traceability across line L1."
+    ]
+   },
+   {
+    "id": "glossary",
+    "paragraphs": [
+     "Weld controller: Inverter and weld timer that stores weld schedules, drives the current stepper, and monitors weld current and dynamic resistance.",
+     "Weld transformer and rectifier: Unit that converts controller electrical output into low-voltage, high-current secondary weld current.",
+     "Servo gun: Welding gun whose electrode arms are driven by a servo motor and roller screw to apply programmed electrode force.",
+     "Servo drive: Electronic unit driving the gun servo motor that monitors internal temperature and derates operational speed when hot.",
+     "Electrode caps: Replaceable copper alloy contact caps mounted on water-cooled shanks that deliver current directly to the part.",
+     "Tip dresser: Motor-driven cutter unit that restores the contact surface geometry of electrode caps between welding cycles.",
+     "Fixture: Mechanical structure with locating pins, net pads, and pneumatic clamps that positions and secures parts during welding.",
+     "Current stepper: Weld controller function that increments secondary weld current as electrode caps wear over repeated cycles.",
+     "Energy control procedure: Documented procedure detailed in Chapter 8 for establishing zero energy states prior to performing maintenance."
+    ]
+   },
+   {
+    "id": "bg_tip_wear",
+    "paragraphs": [
+     "Resistance spot welding subjects copper alloy electrode caps to severe thermal and mechanical stresses. Over hours of continuous production, electrode tip faces pick up oxide layers and metallic sheet coatings from the car body material. This surface accumulation increases electrical contact resistance across the weld interface.",
+     "Simultaneously, mechanical clamping force causes the cap faces to deform, mushroom, and lose their nominal shape. As contact resistance rises, dynamic tip resistance climbs from 0.15 mOhm toward the 0.185 mOhm alarm limit. To maintain heat input across the expanding contact surface, the weld controller current stepper raises secondary weld current within the 9.8 to 11.2 kA operating window.",
+     "Tip dressing restores cap geometry every 250 welds, while cap replacement occurs every 40 dressings. If caps exceed wear limits or miss dressing, dynamic tip resistance crosses the 0.185 mOhm threshold, leading to undersized weld nuggets and downstream part rejections at ST60 while servo temperature, air pressure, and cycle time remain normal."
+    ]
+   },
+   {
+    "id": "bg_servo_ot",
+    "paragraphs": [
+     "The servo drive on ST20-WLD and ST30-WLD powers the gun roller screw to exert exact clamping force. Electrical and mechanical power losses generate heat within the drive enclosure. Filtered air from the drive cabinet fan maintains normal drive temperatures between 35 and 65 degC.",
+     "When cabinet airflow drops due to filter clogging or fan deterioration, heat accumulates in the power electronics. If servo drive temperature exceeds 66 degC, thermal protection activates and the drive automatically derates its operating speed.",
+     "This derating penalty adds 0.8 s to cycle duration for every degree Celsius above 66 degC. As speed falls, cell cycle time rises past the nominal 50 s standard, causing downstream starvation. If temperature reaches 72 degC, the cell issues an over-temperature alarm, followed by a total cell trip at 80 degC. An audible cabinet fan problem often precedes the trip."
+    ]
+   },
+   {
+    "id": "bg_coolant",
+    "paragraphs": [
+     "Station ST30-WLD incorporates a dedicated coolant manifold to extract process heat from the servo drive and weld gun. Under normal operating conditions, coolant circulates through supply and return lines at a nominal rate of 12 L/min, with measured flow remaining between 10 and 14 L/min.",
+     "If debris restricts the manifold strainer or internal hoses pinch, coolant flow declines. When flow drops to 8 L/min, the flow transmitter triggers a low-coolant alarm. Because fluid flow removes thermal energy, reduced cooling causes heat to build inside the servo motor and drive components.",
+     "Roughly 15 minutes after cooling drops, servo drive temperature begins to climb above its normal range. The rising heat eventually causes drive derating, which elongates cycle time, and ultimately triggers an over-temperature trip at 80 degC. Additionally, hot running electrodes cause secondary weld current to exhibit electrical noise."
+    ]
+   },
+   {
+    "id": "bg_fixture",
+    "paragraphs": [
+     "The part fixture maintains spatial alignment between sheet metal stampings during spot welding. Parts rest on locating pins and net pads while pneumatic clamps secure them. Proximity switches verify that clamp arms have completed travel before the servo gun initiates welding.",
+     "When net pads accumulate weld spatter, locators wear, or sheet parts from the ST10 press carry geometric variations, clamps encounter mechanical resistance during closure. If a clamp fails to seat on its first attempt, the cell initiates an automatic retry sequence under alarm code A-ST20-CLAMP-RTY.",
+     "These clamp retries produce an erratic cycle time signature. Most cycles complete within the normal 46 to 55 s range, but retried cycles take several seconds longer. Secondary weld current, tip resistance, and servo temperature remain within standard operating limits. However, unseated stampings cause welds to be deposited off-location, resulting in elevated part rejections at downstream inspection station ST60."
+    ]
+   }
+  ]
+ },
+ "prompt": "manuals",
+ "prompt_version": "1",
+ "usage": [
+  {
+   "input_tokens": 3290,
+   "output_tokens": 3167,
+   "thinking_tokens": 0,
+   "usd": 0.014344
+  },
+  {
+   "input_tokens": 3314,
+   "output_tokens": 3454,
+   "thinking_tokens": 0,
+   "usd": 0.015438
+  },
+  {
+   "input_tokens": 3314,
+   "output_tokens": 3204,
+   "thinking_tokens": 0,
+   "usd": 0.0145
+  }
+ ]
+}

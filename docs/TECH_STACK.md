@@ -78,7 +78,7 @@ gcloud run deploy andon-api --source . --region $REGION \
 | 429 RESOURCE_EXHAUSTED | `location=global`, jittered backoff, Pro→Flash fallback, ≤4 concurrent Gemini calls per instance in eval |
 | Gemini 3 sampling params | Don't send temperature/top_p/top_k; use thinking level |
 | Thought signatures in tool loops | Let ADK's runner carry them; if calling google-genai directly, return the full previous content |
-| Context cache minimum size | Docs (2026-10-10): 6,144 tokens for 3.1 Pro preview / 3.8 Flash, 4,096 for other Gemini 3; wording for 3.8 Flash *explicit* caching is ambiguous — confirm with one live `caches.create`. Default TTL 60 min; storage billed per hour — GC at session end |
+| Context cache minimum size | Docs (2026-10-10): 6,144 tokens for 3.1 Pro preview / 3.8 Flash, 4,096 for other Gemini 3. **Measured 2026-10-11:** the 5 manuals = **50,135 tokens** (`count_tokens`, `gemini-3.8-flash`) — ≥ 6,144 and < 200K. Explicit `caches.create` on 3.8 Flash (`global`, TTL 120 s) **works**: 50,142 cached tokens, the next call billed 50,142 of 50,162 input tokens as cached; cache deleted. Re-check with `uv run python -m simulator.manuals.build --count-tokens --cache-probe`. Default TTL 60 min; storage billed per hour — GC at session end |
 | response_schema limits | Shallow schemas, enums, no giant `anyOf`; validate with Pydantic; one retry then fail closed |
 | Large media | Pass `gs://` URIs as parts, never base64 large files |
 | Model retirement | Never 2.x; IDs only from `config.py`; Phase 0 live-checks them |

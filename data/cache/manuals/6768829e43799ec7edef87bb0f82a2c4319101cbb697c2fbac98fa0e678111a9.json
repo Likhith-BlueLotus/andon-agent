@@ -1,0 +1,110 @@
+{
+ "attempts": 1,
+ "doc": "compressed_air",
+ "model_id": "gemini-3.8-flash",
+ "output": {
+  "sections": [
+   {
+    "id": "about",
+    "paragraphs": [
+     "This manual serves operators, maintenance technicians, and reliability engineers responsible for plant air system UT-AIR and the associated process chiller. Plant personnel use this document to support reliable service across all production shifts.",
+     "The content is structured by chapters to facilitate fast technical reference. Chapter 1 introduces safety, while Chapter 2 and Chapter 3 present system descriptions and technical data. Chapter 4 outlines operation, and Chapter 5 details control parameters, cycle timers, and formal change control. Chapter 6 contains troubleshooting, which is organised entirely by symptom. Chapter 7 covers preventative maintenance tasks, and Chapter 8 provides the energy control procedure. Supplementary information appears in Appendix A for terms and Appendix B for the process chiller."
+    ]
+   },
+   {
+    "id": "safety_intro",
+    "paragraphs": [
+     "Safe operation of the plant air system requires strict adherence to established operating standards. Only trained personnel may operate, inspect, or adjust the compressor, air distribution network, and related equipment. Safety guards, access covers, and mechanical interlocks are installed to prevent direct contact with rotating machinery, hot surfaces, and electrical elements. These protective devices must remain functional and must never be bypassed, altered, or defeated.",
+     "Any damage to air lines, electrical enclosures, or pressure components must be reported immediately to maintenance personnel. Hazards present on this equipment include stored air pressure inside the receiver, header, and drop legs, automatic compressor restarting, hot oil and surfaces at the oil separator and discharge pipework, compressor room noise, compressed air blast from open couplings, and electric shock from the motor or panel. Performing any maintenance inside guarded areas requires that personnel apply the energy control procedure in Chapter 8."
+    ]
+   },
+   {
+    "id": "overview",
+    "paragraphs": [
+     "The plant air system, designated UT-AIR, provides clean compressed air to support line L1 during car body-in-white production. Line L1 runs 24 hours a day in three shifts, starting each shift with a planned changeover. Constant pneumatic energy is essential to maintain automated welding and clamping operations across the facility.",
+     "System equipment includes an oil-injected rotary screw compressor, an air receiver, a refrigerated dryer, and a main distribution header. The main header supplies air directly through dedicated drop legs to weld cell ST20 and weld cell ST30. Each drop leg incorporates a ball valve, filter-regulator, and quick couplings to feed the downstream tooling. In addition, Appendix B details the process chiller that circulates cooling water to cool the weld cells during ongoing assembly cycles."
+    ]
+   },
+   {
+    "id": "principle",
+    "paragraphs": [
+     "The rotary screw air end is driven by an electric motor, compressing ambient air using injected oil for lubrication, sealing, and cooling. The compressed air and oil mixture flows into the oil separator, which extracts the oil and sends it through a cooler before returning it to the air end. The compressed air exits the separator and enters the air receiver, which stores energy and stabilizes header flow. Air then passes through the refrigerated dryer to remove moisture before entering the main header. Timed condensate drains on the receiver and dryer automatically expel collected liquid. The main header conveys dry air to drop legs at ST20 and ST30, where filter-regulators establish the 5.6 bar supply pressure needed by the weld cells.",
+     "Operation relies on inlet valve load and unload control driven by the UT-AIR header_pressure_bar sensor. When line demand pulls header pressure down to the cut-in pressure of 6.2 bar, the inlet valve opens, loading the compressor. The compressor delivers air until header pressure rises to the cut-out pressure of 7.3 bar, at which point the inlet valve closes to unload the unit. Under normal demand, this load and unload cycle recurs roughly every 2 minutes. The signal header_pressure_bar oscillates within a normal band of 6 to 7.5 bar. Compressor motor current, measured by compressor_current_a, switches between about 92 A when loaded and about 38 A when unloaded, remaining within a 30 to 100 A range. Oil temperature, monitored by oil_temp_c, operates between 60 and 85 degC. The process chiller supply temperature, supply_temp_c, cycles between 10 and 14 degC."
+    ]
+   },
+   {
+    "id": "startup",
+    "paragraphs": [
+     "Start-up occurs at the start of each shift during the planned changeover. Operators begin with pre-start checks to confirm system integrity. Inspect the compressor, receiver, and pipework for physical damage or evidence of loose fittings. Check the compressor oil level and verify that all protective panels, covers, and electrical enclosure doors are closed and secure.",
+     "Initiate the compressor start sequence at the control panel. Confirm that the motor begins running and that the refrigerated dryer is active. Observe the monitored parameters as the system builds pressure. The signal header_pressure_bar must climb toward its cut-out pressure of 7.3 bar within the normal range of 6 to 7.5 bar. Compressor motor current, compressor_current_a, must track from about 92 A loaded down to about 38 A once unloaded. Check that oil_temp_c stays within 60 to 85 degC and chiller supply_temp_c remains within 10 to 14 degC."
+    ]
+   },
+   {
+    "id": "operation",
+    "paragraphs": [
+     "During production, operators monitor control readouts to ensure consistent air delivery to weld cells ST20 and ST30. Observe the load and unload cycling of the compressor. The header pressure must cycle continuously between the 6.2 bar cut-in threshold and the 7.3 bar cut-out threshold, remaining inside the 6 to 7.5 bar operating band. Check that motor current alternates predictably between about 92 A loaded and about 38 A unloaded.",
+     "Any parameter deviation must be reported to maintenance immediately. Report any instance where header pressure approaches the 5.6 bar low alarm limit, which can impair weld gun clamping. Report excessive motor current nearing the 110 A high alarm limit or compressor oil temperature approaching the 95 degC limit. Operators must also inform maintenance if the process chiller supply temperature approaches the 15 degC alarm limit, if condensate drains fail to discharge, or if audible hissing indicates air leakage along the header or drop legs."
+    ]
+   },
+   {
+    "id": "shutdown",
+    "paragraphs": [
+     "A normal production stop brings the compressed air system to an orderly idle or powered-down state at the end of scheduled production. Depress the stop control on the compressor panel, allowing the unit to complete its programmed stopping sequence. Turn off downstream isolation valves at the drop legs if required for line pauses.",
+     "A normal production stop is not an energy-isolated state. Stored air pressure remains trapped inside the receiver, header, and drop legs, and electrical supply circuits remain energised. When maintenance tasks or mechanical adjustments are required, apply the energy control procedure in Chapter 8."
+    ]
+   },
+   {
+    "id": "controls_intro",
+    "paragraphs": [
+     "The plant air system incorporates defined control parameters that govern air generation and delivery. Key adjustable settings include the cut-in pressure of 6.2 bar, the cut-out pressure of 7.3 bar, and the weld cell regulator settings established at 5.6 bar on each drop leg to ST20 and ST30. Timed condensate drain intervals on the receiver and dryer also control moisture ejection cycles.",
+     "Uncontrolled adjustments to these parameters present severe operational hazards. Altering pressure thresholds can trigger high motor current, promote excessive thermal wear, and disrupt pneumatic weld gun forces, causing assembly defects or unplanned line stops. Consequently, personnel must never change control parameters or cycle timers without authorization. Every proposed adjustment must be reviewed and processed strictly through the formal change control procedure."
+    ]
+   },
+   {
+    "id": "ts_intro",
+    "paragraphs": [
+     "System troubleshooting follows an organized diagnostic approach. When a fault occurs, start from the symptom index in Chapter 6 to identify the corresponding failure mode. Compare the current equipment status against the documented typical signature to confirm that the observed behaviour matches the expected process trend.",
+     "Rule out sensor or instrument problems before undertaking component interventions. Verify that the monitored signals reflect true system conditions rather than faulty wiring or transmitter error. Follow the check column carefully to systematically verify physical causes before attempting any corrective remedy. If any inspection or repair requires physical interaction with mechanical, pneumatic, or electrical assemblies, apply the energy control procedure in Chapter 8 prior to beginning hands-on work."
+    ]
+   },
+   {
+    "id": "maint_intro",
+    "paragraphs": [
+     "Rigorous preventative maintenance preserves operating efficiency, protects downstream tooling at ST20 and ST30, and prevents costly unplanned downtime on line L1. Completing service tasks at the prescribed intervals ensures that air quality remains dry, pressure levels stay stable, and rotating parts remain lubricated and cool.",
+     "Technicians must complete every assigned task according to schedule, including shift inspections, daily condensate checks, weekly walkarounds, monthly cooler cleaning, quarterly ultrasonic leak surveys, and major component overhauls. Whenever maintenance is performed, record the completed tasks, inspection findings, operating hours, and any replaced components within the computerized maintenance tracking log."
+    ]
+   },
+   {
+    "id": "glossary",
+    "paragraphs": [
+     "Air receiver: Sturdy vessel that stores compressed air and evens out demand fluctuations across the header.",
+     "Cut-in pressure: Fixed lower pressure setting of 6.2 bar at which the compressor loads and begins delivering air.",
+     "Cut-out pressure: Upper pressure setting of 7.3 bar at which the compressor unloads and closes its air intake.",
+     "Drop leg: Vertical piping assembly extending from the main header equipped with a ball valve, filter-regulator, and quick couplings to supply an individual weld cell.",
+     "Filter-regulator: Pneumatic device at a drop leg adjusted to 5.6 bar to filter air and stabilize working pressure for weld tooling.",
+     "Load/unload control: Control system that opens the inlet valve when air is needed and closes the inlet valve while keeping the motor running during low demand.",
+     "Oil separator: Internal element that separates injected cooling oil from the compressed air discharge stream.",
+     "Refrigerated dryer: Thermal processing unit that cools compressed air to condense and remove entrained moisture.",
+     "Timed condensate drain: Electrically actuated drain valve installed on the receiver and dryer that periodically opens to evacuate moisture."
+    ]
+   },
+   {
+    "id": "bg_leak",
+    "paragraphs": [
+     "In normal operation, the compressor inlet valve loads at 6.2 bar and unloads at 7.3 bar, causing header_pressure_bar to trace a steady saw-tooth profile within its normal range of 6 to 7.5 bar. During this routine cycle, compressor_current_a alternates between about 92 A loaded and about 38 A unloaded over a typical cycle of roughly 2 minutes.",
+     "When an air leak develops, compressed air escapes continuously, creating an additional baseline consumption. This added demand first shows as an extended loaded time; the compressor takes longer to reach the 7.3 bar cut-out threshold, which elevates the average motor current even while header pressure still recovers. If the combined total of line leakage and weld cell demand exceeds compressor output capacity, the unit remains loaded continuously without reaching 7.3 bar. The header pressure drops below the 6.2 bar cut-in setting until it breaches the 5.6 bar low alarm limit, triggering alarm A-UTAIR-HDR-LO. Shortly after header pressure declines, downstream air to the weld guns drops below the 5.6 bar regulator setting. Gun force alarms follow, and once gun pressure falls to the internal low limit of ST20 or ST30, the supply-air interlock halts cell operation. Escaping air can often be identified as an audible hiss at the leak point."
+    ]
+   }
+  ]
+ },
+ "prompt": "manuals",
+ "prompt_version": "1",
+ "usage": [
+  {
+   "input_tokens": 2349,
+   "output_tokens": 2670,
+   "thinking_tokens": 0,
+   "usd": 0.011774
+  }
+ ]
+}

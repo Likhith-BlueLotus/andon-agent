@@ -1,0 +1,100 @@
+{
+ "attempts": 1,
+ "doc": "sealer_pump",
+ "model_id": "gemini-3.8-flash",
+ "output": {
+  "sections": [
+   {
+    "id": "about",
+    "paragraphs": [
+     "This manual AM-SP-01 provides instructions for operators, maintenance technicians, and reliability engineers working with the ST40-SLR sealer supply pump and dispense system. The document is divided into structured chapters covering safety, description, technical data, operation, control parameters, troubleshooting, maintenance, and energy control procedures. Appendix A provides a glossary of technical terms. The troubleshooting chapter is arranged directly by symptom to help personnel identify and resolve deviations efficiently."
+    ]
+   },
+   {
+    "id": "safety_intro",
+    "paragraphs": [
+     "Only trained personnel may operate, inspect, or maintain the ST40-SLR equipment on line L1. Safe operation depends on strict adherence to all safety devices. Machine guards and interlocks protect against mechanical motion and pressurized material; personnel must never bypass or defeat them under any circumstances. Any damage to hoses, guards, electrical panels, or mechanical assemblies must be reported to supervision immediately. Whenever personnel must enter guarded areas to perform maintenance, inspections, or servicing, they must first apply the energy control procedure in Chapter 8. Fluid injection, mechanical crushing, stored pneumatic energy, and electrical hazards present severe risks if procedures are not followed."
+    ]
+   },
+   {
+    "id": "overview",
+    "paragraphs": [
+     "The ST40-SLR equipment supplies and dispenses high-viscosity body sealer onto car bodies on line L1. The station receives parts, applies a consistent sealing bead, and passes assemblies downstream to subsequent production areas such as ST60. Reliable operation of the sealer system is essential to prevent defective parts from reaching downstream stations. Line L1 operates 24 hours a day across three shifts, with a planned changeover at the start of each shift. Proper material delivery at ST40 ensures that joint seams are sealed correctly before downstream operations commence."
+    ]
+   },
+   {
+    "id": "principle",
+    "paragraphs": [
+     "The system dispenses high-viscosity body sealer from a drum unloader. An air-driven ram forces the follower plate down into the drum, keeping air away from the material via a wiper seal and feeding the inlet of the double-acting reciprocating piston pump. An electric gearmotor and crank drive the pump at a constant stroke rate of 0.15 Hz, which equals one stroke about every 6.7 s. Material enters through an inlet strainer and foot check valve into the pump cylinder, passing through the piston check valve on the return stroke. High-pressure material hoses convey the sealer to the dispense nozzle. An air-operated valve opens the nozzle tip to lay a bead onto each passing part, while a material relief valve safeguards against overpressurization by venting to a waste container.",
+     "Continuous instrumentation monitors process stability during every cycle. The transmitter pump_pressure_bar records pump outlet pressure, which nominally reads 120 bar within an operating band of 105 to 135 bar. The transmitter flow_rate_ccm monitors volumetric delivery, operating at a nominal 300 cc/min within a standard range of 270 to 330 cc/min. The electrical drive sensor motor_current_a measures motor draw, running at a nominal 8.5 A within a 7 to 10 A window. A bead inspection sensor evaluates the finished bead width on every part, maintaining a nominal 4 mm width within acceptable boundaries of 3.6 to 4.4 mm."
+    ]
+   },
+   {
+    "id": "startup",
+    "paragraphs": [
+     "At the start of each shift, personnel conduct visual pre-start checks before operating the ST40-SLR. Verify that all guards are intact, drum levels are adequate, and no leaks appear on material hoses or fittings. Inspect the nozzle tip and follower plate wiper seal for buildup. Initiate the start sequence through the station controls. As the electric drive begins cycling the piston pump at 0.15 Hz, verify that process signals stabilize within normal limits. Outlet pressure should rise toward its nominal 120 bar within the 105 to 135 bar range. Volumetric flow must reach approximately 300 cc/min, motor current should stabilize around 8.5 A, and the bead inspection sensor should confirm an initial bead width close to 4 mm."
+    ]
+   },
+   {
+    "id": "operation",
+    "paragraphs": [
+     "During continuous production, the operator oversees equipment signals and dispenses on line L1. Monitor ST40-SLR pump_pressure_bar to ensure pressure remains between 105 and 135 bar, avoiding the alarm low limit of 100 bar and alarm high limit of 145 bar. Ensure flow_rate_ccm remains between 270 and 330 cc/min; values dropping toward the alarm low of 255 cc/min or trip low of 230 cc/min require immediate intervention. Keep drive motor current within 7 to 10 A, below the alarm high of 11 A. Confirm bead width stays between 3.6 and 4.4 mm on every part. Report abnormal knocking sounds, pulses at 0.15 Hz, or warnings such as A-ST40-BEAD-QA to maintenance without delay."
+    ]
+   },
+   {
+    "id": "shutdown",
+    "paragraphs": [
+     "To stop production, initiate an orderly production stop through the line control panel. The air-operated dispense nozzle valve closes, and the electric drive stops the piston pump. A normal production stop de-energizes operational run signals but leaves electrical power, pneumatic ram force, and high hydraulic material pressure stored within the system. This state is not an energy-isolated state. Whenever personnel perform maintenance, cleaning, or internal inspections, they must apply the energy control procedure in Chapter 8."
+    ]
+   },
+   {
+    "id": "controls_intro",
+    "paragraphs": [
+     "The ST40-SLR system relies on defined control parameters to regulate material delivery, cycle timers, and dispense volume on line L1. Adjustable parameters control pump operation, valve actuation timing, and sensor evaluation thresholds. Uncontrolled alterations to these values present severe risks to production quality and station throughput. Incorrect settings cause pressure fluctuations, irregular flow rates, and out-of-specification bead dimensions that trigger line stoppages. Therefore, all modifications to control parameters and timers must follow formal change control procedures. Only authorized personnel may update parameters, ensuring every change is documented, reviewed, and validated against baseline operating requirements."
+    ]
+   },
+   {
+    "id": "ts_intro",
+    "paragraphs": [
+     "When troubleshooting the ST40-SLR station, begin by referencing the symptom index in Chapter 6. Locate the matching symptom and compare current line observations with the described signature. Check operating variables, including pump pressure, volumetric flow, motor current, and bead width, to confirm the condition. Verify transmitter integrity to rule out instrument and sensor faults before assuming mechanical failure. Follow the diagnostic checks in the designated sequence before attempting any corrective remedy. Prior to executing hands-on adjustments, repairs, or component replacements on pressurized or powered equipment, always apply the energy control procedure in Chapter 8."
+    ]
+   },
+   {
+    "id": "maint_intro",
+    "paragraphs": [
+     "Adhering to preventive maintenance intervals is vital for the operational reliability of the ST40-SLR station. Line L1 operates continuously across three shifts, making regular component care necessary to avoid unexpected downtime and defective car bodies. Prescribed tasks preserve seal integrity, prevent fluid delivery restrictions, and maintain sensor accuracy across millions of dispense cycles. Maintenance technicians must log every completed task, recording inspection findings, component replacements, and service dates in the maintenance management system to maintain full traceability."
+    ]
+   },
+   {
+    "id": "glossary",
+    "paragraphs": [
+     "Drum unloader: An air-driven ram assembly that pushes the follower plate down into the material drum to feed high-viscosity sealer.",
+     "Follower plate: A plate fitted with an elastomeric wiper seal that prevents air from contacting the sealer drum and channels material into the pump inlet.",
+     "Piston pump: A double-acting reciprocating displacement pump equipped with an inlet foot check valve and a piston check valve to pressurize sealer.",
+     "Inlet strainer: A mechanical filter screen positioned upstream of the pump to capture skins and particulate debris from the material supply.",
+     "Material hoses: High-pressure flexible lines that transfer pressurized sealer from the pump outlet to the dispense nozzle.",
+     "Dispense nozzle: An air-operated valve assembly and nozzle tip that applies the sealer bead onto parts.",
+     "Bead inspection sensor: An automated quality sensor that measures the bead width on every car body part processed at the station.",
+     "Material relief valve: A safety valve that opens to release excessive material pressure directly to an external waste container."
+    ]
+   },
+   {
+    "id": "bg_cavitation",
+    "paragraphs": [
+     "Pump cavitation or starved inlet conditions occur when the double-acting piston pump cannot fill completely during an intake stroke. High-viscosity sealer fails to flow through the follower plate and inlet strainer at a rate matching piston displacement. This creates a partial void inside the pumping chamber. When the piston reverses direction, the trapped void collapses violently under mechanical compression, creating an audible mechanical knock on each stroke.",
+     "Because the pump displaces less dense material per cycle, mean delivery falls and the transmitter pump_pressure_bar begins to pulse cyclically at the fixed pump stroke rate of 0.15 Hz, which corresponds to one stroke about every 6.7 s. Volumetric delivery drops below the normal 270 to 330 cc/min range. The electric gearmotor experiences reduced mechanical resistance, causing motor_current_a to fall slightly and fluctuate. Insufficient volume at the dispense nozzle causes the applied bead width to shrink, triggering alarm A-ST40-BEAD-QA and raising downstream part reject counts at ST60."
+    ]
+   }
+  ]
+ },
+ "prompt": "manuals",
+ "prompt_version": "1",
+ "usage": [
+  {
+   "input_tokens": 2160,
+   "output_tokens": 2031,
+   "thinking_tokens": 0,
+   "usd": 0.009236
+  }
+ ]
+}

@@ -1,0 +1,121 @@
+{
+ "attempts": 3,
+ "doc": "conveyor_drive",
+ "model_id": "gemini-3.8-flash",
+ "output": {
+  "sections": [
+   {
+    "id": "about",
+    "paragraphs": [
+     "This manual serves operators, maintenance technicians, and reliability engineers working with the chain conveyor drive unit on line L1. It provides instructions for operation, routine care, and mechanical assessment across all production shifts.",
+     "The content is structured by chapters to facilitate fast retrieval during routine work and technical interventions. Chapter 1 introduces safety fundamentals, while Chapter 2 and Chapter 3 outline unit descriptions and technical data. Chapter 4 and Chapter 5 cover operating procedures, control parameters, cycle timers, and change control. Chapter 6 details troubleshooting, arranged logically by observed symptom. Preventive schedules appear in Chapter 7, followed by Chapter 8 for the energy control procedure. Appendix A provides a technical glossary, and Appendix B details interface data for the ST60 vision check."
+    ]
+   },
+   {
+    "id": "safety_intro",
+    "paragraphs": [
+     "Safe operation of the conveyor drive unit requires strict adherence to operating practices by authorized and trained personnel only. Personnel must recognize the operational risks associated with rotating assemblies, drive chains, and electrical cabinets. All guards and safety interlocks are fitted to prevent contact with moving components and high-voltage sections. These protective devices must never be bypassed, defeated, or modified during production or testing.",
+     "Operators and technical staff must inspect the machine envelope continuously and report any structural damage, missing fasteners, unusual noises, or loose guards to supervision without delay. Physical intervention inside guarded areas poses severe hazards from chain movement, spring tension, and hot surfaces. Whenever inspection, adjustment, cleaning, or maintenance must occur inside guarded perimeters, personnel must apply the energy control procedure in Chapter 8."
+    ]
+   },
+   {
+    "id": "overview",
+    "paragraphs": [
+     "The chain conveyor drive unit, designated ST50-CNV, operates within demonstration car body-in-white assembly line L1. Line L1 runs 24 hours a day across three shifts, with each shift starting with a planned changeover. The primary role of the drive unit is to advance mechanical transport fixtures holding car body parts between work cells at a steady rate.",
+     "The drive unit interacts directly with adjacent process stations along the line. Upstream workstations load body components onto the continuous handling chain, relying on uninterrupted movement to clear assembly fixtures within planned cycle durations. Downstream, the conveyor feeds assemblies into downstream inspection cells, including the ST60 vision station. If the conveyor chain changes velocity or halts, cycle timing upstream increases and part delivery to the vision cell ceases, making continuous drive operation vital for line throughput."
+    ]
+   },
+   {
+    "id": "principle",
+    "paragraphs": [
+     "The drive unit operates continuously to move transport fixtures between production stations. Power originates at the drive inverter, which feeds electrical power to the brake gearmotor. The brake gearmotor incorporates an integral spring-applied brake and a helical gearbox that delivers mechanical torque to the primary drive shaft. This drive shaft is supported by two rolling bearings: one at the drive end and one at the non-drive end. The shaft turns a drive sprocket and a drive pulley with a diameter of 0.25 m. Rotation of the drive sprocket pulls the continuous chain along its track, while a spring take-up at the return end maintains chain tension.",
+     "During steady operation, several instruments monitor drive performance. The chain speed signal, ST50-CNV speed_mpm, measures the linear rate of the chain; the drive inverter regulates this motion to hold the value within its normal range of 11.5 to 12.5 m/min. Motor current is measured by ST50-CNV motor_current_a, which shows the electrical draw of the loaded motor within a normal range of 12 to 18 A. At the drive-end bearing housing, a dedicated vibration sensor tracks ST50-CNV vibration_rms_mms, which indicates mechanical velocity root mean square within a baseline band of 0.8 to 2.8 mm/s. Temperature sensor ST50-CNV bearing_temp_c monitors the thermal state of the drive-end bearing housing, displaying normal operating readings from 25 to 55 degC. Downstream at the inspection stage, ST60-VIS cycle_time_s records the inspection cycle duration, typically 43 to 52 s, while ST60-VIS reject_rate_pct registers part quality, showing between 0 to 5 % rejects under normal conditions."
+    ]
+   },
+   {
+    "id": "startup",
+    "paragraphs": [
+     "Prior to starting the drive unit at the start of a shift, the operator must execute pre-start inspections. Verify that all mechanical perimeter guards surrounding the drive sprocket, chain line, take-up spring, and drive shaft are secured. Inspect the helical gearbox and bearing housings for visible lubricating oil leaks. Confirm that the travel path of the chain is free of loose tooling, parts, or foreign debris.",
+     "Once pre-start checks are complete, initiate the start sequence from the main control interface. The drive inverter ramps the brake gearmotor up to standard running speed, releasing the spring-applied brake. The operator must confirm that monitored variables stabilize in their normal zones: ST50-CNV speed_mpm reaches approximately 12 m/min, ST50-CNV motor_current_a settles between 12 and 18 A, vibration remains below 2.8 mm/s, and bearing temperature stays between 25 and 55 degC."
+    ]
+   },
+   {
+    "id": "operation",
+    "paragraphs": [
+     "Throughout the production shift, operators monitor system behavior and instrumentation signals on the line human-machine interface. Consistent chain movement is confirmed by observing ST50-CNV speed_mpm within 11.5 to 12.5 m/min. Motor current should stay between 12 and 18 A on ST50-CNV motor_current_a. Drive-end housing vibration must remain within the 0.8 to 2.8 mm/s baseline on ST50-CNV vibration_rms_mms, and housing temperature must stay within 25 to 55 degC on ST50-CNV bearing_temp_c. Additionally, downstream quality signals from ST60-VIS must show reject rates under 6 % and cycle times under 56 s.",
+     "Any persistent operational irregularity must be reported to maintenance immediately. If motor current climbs toward the 20 A alarm high, if vibration approaches the 4.5 mm/s alarm high, if bearing temperature rises toward 65 degC, or if chain speed drops below 11 m/min, notify maintenance technicians for prompt diagnostic evaluation."
+    ]
+   },
+   {
+    "id": "shutdown",
+    "paragraphs": [
+     "A normal production stop occurs at the conclusion of a production run or before planned changeover. The operator initiates the stop command via the control panel. The inverter ramps down motor frequency, brings the chain to a controlled rest, and engages the integral spring-applied brake on the gearmotor to secure the drive shaft.",
+     "Executing a normal stop command ceases line movement, but it does not remove electrical or stored mechanical energy from the drive unit. Hazards persist at the inverter bus, motor terminals, and take-up spring. All maintenance tasks require personnel to apply the energy control procedure in Chapter 8."
+    ]
+   },
+   {
+    "id": "controls_intro",
+    "paragraphs": [
+     "The drive unit relies on specific control parameters to ensure steady part transfer between stations. Key parameters include the motor speed command setpoint within the inverter, which determines the chain velocity, as well as programmable delay timers and station interlock windows. These values govern the timing with which mechanical transport fixtures enter and exit assembly positions along line L1.",
+     "Modifying these parameters outside authorized protocols poses severe operational hazards. Altering inverter speed setpoints or timer values disrupts line balancing, causes upstream stations to accumulate excessive cycle times, and induces mechanical shock loading across the chain and take-up spring. To protect mechanical hardware, equipment uptime, and product assembly quality, all adjustments to control parameters must follow formal change control procedures."
+    ]
+   },
+   {
+    "id": "ts_intro",
+    "paragraphs": [
+     "When diagnosing unexpected conditions on the drive unit, begin by consulting the symptom index in Chapter 6. Match observed machine conditions with the listed trouble profiles to pinpoint the underlying cause. Operators and technicians must correlate signal alarms with the physical signatures of the unit, verifying whether vibration, temperature, or motor load match the diagnostic profile.",
+     "Before performing physical adjustments or component replacements, inspect instrument cabling and sensor mountings to rule out faulty sensor data. Technicians must complete the diagnostic checks in the check column before executing any corrective action. Whenever troubleshooting tasks require physical interaction, removing protective shields, or touching drive components, personnel must apply the energy control procedure in Chapter 8."
+    ]
+   },
+   {
+    "id": "maint_intro",
+    "paragraphs": [
+     "Executing preventive maintenance according to prescribed intervals preserves machine reliability and prevents unpredicted downtime on line L1. Because the line operates continuously 24 hours a day across three shifts, drive components experience steady mechanical and thermal stress. Adhering strictly to shift, weekly, monthly, and yearly service routines protects rolling bearings, the helical gearbox, and the chain assembly from accelerated wear.",
+     "Technicians must record every completed maintenance action immediately in the equipment logbook. The record must include the date, current shift, specific tasks performed, and observed running conditions. Accurate maintenance records provide the baseline data required by reliability engineers to track mechanical trends over time."
+    ]
+   },
+   {
+    "id": "glossary",
+    "paragraphs": [
+     "Drive inverter: An electronic control device that regulates motor supply frequency to hold the conveyor chain speed constant.",
+     "Brake gearmotor: An integrated drive package consisting of an electric motor, an internal spring-applied brake, and a helical reduction gearbox.",
+     "Drive shaft and bearings: A mechanical shaft supported by rolling bearings inside housings that transmits rotational power to the drive pulley and sprocket.",
+     "Drive sprocket and pulley: A rotating wheel assembly with a pulley diameter of 0.25 m that engages and propels the continuous chain.",
+     "Part carriers: Fabricated mechanical support fixtures connected to the continuous chain that hold and transport car body assemblies between stations.",
+     "Spring take-up: A mechanical tensioning assembly located at the return end that maintains constant chain tension through spring force.",
+     "Vibration sensor: An instrument mounted on the drive-end bearing housing that monitors velocity root mean square and captures high-rate snapshots for spectrum analysis.",
+     "Bearing temperature sensor: A thermal measurement probe attached to the drive-end bearing housing to record operating metal temperatures."
+    ]
+   },
+   {
+    "id": "bg_bearing",
+    "paragraphs": [
+     "A drive bearing defect develops as subsurface fatigue or surface degradation on the rolling elements or raceways of the drive-end bearing. As surface spalling initiates, the rolling elements pass over the localized defect during shaft rotation. This impact generates dynamic forces that manifest as rising velocity root mean square on sensor ST50-CNV vibration_rms_mms, progressing upward from the normal range of 0.8 to 2.8 mm/s. Because the 0.25 m diameter drive pulley rotates at 0.255 Hz at the nominal 12 m/min chain speed, completing one full turn every 3.9 s, the vibration trend exhibits a periodic ripple at this 0.255 Hz rotational frequency. The bearing sounds rough, producing a grinding or knocking sound that repeats with every pulley turn.",
+     "As internal friction inside the damaged bearing increases, thermal energy builds up within the metal housing, causing ST50-CNV bearing_temp_c to climb several minutes after the initial vibration rise. The added mechanical drag forces the brake gearmotor to draw higher current on ST50-CNV motor_current_a and can cause conveyor speed ST50-CNV speed_mpm to sag. The 4.5 mm/s alarm is triggered first, followed by the 7.1 mm/s trip if mechanical degradation continues unchecked, while upstream stations register elevated cycle times due to conveyor retarding."
+    ]
+   }
+  ]
+ },
+ "prompt": "manuals",
+ "prompt_version": "1",
+ "usage": [
+  {
+   "input_tokens": 2268,
+   "output_tokens": 2616,
+   "thinking_tokens": 0,
+   "usd": 0.011511
+  },
+  {
+   "input_tokens": 2307,
+   "output_tokens": 2522,
+   "thinking_tokens": 0,
+   "usd": 0.011188
+  },
+  {
+   "input_tokens": 2306,
+   "output_tokens": 2698,
+   "thinking_tokens": 0,
+   "usd": 0.011847
+  }
+ ]
+}
