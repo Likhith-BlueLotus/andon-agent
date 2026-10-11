@@ -1,5 +1,14 @@
 # Handoff log (newest first)
 
+## 2026-10-11 — Person A — Phase 3 DONE
+**Live API:** https://andon-api-891056416508.asia-south1.run.app (public; revision andon-api-00007). Replay for everyone, live behind `X-Demo-Passcode` (Secret Manager `demo-passcode`; read with `gcloud secrets versions access latest --secret demo-passcode` under config `andon` — never paste it anywhere).
+**Endpoints:** `POST /api/incidents/{id}/investigate?mode=live|replay&run_id=&speed=` (SSE), `POST /api/incidents/{id}/approve`, `GET /api/incidents/{id}/audit`, `/api/scenarios`, `/api/replays`, `/api/config`, `/api/sources`, `/api/eval/latest` (404 until phase 5), `/health`.
+**Replays:** `r002-cloud-1` (demo: real MetroPT-3 leak, listen on UT-AIR, approved WO), `s014-cloud-1` (verifier rejects reversed causal order → revision → PASS), `r002-live-1` (local live).
+**Exit checks passed on the URL:** live R002 from a clean curl ($0.156, 117 s, verified air_pressure_drop @ UT-AIR); live S014 ($0.171, 95 s, verified sealer_pump_cavitation @ ST40-SLR, 1 natural rejection); approve → 409 partial / APPROVED in Firestore `work_orders` / 409 second decision; kill switch at $0.01 refused live with `budget_exhausted` from the shared Firestore counter (restored to $8, secret v2 disabled); anonymous live 401; CORS rejects other origins; security review: OK to make public, all should-fix items done.
+**For Person B:** `VITE_API_URL=https://andon-api-891056416508.asia-south1.run.app`; CORS allows `https://andon-agent-511218.web.app`, `.firebaseapp.com` and `http://localhost:5173`. Stream contract = `api/events.py` / `web/src/types/events.ts`; replay first, live with passcode.
+**Next (A): `/phase-5 harness`** (eval) — the Phase 4 frontend is Person B's.
+**Open:** `/api/eval/latest` needs `eval/results/latest.json` copied into the image (phase 5); judging-window runbook in `docs/RUNBOOK_JUDGING.md`.
+
 ## 2026-10-11 — Person A — Phase 1 + Phase 2 DONE
 **Phase 1:** 60 S + 17 R scenarios in DuckDB (`data/andon.duckdb`, rebuild: generate → real_signals → audio → load) and BigQuery `andon` (1.36 B telemetry rows). 5 manuals (50,135 tokens) with LOTO reviewed (ADR-019, hash `c5b39659…`). Contracts v1.0.0 (ADR-017). Data: `data/SOURCES.md`, `docs/data_inspection.md`.
 **Phase 2:** full ADK graph runs end to end. `uv run python -m agents.cli --scenario R002 --mode replay` ($0, <3 s) or `--mode live` (~$0.15–0.19 with Flash judge, 80–95 s). `--force-bad-claim` shows a verifier rejection → revision → PASS. Live (Flash judge): R002, S005, S010 all top-1 correct vs truth (clean variants only — eval will test red herrings / no_fault).
