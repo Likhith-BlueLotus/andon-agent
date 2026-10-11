@@ -1,0 +1,60 @@
+{
+ "run_id": "variance",
+ "generated_at": "2026-10-11T19:56:14+00:00",
+ "git_sha": "466669222b66a4d528467be4801a56867a9c8708",
+ "dry_run": false,
+ "purpose": "final",
+ "note": "S-set and R-set are never pooled. Intervals are 95% Wilson. ",
+ "sets": {
+  "S": [
+   {
+    "system": "S1 full pipeline (Flash judge)",
+    "n": 12,
+    "top1": {
+     "value": 0.9167,
+     "lo": 0.6461,
+     "hi": 0.9851
+    },
+    "top3": {
+     "value": 1.0,
+     "lo": 0.7575,
+     "hi": 1.0
+    },
+    "unsupported_claim_rate": {
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.0385
+    },
+    "median_time_s": 96.7,
+    "cost_per_run_usd": 0.115
+   }
+  ],
+  "R": [
+   {
+    "system": "S1 full pipeline (Flash judge)",
+    "n": 3,
+    "top1": {
+     "value": 0.3333,
+     "lo": 0.0615,
+     "hi": 0.7923
+    },
+    "top3": {
+     "value": 0.6667,
+     "lo": 0.2077,
+     "hi": 0.9385
+    },
+    "unsupported_claim_rate": {
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.1546
+    },
+    "median_time_s": 78.1,
+    "cost_per_run_usd": 0.097
+   }
+  ]
+ },
+ "tests": {
+  "S": [],
+  "R": []
+ }
+}

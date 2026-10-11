@@ -1,0 +1,60 @@
+{
+ "run_id": "s3",
+ "generated_at": "2026-10-11T20:07:49+00:00",
+ "git_sha": "466669222b66a4d528467be4801a56867a9c8708",
+ "dry_run": false,
+ "purpose": "final",
+ "note": "S-set and R-set are never pooled. Intervals are 95% Wilson. ",
+ "sets": {
+  "S": [
+   {
+    "system": "S3 no audio/spectrum (Flash judge)",
+    "n": 24,
+    "top1": {
+     "value": 1.0,
+     "lo": 0.862,
+     "hi": 1.0
+    },
+    "top3": {
+     "value": 1.0,
+     "lo": 0.862,
+     "hi": 1.0
+    },
+    "unsupported_claim_rate": {
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.0209
+    },
+    "median_time_s": 70.9,
+    "cost_per_run_usd": 0.098
+   }
+  ],
+  "R": [
+   {
+    "system": "S3 no audio/spectrum (Flash judge)",
+    "n": 7,
+    "top1": {
+     "value": 0.8571,
+     "lo": 0.4869,
+     "hi": 0.9743
+    },
+    "top3": {
+     "value": 1.0,
+     "lo": 0.6457,
+     "hi": 1.0
+    },
+    "unsupported_claim_rate": {
+     "value": 0.0196,
+     "lo": 0.0035,
+     "hi": 0.103
+    },
+    "median_time_s": 91.3,
+    "cost_per_run_usd": 0.112
+   }
+  ]
+ },
+ "tests": {
+  "S": [],
+  "R": []
+ }
+}

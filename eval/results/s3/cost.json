@@ -1,0 +1,23 @@
+{
+ "run_id": "s3",
+ "dry_run": false,
+ "total_usd": 3.12189,
+ "n_calls_rows": 31,
+ "by_system": {
+  "S3": {
+   "runs": 31,
+   "usd": 3.12189,
+   "by_model": {
+    "gemini-3.8-flash": 3.07798,
+    "gemini-3.1-flash-lite": 0.0439
+   },
+   "mean_usd": 0.10071
+  }
+ },
+ "by_model": {
+  "gemini-3.1-flash-lite": 0.0439,
+  "gemini-3.8-flash": 3.07798
+ },
+ "estimated_usd": 9.3,
+ "note": "includes superseded rows (retried errors); a dry run bills nothing"
+}
