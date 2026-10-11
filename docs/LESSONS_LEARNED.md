@@ -98,3 +98,10 @@ Template — copy for each entry:
 - **Fix:** reported direction follows the reported raw delta; robust direction only steers onset refinement. Unit test reproduces the case (fails before, passes after).
 - **Do differently / rule added:** a regression test must be shown failing on the old code before the fix counts.
 - **Cost (time / $):** 20 min / $0.
+
+### 2026-10-11 — `listen`: Gemini cannot reliably hear MIMII 6 dB anomalies; MFCC can (phase 2, data/ML)
+- **What happened:** live sanity check on two dev clips (S014 ST40-SLR, whose recent clip is abnormal; S002 ST40-SLR, normal). `gemini-3.8-flash` inverted both verdicts at confidence 0.9. A repeat of the S014 request said `abnormal: true`, so the verdict flips between identical calls. The MFCC baseline got both right (distance 2.41 / z 11.3 vs 1.23 / z -0.27). Latency was 41 s and 67 s for the first two calls, then 4-5 s for identical-size calls minutes later.
+- **Root cause:** MIMII abnormal pump/slider/valve sounds at 6 dB SNR are subtle against factory noise (data_inspection §4); a general audio model describes "steady hum" either way. The latency spike looks transient on the service side: the same request took 4.5 s soon after, and gs:// vs inline bytes made no difference (3.7 s vs 5.4 s).
+- **Fix:** `listen` caches the first answer per (clip SHA, reference SHA, machine type, prompt version, model) so reruns and the Verifier are deterministic. It always returns the code-computed `mfcc_distance`/`mfcc_z` next to Gemini's opinion. It bounds Gemini at 25 s per attempt and 45 s total, then returns the MFCC part alone (`gemini_status="timeout"`). The rubric was **not** tuned on labels (held-out discipline).
+- **Do differently / rule added:** treat `listen.finding` as qualitative and unverified. Numeric audio claims must cite `mfcc_distance`/`mfcc_z`. Classical MFCC separation is strong for pump/fan (AUC 0.97/0.88 on S001-S050 + R) and near chance for slider/valve (0.62/0.63), so the Judge should weigh audio for those two lightly.
+- **Cost (time / $):** ~2.5 h / ~$0.013 (6 Flash calls).

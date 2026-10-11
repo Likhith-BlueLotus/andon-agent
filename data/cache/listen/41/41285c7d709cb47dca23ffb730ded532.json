@@ -1,0 +1,29 @@
+{
+ "created_at": "2026-10-11T04:58:46Z",
+ "key": "41285c7d709cb47dca23ffb730ded532",
+ "machine_type": "pump",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "8fc1a71e4f89c1bb2c4a1b649c260dfa4fdb7152f736ccf546d43e97b096fe14",
+ "reference_sha256": "2fcdbbb6a5f7b391186b2ec9c85a8fcd00fa0b0d5094d5507933e00dbd81fed3",
+ "result": {
+  "abnormal": true,
+  "characteristics": [
+   "continuous harsh rattle",
+   "mechanical clattering",
+   "steady underlying hum",
+   "elevated noise level"
+  ],
+  "confidence": 0.9,
+  "finding": "The pump exhibits a continuous loud rattling and harsh mechanical clatter not present in the reference recording, indicating possible mechanical looseness, bearing damage, or severe cavitation.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1340,
+  "latency_ms": 66584,
+  "output_tokens": 107,
+  "thinking_tokens": 196,
+  "usd": 0.002141
+ }
+}

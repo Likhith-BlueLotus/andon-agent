@@ -37,6 +37,7 @@ from typing import Any, Protocol
 import numpy as np
 import pandas as pd
 
+from agents.listen import _listen, listen
 from agents.schemas import Evidence, ProvenanceRef
 from analytics import anomaly as anomaly_mod
 from analytics import changepoints
@@ -830,6 +831,7 @@ _IMPLS = {
     "search_alarms": (search_alarms, _search_alarms),
     "get_work_orders": (get_work_orders, _get_work_orders),
     "get_shift_notes": (get_shift_notes, _get_shift_notes),
+    "listen": (listen, _listen),  # agents/listen.py
 }
 
 
@@ -902,6 +904,7 @@ _HINTS: dict[str, dict[str, str]] = {
     "search_alarms": {"line_id": "str", "t0": "str", "t1": "str", "codes": "list[str] | None"},
     "get_work_orders": {"asset_id": "str", "since": "str"},
     "get_shift_notes": {"line_id": "str", "t0": "str", "t1": "str"},
+    "listen": {"asset_id": "str", "t0": "str", "t1": "str"},
 }
 
 __all__ = [
