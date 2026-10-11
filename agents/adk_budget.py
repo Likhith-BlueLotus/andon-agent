@@ -147,28 +147,54 @@ def _chain(exc: BaseException) -> list[BaseException]:
     return seen
 
 
-def run_error(exc: BaseException) -> dict:
+SAFE_MESSAGES = {
+    "model_unavailable": "The model service is busy or unavailable. Please try again shortly.",
+    "model_timeout": "The model took too long to answer. Please try again.",
+    "llm_call_limit": "The investigation reached its model-call limit and was stopped.",
+    "replay_unavailable": "This recorded run is not available.",
+    "unknown_scenario": "Unknown scenario.",
+    "timeout": "The investigation took too long and was stopped.",
+    "internal": "Internal error. The incident has been logged.",
+}
+
+
+def error_data(code: str, retryable: bool, message: str | None = None) -> dict:
+    """``ErrorData`` with a fixed, user-safe message per code. Exception text (project ids, model
+    paths, URLs) never goes on the wire; callers log it server-side."""
+    return {"code": code, "message": message or SAFE_MESSAGES[code], "retryable": retryable}
+
+
+def run_error(exc: BaseException, incident_id: str | None = None) -> dict:
     """``ErrorData`` fields (``code``, ``message``, ``retryable``) for an exception out of a run.
 
     ADK re-raises plugin exceptions as ``RuntimeError`` with the original chained, so the whole
-    cause chain is searched.
+    cause chain is searched. Only ``budget_exhausted`` carries exception text (dollar amounts and a
+    date); every other message is fixed per code and the detail is logged with ``incident_id``.
     """
     chain = _chain(exc)
     for e in chain:
         if isinstance(e, BudgetExhaustedError):
-            return {"code": "budget_exhausted", "message": str(e), "retryable": False}
+            return error_data("budget_exhausted", False, str(e)[:200])
+    out = None
     for e in chain:
         if isinstance(e, (UnpinnedModelError, ModelPolicyError)):
-            return {"code": "internal", "message": str(e), "retryable": False}
+            out = error_data("internal", False)
+            break
         if isinstance(e, LlmCallsLimitExceededError):
-            return {"code": "llm_call_limit", "message": str(e), "retryable": False}
-    for e in chain:
-        outcome = classify_error(e)
-        if outcome in ("429", "5xx"):
-            return {"code": "model_unavailable", "message": str(e), "retryable": True}
-        if outcome == "timeout":
-            return {"code": "model_timeout", "message": str(e), "retryable": True}
-    return {"code": "internal", "message": str(exc), "retryable": False}
+            out = error_data("llm_call_limit", False)
+            break
+    if out is None:
+        for e in chain:
+            outcome = classify_error(e)
+            if outcome in ("429", "5xx"):
+                out = error_data("model_unavailable", True)
+                break
+            if outcome == "timeout":
+                out = error_data("model_timeout", True)
+                break
+    out = out or error_data("internal", False)
+    log.error("run error %s for %s: %r", out["code"], incident_id or "-", exc, exc_info=exc)
+    return out
 
 
 # --- Plugin ----------------------------------------------------------------------------------

@@ -184,6 +184,8 @@ def build_router(ctx: AppContext) -> APIRouter:
         if mode == "replay":
             if run_id is not None and not (RUN_ID_RE.match(run_id) or run_id.startswith("audit:")):
                 raise err(404, "unknown_replay", "unknown replay run")
+            if run_id is not None and run_id.startswith("audit:"):
+                require_passcode(request)  # the audit of a live run is not public
             run_id = run_id or ctx.replays.default_for(scenario_id)
             if run_id is None:
                 raise err(404, "no_replay", f"no recorded run for {scenario_id}")
@@ -191,6 +193,13 @@ def build_router(ctx: AppContext) -> APIRouter:
                 raw = await asyncio.to_thread(ctx.replays.load, run_id, scenario_id)
             except ReplayNotFound as exc:
                 raise err(404, "unknown_replay", "unknown replay run") from exc
+            decision = await asyncio.to_thread(ctx.replay_limiter.acquire, ip)
+            if not decision.allowed:
+                raise err(429, "rate_limited", "too many replays; slow down",
+                          {"Retry-After": str(decision.retry_after_s)}, scope="replay_ip_minute")  # fmt: skip
+            rslot = ctx.replay_slots.acquire()
+            if rslot is None:
+                raise err(429, "busy", "too many replays in progress; retry shortly", {"Retry-After": "5"})  # fmt: skip
             incident_id = new_replay_incident_id(scenario_id)
             meta["run_id"] = run_id
             source = stream_replay(raw, incident_id, speed=speed, gap_cap_s=st.replay_gap_cap_s, sleep=ctx.sleep)  # fmt: skip
@@ -201,13 +210,13 @@ def build_router(ctx: AppContext) -> APIRouter:
                     wo = WorkOrder.model_validate(ev.data.model_dump())
                     await asyncio.to_thread(ctx.cmms_demo.create_draft, wo)
 
-            return _respond(request, incident_id, guarded(source, incident_id, timeout_s=st.run_timeout_s), recorder, before_emit=stash_demo_wo)  # fmt: skip
+            return _respond(request, incident_id, guarded(source, incident_id, timeout_s=st.run_timeout_s), recorder, before_emit=stash_demo_wo, on_close=lambda: ctx.replay_slots.release(rslot))  # fmt: skip
 
         # ---- live ----
         require_passcode(request)
         if st.replay_only:
             raise err(403, "live_disabled", "live mode is disabled (replay only)")
-        incident_id = f"inc_{scenario_id.lower()}_{uuid.uuid4().hex[:8]}"
+        incident_id = f"inc_{scenario_id.lower()}_{uuid.uuid4().hex}"
         try:
             await ctx.budget.check_fresh()
         except BudgetExhaustedError as exc:
@@ -217,13 +226,13 @@ def build_router(ctx: AppContext) -> APIRouter:
         if not decision.allowed:
             raise err(429, "rate_limited", f"live run limit reached ({decision.scope})",
                       {"Retry-After": str(decision.retry_after_s)}, scope=decision.scope)  # fmt: skip
-        slot = ctx.acquire_live_slot()
+        slot = ctx.live_slots.acquire()
         if slot is None:
             raise err(429, "busy", "too many live runs in progress; retry shortly", {"Retry-After": "30"})  # fmt: skip
         recorder = AuditRecorder(ctx.audit, incident_id, meta)
         source = guarded(ctx.live_runner(scenario_id, incident_id), incident_id, timeout_s=st.run_timeout_s)  # fmt: skip
         return _respond(
-            request, incident_id, source, recorder, on_close=lambda: ctx.release_live_slot(slot)
+            request, incident_id, source, recorder, on_close=lambda: ctx.live_slots.release(slot)
         )
 
     def _respond(request, incident_id, events, recorder, *, before_emit=None, on_close=None):
@@ -238,12 +247,14 @@ def build_router(ctx: AppContext) -> APIRouter:
 
     # ---- audit ---------------------------------------------------------------------------
     @r.get("/api/incidents/{incident_id}/audit")
-    async def get_audit(incident_id: str) -> dict:
+    async def get_audit(incident_id: str, request: Request) -> dict:
         if not INCIDENT_ID_RE.match(incident_id):
             raise err(404, "unknown_incident", "unknown incident")
         rec = await asyncio.to_thread(ctx.audit.get, incident_id)
         if rec is None:
             raise err(404, "unknown_incident", "unknown incident")
+        if (rec["incident"] or {}).get("mode") == "live":
+            require_passcode(request)  # live audits are private; replay incidents stay public
         view = public_view(rec)
         view["incident"] = {k: v for k, v in (view["incident"] or {}).items() if k != "ip_hash"}
         return view

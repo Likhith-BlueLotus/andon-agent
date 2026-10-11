@@ -157,6 +157,18 @@ def create_app(
         limiter=Limiter(memory, shared),
         budget=budget,
         live_runner=live_runner or default_live_runner(provider, cmms_live),
+        replay_limiter=Limiter(
+            MemoryLimiter(st.replay_runs_per_min_per_ip, 10**9),
+            FirestoreLimiter(
+                fs,
+                st.replay_runs_per_min_per_ip,
+                10**9,
+                ip_collection="ratelimit_replay",
+                day_collection=None,
+            )
+            if fs is not None
+            else None,
+        ),
     )
 
     @asynccontextmanager

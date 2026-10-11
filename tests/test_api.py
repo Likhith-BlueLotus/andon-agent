@@ -209,7 +209,7 @@ async def test_disconnect_cancels_runner_and_audits_cancelled(tmp_path):
     await AuditRecorder.drain_all(5)
     inc = next(iter(hn.audit._inc))
     assert hn.audit.get(inc)["meta"]["summary"]["status"] == "cancelled"
-    assert hn.app.state.ctx._live_active == 0  # slot released
+    assert hn.app.state.ctx.live_slots.active == 0  # slot released
     await hn.close()
 
 
@@ -519,7 +519,9 @@ async def test_replay_from_audit_of_a_live_run(h):
     live = await h.run(mode="live", headers=PASS)
     await AuditRecorder.drain_all(5)
     run_id = f"audit:{live[0]['incident_id']}"
-    events = await h.run(mode="replay", query=f"&run_id={run_id}")
+    r = await h.post(f"/api/incidents/R002/investigate?mode=replay&run_id={run_id}")
+    assert r.status_code == 401  # replaying a live audit needs the passcode
+    events = await h.run(mode="replay", query=f"&run_id={run_id}", headers=PASS)
     assert events[0]["data"]["mode"] == "replay" and events[-1]["type"] == "done"
     assert events[0]["incident_id"] != live[0]["incident_id"]
     assert len(events) == len(live)
@@ -529,7 +531,8 @@ async def test_replay_from_audit_of_a_live_run(h):
 async def test_audit_records_every_event_and_is_readable(h):
     events = await h.run(mode="live", headers=PASS)
     inc = events[0]["incident_id"]
-    a = (await h.client.get(f"/api/incidents/{inc}/audit")).json()
+    assert (await h.client.get(f"/api/incidents/{inc}/audit")).status_code == 401  # live = private
+    a = (await h.client.get(f"/api/incidents/{inc}/audit", headers=PASS)).json()
     assert [s["seq"] for s in a["steps"]] == [e["seq"] for e in events]
     assert [s["type"] for s in a["steps"]] == [e["type"] for e in events]
     assert a["steps"][0]["data"]["scenario_id"] == "R002" and a["steps"][0]["agent"] is None
@@ -856,7 +859,7 @@ async def test_disconnect_before_first_byte_never_leaks_a_slot(tmp_path, monkeyp
         with contextlib.suppress(BaseException):
             await s.wait()
     monkeypatch.setattr(StreamingResponse, "stream_response", real)
-    assert hn.app.state.ctx._live_active == 0
+    assert hn.app.state.ctx.live_slots.active == 0
     r = await hn.post("/api/incidents/R002/investigate?mode=live", headers=PASS)
     assert r.status_code == 200
     await hn.close()
@@ -865,8 +868,127 @@ async def test_disconnect_before_first_byte_never_leaks_a_slot(tmp_path, monkeyp
 async def test_slot_lease_expires_as_a_backstop(tmp_path):
     hn = Harness(tmp_path, max_concurrent_live=1)
     ctx = hn.app.state.ctx
-    ctx.lease_s = 0.05
-    assert ctx.acquire_live_slot() and not ctx.acquire_live_slot()
+    ctx.live_slots.lease_s = 0.05
+    assert ctx.live_slots.acquire() and not ctx.live_slots.acquire()
     await asyncio.sleep(0.1)
-    assert ctx.acquire_live_slot()  # the abandoned lease expired
+    assert ctx.live_slots.acquire()  # the abandoned lease expired
     await hn.close()
+
+
+# ---- review fixes: replay limits, safe error text, private live audits ----------------------
+async def test_replay_per_ip_limit_is_separate_from_live_quota(tmp_path):
+    hn = Harness(tmp_path, replay_runs_per_min_per_ip=2, live_runs_per_day=1)
+    await hn.run(mode="replay")
+    await hn.run(mode="replay")
+    r = await hn.post("/api/incidents/R002/investigate?mode=replay")
+    assert r.status_code == 429 and "retry-after" in r.headers
+    assert r.json()["detail"]["scope"] == "replay_ip_minute"
+    assert len(await hn.run(mode="live", headers=PASS)) > 10  # the live quota was not touched
+    await hn.close()
+
+
+async def test_replay_limit_is_shared_via_firestore_without_a_day_counter(tmp_path):
+    fs = FakeFirestore()
+    a = Harness(tmp_path / "a", replay_runs_per_min_per_ip=1, firestore_client=fs)
+    b = Harness(tmp_path / "b", replay_runs_per_min_per_ip=1, firestore_client=fs)
+    assert (await a.post("/api/incidents/R002/investigate?mode=replay")).status_code == 200
+    assert (await b.post("/api/incidents/R002/investigate?mode=replay")).status_code == 429
+    assert any(k.startswith("ratelimit_replay/") for k in fs.docs)
+    assert not any(k.startswith(("ratelimit_day/", "ratelimit_ip/")) for k in fs.docs)
+    await a.close()
+    await b.close()
+
+
+async def test_concurrent_replay_cap_and_no_leak(tmp_path, monkeypatch):
+    from starlette.responses import StreamingResponse
+
+    hn = Harness(tmp_path, max_concurrent_replay=1)
+    gate = asyncio.Event()
+
+    async def slow(_s: float) -> None:
+        await gate.wait()
+
+    hn.app.state.ctx.sleep = slow
+    s = Stream(hn.app, "/api/incidents/R002/investigate?mode=replay").start()
+    await until(lambda: hn.app.state.ctx.replay_slots.active == 1)
+    r = await hn.post("/api/incidents/R002/investigate?mode=replay")
+    assert r.status_code == 429 and r.json()["detail"]["code"] == "busy"
+    s.disconnect()
+    await s.wait()
+    assert hn.app.state.ctx.replay_slots.active == 0
+    # a response that never starts its body still frees the slot
+    real = StreamingResponse.stream_response
+
+    async def never(self, send):
+        raise asyncio.CancelledError
+
+    monkeypatch.setattr(StreamingResponse, "stream_response", never)
+    for _ in range(3):
+        t = Stream(hn.app, "/api/incidents/R002/investigate?mode=replay")
+        t._sent_body = True
+        t.disconnect()
+        t.start()
+        with contextlib.suppress(BaseException):
+            await t.wait()
+    monkeypatch.setattr(StreamingResponse, "stream_response", real)
+    assert hn.app.state.ctx.replay_slots.active == 0
+    await hn.close()
+
+
+class _ClientError(Exception):
+    code = 503
+
+    def __init__(self) -> None:
+        super().__init__(
+            "503 UNAVAILABLE. projects/andon-agent-511218/locations/global/publishers/google/"
+            "models/gemini-3.8-flash: https://aiplatform.googleapis.com/v1/projects/andon-agent-511218"
+        )
+
+
+async def test_exception_text_never_reaches_the_stream_or_audit(tmp_path):
+    hn = Harness(tmp_path)
+
+    class Leaky(FakeRunner):
+        async def _run(self, sid, inc):
+            async for ev in super()._run(sid, inc):
+                yield ev
+                if self.emitted == 3:
+                    raise _ClientError
+
+    hn.app.state.ctx.live_runner = Leaky()
+    r = await hn.post("/api/incidents/R002/investigate?mode=live", headers=PASS)
+    await AuditRecorder.drain_all(5)
+    events = parse_sse(r.text)
+    err = events[-2]["data"]
+    assert err["code"] == "model_unavailable" and err["retryable"] is True
+    for needle in ("andon-agent-511218", "googleapis", "UNAVAILABLE", "publishers/google"):
+        assert needle not in r.text
+    assert "gemini" not in err["message"]
+    steps = json.dumps(hn.audit.get(events[0]["incident_id"])["steps"])
+    assert "andon-agent-511218" not in steps
+    await hn.close()
+
+
+def test_every_error_code_has_a_fixed_message():
+    from agents.adk_budget import SAFE_MESSAGES, run_error
+
+    assert run_error(TimeoutError("secret-host:443"))["message"] == SAFE_MESSAGES["model_timeout"]
+    assert run_error(ValueError("/Users/x/secret"))["message"] == SAFE_MESSAGES["internal"]
+    assert "$" in run_error(BudgetExhaustedError("daily budget $5.00 exhausted"))["message"]
+
+
+async def test_live_audit_is_private_replay_audit_public(h):
+    live = await h.run(mode="live", headers=PASS)
+    rep = await h.run(mode="replay")
+    await AuditRecorder.drain_all(5)
+    assert (await h.client.get(f"/api/incidents/{live[0]['incident_id']}/audit")).status_code == 401
+    ok = await h.client.get(f"/api/incidents/{rep[0]['incident_id']}/audit")
+    assert ok.status_code == 200 and ok.json()["incident"]["mode"] == "replay"
+
+
+async def test_incident_ids_have_128_bits(h):
+    live = await h.run(mode="live", headers=PASS)
+    rep = await h.run(mode="replay")
+    for ev in (live[0], rep[0]):
+        suffix = ev["incident_id"].rsplit("_", 1)[-1]
+        assert len(suffix) == 32 and int(suffix, 16) >= 0

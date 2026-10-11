@@ -14,7 +14,7 @@ from agents.cmms import Decidable
 from api.audit import AuditStore
 from api.budget import BudgetGuard
 from api.events import Event
-from api.ratelimit import FailureLimiter, Limiter
+from api.ratelimit import FailureLimiter, Limiter, MemoryLimiter
 from api.replay import ReplayCatalog
 from api.settings import Settings
 from api.stores import StoreProvider
@@ -23,6 +23,37 @@ log = logging.getLogger("andon.api")
 
 # (scenario_id, incident_id) -> contract events of one live run
 LiveRunner = Callable[[str, str], AsyncIterator[Event]]
+
+
+class SlotPool:
+    """Concurrency slots as leases: released when the response ends (``routes.SlotResponse``
+    always runs it) and, as a backstop, expired after ``lease_s``, so nothing can hold one
+    forever."""
+
+    def __init__(self, size: int, lease_s: float) -> None:
+        self.size, self.lease_s = size, lease_s
+        self._slots: dict[str, float] = {}
+        self._lock = threading.Lock()
+
+    def acquire(self) -> str | None:
+        now = time.monotonic()
+        with self._lock:
+            self._slots = {t: d for t, d in self._slots.items() if d > now}
+            if len(self._slots) >= self.size:
+                return None
+            token = uuid.uuid4().hex
+            self._slots[token] = now + self.lease_s
+            return token
+
+    def release(self, token: str | None) -> None:
+        with self._lock:
+            self._slots.pop(token or "", None)
+
+    @property
+    def active(self) -> int:
+        now = time.monotonic()
+        with self._lock:
+            return sum(1 for d in self._slots.values() if d > now)
 
 
 @dataclass
@@ -38,33 +69,11 @@ class AppContext:
     live_runner: LiveRunner
     failures: FailureLimiter = field(default_factory=FailureLimiter)
     sleep: Callable[[float], Awaitable[None]] = asyncio.sleep  # replay pacing (tests inject)
-    lease_s: float = 0.0  # set in __post_init__ from the run timeout
-    _slots: dict[str, float] = field(default_factory=dict, repr=False)
+    replay_limiter: Limiter | None = None
+    live_slots: SlotPool = field(init=False)
+    replay_slots: SlotPool = field(init=False)
     _lock: threading.Lock = field(default_factory=threading.Lock, repr=False)
     _scenarios: tuple[float, list[dict]] | None = field(default=None, repr=False)
-
-    # ---- concurrency slots (per instance) ------------------------------------------------
-    # A slot is a lease: released when the response ends (always, see routes.SlotResponse) and, as
-    # a backstop, expired after ``lease_s`` so no code path can hold a slot forever.
-    def acquire_live_slot(self) -> str | None:
-        now = time.monotonic()
-        with self._lock:
-            self._slots = {t: d for t, d in self._slots.items() if d > now}
-            if len(self._slots) >= self.settings.max_concurrent_live:
-                return None
-            token = uuid.uuid4().hex
-            self._slots[token] = now + self.lease_s
-            return token
-
-    def release_live_slot(self, token: str | None) -> None:
-        with self._lock:
-            self._slots.pop(token or "", None)
-
-    @property
-    def _live_active(self) -> int:
-        now = time.monotonic()
-        with self._lock:
-            return sum(1 for d in self._slots.values() if d > now)
 
     # ---- published scenarios (cached 60 s) ------------------------------------------------
     async def scenarios(self) -> list[dict]:
@@ -75,5 +84,10 @@ class AppContext:
         return self._scenarios[1]
 
     def __post_init__(self) -> None:
-        if not self.lease_s:
-            self.lease_s = self.settings.run_timeout_s + 60.0
+        lease = self.settings.run_timeout_s + 60.0
+        self.live_slots = SlotPool(self.settings.max_concurrent_live, lease)
+        self.replay_slots = SlotPool(self.settings.max_concurrent_replay, lease)
+        if self.replay_limiter is None:
+            self.replay_limiter = Limiter(
+                MemoryLimiter(self.settings.replay_runs_per_min_per_ip, 10**9)
+            )

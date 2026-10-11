@@ -21,7 +21,7 @@ from collections.abc import AsyncIterator, Awaitable, Callable
 from datetime import UTC, datetime
 from typing import Any
 
-from agents.adk_budget import run_error
+from agents.adk_budget import error_data, run_error
 from api.audit import AuditRecorder
 from api.events import HEARTBEAT, Event, encode_sse, parse_event
 
@@ -75,15 +75,12 @@ async def guarded(
                     done = True
                     break
     except TimeoutError:
-        err = {"code": "timeout", "message": f"run exceeded {timeout_s:.0f} s", "retryable": True}
+        log.error("run %s exceeded %.0f s", incident_id, timeout_s)
+        err = error_data("timeout", True)
     except asyncio.CancelledError:
         raise
     except Exception as exc:
-        log.exception("stream source failed for %s", incident_id)
-        err = run_error(exc)
-        if err["code"] == "internal":
-            err["message"] = "internal error"  # details are in the logs, not on the wire
-        err["message"] = err["message"][:300]
+        err = run_error(exc, incident_id)  # fixed message per code; detail is logged there
     finally:
         with contextlib.suppress(Exception):
             await source.aclose()  # type: ignore[attr-defined]
@@ -93,7 +90,8 @@ async def guarded(
         yield make_event(incident_id, seq, "error", err)
         seq += 1
     elif not errored:
-        yield make_event(incident_id, seq, "error", {"code": "internal", "message": "stream ended without a result", "retryable": False})  # fmt: skip
+        log.error("run %s ended without done or error", incident_id)
+        yield make_event(incident_id, seq, "error", error_data("internal", False))
         seq += 1
     yield make_event(incident_id, seq, "done", {"duration_ms": int((time.perf_counter() - t0) * 1000)})  # fmt: skip
 

@@ -201,11 +201,9 @@ def _wrapped(e):
 def test_run_error_codes():
     assert run_error(_wrapped(BudgetExhaustedError("x")))["code"] == "budget_exhausted"
     assert run_error(_wrapped(UnpinnedModelError("x")))["code"] == "internal"
-    assert run_error(APIErr(429)) == {
-        "code": "model_unavailable",
-        "message": "HTTP 429",
-        "retryable": True,
-    }
+    out = run_error(APIErr(429))
+    assert out["code"] == "model_unavailable" and out["retryable"] is True
+    assert "429" not in out["message"]  # fixed text, never the exception string
     assert run_error(TimeoutError())["code"] == "model_timeout"
     assert run_error(ValueError("boom"))["retryable"] is False
 

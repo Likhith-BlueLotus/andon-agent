@@ -30,7 +30,7 @@ from typing import Any
 from google.genai import types
 
 from agents import tools as T
-from agents.adk_budget import run_error
+from agents.adk_budget import error_data, run_error
 from agents.graph import APP_NAME, AndonApp
 from agents.judge import MODEL_KEY
 from agents.runtime import AGENT_MARK, EVENT_PREFIX, RUN_KEY
@@ -199,7 +199,8 @@ async def run_incident(
         try:
             stop = rt.store.get_stop_event(scenario_id)
         except Exception as exc:
-            yield mapper.make("error", {"code": "unknown_scenario", "message": f"{scenario_id}: {exc}"[:300], "retryable": False})  # fmt: skip
+            log.warning("unknown scenario %s for %s: %r", scenario_id, incident_id, exc)
+            yield mapper.make("error", error_data("unknown_scenario", False))
             yield mapper.make("done", {"duration_ms": int((time.perf_counter() - t_start) * 1000)})
             return
         yield mapper.make(
@@ -214,7 +215,8 @@ async def run_incident(
         try:
             scope = rt.open_scope(incident_id, scenario_id, force_bad_claim=force_bad_claim)
         except Exception as exc:
-            yield mapper.make("error", {"code": "replay_unavailable" if rt.mode == "replay" else "internal", "message": str(exc)[:300], "retryable": False})  # fmt: skip
+            log.error("open_scope failed for %s: %r", incident_id, exc, exc_info=exc)
+            yield mapper.make("error", error_data("replay_unavailable" if rt.mode == "replay" else "internal", False))  # fmt: skip
             yield mapper.make("done", {"duration_ms": int((time.perf_counter() - t_start) * 1000)})
             return
         token = rt.activate(scope)
@@ -242,7 +244,7 @@ async def run_incident(
                     yield out
         except Exception as exc:
             log.exception("run %s failed", incident_id)
-            yield mapper.make("error", run_error(exc))
+            yield mapper.make("error", run_error(exc, incident_id))
         final = await app.sessions.get_session(
             app_name=APP_NAME, user_id=user_id, session_id=session.id
         )

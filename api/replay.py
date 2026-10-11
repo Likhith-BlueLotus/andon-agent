@@ -214,7 +214,7 @@ async def stream_replay(
 
 
 def new_replay_incident_id(scenario_id: str) -> str:
-    return f"rep_{scenario_id.lower()}_{uuid.uuid4().hex[:8]}"
+    return f"rep_{scenario_id.lower()}_{uuid.uuid4().hex}"
 
 
 # ---- export CLI -------------------------------------------------------------------------------

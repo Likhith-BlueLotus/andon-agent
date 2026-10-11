@@ -200,7 +200,7 @@ async def test_replay_divergence_is_an_error_event(store, tmp_path):
     types = _types(events)
     assert "error" in types and types[-2:] == ["cost", "done"]
     err = next(e.data for e in events if e.type == "error")
-    assert "replay has no adk response" in err.message
+    assert err.code == "internal" and "fixture" not in err.message.lower()
 
 
 async def test_unknown_scenario_is_an_error_event(store, fixture_root):

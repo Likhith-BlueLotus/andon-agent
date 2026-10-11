@@ -31,6 +31,8 @@ class Settings:
     replay_only: bool = False
     live_runs_per_day: int = 30
     live_runs_per_min_per_ip: int = 3
+    replay_runs_per_min_per_ip: int = 20  # anonymous replays; not counted against the live quota
+    max_concurrent_replay: int = 8  # per instance
     max_concurrent_live: int = 2  # per instance; each live run holds an ADK graph in memory
     trusted_proxy_hops: int = 1  # Cloud Run appends the real peer: take XFF[-hops]
     heartbeat_s: float = 15.0
@@ -67,6 +69,8 @@ class Settings:
             live_runs_per_day=int(e.get("LIVE_RUNS_PER_DAY", 30)),
             live_runs_per_min_per_ip=int(e.get("LIVE_RUNS_PER_MIN_PER_IP", 3)),
             max_concurrent_live=int(e.get("MAX_CONCURRENT_LIVE", 2)),
+            replay_runs_per_min_per_ip=int(e.get("REPLAY_RUNS_PER_MIN_PER_IP", 20)),
+            max_concurrent_replay=int(e.get("MAX_CONCURRENT_REPLAY", 8)),
             trusted_proxy_hops=int(e.get("TRUSTED_PROXY_HOPS", 1)),
             heartbeat_s=float(e.get("HEARTBEAT_S", 15)),
             run_timeout_s=float(e.get("RUN_TIMEOUT_S", 840)),

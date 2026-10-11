@@ -78,9 +78,18 @@ class MemoryLimiter:
 
 
 class FirestoreLimiter:
-    def __init__(self, client: Any, per_min: int, per_day: int, clock: Any = time.time) -> None:
-        self._ip = client.collection("ratelimit_ip")
-        self._day = client.collection("ratelimit_day")
+    def __init__(
+        self,
+        client: Any,
+        per_min: int,
+        per_day: int,
+        clock: Any = time.time,
+        *,
+        ip_collection: str = "ratelimit_ip",
+        day_collection: str | None = "ratelimit_day",  # None: no global daily cap (replays)
+    ) -> None:
+        self._ip = client.collection(ip_collection)
+        self._day = client.collection(day_collection) if day_collection else None
         self.per_min, self.per_day = per_min, per_day
         self._clock = clock
 
@@ -97,6 +106,8 @@ class FirestoreLimiter:
         expires = datetime.fromtimestamp(now, UTC) + timedelta(minutes=10)
         if self._bump(self._ip.document(key), {"expires_at": expires}) > self.per_min:
             return Decision(False, "ip_minute", _secs_to_next_minute(now))
+        if self._day is None:
+            return ALLOW
         today = ist_day(datetime.fromtimestamp(now, UTC))
         if self._bump(self._day.document(today)) > self.per_day:
             return Decision(False, "day", _secs_to_next_day(now))
