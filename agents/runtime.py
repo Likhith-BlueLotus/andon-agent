@@ -7,9 +7,15 @@ is running (``scenario_id`` from the incident, never from the model). Session st
 :class:`agents.tools.ToolContext` from it. The current scope is also published in a ``ContextVar``
 so that the replay/record machinery (which only sees model requests) can find it.
 
-Tool-call budgets (AGENTS_SPEC stop conditions) are enforced here in a ``before_tool_callback``
-wrapper around every agent's tools: a call over budget is not executed and the model gets a
-structured ``budget_reached`` result instead.
+Tool-call budgets (AGENTS_SPEC stop conditions) are enforced here (ADR-027), in three layers:
+
+* ``before_tool_callback`` (:meth:`Runtime.budget_guard`): a call over budget is not executed and
+  the model gets a structured ``budget_reached`` result instead;
+* ``before_model_callback`` (:meth:`Runtime.tool_gate`): once an agent's budget is used up, its
+  next model request carries no tools, so the model has to write its final output (live S009: the
+  commander ignored 38 refusals in a row and burned ``max_llm_calls``);
+* hard stop: an agent that still emits :data:`HARD_STOP_REFUSALS` calls after its tools were
+  withdrawn has its turn ended (``skip_summarization`` on the refusal).
 
 Replay mode: :class:`ReplayLlm` (ADK agents) and :class:`ReplayTransport` (``LLM.generate``)
 replay a recording from ``tests/fixtures/llm/<scenario>/`` through the real graph and the real
@@ -66,6 +72,15 @@ TOOL_BUDGETS: dict[str, int] = {
     "evidence_librarian": 8,
     "action_drafter": 2,
 }
+
+# Calls refused *after* the agent's tools were withdrawn that end the agent's turn (ADR-027).
+HARD_STOP_REFUSALS = 3
+TOOLS_WITHDRAWN_NOTE = (
+    "Tool budget used up: answer now from the evidence you have. Do not call any tool."
+)
+# ADK's own structured-output tool (output_schema + tools on a model without native support):
+# kept when tools are withdrawn, it is how such an agent returns its final answer.
+_KEEP_TOOLS = frozenset({"set_model_response"})
 
 Mode = str  # "live" | "replay" | "record"
 
@@ -233,6 +248,8 @@ class RunScope:
     force_bad_claim: bool = False
     recording: Recording | None = None
     tool_calls: Counter[str] = field(default_factory=Counter)
+    tools_withdrawn: Counter[str] = field(default_factory=Counter)  # model calls made without tools
+    ignored_refusals: Counter[str] = field(default_factory=Counter)  # refusals after withdrawal
     exit_stack: AsyncExitStack = field(default_factory=AsyncExitStack)
     manuals: CacheHandle | None = None
     manuals_failed: bool = False
@@ -251,6 +268,11 @@ class RunScope:
     def count_tool(self, agent: str) -> int:
         with self._count_lock:
             self.tool_calls[agent] += 1
+            return self.tool_calls[agent]
+
+    def used(self, agent: str) -> int:
+        """Tool calls the agent has made (or attempted) so far, refusals included."""
+        with self._count_lock:
             return self.tool_calls[agent]
 
 
@@ -451,6 +473,19 @@ class Runtime:
                 return {"evidence_id": None, "error": {"code": "no_scope", "message": "no run"}}
             n = scope.count_tool(agent)
             if n > cap:
+                if scope.tools_withdrawn[agent]:
+                    # the model was asked without tools and still called one: count towards the
+                    # hard stop. Refusals in the turn that overshot (parallel calls) do not.
+                    scope.ignored_refusals[agent] += 1
+                    if scope.ignored_refusals[agent] >= HARD_STOP_REFUSALS:
+                        log.warning(
+                            "%s ignored %d budget refusals with tools withdrawn; ending its turn",
+                            agent,
+                            scope.ignored_refusals[agent],
+                        )
+                        # a skip_summarization function response is a final response: ADK's
+                        # flow loop ends this agent's turn instead of calling the model again
+                        tool_context.actions.skip_summarization = True
                 return {
                     "evidence_id": None,
                     "error": {
@@ -462,6 +497,50 @@ class Runtime:
             return None
 
         return before_tool
+
+    def tool_gate(
+        self, agent: str, output_schema: Any = None, limit: int | None = None
+    ) -> Callable[..., None]:
+        """``before_model_callback``: once ``agent`` has used its tool budget, send the request
+        without tools (``config.tools`` and ``tool_config`` cleared, ADK's ``set_model_response``
+        kept) plus :data:`TOOLS_WITHDRAWN_NOTE`, so the model must produce its final output.
+
+        ``output_schema`` (the agent's) is set on the request if ADK had not set it natively, so a
+        structured agent (the commander's plan) still answers in its schema. ``tools_dict`` is left
+        alone: a stray call the model emits anyway is answered by :meth:`budget_guard`.
+        """
+        cap = limit if limit is not None else TOOL_BUDGETS[agent]
+
+        def before_model(callback_context: Any, llm_request: LlmRequest) -> None:
+            try:
+                scope = self.scope_for(callback_context.state)
+            except RuntimeError:
+                return None
+            if scope.used(agent) < cap:
+                return None
+            withdraw_tools(llm_request, output_schema)
+            scope.tools_withdrawn[agent] += 1
+            log.info("%s tool budget %d used up; model call without tools", agent, cap)
+            return None
+
+        return before_model
+
+
+def withdraw_tools(llm_request: LlmRequest, output_schema: Any = None) -> None:
+    """Remove every callable tool from ``llm_request`` (in place) and add the answer-now note."""
+    cfg = llm_request.config
+    kept: list[types.Tool] = []
+    for tool in cfg.tools or []:
+        decls = [
+            d for d in (getattr(tool, "function_declarations", None) or []) if d.name in _KEEP_TOOLS
+        ]
+        if decls:
+            kept.append(types.Tool(function_declarations=decls))
+    cfg.tools = kept or None
+    cfg.tool_config = None
+    if output_schema is not None and not kept and cfg.response_schema is None:
+        llm_request.set_output_schema(output_schema)
+    llm_request.append_instructions([TOOLS_WITHDRAWN_NOTE])
 
 
 def agent_marks() -> tuple[Callable[..., None], Callable[..., None]]:

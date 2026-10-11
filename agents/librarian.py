@@ -337,5 +337,6 @@ def build_librarian(rt: Runtime, instruction: Any) -> LlmAgent:
         output_key="librarian_findings",
         before_agent_callback=started,
         after_agent_callback=finished,
+        before_model_callback=rt.tool_gate(AGENT),
         before_tool_callback=rt.budget_guard(AGENT),
     )

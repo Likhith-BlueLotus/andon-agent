@@ -167,3 +167,9 @@ Template — copy for each entry:
 - **Do differently / rule added:** anything safety-relevant that an LLM "selects" must have a code-side floor; every quoted fact needs a code-checked applicability condition, not just a string match.
 - **Cost (time / $):** ~3 h / $0.147 (one live R002 run, also used to re-record the fixture).
 
+### 2026-10-11 — A tool-budget refusal is advice; the model can ignore it 38 times (agents, person A)
+- **What happened:** 5/154 final-eval graph runs ended with `llm_call_limit` and no verdict. Live S009 reproduced it: the commander called `list_assets` 40 times; 38 calls got a structured `budget_reached` result with "stop calling tools" and Gemini 3.8 Flash called again every turn until ADK `max_llm_calls` raised.
+- **Fix:** ADR-027 — `before_model_callback` withdraws the tools from the request once the budget is used (and sets the output schema), plus a hard stop (`skip_summarization`) after 3 refusals with tools withdrawn.
+- **Surprise (ADK 2.11.0, from the installed source):** a function call naming a tool missing from `tools_dict` still goes through the `before_tool_callback`s before ADK's tool-not-found response, so budget refusals cover hallucinated calls too; `skip_summarization` on any response of a parallel batch makes the merged event final and ends the agent's turn (`end_invocation` would end the whole run); with `GOOGLE_GENAI_USE_ENTERPRISE=true` Gemini 3 takes `response_schema` natively next to tools, so clearing `config.tools` leaves the schema in place.
+- **Do differently / rule added:** a stop condition the model has to obey is not a stop condition; enforce it in the request (no tools) and test it with a fake model that never obeys.
+- **Cost (time / $):** ~1 h / $0.280 (two live S009 runs).

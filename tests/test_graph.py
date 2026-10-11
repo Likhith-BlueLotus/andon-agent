@@ -290,3 +290,129 @@ async def test_recorded_runs_replay_identically(sid):
     for wo in [e.data for e in events if e.type == "work_order_draft"]:
         texts = {s.text for s in wo.steps if s.is_safety}
         assert set(mandatory_texts(wo.asset_id)) <= texts
+
+
+# --- runaway tool loops (ADR-027) ------------------------------------------------------------
+PLAN_JSON = json.dumps(
+    {
+        "steps": ["Check UT-AIR header", "Check ST20-WLD gun air", "Sensor check", "Alarms"],
+        "upstream_step": 0,
+        "sensor_step": 2,
+        "suspects": ["UT-AIR"],
+    }
+)
+
+
+def _looping_model(obey_withdrawal: bool):
+    """A fake commander model that calls ``list_assets`` on every turn (live S009). If
+    ``obey_withdrawal``, a request without tools gets the plan (what Gemini does: it cannot call
+    an undeclared function); otherwise it keeps calling regardless."""
+    from google.adk.models.llm_response import LlmResponse
+    from google.genai import types
+    from pydantic import Field
+
+    from agents.runtime import ReplayLlm  # for its capabilities (same path as live Gemini)
+
+    class LoopingLlm(ReplayLlm):
+        requests: list = Field(default_factory=list)
+
+        async def generate_content_async(self, llm_request, stream=False):
+            cfg = llm_request.config
+            has_tools = bool(cfg.tools)
+            self.requests.append(
+                {"tools": has_tools, "schema": cfg.response_schema,
+                 "system": str(cfg.system_instruction or "")}
+            )  # fmt: skip
+            if has_tools or not obey_withdrawal:
+                part = types.Part(
+                    function_call=types.FunctionCall(name="list_assets", args={"line_id": "L1"})
+                )
+            else:
+                part = types.Part(text=PLAN_JSON)
+            yield LlmResponse(
+                content=types.Content(role="model", parts=[part]),
+                usage_metadata=types.GenerateContentResponseUsageMetadata(
+                    prompt_token_count=100, candidates_token_count=10, total_token_count=110
+                ),
+            )
+
+    return LoopingLlm(model=config.FLASH)
+
+
+def _commander(app):
+    return next(a for a in iter_agents(app.app.root_agent) if a.name == "commander")
+
+
+async def test_runaway_tool_loop_is_cut_by_withdrawing_tools(store, fixture_root):
+    from agents.runtime import TOOL_BUDGETS, TOOLS_WITHDRAWN_NOTE
+
+    app = build_app(store, mode="replay", fixture_root=fixture_root,
+                    stages=("commander", "evidence"))  # fmt: skip
+    fake = _looping_model(obey_withdrawal=True)
+    _commander(app).model = fake
+    events = await _collect(app)
+    types_ = _types(events)
+    assert "error" not in types_, [e.data for e in events if e.type == "error"]
+    budget = TOOL_BUDGETS["commander"]
+    assert len(fake.requests) <= budget + 1
+    assert [r["tools"] for r in fake.requests] == [True] * budget + [False]
+    last = fake.requests[-1]
+    assert last["schema"] is not None and TOOLS_WITHDRAWN_NOTE in last["system"]
+    calls = [e.data for e in events if e.type == "tool_call" and e.agent == "commander"]
+    assert len(calls) == budget  # never refused: tools went away before a 4th call
+    plan = [e.data for e in events if e.type == "plan"]
+    assert plan and plan[0].steps[0] == "Check UT-AIR header"
+    started = [e.data.agent for e in events if e.type == "agent_started"]
+    assert "signal_analyst" in started and "evidence_librarian" in started
+
+
+async def test_agent_ignoring_tool_withdrawal_is_hard_stopped(store, fixture_root):
+    from agents.runtime import HARD_STOP_REFUSALS, TOOL_BUDGETS
+
+    app = build_app(store, mode="replay", fixture_root=fixture_root,
+                    stages=("commander", "evidence"))  # fmt: skip
+    fake = _looping_model(obey_withdrawal=False)
+    _commander(app).model = fake
+    events = await _collect(app)
+    types_ = _types(events)
+    assert "error" not in types_, [e.data for e in events if e.type == "error"]
+    budget = TOOL_BUDGETS["commander"]
+    assert len(fake.requests) == budget + HARD_STOP_REFUSALS  # far below max_llm_calls
+    assert [r["tools"] for r in fake.requests] == [True] * budget + [False] * HARD_STOP_REFUSALS
+    refused = [
+        e.data
+        for e in events
+        if e.type == "tool_result" and e.agent == "commander" and not e.data.evidence_id
+    ]
+    assert len(refused) == HARD_STOP_REFUSALS
+    assert "plan" not in types_  # no plan, but the run goes on to the evidence stage
+    started = [e.data.agent for e in events if e.type == "agent_started"]
+    assert "signal_analyst" in started and types_[-2:] == ["cost", "done"]
+
+
+def test_withdraw_tools_keeps_set_model_response_and_sets_schema():
+    from google.adk.models.llm_request import LlmRequest
+    from google.genai import types
+
+    from agents.graph import PlanOut
+    from agents.runtime import withdraw_tools
+
+    def decl(name):
+        return types.FunctionDeclaration(name=name, description=name)
+
+    req = LlmRequest()
+    req.config.tools = [types.Tool(function_declarations=[decl("list_assets")])]
+    req.config.tool_config = types.ToolConfig(
+        function_calling_config=types.FunctionCallingConfig(mode="ANY")
+    )
+    withdraw_tools(req, PlanOut)
+    assert req.config.tools is None and req.config.tool_config is None
+    assert req.config.response_schema is PlanOut
+
+    req = LlmRequest()  # non-native output_schema path: ADK's set_model_response stays
+    req.config.tools = [
+        types.Tool(function_declarations=[decl("list_assets"), decl("set_model_response")])
+    ]
+    withdraw_tools(req, PlanOut)
+    names = [d.name for t in req.config.tools for d in t.function_declarations]
+    assert names == ["set_model_response"] and req.config.response_schema is None

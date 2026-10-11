@@ -262,5 +262,6 @@ def build_drafter(rt: Runtime) -> LlmAgent:
         output_key="drafter_note",
         before_agent_callback=before,
         after_agent_callback=finished,
+        before_model_callback=rt.tool_gate(AGENT),
         before_tool_callback=rt.budget_guard(AGENT),
     )

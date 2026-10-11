@@ -11,7 +11,8 @@
 :func:`build_app` builds it once per store; :func:`agents.events_map.run_incident` runs one
 incident on it and yields ``api/events.py`` events. Tools are scoped per run through
 ``agents.runtime`` (the scenario comes from the incident, never from the model), and tool-call
-budgets are enforced in a ``before_tool_callback`` wrapper.
+budgets are enforced by ``before_tool_callback`` (refuse) plus ``before_model_callback`` (no tools
+once the budget is used up) on every tool-using agent (ADR-027).
 """
 
 from __future__ import annotations
@@ -143,6 +144,7 @@ def build_commander(rt: Runtime) -> LlmAgent:
         output_key="plan",
         before_agent_callback=started,
         after_agent_callback=finished,
+        before_model_callback=rt.tool_gate(COMMANDER, PlanOut),
         before_tool_callback=rt.budget_guard(COMMANDER),
     )
 
@@ -161,6 +163,7 @@ def build_signal_analyst(rt: Runtime, exclude_tools: frozenset[str] = frozenset(
         output_key="signal_findings",
         before_agent_callback=started,
         after_agent_callback=finished,
+        before_model_callback=rt.tool_gate(ANALYST),
         before_tool_callback=rt.budget_guard(ANALYST),
     )
 
