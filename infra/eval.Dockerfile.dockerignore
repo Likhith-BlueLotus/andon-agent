@@ -1,0 +1,20 @@
+# Used instead of the root .dockerignore when building infra/eval.Dockerfile (BuildKit).
+.git
+.venv
+.claude
+data/*
+!data/models
+docs
+web
+tests
+infra
+scripts
+eval/results
+**/__pycache__
+.env
+.env.*
+*.pem
+*service-account*.json
+.ruff_cache
+.pytest_cache
+node_modules
