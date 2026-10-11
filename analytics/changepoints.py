@@ -278,6 +278,10 @@ def detect(
                 at_co = True
         last_onset = onset + cfg.fine_width_s
         denom = abs(before)
+        # Report the direction of the reported (raw-mean) delta so the summary is self-consistent;
+        # the robust direction only steers onset refinement and breaks a raw-mean tie.
+        raw_delta = after - before
+        reported_up = raw_delta > 0 if raw_delta != 0 else direction > 0
         cp = {
             "ts": iso(onset),
             "before_mean": sig(before),
@@ -286,7 +290,7 @@ def detect(
             "magnitude_pct": sig(100.0 * (after - before) / denom, 4)
             if denom > 0.01 * sd.scale
             else None,
-            "direction": "up" if direction > 0 else "down",
+            "direction": "up" if reported_up else "down",
             "shape": "ramp" if len(g) > 1 else "step",
             "across_gap": bool(across),
             "at_changeover": at_co,

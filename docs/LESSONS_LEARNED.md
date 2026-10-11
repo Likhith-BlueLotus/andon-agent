@@ -91,3 +91,10 @@ Template — copy for each entry:
 - **Fix:** the Verifier also treats a change point whose onset lies inside a reported stuck period as a data artefact; sign relaxation reads the claim's direction words against the *value's* sign, never against `direction`; the test writes the patched table back with the original Arrow schema.
 - **Do differently / rule added:** claims about a change must cite the number (`delta`, `magnitude_pct`) with `path:`, not the `direction` label. (2) is worth a look by the analytics owner.
 - **Cost (time / $):** ~0.5 h / $0.
+
+### 2026-10-11 — Change point said "up" with a negative delta (phase 2, person A)
+- **What happened:** the verifier agent saw `direction: "up"` with `delta < 0`.
+- **Root cause:** PELT segments and the direction use the de-seasonalised series; `before/after_mean` and `delta` are raw. A step during a falling daily profile is "up vs normal" but "down" raw (53 of 69 cases in a sweep).
+- **Fix:** reported direction follows the reported raw delta; robust direction only steers onset refinement. Unit test reproduces the case (fails before, passes after).
+- **Do differently / rule added:** a regression test must be shown failing on the old code before the fix counts.
+- **Cost (time / $):** 20 min / $0.

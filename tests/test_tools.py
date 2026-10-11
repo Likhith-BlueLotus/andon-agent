@@ -473,3 +473,27 @@ def test_tools_never_touch_ground_truth(pkg):
             for m in mods:
                 assert not m.startswith(("simulator.truth_schema", "simulator.generate",
                                          "simulator.faults", "eval")), f"{path} imports {m}"  # fmt: skip
+
+
+def test_detect_direction_follows_reported_delta_under_daily_profile():
+    """Regression: PELT runs on the de-seasonalised series, so a step during a falling daily
+    profile is "up" vs normal while the raw before/after means fall. The reported direction
+    must follow the reported (raw) delta. Before the fix this case gave direction "up" with
+    delta < 0."""
+    import numpy as np
+
+    from analytics import changepoints as cpm
+    from analytics.series import Series, signal_def
+
+    sd = signal_def("UT-CHL", "supply_temp_c")
+    day = 86400
+    t1 = 1_791_590_400
+    t = np.arange(t1 - 7 * day, t1, dtype=np.int64)
+    rng = np.random.default_rng(1)
+    v = 7.0 + 3.0 * np.sin(2 * np.pi * ((t % day) / day)) + rng.normal(0, 0.05, len(t))
+    v = v + np.where(t >= t1 - day + 20 * 3600, 0.8, 0.0)
+    out = cpm.detect(Series(t, v), t1 - day, t1, sd, history=Series(t, v))
+    cps = [c for c in out["change_points"] if c["delta"]]
+    assert cps
+    for c in cps:
+        assert (c["delta"] > 0) == (c["direction"] == "up"), c
