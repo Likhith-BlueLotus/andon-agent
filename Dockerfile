@@ -5,6 +5,12 @@ ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy UV_PYTHON_DOWNLOADS=never
 WORKDIR /app
 COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-dev --no-install-project
+# Prune what the API never imports at runtime: test suites, pyarrow Flight/S3 (BigQuery and DuckDB
+# use neither), type stubs. Bytecode is kept (UV_COMPILE_BYTECODE) for faster cold starts.
+RUN SP=/app/.venv/lib/python3.12/site-packages \
+ && find "$SP" -type d \( -name tests -o -name test \) -prune -exec rm -rf {} + \
+ && rm -f "$SP"/pyarrow/libarrow_flight* "$SP"/pyarrow/_flight* "$SP"/pyarrow/libarrow_s3* "$SP"/pyarrow/_s3fs* \
+ && find "$SP" \( -name '*.pyi' -o -name '*.c' -o -name '*.h' \) -delete
 COPY config.py ./
 COPY agents ./agents
 COPY api ./api

@@ -11,3 +11,10 @@ tests
 .env.*
 *.pem
 *service-account*.json
+tests
+infra
+scripts
+.git*
+.ruff_cache
+.pytest_cache
+node_modules

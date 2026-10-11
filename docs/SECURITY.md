@@ -38,7 +38,9 @@ Only the USE list in `docs/DATA_SOURCES.md`. `/data-audit` checks: no raw extern
 All data is synthetic or from licensed public datasets with attribution (see `docs/DATA_SOURCES.md`). Gemini runs on `location=global` for availability; Cloud Run, BigQuery, GCS and Firestore live in `asia-south1`. Pitch-only "residency mode" (`RESIDENCY_MODE=asia-south1`): all agents switch to `gemini-3.5-flash` pinned to the regional endpoint and the Pro judge is disabled. Document honestly that the prototype uses global.
 
 ## Audit
-Every model call, tool call, verdict and human action is an append-only Firestore document with model ID, input hash, token counts, latency and verdict. No deletes from the API service account (rules enforce create-only on `audit/`).
+Note: `roles/datastore.user` cannot express create-only on a collection via IAM. Append-only is enforced in code (the API only calls `create()` on `audit/{id}/steps/{seq}`, never update/delete) and tested; `andon-api@` has no access to the eval bucket (verified) and `demo-passcode`/`daily-budget-usd` are readable only by `andon-api@`. Rate-limit counters live in `ratelimits/*` with a Firestore TTL policy on `expire_at`.
+
+Every model call, tool call, verdict and human action is an append-only Firestore document with model ID, input hash, token counts, latency and verdict. No deletes from the API service account: the audit module exposes create-only operations (Firestore security rules do not bind server SDKs, so this is enforced in code and by a test).
 
 ## Pre-deploy checklist (security-reviewer runs this)
 - [ ] Runtime SA is `andon-api@`, not default compute
