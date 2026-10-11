@@ -102,6 +102,8 @@ describe("WorkOrderPanel approval gating", () => {
     await user.click(screen.getByRole("button", { name: /Approve & send/ }));
     const banner = await screen.findByTestId("decision-banner");
     expect(within(banner).getByText(/Approved and sent to the mock CMMS/)).toBeInTheDocument();
+    expect(banner).toHaveFocus();
+    expect(screen.getByTestId("decision-announcer")).toHaveTextContent(/approved and sent to the mock CMMS/);
   });
 
   it("surfaces a 409 from the server", async () => {

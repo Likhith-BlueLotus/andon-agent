@@ -1,4 +1,4 @@
-import { useId, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from "react";
 import type { Citation, Claim, Hypothesis, RCAReport, WorkOrder } from "../types/events";
 import { claimState, claimsOf, type ClaimState, type IncidentState } from "../state/reducer";
 import type { ClaimVerdict } from "../types/events";
@@ -278,6 +278,7 @@ export function WorkOrderPanel({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<ApproveResponse | null>(null);
+  const bannerRef = useRef<HTMLDivElement>(null);
   const why = useId();
 
   const allTicked = safety.every((s) => ticked.has(s.order));
@@ -288,6 +289,10 @@ export function WorkOrderPanel({
   if (!name.trim()) missing.push("enter the approver name");
   const canApprove = missing.length === 0 && !busy && !result;
   const decided = result?.status ?? (wo.status !== "PENDING_APPROVAL" ? wo.status : null);
+  // the Approve button unmounts on decision; keep keyboard focus in the pane
+  useEffect(() => {
+    if (result) bannerRef.current?.focus();
+  }, [result]);
 
   async function submit(kind: "approve" | "reject") {
     if (!incidentId) return;
@@ -381,8 +386,12 @@ export function WorkOrderPanel({
         )}
       </ol>
 
+      {/* always mounted, so screen readers announce the outcome (a live region inserted with its text is often skipped) */}
+      <p aria-live="polite" className="sr-only" data-testid="decision-announcer">
+        {decided === "APPROVED" ? `Work order ${result?.wo_id ?? wo.wo_id} approved and sent to the mock CMMS.` : decided ? "Work order rejected." : ""}
+      </p>
       {decided ? (
-        <div role="status" className={`mt-3 flex items-start gap-2 rounded border p-2 text-sm ${decided === "APPROVED" ? "border-ok" : "border-bad"}`} data-testid="decision-banner">
+        <div ref={bannerRef} tabIndex={-1} className={`mt-3 flex items-start gap-2 rounded border p-2 text-sm ${decided === "APPROVED" ? "border-ok" : "border-bad"}`} data-testid="decision-banner">
           {decided === "APPROVED" ? <IconCheck className="mt-0.5 text-ok" /> : <IconX className="mt-0.5 text-bad" />}
           <span>
             <span className={`font-semibold ${decided === "APPROVED" ? "text-ok" : "text-bad"}`}>{decided === "APPROVED" ? "Approved and sent to the mock CMMS" : "Rejected"}</span>
