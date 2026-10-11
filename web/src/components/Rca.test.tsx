@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { render, screen, within } from "@testing-library/react";
+import { render, screen, within, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ClaimRow, WorkOrderPanel } from "./Rca";
 import type { Claim, ClaimVerdict, WorkOrder } from "../types/events";
@@ -102,7 +102,7 @@ describe("WorkOrderPanel approval gating", () => {
     await user.click(screen.getByRole("button", { name: /Approve & send/ }));
     const banner = await screen.findByTestId("decision-banner");
     expect(within(banner).getByText(/Approved and sent to the mock CMMS/)).toBeInTheDocument();
-    expect(banner).toHaveFocus();
+    await waitFor(() => expect(banner).toHaveFocus());
     expect(screen.getByTestId("decision-announcer")).toHaveTextContent(/approved and sent to the mock CMMS/);
   });
 
