@@ -1,6 +1,6 @@
 {
  "created_at": "2026-10-11T05:12:53Z",
- "key": "110bd2434f6310a0140ae9a17edbf081",
+  "content_hash": "110bd2434f6310a0140ae9a17edbf081",
  "machine_type": "slider",
  "model": "gemini-3.8-flash",
  "prompt_version": "listen_rubric v1 2026-10-11",

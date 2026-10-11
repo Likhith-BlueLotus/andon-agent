@@ -296,7 +296,7 @@ def _gemini(
         log.warning("listen: Gemini unavailable for %s: %r", query["gs_uri"], exc)
         return None, "unavailable", version
     entry = {
-        "key": key,
+        "content_hash": key,  # sha256 of inputs (named so secret scanners do not misread it)
         "model": res.model_id,
         "prompt_version": version,
         "thinking_level": THINKING_LEVEL,

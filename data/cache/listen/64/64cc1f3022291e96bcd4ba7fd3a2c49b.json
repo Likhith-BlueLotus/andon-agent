@@ -1,6 +1,6 @@
 {
  "created_at": "2026-10-11T04:57:40Z",
- "key": "64cc1f3022291e96bcd4ba7fd3a2c49b",
+  "content_hash": "64cc1f3022291e96bcd4ba7fd3a2c49b",
  "machine_type": "pump",
  "model": "gemini-3.8-flash",
  "prompt_version": "listen_rubric v1 2026-10-11",

@@ -433,7 +433,9 @@ def test_listen_uses_the_runs_llm_so_replay_never_bills(monkeypatch, tmp_path):
         llm = run_llm
         run_id = "r1"
 
-    finding, status, _ = L._gemini(Ctx(), "ST40-SLR", "pump", {"gs_uri": "gs://x/a.wav"}, "q" * 64, None, None)
+    finding, status, _ = L._gemini(
+        Ctx(), "ST40-SLR", "pump", {"gs_uri": "gs://x/a.wav"}, "q" * 64, None, None
+    )
     assert finding is None and status == "unavailable"
     assert calls  # went to the run's (replay) transport, not to Gemini
     assert run_llm.spend.spent_today() == 0.0

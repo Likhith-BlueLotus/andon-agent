@@ -1,0 +1,3 @@
+# One known false positive, reviewed 2026-10-11: a truncated sha256 content hash stored in a
+# field named "key" in a listen() cache file (renamed to content_hash in the next commit).
+0157aa7e0917afa34523bba3f7b2d768910135ce:data/cache/listen/11/110bd2434f6310a0140ae9a17edbf081.json:generic-api-key:3

@@ -1,6 +1,6 @@
 {
  "created_at": "2026-10-11T05:02:45Z",
- "key": "afafbb88a864562f395b9d836dc78802",
+  "content_hash": "afafbb88a864562f395b9d836dc78802",
  "machine_type": "fan",
  "model": "gemini-3.8-flash",
  "prompt_version": "listen_rubric v1 2026-10-11",

@@ -1,6 +1,6 @@
 {
  "created_at": "2026-10-11T05:01:40Z",
- "key": "b1f55e5135f36fe363bb180ee36f031d",
+  "content_hash": "b1f55e5135f36fe363bb180ee36f031d",
  "machine_type": "valve",
  "model": "gemini-3.8-flash",
  "prompt_version": "listen_rubric v1 2026-10-11",
