@@ -32,7 +32,12 @@ firebase deploy --only hosting --project "$FIREBASE_PROJECT"
 echo "HOSTING_URLS=$SITE_URL https://$FIREBASE_PROJECT.firebaseapp.com"
 
 # Post-deploy checks
-code=$(curl -s -o /dev/null -w '%{http_code}' "$SITE_URL")
+# a fresh release can 404 for a few seconds while the CDN picks it up
+for _ in 1 2 3 4 5 6; do
+  code=$(curl -s -o /dev/null -w '%{http_code}' "$SITE_URL")
+  [[ "$code" == "200" ]] && break
+  sleep 5
+done
 [[ "$code" == "200" ]] || { echo "FAIL: $SITE_URL returned $code"; exit 1; }
 echo "PASS: $SITE_URL -> 200"
 
