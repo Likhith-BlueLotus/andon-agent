@@ -406,3 +406,34 @@ def test_gemini_timeout_is_bounded(env, monkeypatch):
     s = T.listen(env.ctx(), asset_id="ST40-SLR", t0=W[0], t1=W[1])["summary"]
     assert time.perf_counter() - t < 3
     assert s["gemini_status"] == "timeout" and s["mfcc_distance"] is not None
+
+
+def test_listen_uses_the_runs_llm_so_replay_never_bills(monkeypatch, tmp_path):
+    """Regression: listen called the process-wide get_llm(), so a cache miss in replay mode
+    would have billed Gemini. It must use ctx.llm (replay-only transport in replay mode)."""
+    import agents.listen as L
+    from agents.llm import LLM, SpendTracker
+
+    calls = []
+
+    async def replay_only(model_id, contents, cfg):
+        calls.append(model_id)
+        raise RuntimeError("replay transport: no recording")
+
+    run_llm = LLM(transport=replay_only, spend=SpendTracker(1.0))
+
+    def boom():
+        raise AssertionError("process-wide LLM must not be used when ctx.llm is set")
+
+    monkeypatch.setattr("agents.llm.get_llm", boom)
+    monkeypatch.setattr(L, "CACHE_DIR", tmp_path)
+    monkeypatch.setattr(L, "_build_request", lambda *a, **k: ("contents", None))
+
+    class Ctx:
+        llm = run_llm
+        run_id = "r1"
+
+    finding, status, _ = L._gemini(Ctx(), "ST40-SLR", "pump", {"gs_uri": "gs://x/a.wav"}, "q" * 64, None, None)
+    assert finding is None and status == "unavailable"
+    assert calls  # went to the run's (replay) transport, not to Gemini
+    assert run_llm.spend.spent_today() == 0.0

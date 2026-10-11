@@ -273,7 +273,7 @@ def _gemini(
     if path.exists():
         return json.loads(path.read_text())["result"], "ok", version
     contents, cfg = _build_request(asset_id, machine_type, query, ref, rubric)
-    llm = get_llm()
+    llm = ctx.llm or get_llm()  # the run's gateway: in replay it cannot reach Gemini
     run_id = getattr(ctx, "run_id", None)
     try:
         res = _run_sync(

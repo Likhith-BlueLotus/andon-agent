@@ -34,7 +34,9 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from google.adk.models.base_llm import BaseLlm
+# ADK 2.11 exposes these only via base_llm (re-exported from a private module); pin-checked by
+# tests/test_graph.py through the replay run.
+from google.adk.models.base_llm import BaseLlm, LlmCapabilities, gemini_output_schema_and_tools
 from google.adk.models.llm_request import LlmRequest
 from google.adk.models.llm_response import LlmResponse
 from google.adk.plugins.base_plugin import BasePlugin
@@ -147,6 +149,13 @@ class ReplayLlm(BaseLlm):
     @classmethod
     def supported_models(cls) -> list[str]:
         return [r"gemini-.*"]
+
+    @property
+    def capabilities(self) -> LlmCapabilities:
+        # Declare what the live Gemini model reports for the same id, so a replay takes the same
+        # output_schema + tools path as the recorded run (and ADK's name-based fallback, which
+        # warns and is being removed, is never used).
+        return LlmCapabilities(output_schema_and_tools=gemini_output_schema_and_tools(self.model))
 
     async def generate_content_async(
         self, llm_request: LlmRequest, stream: bool = False
@@ -333,7 +342,9 @@ class Runtime:
             scenario_id=scenario_id,
             # one lock per store: sync tools run in ADK's thread pool, and a DuckDB connection
             # must not run two queries at once (also across concurrent incidents)
-            ctx=ToolContext(store=self.store, scenario_id=scenario_id, _lock=self._store_lock),
+            ctx=ToolContext(
+                store=self.store, scenario_id=scenario_id, _lock=self._store_lock, llm=self.llm
+            ),
             force_bad_claim=force_bad_claim,
             recording=recording,
         )
