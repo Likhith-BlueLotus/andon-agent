@@ -8,6 +8,9 @@ RUN uv sync --frozen --no-dev --no-install-project
 COPY config.py ./
 COPY agents ./agents
 COPY api ./api
+COPY analytics ./analytics
+# simulator code only (plant model, store, manuals); generated data never enters the image
+COPY simulator ./simulator
 
 FROM python:3.12-slim
 RUN useradd --create-home --uid 1000 app
