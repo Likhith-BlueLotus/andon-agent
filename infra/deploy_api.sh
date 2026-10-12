@@ -11,6 +11,8 @@ export CLOUDSDK_ACTIVE_CONFIG_NAME="${CLOUDSDK_ACTIVE_CONFIG_NAME:-andon}"
 PROJECT="${PROJECT:-andon-agent-511218}"
 REGION="${REGION:-asia-south1}"
 EXTRA_ENV="${EXTRA_ENV:-}"   # e.g. ";REPLAY_ONLY=1" (leading ';' because of the ^;^ delimiter)
+# Stretch CSV upload (ADR-028) stays OFF unless asked: EXTRA_ENV=";ENABLE_STRETCH=upload" (keep --max-instances=1:
+# uploads live in one instance's memory/tmp).
 FIREBASE_PROJECT="${FIREBASE_PROJECT:-andon-agent-b9c77}"  # hosting lives in its own Firebase project (ADR-024)
 ORIGINS="${ALLOWED_ORIGINS:-https://$FIREBASE_PROJECT.web.app,https://$FIREBASE_PROJECT.firebaseapp.com}"
 [[ "${DEV:-0}" == "1" ]] && ORIGINS="$ORIGINS,http://localhost:5173"

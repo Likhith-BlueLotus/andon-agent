@@ -190,3 +190,8 @@ Template — copy for each entry:
 - **What happened:** S1 with `gemini-3.1-pro-preview` judge: S 0.90 / R 0.71 vs Flash 0.98 / 0.76; 2 timeouts, 14 fallbacks, $0.16 vs $0.11 per run.
 - **Do differently / rule added:** don't assume the bigger model wins; measure on the eval before paying for it. Flash stays the deployed judge.
 - **Cost (time / $):** $12.15.
+
+### 2026-10-12 — Starlette parses multipart before your handler runs; a 10 s export starves the 1 Hz analytics (stretch CSV, person A)
+- **What happened:** a `file: UploadFile` parameter makes FastAPI parse up to 20 MB before the passcode check; use `request.form()` after the checks. The 64 KB body cap needed a per-path override. The 6 h / 10 s sample made `detect_change_points`/`anomaly_score`/`spectrum` return `insufficient_data` (they expect ~1 Hz and days of history); the RCA still worked from `query_telemetry` statistics.
+- **Do differently / rule added:** auth before body parsing on any upload route; tell users to export 1 Hz and >= 3 days when they can.
+- **Cost (time / $):** ~$0.095 for the one live check.

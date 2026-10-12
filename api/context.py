@@ -18,6 +18,7 @@ from api.ratelimit import FailureLimiter, Limiter, MemoryLimiter
 from api.replay import ReplayCatalog
 from api.settings import Settings
 from api.stores import StoreProvider
+from api.uploads import UploadRegistry
 
 log = logging.getLogger("andon.api")
 TELEMETRY_READS_PER_MIN_PER_IP = 60
@@ -72,6 +73,9 @@ class AppContext:
     sleep: Callable[[float], Awaitable[None]] = asyncio.sleep  # replay pacing (tests inject)
     replay_limiter: Limiter | None = None
     telemetry_limiter: Limiter | None = None  # chart reads: per instance, per IP, memory only
+    upload_limiter: Limiter | None = None  # stretch CSV uploads (memory only, like live runs)
+    confirm_limiter: Limiter | None = None
+    uploads: UploadRegistry = field(default_factory=UploadRegistry)
     live_slots: SlotPool = field(init=False)
     replay_slots: SlotPool = field(init=False)
     _lock: threading.Lock = field(default_factory=threading.Lock, repr=False)
@@ -91,6 +95,14 @@ class AppContext:
         self.replay_slots = SlotPool(self.settings.max_concurrent_replay, lease)
         if self.telemetry_limiter is None:
             self.telemetry_limiter = Limiter(MemoryLimiter(TELEMETRY_READS_PER_MIN_PER_IP, 10**9))
+        if self.upload_limiter is None:
+            self.upload_limiter = Limiter(
+                MemoryLimiter(self.settings.live_runs_per_min_per_ip, self.settings.uploads_per_day)
+            )
+        if self.confirm_limiter is None:
+            self.confirm_limiter = Limiter(
+                MemoryLimiter(self.settings.confirms_per_min_per_ip, 10**9)
+            )
         if self.replay_limiter is None:
             self.replay_limiter = Limiter(
                 MemoryLimiter(self.settings.replay_runs_per_min_per_ip, 10**9)

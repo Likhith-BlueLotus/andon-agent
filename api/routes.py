@@ -21,14 +21,17 @@ from agents.llm import BudgetExhaustedError
 from agents.schemas import CONTRACT_VERSION, WorkOrder
 from agents.verifier import check_safety_steps
 from api import catalog, telemetry_view
+from api import uploads as up
 from api.audit import INCIDENT_ID_RE, AuditRecorder, public_view
 from api.context import AppContext
 from api.events import Event
 from api.replay import RUN_ID_RE, ReplayNotFound, new_replay_incident_id, stream_replay
 from api.sse import SSE_HEADERS, guarded, single_error_stream, sse_frames
+from api.uploads import UPLOAD_ID_RE, ConfirmBody, UploadError
 
 log = logging.getLogger("andon.api")
 SCENARIO_ID_RE = re.compile(r"^[A-Za-z0-9_-]{1,32}$")
+CSV_TYPES = {"text/csv", "application/csv", "text/plain", "application/vnd.ms-excel"}
 
 
 def err(status: int, code: str, message: str, headers: dict | None = None, **extra: Any):
@@ -92,6 +95,14 @@ def build_router(ctx: AppContext) -> APIRouter:
             ctx.failures.fail(ip)
             raise err(401, "passcode_required", "a valid X-Demo-Passcode header is required")
 
+    async def find_scenario(scenario_id: str) -> dict | None:
+        """A published scenario row, or the row of a live upload (``U###``, only when enabled)."""
+        if UPLOAD_ID_RE.match(scenario_id):
+            return ctx.uploads.row(scenario_id) if st.upload_enabled else None
+        if not SCENARIO_ID_RE.match(scenario_id):
+            return None
+        return next((s for s in await ctx.scenarios() if s["scenario_id"] == scenario_id), None)
+
     # ---- health / config -----------------------------------------------------------------
     @r.get("/health")
     async def health() -> dict:
@@ -134,6 +145,7 @@ def build_router(ctx: AppContext) -> APIRouter:
                 "live_runs_per_min_per_ip": st.live_runs_per_min_per_ip,
             },
             "replays_available": len(ctx.replays.list()),
+            "features": sorted(st.enable_stretch & {"upload"}),  # enabled stretch features
         }
 
     # ---- catalogue -----------------------------------------------------------------------
@@ -152,8 +164,8 @@ def build_router(ctx: AppContext) -> APIRouter:
         max_points: int = Query(300),
     ) -> dict:
         """Downsampled series for the evidence drawer chart. Read-only, no passcode, no model."""
-        rows = {s["scenario_id"]: s for s in await ctx.scenarios()}
-        if not SCENARIO_ID_RE.match(scenario_id) or scenario_id not in rows:
+        row = await find_scenario(scenario_id)
+        if row is None:
             raise err(404, "unknown_scenario", "unknown scenario")
         ip = client_ip(request, st.trusted_proxy_hops)
         decision = await asyncio.to_thread(ctx.telemetry_limiter.acquire, ip)
@@ -163,7 +175,7 @@ def build_router(ctx: AppContext) -> APIRouter:
         cap = max(telemetry_view.MIN_POINTS, min(telemetry_view.MAX_POINTS, max_points))
         try:
             _, tag_list = telemetry_view.parse_tags(asset_id, tags)
-            a, b = telemetry_view.resolve_window(rows[scenario_id]["stop_ts"], t0, t1)
+            a, b = telemetry_view.resolve_window(row["stop_ts"], t0, t1)
 
             def work() -> dict:
                 with ctx.provider.open(scenario_id) as store:
@@ -202,10 +214,10 @@ def build_router(ctx: AppContext) -> APIRouter:
         run_id: str | None = Query(None, max_length=96),
         speed: float = Query(1.0, ge=1.0, le=4.0),
     ) -> StreamingResponse:
-        if not SCENARIO_ID_RE.match(scenario_id) or scenario_id not in {
-            s["scenario_id"] for s in await ctx.scenarios()
-        }:
+        if await find_scenario(scenario_id) is None:
             raise err(404, "unknown_scenario", "unknown scenario")
+        if UPLOAD_ID_RE.match(scenario_id) and mode == "replay":
+            raise err(400, "no_replay", "uploaded data has no recorded run; use mode=live")
         ip = client_ip(request, st.trusted_proxy_hops)
         ip_hash = hashlib.sha256(ip.encode()).hexdigest()[:16]
         meta: dict[str, Any] = {
@@ -279,6 +291,87 @@ def build_router(ctx: AppContext) -> APIRouter:
             media_type="text/event-stream",
             headers={**SSE_HEADERS, "X-Incident-Id": incident_id},
         )
+
+    # ---- stretch: bring your own CSV (ADR-028) -----------------------------------------------
+    def upload_gate(request: Request, limiter: Any) -> str:
+        if not st.upload_enabled:
+            raise err(404, "not_enabled", "CSV upload is not enabled on this deployment")
+        require_passcode(request)
+        ip = client_ip(request, st.trusted_proxy_hops)
+        d = limiter.acquire(ip)
+        if not d.allowed:
+            raise err(429, "rate_limited", f"upload limit reached ({d.scope})",
+                      {"Retry-After": str(d.retry_after_s)}, scope=d.scope)  # fmt: skip
+        return ip
+
+    @r.post("/api/uploads")
+    async def upload_csv(request: Request) -> dict:
+        upload_gate(request, ctx.upload_limiter)
+        ctype = request.headers.get("content-type", "")
+        if not ctype.lower().startswith("multipart/form-data"):
+            raise err(400, "bad_csv", "send multipart/form-data with a 'file' field")
+        try:
+            form = await request.form(max_files=1, max_fields=4)
+        except Exception:
+            raise err(400, "bad_csv", "cannot read the upload") from None
+        try:
+            f = form.get("file")
+            if f is None or not hasattr(f, "read"):
+                raise err(400, "bad_csv", "multipart field 'file' is required")
+            name = up.clean((f.filename or "upload.csv").replace("\\", "/").rsplit("/", 1)[-1], 80) or "upload.csv"  # fmt: skip
+            ctype_f = (f.content_type or "").lower()
+            if not name.lower().endswith(".csv") and ctype_f not in CSV_TYPES:
+                raise err(400, "bad_csv", "only .csv files are accepted")
+            uid, d = ctx.uploads.new_dir()
+            ok = False
+            try:
+                size = 0
+                with (d / "source.csv").open("wb") as out:
+                    while chunk := await f.read(1 << 20):
+                        size += len(chunk)
+                        if size > up.MAX_BYTES:
+                            raise err(413, "too_large", "file exceeds the 20 MB limit")
+                        out.write(chunk)
+                try:
+                    info = await asyncio.to_thread(up.analyse, d / "source.csv", name)
+                except UploadError as exc:
+                    raise err(exc.status, exc.code, exc.message) from None
+                from agents.llm import get_llm
+
+                try:
+                    await ctx.budget.check_fresh()
+                    proposed, cost = await up.propose(info, get_llm())
+                except BudgetExhaustedError:
+                    proposed, cost = up.heuristic(info), 0.0
+                entry = ctx.uploads.add(uid, d, info)
+                ok = True
+            finally:
+                if not ok:
+                    ctx.uploads.discard_dir(d)
+        finally:
+            await form.close()
+        return {
+            "upload_id": entry.upload_id,
+            "filename": info.filename,
+            "n_rows": info.n_rows,
+            "columns": [{"name": c.name, "dtype": c.dtype, "sample": c.sample} for c in info.columns],
+            "preview": info.preview,
+            "proposed": proposed,
+            "targets": up.targets(),
+            "cost_usd": cost,
+        }  # fmt: skip
+
+    @r.post("/api/uploads/{upload_id}/confirm")
+    async def confirm_upload(upload_id: str, request: Request) -> dict:
+        upload_gate(request, ctx.confirm_limiter)
+        try:
+            body = ConfirmBody.model_validate(await request.json())
+        except Exception:
+            raise err(400, "bad_mapping", "body must match the confirm schema") from None
+        try:
+            return await asyncio.to_thread(ctx.uploads.confirm, upload_id, body)
+        except UploadError as exc:
+            raise err(exc.status, exc.code, exc.message) from None
 
     # ---- audit ---------------------------------------------------------------------------
     @r.get("/api/incidents/{incident_id}/audit")

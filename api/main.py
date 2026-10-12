@@ -38,6 +38,8 @@ from api.replay import ReplayCatalog
 from api.routes import build_router
 from api.settings import Settings
 from api.stores import StoreProvider, make_provider
+from api.uploads import MAX_BYTES as UPLOAD_MAX_BYTES
+from api.uploads import UploadOverlayProvider, UploadRegistry
 
 log = logging.getLogger("andon.api")
 _ON_CLOUD_RUN = bool(os.environ.get("K_SERVICE"))
@@ -51,25 +53,30 @@ class BodyLimitMiddleware:
     """Pure ASGI (no response buffering, safe for SSE): reject bodies over ``max_bytes`` with 413,
     by ``Content-Length`` up front and by counting streamed bytes."""
 
-    def __init__(self, app: ASGIApp, max_bytes: int) -> None:
+    def __init__(
+        self, app: ASGIApp, max_bytes: int, overrides: dict[str, int] | None = None
+    ) -> None:
         self.app, self.max_bytes = app, max_bytes
+        self.overrides = overrides or {}  # path -> larger limit (the CSV upload only)
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
         if scope["type"] != "http":
             await self.app(scope, receive, send)
             return
+        limit = self.overrides.get(scope["path"], self.max_bytes) if scope["method"] == "POST" else self.max_bytes  # fmt: skip
         declared = dict(scope["headers"]).get(b"content-length")
         started = False
         total = 0
 
         async def reject() -> None:
-            body = b'{"detail":{"code":"payload_too_large","message":"request body too large"}}'
+            code = "too_large" if scope["path"] in self.overrides else "payload_too_large"
+            body = (f'{{"detail":{{"code":"{code}","message":"request body too large"}}}}').encode()
             await send({"type": "http.response.start", "status": 413,
                         "headers": [(b"content-type", b"application/json"),
                                     (b"content-length", str(len(body)).encode())]})  # fmt: skip
             await send({"type": "http.response.body", "body": body})
 
-        if declared is not None and declared.isdigit() and int(declared) > self.max_bytes:
+        if declared is not None and declared.isdigit() and int(declared) > limit:
             await reject()
             return
 
@@ -78,7 +85,7 @@ class BodyLimitMiddleware:
             msg = await receive()
             if msg["type"] == "http.request":
                 total += len(msg.get("body", b""))
-                if total > self.max_bytes:
+                if total > limit:
                     raise RequestTooLarge
             return msg
 
@@ -130,7 +137,8 @@ def create_app(
 ) -> FastAPI:
     st = settings or Settings.from_env()
     fs = firestore_client or (LazyFirestore() if st.firestore else None)
-    provider = provider or make_provider(st)
+    uploads = UploadRegistry()
+    provider = UploadOverlayProvider(provider or make_provider(st), uploads)  # U### -> own store
     if audit is None:
         audit = FirestoreAuditStore(fs) if fs is not None else FileAuditStore(st.audit_dir)
     if cmms_live is None:
@@ -150,6 +158,7 @@ def create_app(
     ctx = AppContext(
         settings=st,
         provider=provider,
+        uploads=uploads,
         audit=audit,
         cmms_live=cmms_live,
         cmms_demo=cmms_demo,
@@ -187,7 +196,13 @@ def create_app(
     )
     app.state.ctx = ctx
     app.include_router(build_router(ctx))
-    app.add_middleware(BodyLimitMiddleware, max_bytes=st.max_body_bytes)
+    app.add_middleware(
+        BodyLimitMiddleware,
+        max_bytes=st.max_body_bytes,
+        overrides={
+            "/api/uploads": UPLOAD_MAX_BYTES + 256 * 1024
+        },  # 404s before reading when disabled
+    )
     app.add_middleware(  # outermost, so 413/401 responses carry CORS headers too
         CORSMiddleware,
         allow_origins=list(st.allowed_origins),

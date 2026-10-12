@@ -23,6 +23,7 @@ dependencies = [
     "google-cloud-firestore>=2.18",
     "google-cloud-storage>=2.18",
     "requests>=2.32",
+    "python-multipart>=0.0.20",  # multipart upload (stretch CSV, ADR-028); starlette needs it for request.form()
 ]
 
 [project.optional-dependencies]

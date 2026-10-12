@@ -39,6 +39,9 @@ class Settings:
     run_timeout_s: float = 840.0  # below Cloud Run's 900 s request timeout
     replay_gap_cap_s: float = 3.0
     max_body_bytes: int = 64 * 1024
+    enable_stretch: frozenset[str] = config.ENABLE_STRETCH  # e.g. {'upload'}; see DEVELOPMENT.md 9b
+    uploads_per_day: int = 30  # stretch: CSV uploads per instance per IST day (all IPs)
+    confirms_per_min_per_ip: int = 10
     replay_dir: Path = ROOT / "data" / "replays"
     audit_dir: Path = ROOT / "data" / "audit"  # local (non-Firestore) audit files
     cmms_path: Path = ROOT / "data" / "cmms" / "work_orders.jsonl"
@@ -49,6 +52,10 @@ class Settings:
     def __post_init__(self) -> None:
         if any(o.strip() == "*" for o in self.allowed_origins):
             raise ValueError("ALLOWED_ORIGINS must list explicit origins, never '*'")
+
+    @property
+    def upload_enabled(self) -> bool:
+        return "upload" in self.enable_stretch
 
     @property
     def live_enabled(self) -> bool:

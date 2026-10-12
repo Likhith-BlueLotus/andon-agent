@@ -191,7 +191,7 @@ p50 full diagnosis ≤ 60 s, p95 ≤ 120 s · cost per diagnosis ≤ $0.60 with 
 | (Stretch) multimodal input from the floor | technician voice note → Gemini audio → shift note | technician view, if built |
 
 ## 8. Stretch endpoints (only after the core passes freeze-gate items; see DEVELOPMENT.md §9b)
-- `POST /api/ingest/csv` — "bring your own historian export": upload ≤20 MB CSV → Flash-Lite proposes a column→tag mapping (structured output) → **human confirms** → loaded as a temporary scenario `U###` with `provenance: user_upload` → normal investigation. Proves the adapter pattern behind the scale story (OPC UA/MQTT later).
+- **Implemented (ADR-028)** `POST /api/uploads` + `POST /api/uploads/{id}/confirm` (replaces the sketched `/api/ingest/csv`), enabled with `ENABLE_STRETCH=upload` — "bring your own historian export": upload ≤20 MB CSV → Flash-Lite proposes a column→tag mapping (structured output) → **human confirms** → loaded as a temporary scenario `U###` with `provenance: user_upload` → normal investigation. Proves the adapter pattern behind the scale story (OPC UA/MQTT later).
 - `POST /api/incidents/{id}/voice-note` — ≤60 s audio from the technician view → Gemini audio → structured shift note (untrusted data, same wrapping rules).
 - `GET /api/incidents/{id}/work-order?lang=hi|ta|id|vi` — WO summary translated for the technician; **safety steps stay verbatim in the manual's language** with a side-by-side translation labelled "machine translation — not the controlling text".
 
