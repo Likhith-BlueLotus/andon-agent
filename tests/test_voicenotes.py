@@ -113,7 +113,9 @@ async def test_happy_path_shape_and_single_audit_entry(h, gem):
     acts = voice_actions(h, inc)
     assert len(acts) == 1 and acts[0]["note_id"] == j["note_id"] and acts[0]["untrusted"] is True
     assert acts[0]["demo"] is True
-    g = await h.client.get(f"/api/incidents/{inc}/voice-notes")  # replay: no passcode
+    g = await h.client.get(f"/api/incidents/{inc}/voice-notes")  # passcode even on replay
+    assert g.status_code == 401
+    g = await h.client.get(f"/api/incidents/{inc}/voice-notes", headers=PASS)
     assert g.status_code == 200 and g.json() == {"notes": [j]}
 
 
@@ -248,6 +250,8 @@ async def test_passcode_required_and_unknown_incident(h, gem):
     r = await send(h, "rep_nope_000")
     assert r.status_code == 404 and r.json()["detail"]["code"] == "unknown_incident"
     r = await h.client.get("/api/incidents/rep_nope_000/voice-notes")
+    assert r.status_code == 401  # no existence oracle without the passcode
+    r = await h.client.get("/api/incidents/rep_nope_000/voice-notes", headers=PASS)
     assert r.status_code == 404
     assert gem.calls == []
 

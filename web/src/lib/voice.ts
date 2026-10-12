@@ -1,3 +1,4 @@
+import { getPasscode } from "./passcode";
 import { API_URL, readMock } from "./config";
 import { ApiError, toApiError } from "./api";
 import type { VoiceNoteResponse } from "../types/api";
@@ -39,7 +40,10 @@ export async function postVoiceNote(incidentId: string, blob: Blob, durationS: n
 export async function getVoiceNotes(incidentId: string, signal?: AbortSignal): Promise<VoiceNoteResponse[]> {
   if (readMock()) return [];
   try {
-    const res = await fetch(`${API_URL}/api/incidents/${encodeURIComponent(incidentId)}/voice-notes`, { signal, headers: { Accept: "application/json" } });
+    // notes need the passcode (they are the passcode holder's speech); without it there is nothing to list
+    const pc = getPasscode();
+    if (!pc) return [];
+    const res = await fetch(`${API_URL}/api/incidents/${encodeURIComponent(incidentId)}/voice-notes`, { signal, headers: { Accept: "application/json", "X-Demo-Passcode": pc } });
     if (!res.ok) return [];
     return ((await res.json()) as { notes?: VoiceNoteResponse[] }).notes ?? [];
   } catch {

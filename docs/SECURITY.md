@@ -55,3 +55,5 @@ Every model call, tool call, verdict and human action is an append-only Firestor
 - [ ] `truth.json` unreachable from `agents/` and `api/` (test passes)
 - [ ] `/data-audit` clean (licences, attribution, no raw data in git, provenance test)
 - [ ] Stretch endpoints disabled unless built, tested and passcode-protected (`ENABLE_STRETCH`)
+
+- Voice-note reads (`GET /api/incidents/{id}/voice-notes`) require the passcode for every incident (replay ids leak via `X-Incident-Id`) and are rate-limited per IP (security re-review S-c, 2026-10-12). Upload and tech force `--max-instances 1` (in-memory limits, S-b).

@@ -480,13 +480,19 @@ def build_router(ctx: AppContext) -> APIRouter:
     async def get_voice_notes(incident_id: str, request: Request) -> dict:
         if not st.tech_enabled:
             raise err(404, "not_enabled", "voice notes are not enabled on this deployment")
+        # notes are the passcode holder's speech: never readable without the passcode, even on
+        # replay incidents (whose ids appear in the X-Incident-Id header of whoever started them)
+        require_passcode(request)
+        ip = client_ip(request, st.trusted_proxy_hops)
+        decision = await asyncio.to_thread(ctx.telemetry_limiter.acquire, ip)
+        if not decision.allowed:
+            raise err(429, "rate_limited", "too many requests; slow down",
+                      {"Retry-After": str(decision.retry_after_s)}, scope="ip_minute")  # fmt: skip
         if not INCIDENT_ID_RE.match(incident_id):
             raise err(404, "unknown_incident", "unknown incident")
         rec = await asyncio.to_thread(ctx.audit.get, incident_id)
         if rec is None:
             raise err(404, "unknown_incident", "unknown incident")
-        if (rec["incident"] or {}).get("mode") == "live":
-            require_passcode(request)
         return {"notes": vn.from_audit(rec)}
 
     # ---- HITL ----------------------------------------------------------------------------
