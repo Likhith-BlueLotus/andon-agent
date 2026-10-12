@@ -167,6 +167,8 @@ def build_router(ctx: AppContext) -> APIRouter:
         max_points: int = Query(300),
     ) -> dict:
         """Downsampled series for the evidence drawer chart. Read-only, no passcode, no model."""
+        if UPLOAD_ID_RE.match(scenario_id):
+            require_passcode(request)  # uploaded data is private; no existence oracle either
         row = await find_scenario(scenario_id)
         if row is None:
             raise err(404, "unknown_scenario", "unknown scenario")
@@ -217,6 +219,8 @@ def build_router(ctx: AppContext) -> APIRouter:
         run_id: str | None = Query(None, max_length=96),
         speed: float = Query(1.0, ge=1.0, le=4.0),
     ) -> StreamingResponse:
+        if UPLOAD_ID_RE.match(scenario_id):
+            require_passcode(request)  # before any lookup: no existence oracle for outsiders
         if await find_scenario(scenario_id) is None:
             raise err(404, "unknown_scenario", "unknown scenario")
         if UPLOAD_ID_RE.match(scenario_id) and mode == "replay":
@@ -307,9 +311,18 @@ def build_router(ctx: AppContext) -> APIRouter:
                       {"Retry-After": str(d.retry_after_s)}, scope=d.scope)  # fmt: skip
         return ip
 
+    heavy = asyncio.Semaphore(1)  # parsing / building a scenario is memory heavy: one at a time
+
     @r.post("/api/uploads")
     async def upload_csv(request: Request) -> dict:
-        upload_gate(request, ctx.upload_limiter)
+        ip = upload_gate(request, ctx.upload_limiter)
+        try:
+            return await _upload_csv(request)
+        except HTTPException:
+            ctx.upload_limiter.refund(ip)  # only accepted uploads count against the limits
+            raise
+
+    async def _upload_csv(request: Request) -> dict:
         ctype = request.headers.get("content-type", "")
         if not ctype.lower().startswith("multipart/form-data"):
             raise err(400, "bad_csv", "send multipart/form-data with a 'file' field")
@@ -336,7 +349,8 @@ def build_router(ctx: AppContext) -> APIRouter:
                             raise err(413, "too_large", "file exceeds the 20 MB limit")
                         out.write(chunk)
                 try:
-                    info = await asyncio.to_thread(up.analyse, d / "source.csv", name)
+                    async with heavy:
+                        info = await asyncio.to_thread(up.analyse, d / "source.csv", name)
                 except UploadError as exc:
                     raise err(exc.status, exc.code, exc.message) from None
                 from agents.llm import get_llm
@@ -372,7 +386,8 @@ def build_router(ctx: AppContext) -> APIRouter:
         except Exception:
             raise err(400, "bad_mapping", "body must match the confirm schema") from None
         try:
-            return await asyncio.to_thread(ctx.uploads.confirm, upload_id, body)
+            async with heavy:
+                return await asyncio.to_thread(ctx.uploads.confirm, upload_id, body)
         except UploadError as exc:
             raise err(exc.status, exc.code, exc.message) from None
 

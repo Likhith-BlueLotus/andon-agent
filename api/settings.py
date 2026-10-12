@@ -42,6 +42,8 @@ class Settings:
     enable_stretch: frozenset[str] = config.ENABLE_STRETCH  # e.g. {'upload'}; see DEVELOPMENT.md 9b
     uploads_per_day: int = 30  # stretch: CSV uploads per instance per IST day (all IPs)
     confirms_per_min_per_ip: int = 10
+    uploads_per_ip_per_day: int = 10  # stretch: CSV uploads per IP per IST day
+    confirms_per_day: int = 60  # stretch: confirm calls per instance per IST day
     voice_notes_per_min_per_ip: int = 3  # stretch: technician voice notes
     voice_notes_per_day: int = 100  # per instance per IST day (all IPs)
     replay_dir: Path = ROOT / "data" / "replays"

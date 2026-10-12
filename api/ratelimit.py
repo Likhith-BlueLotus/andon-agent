@@ -48,10 +48,12 @@ def _secs_to_next_day(now: float) -> int:
 
 
 class MemoryLimiter:
-    def __init__(self, per_min: int, per_day: int, clock: Any = time.time) -> None:
-        self.per_min, self.per_day = per_min, per_day
+    def __init__(self, per_min: int, per_day: int, clock: Any = time.time,
+                 per_ip_day: int | None = None) -> None:  # fmt: skip
+        self.per_min, self.per_day, self.per_ip_day = per_min, per_day, per_ip_day
         self._clock = clock
         self._hits: dict[str, deque[float]] = {}
+        self._ip_day: dict[str, int] = {}
         self._day = ""
         self._day_n = 0
         self._lock = threading.Lock()
@@ -62,19 +64,34 @@ class MemoryLimiter:
         with self._lock:
             if today != self._day:
                 self._day, self._day_n = today, 0
+                self._ip_day.clear()
             q = self._hits.setdefault(ip, deque())
             while q and now - q[0] >= 60:
                 q.popleft()
             if len(q) >= self.per_min:
                 return Decision(False, "ip_minute", max(1, math.ceil(60 - (now - q[0]))))
+            if self.per_ip_day is not None and self._ip_day.get(ip, 0) >= self.per_ip_day:
+                return Decision(False, "ip_day", _secs_to_next_day(now))
             if self._day_n >= self.per_day:
                 return Decision(False, "day", _secs_to_next_day(now))
             q.append(now)
             self._day_n += 1
+            if self.per_ip_day is not None:
+                self._ip_day[ip] = self._ip_day.get(ip, 0) + 1
             if len(self._hits) > 4096:  # bound memory under an IP flood
                 for k in [k for k, v in self._hits.items() if not v or now - v[-1] >= 60]:
                     del self._hits[k]
             return ALLOW
+
+    def refund(self, ip: str) -> None:
+        """Give back the most recent hit of ``ip`` (a request that was rejected before doing work)."""
+        with self._lock:
+            q = self._hits.get(ip)
+            if q:
+                q.pop()
+                self._day_n = max(0, self._day_n - 1)
+                if ip in self._ip_day:
+                    self._ip_day[ip] = max(0, self._ip_day[ip] - 1)
 
 
 class FirestoreLimiter:
@@ -125,6 +142,9 @@ class Limiter:
         if not d.allowed or self.shared is None:
             return d
         return self.shared.acquire(ip)
+
+    def refund(self, ip: str) -> None:
+        self.memory.refund(ip)
 
 
 class FailureLimiter:

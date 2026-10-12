@@ -31,7 +31,7 @@ from agents.llm import LLMResult
 from agents.runtime import Runtime
 from agents.schemas import Claim, Hypothesis, RCAReport
 from agents.tools import EVIDENCE_PREFIX
-from agents.untrusted import NOTICE, wrap, wrap_summary
+from agents.untrusted import NOTICE, wrap, wrap_stop, wrap_summary
 
 log = logging.getLogger("andon.judge")
 
@@ -72,7 +72,7 @@ def build_prompt(state: Any, iteration: int) -> str:
     stop = state.get("stop_event") or {}
     parts = [
         f"Incident {state.get('incident_id')}: line stop. Stop record: "
-        + json.dumps(stop, ensure_ascii=False),
+        + json.dumps(wrap_stop(stop), ensure_ascii=False),
         "Plan: " + json.dumps((state.get("plan") or {}).get("steps", []), ensure_ascii=False),
     ]
     if state.get("signal_findings"):

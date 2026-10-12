@@ -150,6 +150,8 @@ def create_app(
     st = settings or Settings.from_env()
     fs = firestore_client or (LazyFirestore() if st.firestore else None)
     uploads = UploadRegistry()
+    with suppress(Exception):
+        uploads.sweep()  # directories left by dead processes
     provider = UploadOverlayProvider(provider or make_provider(st), uploads)  # U### -> own store
     if audit is None:
         audit = FirestoreAuditStore(fs) if fs is not None else FileAuditStore(st.audit_dir)

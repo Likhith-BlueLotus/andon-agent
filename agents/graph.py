@@ -43,7 +43,7 @@ from agents.librarian import AGENT as LIBRARIAN
 from agents.librarian import build_librarian
 from agents.llm import LLM
 from agents.runtime import RecorderPlugin, Runtime, agent_marks
-from agents.untrusted import NOTICE
+from agents.untrusted import NOTICE, wrap_stop
 from simulator import plant
 from simulator.load import TelemetryStore
 
@@ -77,7 +77,9 @@ def asset_catalogue() -> str:
 
 
 def _stop(state: Any) -> str:
-    return "Stop record: " + json.dumps(state.get("stop_event") or {}, ensure_ascii=False)
+    stop = state.get("stop_event") or {}
+    text = "Stop record: " + json.dumps(wrap_stop(stop), ensure_ascii=False)
+    return text + "\n" + NOTICE if stop.get("stop_code") == "USER-REPORTED" else text
 
 
 def _plan(state: Any) -> str:

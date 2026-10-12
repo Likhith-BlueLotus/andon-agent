@@ -25,6 +25,7 @@ import logging
 import math
 import os
 import re
+import secrets
 import shutil
 import tempfile
 import threading
@@ -62,7 +63,9 @@ TTL_S = 2 * 3600.0
 PREVIEW_ROWS = 10
 MAX_SAMPLES = 5
 SOURCE_ID = "user_upload"
-UPLOAD_ID_RE = re.compile(r"^U\d{3}$")
+MAX_POINTS = 3_000_000  # rows x mapped columns kept in memory while a scenario is built
+ID_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"
+UPLOAD_ID_RE = re.compile(r"^U[A-Z2-7]{10}$")  # unguessable: U + 50 random bits
 PROMPT_FILE = Path(__file__).parent / "prompts" / "upload_mapping.md"
 _CTRL = re.compile(r"[\x00-\x1f\x7f-\x9f]+")
 _TIME_NAME = re.compile(r"(time|date|stamp|epoch|(^|[^a-z])ts([^a-z]|$))", re.IGNORECASE)
@@ -202,6 +205,10 @@ def analyse(path: Path, filename: str) -> CsvInfo:
     for name in names:
         arr = tbl[name]
         t = arr.type
+        if (pa.types.is_string(t) or pa.types.is_large_string(t)) and pc.any(
+            pc.match_substring_regex(arr, r"[\x00-\x08\x0e-\x1f\x7f]")
+        ).as_py():
+            raise UploadError(400, "bad_csv", f"column {clean(name, 40)!r} contains binary data")
         nonnull = arr.drop_null()
         sample = [_fmt(v) for v in nonnull.slice(0, MAX_SAMPLES).to_pylist()]
         stats: dict[str, float] = {}
@@ -480,6 +487,7 @@ class Built:
     row: dict[str, Any]
     db: Path
     response: dict[str, Any]
+    work: Path
 
 
 def build_scenario(entry: UploadEntry, body: ConfirmBody, scenario_id: str) -> Built:
@@ -521,26 +529,33 @@ def build_scenario(entry: UploadEntry, body: ConfirmBody, scenario_id: str) -> B
     if len(df) < 2:
         raise UploadError(400, "bad_timestamps", "stop_ts is before the data (fewer than two rows)")
     t0, t1 = pd.Timestamp(df["ts"].iloc[0]), pd.Timestamp(df["ts"].iloc[-1])
+    if len(df) * len(body.columns) > MAX_POINTS:
+        raise UploadError(413, "too_large", f"{len(df)} rows x {len(body.columns)} mapped columns is more than {MAX_POINTS:,} points; map fewer columns, shorten the window or downsample the export")  # fmt: skip
 
-    frames, prov, mapped = [], [], []
-    safe_name = clean(entry.info.filename, 80) or "upload.csv"
+    tables, prov, mapped = [], [], []
+    safe_name = clean(entry.info.filename, 80).replace("<", "").replace(">", "") or "upload.csv"
     for m in body.columns:
         v = df[m.column].to_numpy(dtype=np.float64) * m.scale
         ok = np.isfinite(v)
         if not ok.any():
             raise UploadError(400, "bad_mapping", f"column {clean(m.column, 40)!r} has no numeric values")  # fmt: skip
         sub = df[ok]
-        frames.append(pd.DataFrame({"scenario_id": scenario_id, "asset_id": m.asset_id,
-                                    "tag": m.tag, "ts": sub["ts"].to_numpy(),
-                                    "value": v[ok].astype(np.float32)}))  # fmt: skip
+        n = int(ok.sum())
+        ts_ms = pa.array(sub["ts"].to_numpy(), type=pa.timestamp("ns")).cast(TS, safe=False)
+        tables.append(pa.table({  # arrow-native: no per-row Python string objects
+            "scenario_id": pa.repeat(scenario_id, n), "asset_id": pa.repeat(m.asset_id, n),
+            "tag": pa.repeat(m.tag, n), "ts": ts_ms,
+            "value": pa.array(v[ok].astype(np.float32), type=pa.float32())}))  # fmt: skip
         r0, r1 = int(sub["row"].min()), int(sub["row"].max())
         prov.append({"scenario_id": scenario_id, "asset_id": m.asset_id, "tag": m.tag,
                      "t0": pd.Timestamp(sub["ts"].iloc[0]), "t1": pd.Timestamp(sub["ts"].iloc[-1]),
                      "source_id": SOURCE_ID,
-                     "source_ref": f"{safe_name} rows {r0}-{r1}, column {clean(m.column, 60)}",
+                     "source_ref": f"{safe_name} rows {r0}-{r1}, column {clean(m.column, 60).replace('<', '').replace('>', '')}",
                      "transform": f"user-mapped column x {m.scale:g}; timestamps as UTC"})  # fmt: skip
         mapped.append({"asset_id": m.asset_id, "tag": m.tag, "column": m.column, "n": int(ok.sum())})  # fmt: skip
-    tel = pd.concat(frames, ignore_index=True)
+    del df
+    tel = pa.concat_tables(tables)
+    del tables
     text = clean(body.stop_text, 200).replace("<", "").replace(">", "") or "stop reported by user upload"  # fmt: skip
     stop_rec = {
         "scenario_id": scenario_id, "line_id": plant.LINE_ID,
@@ -551,14 +566,15 @@ def build_scenario(entry: UploadEntry, body: ConfirmBody, scenario_id: str) -> B
         "stop_text": f"User-reported stop at {body.stopped_station}: {text}",
     }  # fmt: skip
 
-    root = entry.dir / "scenarios"
+    # build in a fresh directory; the caller publishes it and removes the previous build, so a
+    # concurrent reader of the old database never sees it deleted half way
+    work = entry.dir / f"build_{secrets.token_hex(4)}"
+    root = work / "scenarios"
     sdir = root / scenario_id
-    shutil.rmtree(root, ignore_errors=True)
     sdir.mkdir(parents=True)
     tel_schema = pa.schema([("scenario_id", pa.string()), ("asset_id", pa.string()),
                             ("tag", pa.string()), ("ts", TS), ("value", pa.float32())])  # fmt: skip
-    pq.write_table(pa.Table.from_pandas(tel, schema=tel_schema, preserve_index=False),
-                   sdir / "telemetry.parquet")  # fmt: skip
+    pq.write_table(tel.cast(tel_schema), sdir / "telemetry.parquet")
     pq.write_table(_empty(ALARMS), sdir / "alarms.parquet")
     pq.write_table(_empty(NOTES), sdir / "shift_notes.parquet")
     pq.write_table(_empty(WORK_ORDERS), sdir / "work_orders.parquet")
@@ -567,10 +583,15 @@ def build_scenario(entry: UploadEntry, body: ConfirmBody, scenario_id: str) -> B
                              ("source_ref", pa.string()), ("transform", pa.string())])  # fmt: skip
     pq.write_table(pa.Table.from_pylist(prov, schema=prov_schema), sdir / "provenance.parquet")
     (sdir / "stop_event.json").write_text(json.dumps(stop_rec))
-    db = entry.dir / "andon.duckdb"
-    for suffix in ("", ".wal"):
-        Path(str(db) + suffix).unlink(missing_ok=True)
-    load_duckdb(root, db, telemetry="table").close()  # the real loader; table mode = self-contained
+    db = work / "andon.duckdb"
+    try:
+        load_duckdb(
+            root, db, telemetry="table"
+        ).close()  # the real loader; table mode = self-contained
+    except BaseException:
+        shutil.rmtree(work, ignore_errors=True)
+        raise
+    shutil.rmtree(root, ignore_errors=True)  # parquet no longer needed: the table is in the db
 
     row = {"scenario_id": scenario_id, "line_id": plant.LINE_ID,
            "stopped_station": body.stopped_station, "stop_ts": stop_rec["stop_ts"],
@@ -579,7 +600,7 @@ def build_scenario(entry: UploadEntry, body: ConfirmBody, scenario_id: str) -> B
             "stopped_station": body.stopped_station, "stop_ts": stop_rec["stop_ts"],
             "n_points": len(tel), "t0": _z(t0), "t1": _z(t1), "mapped": mapped,
             "provenance_source_id": SOURCE_ID}  # fmt: skip
-    return Built(scenario_id, row, db, resp)
+    return Built(scenario_id, row, db, resp, work)
 
 
 # ---- registry -------------------------------------------------------------------------------
@@ -594,6 +615,7 @@ class UploadEntry:
     scenario_id: str | None = None
     row: dict[str, Any] | None = None
     db: Path | None = None
+    work: Path | None = None  # the directory holding ``db``
 
     def __post_init__(self) -> None:
         self.csv = self.dir / "source.csv"
@@ -610,7 +632,6 @@ class UploadRegistry:
         self._items: OrderedDict[str, UploadEntry] = OrderedDict()  # LRU order, oldest first
         self._lock = threading.RLock()
         self._root: Path | None = None
-        self._counter = 0
         self.evicted: list[str] = []
 
     @property
@@ -668,23 +689,44 @@ class UploadRegistry:
             return e
 
     def next_scenario_id(self) -> str:
+        """``U`` + 10 random base32 characters (50 bits): an id is a capability, not a counter."""
         with self._lock:
             live = {e.scenario_id for e in self._items.values()}
-            for _ in range(999):
-                self._counter = self._counter % 999 + 1
-                sid = f"U{self._counter:03d}"
+            for _ in range(20):
+                sid = "U" + "".join(secrets.choice(ID_ALPHABET) for _ in range(10))
                 if sid not in live:
                     return sid
             raise UploadError(503, "busy", "no free scenario id")
+
+    def sweep(self, ttl_s: float | None = None) -> int:
+        """Delete ``uploads-*`` directories left by dead processes (older than the TTL)."""
+        base = self._base or Path(os.environ.get("STORE_CACHE_DIR", config.STORE_CACHE_DIR))
+        cutoff = time.time() - (self.ttl_s if ttl_s is None else ttl_s)
+        n = 0
+        for d in base.glob("uploads-*") if base.is_dir() else ():
+            try:
+                if d.is_dir() and d != self._root and d.stat().st_mtime < cutoff:
+                    shutil.rmtree(d, ignore_errors=True)
+                    n += 1
+            except OSError:
+                continue
+        return n
 
     def confirm(self, uid: str, body: ConfirmBody) -> dict[str, Any]:
         e = self.get(uid)
         if e is None:
             raise UploadError(404, "unknown_upload", "unknown or expired upload")
-        with self._lock:  # one build at a time per process: they are CPU/disk heavy
-            sid = e.scenario_id or self.next_scenario_id()
-            built = build_scenario(e, body, sid)
-            e.scenario_id, e.row, e.db = sid, built.row, built.db
+        with self._lock:  # reserve the id only; the heavy build runs outside the lock
+            if e.scenario_id is None:
+                e.scenario_id = self.next_scenario_id()
+            sid = e.scenario_id
+        built = build_scenario(e, body, sid)
+        with self._lock:  # publish; the previous build (if any) is removed afterwards
+            old, e.row, e.db, e.work = e.work, built.row, built.db, built.work
+            if self._items.get(uid) is not e:  # evicted while building
+                shutil.rmtree(built.work, ignore_errors=True)
+        if old is not None:
+            shutil.rmtree(old, ignore_errors=True)
         return built.response
 
     def scenario(self, sid: str) -> UploadEntry | None:

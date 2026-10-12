@@ -11,8 +11,12 @@ export CLOUDSDK_ACTIVE_CONFIG_NAME="${CLOUDSDK_ACTIVE_CONFIG_NAME:-andon}"
 PROJECT="${PROJECT:-andon-agent-511218}"
 REGION="${REGION:-asia-south1}"
 EXTRA_ENV="${EXTRA_ENV:-}"   # e.g. ";REPLAY_ONLY=1" (leading ';' because of the ^;^ delimiter)
-# Stretch CSV upload (ADR-028) stays OFF unless asked: EXTRA_ENV=";ENABLE_STRETCH=upload" (keep --max-instances=1:
-# uploads live in one instance's memory/tmp).
+# Stretch CSV upload (ADR-028) stays OFF unless asked: EXTRA_ENV=";ENABLE_STRETCH=upload". Uploads and their
+# U<id> scenarios live in ONE instance's memory/tmp, so a second instance would answer 404 unknown_upload:
+# max instances is forced to 1 when 'upload' appears in EXTRA_ENV / ENABLE_STRETCH.
+MAXI="${MAXI:-3}"
+if [[ "$EXTRA_ENV ${ENABLE_STRETCH:-}" == *upload* ]]; then MAXI=1; fi
+echo "max instances: $MAXI"
 FIREBASE_PROJECT="${FIREBASE_PROJECT:-andon-agent-b9c77}"  # hosting lives in its own Firebase project (ADR-024)
 ORIGINS="${ALLOWED_ORIGINS:-https://$FIREBASE_PROJECT.web.app,https://$FIREBASE_PROJECT.firebaseapp.com}"
 [[ "${DEV:-0}" == "1" ]] && ORIGINS="$ORIGINS,http://localhost:5173"
@@ -33,7 +37,7 @@ gcloud run deploy andon-api --source . --project "$PROJECT" --region "$REGION" \
   --build-service-account "projects/$PROJECT/serviceAccounts/andon-build@$PROJECT.iam.gserviceaccount.com" \
   --execution-environment gen2 \
   --timeout 900 --concurrency 10 --cpu 2 --memory 4Gi --cpu-boost \
-  --min-instances "$MIN" --max-instances 3 \
+  --min-instances "$MIN" --max-instances "$MAXI" \
   --startup-probe "httpGet.path=/health,httpGet.port=8080,initialDelaySeconds=0,timeoutSeconds=3,periodSeconds=3,failureThreshold=20" \
   --set-env-vars "^;^$ENVV" \
   --set-secrets "DEMO_PASSCODE=demo-passcode:latest,DAILY_BUDGET_USD=daily-budget-usd:latest" \

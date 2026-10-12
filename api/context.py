@@ -98,7 +98,11 @@ class AppContext:
             self.telemetry_limiter = Limiter(MemoryLimiter(TELEMETRY_READS_PER_MIN_PER_IP, 10**9))
         if self.upload_limiter is None:
             self.upload_limiter = Limiter(
-                MemoryLimiter(self.settings.live_runs_per_min_per_ip, self.settings.uploads_per_day)
+                MemoryLimiter(
+                    self.settings.live_runs_per_min_per_ip,
+                    self.settings.uploads_per_day,
+                    per_ip_day=self.settings.uploads_per_ip_per_day,
+                )
             )
         if self.voice_limiter is None:
             self.voice_limiter = Limiter(
@@ -108,7 +112,7 @@ class AppContext:
             )
         if self.confirm_limiter is None:
             self.confirm_limiter = Limiter(
-                MemoryLimiter(self.settings.confirms_per_min_per_ip, 10**9)
+                MemoryLimiter(self.settings.confirms_per_min_per_ip, self.settings.confirms_per_day)
             )
         if self.replay_limiter is None:
             self.replay_limiter = Limiter(
