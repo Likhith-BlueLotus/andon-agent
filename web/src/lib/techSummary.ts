@@ -47,3 +47,6 @@ export function topVerifiedClaims(state: IncidentState, n = 2): Claim[] {
   if (!h) return [];
   return h.claims.filter((c) => claimState(state.verdicts, c.claim_id) === "verified").slice(0, n);
 }
+
+/** Claim text for a technician: drops the verifier's trailing `path: tags.x.mean` pointer. */
+export const plainClaimText = (text: string): string => text.replace(/\s*path:\s*\S+\s*$/, "").trim();

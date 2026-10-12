@@ -7,7 +7,7 @@ import { getPasscode, setPasscode as storePasscode } from "../lib/passcode";
 import { readMock } from "../lib/config";
 import { techEnabled } from "../lib/features";
 import { fmtDateTime, humanize } from "../lib/format";
-import { progressLine, rootCauseSentence, topVerifiedClaims } from "../lib/techSummary";
+import { progressLine, rootCauseSentence, topVerifiedClaims, plainClaimText } from "../lib/techSummary";
 import { PasscodeDialog } from "../components/PasscodeDialog";
 import { VoicePanel, fmtClock } from "../components/Voice";
 import { IconAlert, IconCheck, IconClock, IconInfo, IconLock, IconX, Spinner, StatusBadge } from "../components/ui";
@@ -472,7 +472,7 @@ function CauseCard(p: {
           {claims.length > 0 && (
             <ul className="space-y-2" aria-label="Top verified claims">
               {claims.map((c) => (
-                <li key={c.claim_id} className="flex items-start gap-2 text-base"><IconCheck className="mt-1 shrink-0 text-ok" /><span><span className="sr-only">Verified: </span>{c.text}</span></li>
+                <li key={c.claim_id} className="flex items-start gap-2 text-base"><IconCheck className="mt-1 shrink-0 text-ok" /><span><span className="sr-only">Verified: </span>{plainClaimText(c.text)}</span></li>
               ))}
             </ul>
           )}
