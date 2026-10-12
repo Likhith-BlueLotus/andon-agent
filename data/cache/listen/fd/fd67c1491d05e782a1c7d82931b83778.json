@@ -1,0 +1,29 @@
+{
+ "content_hash": "fd67c1491d05e782a1c7d82931b83778",
+ "created_at": "2026-10-11T16:40:39Z",
+ "machine_type": "fan",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "f58a689a54c6489f001d296dbbf7f52d2a95156bc3aecbbd3f401a202db09fd4",
+ "reference_sha256": "3953ac9a655d4f77955ac734e070b6645723078c989dbebf0cb2e983c2b8e46f",
+ "result": {
+  "abnormal": true,
+  "characteristics": [
+   "periodic beating",
+   "amplitude modulation",
+   "surging airflow sound",
+   "stable background noise"
+  ],
+  "confidence": 0.85,
+  "finding": "The fan exhibits periodic amplitude modulation and beating in the airflow that is absent in the reference recording. Inspect the fan blades, mounting balance, and motor bearings for mechanical instability.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1340,
+  "latency_ms": 6582,
+  "output_tokens": 83,
+  "thinking_tokens": 229,
+  "usd": 0.002175
+ }
+}

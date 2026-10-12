@@ -1,0 +1,30 @@
+{
+ "content_hash": "bdff16eeeaf27a8ec3c999439ecadd3d",
+ "created_at": "2026-10-11T16:21:27Z",
+ "machine_type": "fan",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "bb60feea945e478e3db36560a2a437e6af4f59baf830b541e65f3aaed59f9399",
+ "reference_sha256": "8791a7663bf9d7cee188d9c9f19cbe9699f76ebd8efa1e4eb27c7b6327ebaf15",
+ "result": {
+  "abnormal": true,
+  "characteristics": [
+   "high-pitched whine",
+   "tonal whistling sound",
+   "steady pitch and level",
+   "broadband airflow",
+   "no clicking or knocking"
+  ],
+  "confidence": 0.9,
+  "finding": "Fan exhibits a distinct continuous high-pitched tonal whine not heard in the reference recording. Inspect the fan blades and bearings for imbalance, wear, or obstruction.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1340,
+  "latency_ms": 6898,
+  "output_tokens": 116,
+  "thinking_tokens": 188,
+  "usd": 0.002145
+ }
+}

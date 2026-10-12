@@ -1,0 +1,29 @@
+{
+ "content_hash": "7f0b08731d7ee4eb2a7c5e5c24396a38",
+ "created_at": "2026-10-11T18:23:32Z",
+ "machine_type": "fan",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "88b6c05619e291658e249a791e05a6cdfefb740af42859a62fa6e68bd0a93c84",
+ "reference_sha256": "1d58278838c0a90e7b4183446fce4c1e7b07b8452e7878f286f47140b62993e1",
+ "result": {
+  "abnormal": true,
+  "characteristics": [
+   "cyclic squeaking",
+   "rubbing sound",
+   "high-pitched whine",
+   "broadband airflow"
+  ],
+  "confidence": 0.88,
+  "finding": "The fan displays an anomalous high-pitched cyclic rubbing or squeaking sound throughout the recording, which is absent from the reference.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1340,
+  "latency_ms": 4540,
+  "output_tokens": 76,
+  "thinking_tokens": 0,
+  "usd": 0.00129
+ }
+}

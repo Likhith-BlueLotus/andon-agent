@@ -1,0 +1,29 @@
+{
+ "content_hash": "48add2ecb4123913c6614da0737111f2",
+ "created_at": "2026-10-11T15:00:09Z",
+ "machine_type": "fan",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "aab9e6c021c1db9f2e80e96439455439f432b91a098d38f663647a12370a01ea",
+ "reference_sha256": "1b015dc6a85745b67cf3116364f66d09cd167381db778309d96056b6e47d4e90",
+ "result": {
+  "abnormal": true,
+  "characteristics": [
+   "high-pitched whine",
+   "tonal component",
+   "steady airflow",
+   "broadband noise"
+  ],
+  "confidence": 0.88,
+  "finding": "Fan exhibits a distinct, abnormal high-pitched tonal whine not present in the reference baseline, suggesting bearing distress or aerodynamic imbalance.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1340,
+  "latency_ms": 5803,
+  "output_tokens": 75,
+  "thinking_tokens": 138,
+  "usd": 0.001804
+ }
+}

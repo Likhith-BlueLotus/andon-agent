@@ -1,0 +1,29 @@
+{
+ "content_hash": "57ad6bdb70ef65f08c2563b72d4c7f2a",
+ "created_at": "2026-10-11T16:48:52Z",
+ "machine_type": "slider",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "cf9ece1c5388a31f6ed5f514d85d4184a5be465b0821307715d16f1547e57b80",
+ "reference_sha256": "6e3922ccd896dc7bc9c1831e9d8006d64f13f8450b7d1301cb30652e5102346e",
+ "result": {
+  "abnormal": true,
+  "characteristics": [
+   "repeated stroke cycles",
+   "pronounced scraping noise",
+   "mechanical friction sound",
+   "factory background noise"
+  ],
+  "confidence": 0.88,
+  "finding": "The slider exhibits significant scraping and friction noise during travel cycles, unlike the smoother operation heard in the reference.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1340,
+  "latency_ms": 8305,
+  "output_tokens": 97,
+  "thinking_tokens": 0,
+  "usd": 0.001369
+ }
+}

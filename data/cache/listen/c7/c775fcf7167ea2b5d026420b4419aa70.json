@@ -1,0 +1,30 @@
+{
+ "content_hash": "c775fcf7167ea2b5d026420b4419aa70",
+ "created_at": "2026-10-11T17:01:50Z",
+ "machine_type": "fan",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "3acacc9844edd63f00bdd43fafad03bfe38340f02967665665d7342509f84973",
+ "reference_sha256": "59a5fcaeae7549c849a6aed4029e15dcdba8134b6e52eb93ecc7e694bd6f582b",
+ "result": {
+  "abnormal": false,
+  "characteristics": [
+   "steady airflow",
+   "constant pitch",
+   "stable broadband noise",
+   "no clicking or rubbing",
+   "no rattle"
+  ],
+  "confidence": 0.92,
+  "finding": "The fan produces a steady broadband airflow sound with a stable pitch, consistent with healthy operation and matching the reference.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1340,
+  "latency_ms": 5089,
+  "output_tokens": 102,
+  "thinking_tokens": 0,
+  "usd": 0.001388
+ }
+}

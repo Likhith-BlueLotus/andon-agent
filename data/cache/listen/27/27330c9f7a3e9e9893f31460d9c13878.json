@@ -1,0 +1,29 @@
+{
+ "content_hash": "27330c9f7a3e9e9893f31460d9c13878",
+ "created_at": "2026-10-11T16:22:02Z",
+ "machine_type": "slider",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "85b96584d5341465e805e2e63d088747caf2e170baff75ed579fb6b9ceaeaf01",
+ "reference_sha256": "bf0d31488a6e33e6a528e7c253ace852e9b1c4d7cb4aa29c4e3650a5f3674106",
+ "result": {
+  "abnormal": true,
+  "characteristics": [
+   "abrasive scraping noise",
+   "friction hiss during stroke",
+   "periodic slide cycles",
+   "elevated travel sound"
+  ],
+  "confidence": 0.9,
+  "finding": "The slider exhibits prominent abrasive scraping and friction noise during travel strokes compared to the reference. Inspect slide rails, bearings, and guides for wear, debris, or lack of lubrication.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1340,
+  "latency_ms": 6427,
+  "output_tokens": 77,
+  "thinking_tokens": 175,
+  "usd": 0.00195
+ }
+}

@@ -1,0 +1,30 @@
+{
+ "content_hash": "aa72ff549e6a81d4c0d942d997b189c3",
+ "created_at": "2026-10-11T20:49:37Z",
+ "machine_type": "valve",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "24e3927c0a598b196adf6c69270a7cc12dd9bf82ecc1f34253bcfc4fe40b40e0",
+ "reference_sha256": "58eceee93de73c160201b2155d1ff23583ec6d7bb97217faf79bf1f44d308d4e",
+ "result": {
+  "abnormal": false,
+  "characteristics": [
+   "regular valve clicks",
+   "consistent actuation intervals",
+   "quiet between clicks",
+   "normal operating cycle",
+   "steady low-level background noise"
+  ],
+  "confidence": 0.9,
+  "finding": "Valve actuations exhibit consistent, rhythmic open and close clicks matching normal operation. Ambient factory noise and slight hum are present but the valve functions normally.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1337,
+  "latency_ms": 4843,
+  "output_tokens": 113,
+  "thinking_tokens": 0,
+  "usd": 0.001427
+ }
+}

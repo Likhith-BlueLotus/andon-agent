@@ -1,0 +1,30 @@
+{
+ "content_hash": "c7f7a6f254f73c9b4da064eb3b86d080",
+ "created_at": "2026-10-11T17:12:33Z",
+ "machine_type": "slider",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "6b0220f343d276a2b7c857a48b33b3bc6a3dc8acb60dd3557ed2acbae4085cc5",
+ "reference_sha256": "1d61fdae31159731222ec64f4149e9c23385795dda5376d1a15099bf27ff0422",
+ "result": {
+  "abnormal": true,
+  "characteristics": [
+   "repeated stroke cycles",
+   "harsh scraping noise",
+   "grinding during movement",
+   "regular stroke timing",
+   "distinct from reference"
+  ],
+  "confidence": 0.95,
+  "finding": "The slider displays severe mechanical scraping and grinding noise during each stroke cycle that is not present in the reference. Inspect linear guide rails, drive mechanisms, and carriage bearings for wear, misalignment, or lack of lubrication.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1340,
+  "latency_ms": 5021,
+  "output_tokens": 126,
+  "thinking_tokens": 0,
+  "usd": 0.001478
+ }
+}

@@ -1,0 +1,30 @@
+{
+ "content_hash": "6f3c4d11f23763caed1057ef15fcaf74",
+ "created_at": "2026-10-11T16:50:03Z",
+ "machine_type": "pump",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "64db189f9c97e90de47ab01545e8780b0eba64081803d64184133e09654c18b7",
+ "reference_sha256": "142d7b6e20c11ccda45c1df89fbc43bc26270e79db1355872d2ab4a5fb4a43d6",
+ "result": {
+  "abnormal": true,
+  "characteristics": [
+   "intense crackle and cavitation",
+   "irregular grinding noise",
+   "loud broadband hiss",
+   "motor hum",
+   "unstable flow sound"
+  ],
+  "confidence": 0.95,
+  "finding": "The pump exhibits severe cavitation or rattling/grinding noise with intense surging and broadband noise, deviating significantly from the reference baseline.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1340,
+  "latency_ms": 7969,
+  "output_tokens": 111,
+  "thinking_tokens": 0,
+  "usd": 0.001421
+ }
+}

@@ -1,0 +1,29 @@
+{
+ "content_hash": "86355d6221438bc876bd2ed0a627a754",
+ "created_at": "2026-10-11T16:17:16Z",
+ "machine_type": "fan",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "51dbef3e47e4cb5dafd6e60285a69ee80a4ffa562f05608199bd83b765f53843",
+ "reference_sha256": "9c25bca48cb131b5c644865b1128de91556fa9059267bb8b4e6e0f02475bd7ee",
+ "result": {
+  "abnormal": true,
+  "characteristics": [
+   "cyclic high-pitched squeaking",
+   "rubbing noise",
+   "steady motor hum",
+   "broadband airflow"
+  ],
+  "confidence": 0.88,
+  "finding": "The fan exhibits a repetitive high-pitched squeaking or rubbing sound that is absent in the reference recording, suggesting bearing wear or blade rubbing.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1340,
+  "latency_ms": 6892,
+  "output_tokens": 106,
+  "thinking_tokens": 173,
+  "usd": 0.002051
+ }
+}

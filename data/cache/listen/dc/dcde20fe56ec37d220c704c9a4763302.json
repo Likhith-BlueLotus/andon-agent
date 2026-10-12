@@ -1,0 +1,30 @@
+{
+ "content_hash": "dcde20fe56ec37d220c704c9a4763302",
+ "created_at": "2026-10-11T16:13:56Z",
+ "machine_type": "fan",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "a0a295e631240e64a1c72243c15273b37aa76ae3e6f68aa30ea1068b52fbd39a",
+ "reference_sha256": "bfd730adacc828f66910bdae8369a96fba6a0706ae166130bc775e927f3d32a3",
+ "result": {
+  "abnormal": true,
+  "characteristics": [
+   "rhythmic clicking",
+   "repetitive ticking",
+   "steady broadband airflow",
+   "fan motor hum",
+   "cyclic defect noise"
+  ],
+  "confidence": 0.92,
+  "finding": "The fan exhibits a clear, rhythmic clicking or ticking sound not heard in the reference recording. Inspect the fan blades and housing for mechanical contact, debris, or bearing degradation.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1340,
+  "latency_ms": 6376,
+  "output_tokens": 116,
+  "thinking_tokens": 208,
+  "usd": 0.00222
+ }
+}

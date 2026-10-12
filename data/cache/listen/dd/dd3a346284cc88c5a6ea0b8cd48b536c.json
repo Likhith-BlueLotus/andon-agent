@@ -1,0 +1,29 @@
+{
+ "content_hash": "dd3a346284cc88c5a6ea0b8cd48b536c",
+ "created_at": "2026-10-11T16:12:53Z",
+ "machine_type": "slider",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "b3c0971e17d697ade003d97e8a713e15d6c37262953c087994c4cbc29b19223a",
+ "reference_sha256": "253cba4d5f132f1b75ab0585f82d47e023f08749805c8734b8c5e29d67795dc5",
+ "result": {
+  "abnormal": true,
+  "characteristics": [
+   "rapid rhythmic clatter",
+   "repetitive clicking during stroke",
+   "cyclic travel motion",
+   "mechanical interference"
+  ],
+  "confidence": 0.92,
+  "finding": "The slider exhibits a distinct, rapid rhythmic clattering/clicking sound during stroke travel that is not present in the reference. Inspect the drive mechanism, linear guides, and carriage for loose hardware, tooth damage, or mechanical interference.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1340,
+  "latency_ms": 8160,
+  "output_tokens": 87,
+  "thinking_tokens": 351,
+  "usd": 0.002648
+ }
+}

@@ -1,0 +1,29 @@
+{
+ "content_hash": "3d35c3c949a78c73978eeacd0ae6c19b",
+ "created_at": "2026-10-11T16:47:45Z",
+ "machine_type": "pump",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "e4bcef41e8bd400fc9377c9ae41c2e9ceff14c1d81f2397c807dfb1d33e8d7b5",
+ "reference_sha256": "aebe4fd6a7b73127c216a1fe4e6532b4fb2573c8dde1d35b3620984b3f4b602b",
+ "result": {
+  "abnormal": true,
+  "characteristics": [
+   "high-frequency whine",
+   "steady squeal",
+   "continuous motor hum",
+   "no severe cavitation crackle"
+  ],
+  "confidence": 0.92,
+  "finding": "The pump exhibits a continuous, sharp high-frequency whining or squealing tone that is absent in the reference recording, indicating possible bearing wear or mechanical friction.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1340,
+  "latency_ms": 4491,
+  "output_tokens": 109,
+  "thinking_tokens": 0,
+  "usd": 0.001414
+ }
+}

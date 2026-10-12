@@ -1,0 +1,29 @@
+{
+ "content_hash": "c45e28657762ab394e717f20dc75975a",
+ "created_at": "2026-10-11T14:56:38Z",
+ "machine_type": "fan",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "e2bb39b9a5a7881c44fbc95c653b87fb51ebed0c0f6a99b59ca873fa4af2de7c",
+ "reference_sha256": "17887ac2eadab6ef0178e857bf4d3d3dfde3d146db5a1217e0126efd9127f478",
+ "result": {
+  "abnormal": false,
+  "characteristics": [
+   "steady broadband airflow",
+   "stable motor hum",
+   "no tonal wobble",
+   "no clicking or knocking"
+  ],
+  "confidence": 0.95,
+  "finding": "The fan displays a healthy, steady airflow and continuous motor hum with no abnormal rubbing, beating, or clicks present.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1340,
+  "latency_ms": 30105,
+  "output_tokens": 74,
+  "thinking_tokens": 0,
+  "usd": 0.001283
+ }
+}

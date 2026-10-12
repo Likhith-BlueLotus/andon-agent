@@ -1,0 +1,29 @@
+{
+ "content_hash": "758ac834fd8951a46b9365b106c8256d",
+ "created_at": "2026-10-11T18:29:40Z",
+ "machine_type": "valve",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "35149e29f2117ffae877928465a0bf0ef88a35079bccf2c904327bd89a1232a3",
+ "reference_sha256": "5509f7084f26fd65637e5b61e2605c74f8dcfc99d4db1171e810e1b17488bb21",
+ "result": {
+  "abnormal": false,
+  "characteristics": [
+   "regular valve clicks",
+   "crisp actuation",
+   "quiet between cycles",
+   "stable background sound"
+  ],
+  "confidence": 0.95,
+  "finding": "Valve actuations exhibit consistent, crisp clicks at regular intervals with quiet periods in between, consistent with the reference recording.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1337,
+  "latency_ms": 4900,
+  "output_tokens": 98,
+  "thinking_tokens": 0,
+  "usd": 0.00137
+ }
+}

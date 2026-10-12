@@ -1,0 +1,30 @@
+{
+ "content_hash": "1708d131f74192458e5982e1261764d9",
+ "created_at": "2026-10-11T16:06:36Z",
+ "machine_type": "fan",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "a0a295e631240e64a1c72243c15273b37aa76ae3e6f68aa30ea1068b52fbd39a",
+ "reference_sha256": "3749700cd36fb1902eb7bf84637ab7e2872b1ff58fbc6347fa72142eac284e92",
+ "result": {
+  "abnormal": true,
+  "characteristics": [
+   "high-pitched whine",
+   "tonal whistle",
+   "broadband airflow",
+   "steady operation",
+   "different from reference"
+  ],
+  "confidence": 0.88,
+  "finding": "Fan exhibits an abnormal high-pitched whine and whistling tone overlaid on the broadband airflow, indicating possible bearing wear or blade aerodynamic disruption.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1340,
+  "latency_ms": 10254,
+  "output_tokens": 108,
+  "thinking_tokens": 139,
+  "usd": 0.001931
+ }
+}

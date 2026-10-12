@@ -1,0 +1,30 @@
+{
+ "content_hash": "7ce42c9ff34ba920a15ebef3a7231145",
+ "created_at": "2026-10-11T15:12:21Z",
+ "machine_type": "valve",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "24e3927c0a598b196adf6c69270a7cc12dd9bf82ecc1f34253bcfc4fe40b40e0",
+ "reference_sha256": "2abf32f1a454102ccede092e40914ff949a205497be3decda2d3bbf3cb561d8a",
+ "result": {
+  "abnormal": false,
+  "characteristics": [
+   "crisp actuation clicks",
+   "regular rhythm",
+   "steady background hum",
+   "consistent loudness",
+   "no hissing or chattering"
+  ],
+  "confidence": 0.95,
+  "finding": "The valve operates normally with crisp, consistent actuations at regular intervals and no audible leaks or chattering.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1337,
+  "latency_ms": 8774,
+  "output_tokens": 106,
+  "thinking_tokens": 273,
+  "usd": 0.002424
+ }
+}

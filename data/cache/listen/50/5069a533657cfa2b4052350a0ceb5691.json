@@ -1,0 +1,30 @@
+{
+ "content_hash": "5069a533657cfa2b4052350a0ceb5691",
+ "created_at": "2026-10-11T18:25:30Z",
+ "machine_type": "pump",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "5f64a79f247a44677a06db6a10a92cdb6afbe8f1029ffce84d87b869da44dcd9",
+ "reference_sha256": "aaa81a09b6c0f2d58e3983abea7f71314e9646b2981f272373c803ecc027cb9f",
+ "result": {
+  "abnormal": false,
+  "characteristics": [
+   "steady operation",
+   "regular rhythmic strokes",
+   "consistent cycle timing",
+   "ambient background hum",
+   "no grinding or rattling"
+  ],
+  "confidence": 0.9,
+  "finding": "The machine operates with consistent, rhythmic cycles and normal baseline sound matching the reference, with no signs of abnormal friction or defect.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1340,
+  "latency_ms": 18061,
+  "output_tokens": 106,
+  "thinking_tokens": 1496,
+  "usd": 0.007012
+ }
+}

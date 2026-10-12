@@ -1,0 +1,30 @@
+{
+ "content_hash": "ec14c5aed33b02ee73656d1f559508dc",
+ "created_at": "2026-10-11T18:25:06Z",
+ "machine_type": "pump",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "47effd6f8543a96358414e72a9926d36e352901f09cff1bc63ef7f89211c7aa7",
+ "reference_sha256": "f56c2fc9f6aa41a9e4cb8938539f11651eee4dd3d1ed8e6712586d9489380a4d",
+ "result": {
+  "abnormal": true,
+  "characteristics": [
+   "cyclic rubbing",
+   "rhythmic scraping",
+   "pulsating noise",
+   "underlying motor hum",
+   "uneven operational sound"
+  ],
+  "confidence": 0.9,
+  "finding": "The pump exhibits a prominent cyclic rubbing and scraping sound that repeats rhythmically, absent in the reference recording. Inspect the pump impeller, casing, and bearings for friction or internal damage.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1340,
+  "latency_ms": 7068,
+  "output_tokens": 118,
+  "thinking_tokens": 234,
+  "usd": 0.002325
+ }
+}

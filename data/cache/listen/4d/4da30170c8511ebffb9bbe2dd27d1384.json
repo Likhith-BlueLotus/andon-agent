@@ -1,0 +1,30 @@
+{
+ "content_hash": "4da30170c8511ebffb9bbe2dd27d1384",
+ "created_at": "2026-10-11T15:15:38Z",
+ "machine_type": "pump",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "1d3d3f6b9ef4d613b4c2eee6174ba0364b87df4eab957001020e599d19c9b096",
+ "reference_sha256": "aebe4fd6a7b73127c216a1fe4e6532b4fb2573c8dde1d35b3620984b3f4b602b",
+ "result": {
+  "abnormal": false,
+  "characteristics": [
+   "steady motor hum",
+   "continuous flow sound",
+   "constant pitch",
+   "no cavitation crackle",
+   "stable operation"
+  ],
+  "confidence": 0.95,
+  "finding": "The pump exhibits a steady operating hum and constant fluid flow sound with no evidence of cavitation, knocking, or mechanical rattling. The operational sound closely matches the reference recording.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1340,
+  "latency_ms": 5355,
+  "output_tokens": 87,
+  "thinking_tokens": 0,
+  "usd": 0.001331
+ }
+}

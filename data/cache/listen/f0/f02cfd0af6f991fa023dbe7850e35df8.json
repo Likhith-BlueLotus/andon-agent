@@ -1,0 +1,30 @@
+{
+ "content_hash": "f02cfd0af6f991fa023dbe7850e35df8",
+ "created_at": "2026-10-11T18:23:45Z",
+ "machine_type": "fan",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "6e2a1a39e45c09674ef12068f0c553d5be5453bf659017fd53294bd23b6524a2",
+ "reference_sha256": "a0a295e631240e64a1c72243c15273b37aa76ae3e6f68aa30ea1068b52fbd39a",
+ "result": {
+  "abnormal": true,
+  "characteristics": [
+   "steady airflow",
+   "cyclical clicking",
+   "rhythmic rubbing",
+   "stable pitch",
+   "factory background noise"
+  ],
+  "confidence": 0.88,
+  "finding": "The fan exhibits a clear cyclical rubbing or clicking noise superimposed on the airflow that is absent in the reference recording. Inspect the fan blades and shroud for mechanical interference or loose components.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1340,
+  "latency_ms": 6456,
+  "output_tokens": 77,
+  "thinking_tokens": 256,
+  "usd": 0.002254
+ }
+}

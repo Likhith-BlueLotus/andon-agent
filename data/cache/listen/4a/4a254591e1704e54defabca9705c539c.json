@@ -1,0 +1,29 @@
+{
+ "content_hash": "4a254591e1704e54defabca9705c539c",
+ "created_at": "2026-10-11T15:16:14Z",
+ "machine_type": "slider",
+ "model": "gemini-3.8-flash",
+ "prompt_version": "listen_rubric v1 2026-10-11",
+ "query_sha256": "0cc31d4099a54d7fcd4aaa1a3cbad6c5d3b27db14548d548862948c8d3479e83",
+ "reference_sha256": "a8f8c5db723d2f6d5fff3231c5e2c179e23b3a94eeeab0d759e8e656f1042726",
+ "result": {
+  "abnormal": false,
+  "characteristics": [
+   "consistent stroke timing",
+   "smooth sliding action",
+   "regular cycle rhythm",
+   "no scraping or grinding"
+  ],
+  "confidence": 0.9,
+  "finding": "The slider operates with regular stroke cycles and smooth travel sound, matching normal baseline operation.",
+  "recording_quality": "clear"
+ },
+ "thinking_level": "LOW",
+ "usage": {
+  "input_tokens": 1340,
+  "latency_ms": 5492,
+  "output_tokens": 92,
+  "thinking_tokens": 91,
+  "usd": 0.001691
+ }
+}
