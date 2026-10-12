@@ -195,3 +195,9 @@ Template — copy for each entry:
 - **What happened:** a `file: UploadFile` parameter makes FastAPI parse up to 20 MB before the passcode check; use `request.form()` after the checks. The 64 KB body cap needed a per-path override. The 6 h / 10 s sample made `detect_change_points`/`anomaly_score`/`spectrum` return `insufficient_data` (they expect ~1 Hz and days of history); the RCA still worked from `query_telemetry` statistics.
 - **Do differently / rule added:** auth before body parsing on any upload route; tell users to export 1 Hz and >= 3 days when they can.
 - **Cost (time / $):** ~$0.095 for the one live check.
+
+### 2026-10-12 — Gemini audio MIME lists differ between the Gemini API page and the Agent Platform page (stretch voice note, person A)
+- **What happened:** the ai.google.dev audio page lists wav/mp3/aiff/aac/ogg/flac/m4a/webm but not audio/mp4 (what Safari's MediaRecorder emits); the Vertex "Audio understanding" page lists audio/mp4 and audio/webm. We run on Vertex, so no transcoding is needed. Starlette's multipart parser spools files over 1 MB to a temp file, which breaks "audio never touches disk", so the route parses the (size-bounded) body in memory with `email.parser`.
+- **Do differently / rule added:** check the page for the backend you actually use; for "memory only" claims check what the framework's parser does with large parts.
+- **Cost (time / $):** ~1 h / $0.002 (two live clips: WAV 16 kHz and AAC in mp4).
+

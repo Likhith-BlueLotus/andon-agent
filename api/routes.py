@@ -9,6 +9,8 @@ import logging
 import re
 import uuid
 from datetime import UTC, datetime
+from email import policy
+from email.parser import BytesParser
 from typing import Any, Literal
 
 from fastapi import APIRouter, HTTPException, Query, Request
@@ -22,6 +24,7 @@ from agents.schemas import CONTRACT_VERSION, WorkOrder
 from agents.verifier import check_safety_steps
 from api import catalog, telemetry_view
 from api import uploads as up
+from api import voicenotes as vn
 from api.audit import INCIDENT_ID_RE, AuditRecorder, public_view
 from api.context import AppContext
 from api.events import Event
@@ -145,7 +148,7 @@ def build_router(ctx: AppContext) -> APIRouter:
                 "live_runs_per_min_per_ip": st.live_runs_per_min_per_ip,
             },
             "replays_available": len(ctx.replays.list()),
-            "features": sorted(st.enable_stretch & {"upload"}),  # enabled stretch features
+            "features": sorted(st.enable_stretch & {"upload", "tech"}),  # enabled stretch features
         }
 
     # ---- catalogue -----------------------------------------------------------------------
@@ -386,6 +389,90 @@ def build_router(ctx: AppContext) -> APIRouter:
         view = public_view(rec)
         view["incident"] = {k: v for k, v in (view["incident"] or {}).items() if k != "ip_hash"}
         return view
+
+    # ---- stretch: technician voice note (ADR-029) ----------------------------------------------
+    def parse_audio_form(ctype: str, body: bytes) -> dict[str, tuple[str | None, bytes]]:
+        """Multipart parsed in memory (Starlette's parser would spool files over 1 MB to disk).
+        Returns {field name: (part content type, raw bytes)}."""
+        msg = BytesParser(policy=policy.HTTP).parsebytes(b"Content-Type: " + ctype.encode("latin-1", "replace") + b"\r\n\r\n" + body)  # fmt: skip
+        if not msg.is_multipart():
+            raise err(400, "bad_audio", "send multipart/form-data with an 'audio' field")
+        out: dict[str, tuple[str | None, bytes]] = {}
+        for part in msg.iter_parts():
+            name = part.get_param("name", header="content-disposition")
+            if isinstance(name, str) and name not in out:
+                out[name] = (part.get_content_type() if part.get("content-type") else None, part.get_payload(decode=True) or b"")  # fmt: skip
+        return out
+
+    @r.post("/api/incidents/{incident_id}/voice-note")
+    async def post_voice_note(incident_id: str, request: Request) -> dict:
+        if not st.tech_enabled:
+            raise err(404, "not_enabled", "voice notes are not enabled on this deployment")
+        require_passcode(request)  # before any body is read
+        if not INCIDENT_ID_RE.match(incident_id):
+            raise err(404, "unknown_incident", "unknown incident")
+        rec = await asyncio.to_thread(ctx.audit.get, incident_id)
+        if rec is None:
+            raise err(404, "unknown_incident", "unknown incident")
+        ip = client_ip(request, st.trusted_proxy_hops)
+        d = ctx.voice_limiter.acquire(ip)
+        if not d.allowed:
+            raise err(429, "rate_limited", f"voice note limit reached ({d.scope})",
+                      {"Retry-After": str(d.retry_after_s)}, scope=d.scope)  # fmt: skip
+        ctype = request.headers.get("content-type", "")
+        if not ctype.lower().startswith("multipart/form-data"):
+            raise err(400, "bad_audio", "send multipart/form-data with an 'audio' field")
+        body = await request.body()  # bounded to 2 MB + overhead by BodyLimitMiddleware
+        try:
+            fields = parse_audio_form(ctype, body)
+        except HTTPException:
+            raise
+        except Exception:
+            raise err(400, "bad_audio", "cannot read the upload") from None
+        del body
+        if "audio" not in fields:
+            raise err(400, "bad_audio", "multipart field 'audio' is required")
+        part_type, data = fields["audio"]
+        dur_raw = fields["duration_s"][1].decode("utf-8", "replace").strip() if "duration_s" in fields else None  # fmt: skip
+        try:
+            mime, duration = vn.validate_audio(data, part_type, dur_raw)
+        except vn.VoiceError as exc:
+            raise err(exc.status, exc.code, exc.message) from None
+        try:
+            await ctx.budget.check_fresh()
+        except BudgetExhaustedError:
+            raise err(503, "budget_exhausted", "today's model budget is used up; try again tomorrow", {"Retry-After": "3600"}) from None  # fmt: skip
+        from agents.llm import get_llm
+
+        try:
+            note, transcript, model_id, cost = await vn.transcribe(data, mime, get_llm())
+        except BudgetExhaustedError:
+            raise err(503, "budget_exhausted", "today's model budget is used up; try again tomorrow", {"Retry-After": "3600"}) from None  # fmt: skip
+        except Exception as exc:
+            log.warning("voice note failed: %s: %.200s", type(exc).__name__, exc)
+            raise err(502, "transcription_failed", "the model could not process this recording") from None  # fmt: skip
+        finally:
+            audio_hash = vn.content_hash(data)
+            del data
+        out = vn.build_record(vn.new_note_id(), incident_id, duration, note, transcript, model_id, cost, vn.now_z())  # fmt: skip
+        mode = (rec["incident"] or {}).get("mode")
+        entry = {**out, "action": "voice_note", "demo": mode != "live", "audio_sha256_16": audio_hash,
+                 "audio_mime": mime}  # fmt: skip
+        await asyncio.to_thread(ctx.audit.add_action, incident_id, entry)
+        return out
+
+    @r.get("/api/incidents/{incident_id}/voice-notes")
+    async def get_voice_notes(incident_id: str, request: Request) -> dict:
+        if not st.tech_enabled:
+            raise err(404, "not_enabled", "voice notes are not enabled on this deployment")
+        if not INCIDENT_ID_RE.match(incident_id):
+            raise err(404, "unknown_incident", "unknown incident")
+        rec = await asyncio.to_thread(ctx.audit.get, incident_id)
+        if rec is None:
+            raise err(404, "unknown_incident", "unknown incident")
+        if (rec["incident"] or {}).get("mode") == "live":
+            require_passcode(request)
+        return {"notes": vn.from_audit(rec)}
 
     # ---- HITL ----------------------------------------------------------------------------
     @r.post("/api/incidents/{incident_id}/approve")

@@ -192,7 +192,7 @@ p50 full diagnosis ≤ 60 s, p95 ≤ 120 s · cost per diagnosis ≤ $0.60 with 
 
 ## 8. Stretch endpoints (only after the core passes freeze-gate items; see DEVELOPMENT.md §9b)
 - **Implemented (ADR-028)** `POST /api/uploads` + `POST /api/uploads/{id}/confirm` (replaces the sketched `/api/ingest/csv`), enabled with `ENABLE_STRETCH=upload` — "bring your own historian export": upload ≤20 MB CSV → Flash-Lite proposes a column→tag mapping (structured output) → **human confirms** → loaded as a temporary scenario `U###` with `provenance: user_upload` → normal investigation. Proves the adapter pattern behind the scale story (OPC UA/MQTT later).
-- `POST /api/incidents/{id}/voice-note` — ≤60 s audio from the technician view → Gemini audio → structured shift note (untrusted data, same wrapping rules).
+- **Implemented (ADR-029)** `POST /api/incidents/{id}/voice-note` (multipart `audio` + optional `duration_s`; ≤60 s, ≤2 MB; webm/ogg/mp4/mpeg/wav) and `GET /api/incidents/{id}/voice-notes`, enabled with `ENABLE_STRETCH=tech` (`features` in `/api/config` lists `tech`). One Flash-Lite call with a Pydantic schema → `{summary, observations, actions_taken, parts_used, safety_concerns, language}` + verbatim transcript, appended once to the incident's audit log as an `untrusted` action. Audio is memory-only. The agents never see it.
 - `GET /api/incidents/{id}/work-order?lang=hi|ta|id|vi` — WO summary translated for the technician; **safety steps stay verbatim in the manual's language** with a side-by-side translation labelled "machine translation — not the controlling text".
 
 ## 9. Observability

@@ -75,6 +75,7 @@ class AppContext:
     telemetry_limiter: Limiter | None = None  # chart reads: per instance, per IP, memory only
     upload_limiter: Limiter | None = None  # stretch CSV uploads (memory only, like live runs)
     confirm_limiter: Limiter | None = None
+    voice_limiter: Limiter | None = None  # stretch technician voice notes (memory only)
     uploads: UploadRegistry = field(default_factory=UploadRegistry)
     live_slots: SlotPool = field(init=False)
     replay_slots: SlotPool = field(init=False)
@@ -98,6 +99,12 @@ class AppContext:
         if self.upload_limiter is None:
             self.upload_limiter = Limiter(
                 MemoryLimiter(self.settings.live_runs_per_min_per_ip, self.settings.uploads_per_day)
+            )
+        if self.voice_limiter is None:
+            self.voice_limiter = Limiter(
+                MemoryLimiter(
+                    self.settings.voice_notes_per_min_per_ip, self.settings.voice_notes_per_day
+                )
             )
         if self.confirm_limiter is None:
             self.confirm_limiter = Limiter(

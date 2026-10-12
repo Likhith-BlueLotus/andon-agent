@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import logging
 import os
+import re
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager, suppress
 from typing import Any
@@ -40,9 +41,13 @@ from api.settings import Settings
 from api.stores import StoreProvider, make_provider
 from api.uploads import MAX_BYTES as UPLOAD_MAX_BYTES
 from api.uploads import UploadOverlayProvider, UploadRegistry
+from api.voicenotes import MAX_BYTES as VOICE_MAX_BYTES
 
 log = logging.getLogger("andon.api")
 _ON_CLOUD_RUN = bool(os.environ.get("K_SERVICE"))
+
+
+VOICE_PATH = re.compile(r"^/api/incidents/[^/]+/voice-note$")
 
 
 class RequestTooLarge(Exception):
@@ -63,13 +68,20 @@ class BodyLimitMiddleware:
         if scope["type"] != "http":
             await self.app(scope, receive, send)
             return
+        is_voice = scope["method"] == "POST" and VOICE_PATH.match(scope["path"]) is not None
         limit = self.overrides.get(scope["path"], self.max_bytes) if scope["method"] == "POST" else self.max_bytes  # fmt: skip
+        if is_voice:
+            limit = (
+                VOICE_MAX_BYTES + 64 * 1024
+            )  # multipart overhead; the route enforces 2 MB exactly
         declared = dict(scope["headers"]).get(b"content-length")
         started = False
         total = 0
 
         async def reject() -> None:
-            code = "too_large" if scope["path"] in self.overrides else "payload_too_large"
+            code = (
+                "too_large" if scope["path"] in self.overrides or is_voice else "payload_too_large"
+            )
             body = (f'{{"detail":{{"code":"{code}","message":"request body too large"}}}}').encode()
             await send({"type": "http.response.start", "status": 413,
                         "headers": [(b"content-type", b"application/json"),
