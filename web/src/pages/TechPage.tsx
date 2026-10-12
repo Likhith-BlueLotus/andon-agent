@@ -5,7 +5,9 @@ import { useApproval, type Decision } from "../state/useApproval";
 import { getHandoff } from "../lib/handoff";
 import { getPasscode, setPasscode as storePasscode } from "../lib/passcode";
 import { readMock } from "../lib/config";
-import { techEnabled } from "../lib/features";
+import { langEnabled, techEnabled } from "../lib/features";
+import { useWoLang } from "../state/useWoLang";
+import { LangControl, SafetyTranslation } from "../components/LangControl";
 import { fmtDateTime, humanize } from "../lib/format";
 import { progressLine, rootCauseSentence, topVerifiedClaims, plainClaimText } from "../lib/techSummary";
 import { PasscodeDialog } from "../components/PasscodeDialog";
@@ -67,6 +69,9 @@ function TechFlow({ catalog }: { catalog: Catalog }) {
     passcode: state.mode === "live" ? passcode : null,
     isMock,
   });
+
+  const showLang = langEnabled(config);
+  const wl = useWoLang(showLang ? state.workOrder : null, state.incidentId, state.mode === "live" ? passcode : null, isMock);
 
   const go = useCallback(
     async (m: "live" | "replay", pass: string | null) => {
@@ -233,6 +238,7 @@ function TechFlow({ catalog }: { catalog: Catalog }) {
               ) : (
                 <>
                   <p className="text-xs text-muted">Lockout/tagout steps are quoted verbatim from the manual. Tick each one as you complete it. Nothing here is paraphrased.</p>
+                  {showLang && <LangControl wl={wl} large />}
                   <ol className="space-y-2" aria-label="Lockout and tagout steps">
                     {approval.safety.map((s) => {
                       const on = approval.ticked.has(s.order);
@@ -246,6 +252,7 @@ function TechFlow({ catalog }: { catalog: Catalog }) {
                               {s.citation && <span className="mt-0.5 block font-mono text-xs text-muted">{s.citation.doc} · p.{s.citation.page}</span>}
                             </span>
                           </label>
+                          {wl.lang && wl.data && <SafetyTranslation text={wl.byOrder.get(s.order)} lang={wl.lang} order={s.order} />}
                         </li>
                       );
                     })}
@@ -273,7 +280,7 @@ function TechFlow({ catalog }: { catalog: Catalog }) {
               {state.workOrder && approval.steps.some((s) => !s.is_safety) && (
                 <details>
                   <summary className="inline-flex min-h-[44px] items-center text-sm font-semibold text-accent underline">Other work order steps ({approval.steps.filter((s) => !s.is_safety).length})</summary>
-                  <ol className="mt-1 space-y-1 text-sm">{approval.steps.filter((s) => !s.is_safety).map((s) => <li key={s.order}><span className="font-mono text-xs text-muted">{s.order}. </span>{s.text}</li>)}</ol>
+                  <ol className="mt-1 space-y-1 text-sm">{approval.steps.filter((s) => !s.is_safety).map((s) => <li key={s.order}><span className="font-mono text-xs text-muted">{s.order}. </span>{wl.lang && wl.data && wl.byOrder.get(s.order) ? <><span lang={wl.lang}>{wl.byOrder.get(s.order)}</span> <span className="block text-xs text-muted">{s.text}</span></> : s.text}</li>)}</ol>
                 </details>
               )}
               {decision === "reject" && !decidedWo && (

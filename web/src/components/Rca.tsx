@@ -3,6 +3,8 @@ import type { Citation, Claim, Hypothesis, RCAReport, WorkOrder } from "../types
 import { claimState, claimsOf, type ClaimState, type IncidentState } from "../state/reducer";
 import type { ClaimVerdict } from "../types/events";
 import { useApproval, type Decision } from "../state/useApproval";
+import { useWoLang } from "../state/useWoLang";
+import { LangControl, SafetyTranslation } from "./LangControl";
 import { fmtNum, fmtUsd, humanize } from "../lib/format";
 import { MAX_VERIFIER_ITERATIONS } from "../lib/config";
 import { EvidenceChip, IconAlert, IconCheck, IconClock, IconLock, IconX, Popover, Spinner, StatusBadge } from "./ui";
@@ -171,9 +173,11 @@ export interface RcaPaneProps {
   onEvidence: (id: string) => void;
   /** Technician view handoff (only when the "tech" feature is on). */
   techLink?: { href: string; onOpen: () => void } | null;
+  /** Work-order language toggle (stretch "lang" flag). */
+  langEnabled?: boolean;
 }
 
-export function RcaPane({ state, passcode, isMock, onEvidence, techLink }: RcaPaneProps) {
+export function RcaPane({ state, passcode, isMock, onEvidence, techLink, langEnabled }: RcaPaneProps) {
   const report: RCAReport | null = state.final ?? state.draft;
   const isFinal = !!state.final;
   const insufficient = state.final?.status === "insufficient_evidence";
@@ -249,7 +253,7 @@ export function RcaPane({ state, passcode, isMock, onEvidence, techLink }: RcaPa
           </a>
         )}
         {state.workOrder && !insufficient && (
-          <WorkOrderPanel key={state.workOrder.wo_id} wo={state.workOrder} incidentId={state.incidentId} decision={decision} edits={edits} enabled={isFinal} passcode={passcode} isMock={isMock} />
+          <WorkOrderPanel key={state.workOrder.wo_id} wo={state.workOrder} incidentId={state.incidentId} decision={decision} edits={edits} enabled={isFinal} passcode={passcode} isMock={isMock} langEnabled={langEnabled} />
         )}
         <CostChip state={state} />
         {state.phase === "done" && state.done && <p className="font-mono text-[11px] text-muted">run finished in {(state.done.duration_ms / 1000).toFixed(1)} s · {claimsOf(report).length} claims checked</p>}
@@ -266,6 +270,7 @@ export function WorkOrderPanel({
   enabled,
   passcode,
   isMock,
+  langEnabled = false,
 }: {
   wo: WorkOrder;
   incidentId: string | null;
@@ -274,7 +279,9 @@ export function WorkOrderPanel({
   enabled: boolean;
   passcode: string | null;
   isMock: boolean;
+  langEnabled?: boolean;
 }) {
+  const wl = useWoLang(langEnabled ? wo : null, incidentId, passcode, isMock);
   const { steps, safety, ticked, toggle, name, setName, busy, error, result, decided, missing, canApprove, submit } = useApproval({ wo, incidentId, decision, edits, enabled, passcode, isMock });
   const bannerRef = useRef<HTMLDivElement>(null);
   const why = useId();
@@ -299,7 +306,11 @@ export function WorkOrderPanel({
       <p className="mt-1 text-xs text-muted">
         {humanize(wo.cause_class)} · <span className="font-mono">{wo.asset_id}</span> · drafts only: nothing is written to a PLC, SCADA or historian.
       </p>
+      {langEnabled && <div className="mt-2"><LangControl wl={wl} /></div>}
       {wo.parts.length > 0 && <p className="mt-1 text-xs"><span className="font-semibold">Parts:</span> {wo.parts.join(", ")}</p>}
+      {wl.lang && wl.data && wl.data.parts.some((p) => p.translation) && (
+        <p className="text-xs text-muted" lang={wl.lang} data-testid="parts-translation"><span className="font-semibold">Parts ({wl.data.lang_name}, machine): </span>{wl.data.parts.map((p) => p.translation ?? p.original).join(", ")}</p>
+      )}
 
       <ol className="mt-2 space-y-2" aria-label="Work order steps">
         {steps.map((s) =>
@@ -326,11 +337,28 @@ export function WorkOrderPanel({
                   {s.citation.quote !== s.text && <CitationBlock c={s.citation} />}
                 </div>
               )}
+              {wl.lang && wl.data && <div className="ml-6"><SafetyTranslation text={wl.byOrder.get(s.order)} lang={wl.lang} order={s.order} /></div>}
             </li>
           ) : (
             <li key={s.order} className="flex gap-2 text-[13px]" data-step={s.order}>
               <span className="w-5 shrink-0 text-right font-mono text-xs text-muted">{s.order}.</span>
-              <span>{s.text}</span>
+              {wl.lang && wl.data ? (
+                <span className="min-w-0">
+                  {wl.byOrder.get(s.order) ? (
+                    <>
+                      <span lang={wl.lang} className="block" data-testid={`translated-${s.order}`}>{wl.byOrder.get(s.order)}</span>
+                      <span className="block text-[11px] text-muted" data-testid={`original-${s.order}`}>{s.text}</span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="block">{s.text}</span>
+                      <span className="block text-[11px] italic text-muted">translation unavailable</span>
+                    </>
+                  )}
+                </span>
+              ) : (
+                <span>{s.text}</span>
+              )}
             </li>
           ),
         )}

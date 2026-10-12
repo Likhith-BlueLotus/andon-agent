@@ -16,3 +16,4 @@ export function featureEnabled(config: FlagSource, name: string): boolean {
 
 export const uploadEnabled = (config: FlagSource): boolean => featureEnabled(config, "upload");
 export const techEnabled = (config: FlagSource): boolean => featureEnabled(config, "tech");
+export const langEnabled = (config: FlagSource): boolean => featureEnabled(config, "lang");
