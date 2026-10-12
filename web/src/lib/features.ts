@@ -1,13 +1,18 @@
 import { readMock } from "./config";
 
-/** Stretch features, gated per deployment. `/api/config` has no stretch field yet, so we also read `VITE_ENABLE_STRETCH` ("upload,tech,..."). Mock mode shows everything. */
-export function uploadEnabled(config: { stretch?: unknown; features?: unknown } | null): boolean {
+type FlagSource = { stretch?: unknown; features?: unknown } | null;
+
+/** Stretch features, gated per deployment. Reads `/api/config.features` (or `.stretch`), then `VITE_ENABLE_STRETCH` ("upload,tech,..."). Mock mode shows everything. */
+export function featureEnabled(config: FlagSource, name: string): boolean {
   if (readMock()) return true;
   const env = String(import.meta.env.VITE_ENABLE_STRETCH ?? "").toLowerCase();
-  if (env.split(/[\s,]+/).includes("upload")) return true;
+  if (env.split(/[\s,]+/).includes(name)) return true;
   for (const f of [config?.stretch, config?.features]) {
-    if (Array.isArray(f) && f.includes("upload")) return true;
-    if (f && typeof f === "object" && (f as Record<string, unknown>).upload === true) return true;
+    if (Array.isArray(f) && f.includes(name)) return true;
+    if (f && typeof f === "object" && (f as Record<string, unknown>)[name] === true) return true;
   }
   return false;
 }
+
+export const uploadEnabled = (config: FlagSource): boolean => featureEnabled(config, "upload");
+export const techEnabled = (config: FlagSource): boolean => featureEnabled(config, "tech");

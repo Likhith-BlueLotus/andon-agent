@@ -8,6 +8,8 @@ import { TracePane } from "./Trace";
 import { RcaPane } from "./Rca";
 import { getPasscode, setPasscode as storePasscode } from "../lib/passcode";
 import { adHocScenario, isUploadId, uploadLabel } from "../lib/uploadMapping";
+import { setHandoff, techHref } from "../lib/handoff";
+import { techEnabled } from "../lib/features";
 import { PasscodeDialog } from "./PasscodeDialog";
 import { IconAlert, IconClock, IconInfo, Spinner } from "./ui";
 
@@ -138,6 +140,20 @@ export function Console({ catalog }: { catalog: Catalog }) {
     setRunId(r.run);
     void go("replay", r.run, null);
   }
+
+  const techLink = useMemo(() => {
+    if (!techEnabled(config) || !state.final || !state.incidentId) return null;
+    const href = techHref(state.incidentId, state.scenarioId ?? scenarioId);
+    return {
+      href,
+      onOpen: () => {
+        // State travels in memory: no refetch, no re-run.
+        setHandoff({ state, scenarioId: state.scenarioId ?? scenarioId, mode: state.mode ?? "replay", passcode });
+        window.history.pushState({}, "", href);
+        window.dispatchEvent(new PopStateEvent("popstate"));
+      },
+    };
+  }, [config, state, scenarioId, passcode]);
 
   const showBudgetBanner = budgetHit || (config?.budget.exhausted ?? false);
   const idle = state.phase === "idle" && conn === "idle";
@@ -278,7 +294,7 @@ export function Console({ catalog }: { catalog: Catalog }) {
 
         {/* ---- Right: RCA + action ---- */}
         <section id="pane-rca" tabIndex={-1} role="tabpanel" aria-labelledby="tab-rca" aria-label="Root cause and action" className={`${tab === "rca" ? "flex" : "hidden"} min-h-0 flex-1 flex-col bg-panel xl:flex xl:flex-none`}>
-          <RcaPane key={state.incidentId ?? "none"} state={state} passcode={state.mode === "live" ? passcode : null} isMock={!!mock} onEvidence={setEvidence} />
+          <RcaPane key={state.incidentId ?? "none"} state={state} passcode={state.mode === "live" ? passcode : null} isMock={!!mock} onEvidence={setEvidence} techLink={techLink} />
         </section>
       </main>
 

@@ -4,7 +4,7 @@ import { ApiError } from "../lib/api";
 import { readMock, type MockVariant } from "../lib/config";
 import { mockEvents, playEvents } from "../lib/mock";
 import { streamInvestigate } from "../lib/sseClient";
-import { initialState, reduce } from "./reducer";
+import { initialState, reduce, type IncidentState } from "./reducer";
 
 export type Connection =
   | "idle"
@@ -37,9 +37,10 @@ export interface HttpProblem {
  * - A dropped replay stream is retried once ("reconnecting"); a dropped live stream is NOT re-run
  *   (that would start a second paid run: the API has no resume), the UI offers a replay instead.
  */
-export function useIncidentStream(scenarioId: string | null, mode: "live" | "replay") {
-  const [state, dispatch] = useReducer(reduce, initialState);
-  const [conn, setConn] = useState<Connection>("idle");
+export function useIncidentStream(scenarioId: string | null, mode: "live" | "replay", seed?: IncidentState | null) {
+  // `seed` lets the technician view adopt a finished run handed over from the console (no refetch, no re-run).
+  const [state, dispatch] = useReducer(reduce, seed ?? initialState);
+  const [conn, setConn] = useState<Connection>(seed?.phase === "done" ? "closed" : "idle");
   const [httpError, setHttpError] = useState<HttpProblem | null>(null);
   const ctl = useRef<AbortController | null>(null);
   const mock = useRef<MockVariant | null>(readMock());

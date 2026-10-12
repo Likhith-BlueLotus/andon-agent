@@ -84,3 +84,24 @@ export interface TelemetryResponse {
   provenance: { source_id: string; real: boolean; source_ref: string | null }[];
   downsampled: boolean;
 }
+
+/** Voice note (stretch, POST/GET /api/incidents/{id}/voice-note[s]). `untrusted` is always true: it is machine-transcribed, unverified data. */
+export interface ShiftNote {
+  summary: string;
+  observations: string[];
+  actions_taken: string[];
+  parts_used: string[];
+  safety_concerns: string[];
+  language: string;
+}
+export interface VoiceNoteResponse {
+  note_id: string;
+  incident_id: string;
+  created_at: string;
+  duration_s: number;
+  note: ShiftNote;
+  transcript: string;
+  model_id: string;
+  cost_usd: number;
+  untrusted: true;
+}

@@ -1,9 +1,8 @@
-import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import type { Citation, Claim, Hypothesis, RCAReport, WorkOrder } from "../types/events";
 import { claimState, claimsOf, type ClaimState, type IncidentState } from "../state/reducer";
 import type { ClaimVerdict } from "../types/events";
-import { ApiError, postApprove } from "../lib/api";
-import type { ApproveResponse } from "../types/api";
+import { useApproval, type Decision } from "../state/useApproval";
 import { fmtNum, fmtUsd, humanize } from "../lib/format";
 import { MAX_VERIFIER_ITERATIONS } from "../lib/config";
 import { EvidenceChip, IconAlert, IconCheck, IconClock, IconLock, IconX, Popover, Spinner, StatusBadge } from "./ui";
@@ -165,16 +164,16 @@ export function CostChip({ state }: { state: IncidentState }) {
   );
 }
 
-type Decision = "accept" | "edit" | "reject";
-
 export interface RcaPaneProps {
   state: IncidentState;
   passcode: string | null;
   isMock: boolean;
   onEvidence: (id: string) => void;
+  /** Technician view handoff (only when the "tech" feature is on). */
+  techLink?: { href: string; onOpen: () => void } | null;
 }
 
-export function RcaPane({ state, passcode, isMock, onEvidence }: RcaPaneProps) {
+export function RcaPane({ state, passcode, isMock, onEvidence, techLink }: RcaPaneProps) {
   const report: RCAReport | null = state.final ?? state.draft;
   const isFinal = !!state.final;
   const insufficient = state.final?.status === "insufficient_evidence";
@@ -244,6 +243,11 @@ export function RcaPane({ state, passcode, isMock, onEvidence }: RcaPaneProps) {
           </section>
         )}
 
+        {techLink && isFinal && (state.workOrder || insufficient || state.phase === "done") && (
+          <a href={techLink.href} onClick={(e) => { e.preventDefault(); techLink.onOpen(); }} className="btn w-full !min-h-[44px] justify-between" data-testid="open-tech">
+            Open in technician view <span aria-hidden>→</span>
+          </a>
+        )}
         {state.workOrder && !insufficient && (
           <WorkOrderPanel key={state.workOrder.wo_id} wo={state.workOrder} incidentId={state.incidentId} decision={decision} edits={edits} enabled={isFinal} passcode={passcode} isMock={isMock} />
         )}
@@ -271,62 +275,13 @@ export function WorkOrderPanel({
   passcode: string | null;
   isMock: boolean;
 }) {
-  const steps = useMemo(() => [...wo.steps].sort((a, b) => a.order - b.order), [wo.steps]);
-  const safety = steps.filter((s) => s.is_safety);
-  const [ticked, setTicked] = useState<Set<number>>(new Set());
-  const [name, setName] = useState("");
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [result, setResult] = useState<ApproveResponse | null>(null);
+  const { steps, safety, ticked, toggle, name, setName, busy, error, result, decided, missing, canApprove, submit } = useApproval({ wo, incidentId, decision, edits, enabled, passcode, isMock });
   const bannerRef = useRef<HTMLDivElement>(null);
   const why = useId();
-
-  const allTicked = safety.every((s) => ticked.has(s.order));
-  const missing: string[] = [];
-  if (!enabled) missing.push("wait for the verified root cause");
-  else if (decision !== "accept" && decision !== "edit") missing.push(decision === "reject" ? "the root cause was rejected" : "accept or edit the root cause");
-  if (!allTicked) missing.push(`tick all ${safety.length} safety steps (${ticked.size}/${safety.length} done)`);
-  if (!name.trim()) missing.push("enter the approver name");
-  const canApprove = missing.length === 0 && !busy && !result;
-  const decided = result?.status ?? (wo.status !== "PENDING_APPROVAL" ? wo.status : null);
   // the Approve button unmounts on decision; keep keyboard focus in the pane
   useEffect(() => {
     if (result) bannerRef.current?.focus();
   }, [result]);
-
-  async function submit(kind: "approve" | "reject") {
-    if (!incidentId) return;
-    setBusy(true);
-    setError(null);
-    const body = {
-      decision: kind,
-      rca_decision: (kind === "reject" ? "reject" : decision === "edit" ? "edit" : "accept") as Decision,
-      ticked_safety_steps: [...ticked].sort((a, b) => a - b),
-      approver_name: name.trim() || "unnamed",
-      note: "",
-      edits: decision === "edit" ? edits || null : null,
-    };
-    try {
-      if (isMock) {
-        await new Promise((r) => setTimeout(r, 400));
-        setResult({ incident_id: incidentId, wo_id: wo.wo_id, status: kind === "approve" ? "APPROVED" : "REJECTED", decided_at: new Date().toISOString(), demo: true, collection: "mock (no server call)" });
-      } else {
-        setResult(await postApprove(incidentId, body, passcode));
-      }
-    } catch (e) {
-      if (e instanceof ApiError) {
-        setError(
-          e.status === 409
-            ? `Refused (409 ${e.code}): ${e.message}`
-            : e.status === 401
-              ? "This incident needs the demo passcode (live run). Re-enter it from Run live."
-              : `${e.code}: ${e.message}`,
-        );
-      } else setError("Unexpected error while sending the decision.");
-    } finally {
-      setBusy(false);
-    }
-  }
 
   return (
     <section aria-label="Draft work order" className="card p-3" data-wo-status={decided ?? wo.status}>
@@ -356,12 +311,7 @@ export function WorkOrderPanel({
                   className="mt-1 h-4 w-4 shrink-0 accent-[rgb(var(--accent))]"
                   checked={ticked.has(s.order)}
                   disabled={!!decided}
-                  onChange={(e) => {
-                    const n = new Set(ticked);
-                    if (e.target.checked) n.add(s.order);
-                    else n.delete(s.order);
-                    setTicked(n);
-                  }}
+                  onChange={(e) => toggle(s.order, e.target.checked)}
                 />
                 <span className="min-w-0">
                   <span className="mb-0.5 flex items-center gap-1 font-mono text-[11px] font-semibold uppercase text-warn">
