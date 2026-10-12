@@ -19,6 +19,7 @@ from api.replay import ReplayCatalog
 from api.settings import Settings
 from api.stores import StoreProvider
 from api.uploads import UploadRegistry
+from api.worktranslate import TranslationCache
 
 log = logging.getLogger("andon.api")
 TELEMETRY_READS_PER_MIN_PER_IP = 60
@@ -76,6 +77,8 @@ class AppContext:
     upload_limiter: Limiter | None = None  # stretch CSV uploads (memory only, like live runs)
     confirm_limiter: Limiter | None = None
     voice_limiter: Limiter | None = None  # stretch technician voice notes (memory only)
+    lang_limiter: Limiter | None = None  # stretch work-order translations (memory only)
+    translations: TranslationCache = field(default_factory=TranslationCache)
     uploads: UploadRegistry = field(default_factory=UploadRegistry)
     live_slots: SlotPool = field(init=False)
     replay_slots: SlotPool = field(init=False)
@@ -109,6 +112,10 @@ class AppContext:
                 MemoryLimiter(
                     self.settings.voice_notes_per_min_per_ip, self.settings.voice_notes_per_day
                 )
+            )
+        if self.lang_limiter is None:
+            self.lang_limiter = Limiter(
+                MemoryLimiter(self.settings.lang_per_min_per_ip, self.settings.lang_per_day)
             )
         if self.confirm_limiter is None:
             self.confirm_limiter = Limiter(

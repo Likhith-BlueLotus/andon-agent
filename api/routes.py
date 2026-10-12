@@ -25,6 +25,7 @@ from agents.verifier import check_safety_steps
 from api import catalog, telemetry_view
 from api import uploads as up
 from api import voicenotes as vn
+from api import worktranslate as wt
 from api.audit import INCIDENT_ID_RE, AuditRecorder, public_view
 from api.context import AppContext
 from api.events import Event
@@ -148,7 +149,9 @@ def build_router(ctx: AppContext) -> APIRouter:
                 "live_runs_per_min_per_ip": st.live_runs_per_min_per_ip,
             },
             "replays_available": len(ctx.replays.list()),
-            "features": sorted(st.enable_stretch & {"upload", "tech"}),  # enabled stretch features
+            "features": sorted(
+                st.enable_stretch & {"upload", "tech", "lang"}
+            ),  # enabled stretch features
         }
 
     # ---- catalogue -----------------------------------------------------------------------
@@ -494,6 +497,51 @@ def build_router(ctx: AppContext) -> APIRouter:
         if rec is None:
             raise err(404, "unknown_incident", "unknown incident")
         return {"notes": vn.from_audit(rec)}
+
+    # ---- stretch: work-order language toggle (ADR-030) ----------------------------------------
+    @r.get("/api/incidents/{incident_id}/work-order")
+    async def get_work_order_translation(incident_id: str, request: Request, lang: str = "") -> dict:  # fmt: skip
+        if not st.lang_enabled:
+            raise err(404, "not_enabled", "work-order translation is not enabled on this deployment")  # fmt: skip
+        if lang not in wt.LANGS:
+            raise err(400, "unsupported_lang", f"lang must be one of {', '.join(wt.LANGS)}")
+        if not INCIDENT_ID_RE.match(incident_id):
+            raise err(404, "unknown_incident", "unknown incident")
+        rec = await asyncio.to_thread(ctx.audit.get, incident_id)
+        if rec is None:
+            raise err(404, "unknown_incident", "unknown incident")
+        if (rec["incident"] or {}).get("mode") == "live":
+            require_passcode(request)  # same rule as the audit read
+        ip = client_ip(request, st.trusted_proxy_hops)
+        d = ctx.lang_limiter.acquire(ip)
+        if not d.allowed:
+            raise err(429, "rate_limited", f"translation limit reached ({d.scope})",
+                      {"Retry-After": str(d.retry_after_s)}, scope=d.scope)  # fmt: skip
+        link = rec["meta"].get("work_order")
+        mode = (rec["incident"] or {}).get("mode")
+        cmms = ctx.cmms_live if mode == "live" else ctx.cmms_demo  # as in approve
+        wo = await asyncio.to_thread(cmms.get, link["wo_id"]) if link else None
+        if wo is None:
+            raise err(404, "no_work_order", "this incident has no work order")
+        key = (wo.wo_id, lang, wt.content_hash(wo))
+        hit = ctx.translations.get(key)
+        if hit is not None:
+            return wt.build_response(incident_id, wo, lang, *hit, cached=True)
+        try:
+            await ctx.budget.check_fresh()
+        except BudgetExhaustedError:
+            raise err(503, "budget_exhausted", "today's model budget is used up; try again tomorrow", {"Retry-After": "3600"}) from None  # fmt: skip
+        from agents.llm import get_llm
+
+        try:
+            steps, parts, model_id, cost = await wt.translate(wo, lang, get_llm())
+        except BudgetExhaustedError:
+            raise err(503, "budget_exhausted", "today's model budget is used up; try again tomorrow", {"Retry-After": "3600"}) from None  # fmt: skip
+        except Exception as exc:
+            log.warning("work-order translation failed: %s: %.200s", type(exc).__name__, exc)
+            raise err(502, "translation_failed", "the model could not translate this work order") from None  # fmt: skip
+        ctx.translations.put(key, (steps, parts, model_id, cost))
+        return wt.build_response(incident_id, wo, lang, steps, parts, model_id, cost, cached=False)
 
     # ---- HITL ----------------------------------------------------------------------------
     @r.post("/api/incidents/{incident_id}/approve")

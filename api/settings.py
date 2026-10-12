@@ -46,6 +46,8 @@ class Settings:
     confirms_per_day: int = 60  # stretch: confirm calls per instance per IST day
     voice_notes_per_min_per_ip: int = 3  # stretch: technician voice notes
     voice_notes_per_day: int = 100  # per instance per IST day (all IPs)
+    lang_per_min_per_ip: int = 20  # stretch: work-order translations (cache hits count too)
+    lang_per_day: int = 300  # per instance per IST day (all IPs)
     replay_dir: Path = ROOT / "data" / "replays"
     audit_dir: Path = ROOT / "data" / "audit"  # local (non-Firestore) audit files
     cmms_path: Path = ROOT / "data" / "cmms" / "work_orders.jsonl"
@@ -66,6 +68,10 @@ class Settings:
         return "tech" in self.enable_stretch
 
     @property
+    def lang_enabled(self) -> bool:
+        return "lang" in self.enable_stretch
+
+    @property
     def live_enabled(self) -> bool:
         return bool(self.demo_passcode) and not self.replay_only
 
@@ -83,6 +89,8 @@ class Settings:
             replay_only=_bool(e.get("REPLAY_ONLY"), False),
             voice_notes_per_min_per_ip=int(e.get("VOICE_NOTES_PER_MIN_PER_IP", 3)),
             voice_notes_per_day=int(e.get("VOICE_NOTES_PER_DAY", 100)),
+            lang_per_min_per_ip=int(e.get("LANG_PER_MIN_PER_IP", 20)),
+            lang_per_day=int(e.get("LANG_PER_DAY", 300)),
             live_runs_per_day=int(e.get("LIVE_RUNS_PER_DAY", 30)),
             live_runs_per_min_per_ip=int(e.get("LIVE_RUNS_PER_MIN_PER_IP", 3)),
             max_concurrent_live=int(e.get("MAX_CONCURRENT_LIVE", 2)),
