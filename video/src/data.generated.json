@@ -1,0 +1,129 @@
+{
+  "perHour": 2300000,
+  "theme": "Manufacturing: Intelligent Operations & Industrial Efficiency",
+  "badge": "SYNTHETIC LINE · REAL SIGNALS MARKED",
+  "results": {
+    "runId": "final_v2",
+    "S": {
+      "S1": {
+        "n": 60,
+        "top1": 0.9833,
+        "lo": 0.9114,
+        "hi": 0.9971,
+        "system": "S1 full pipeline (Flash judge)",
+        "cost": 0.107
+      },
+      "S2": {
+        "n": 60,
+        "top1": 1,
+        "lo": 0.9398,
+        "hi": 1,
+        "system": "S2 no verifier (Flash judge)",
+        "cost": 0.107
+      },
+      "B1": {
+        "n": 60,
+        "top1": 0.9167,
+        "lo": 0.8193,
+        "hi": 0.9639,
+        "system": "B1 single prompt",
+        "cost": 0.092
+      },
+      "B2": {
+        "n": 60,
+        "top1": 0.15,
+        "lo": 0.081,
+        "hi": 0.2611,
+        "system": "B2 classical",
+        "cost": 0
+      }
+    },
+    "R": {
+      "S1": {
+        "n": 17,
+        "top1": 0.7647,
+        "lo": 0.5274,
+        "hi": 0.9044,
+        "system": "S1 full pipeline (Flash judge)",
+        "cost": 0.109
+      },
+      "S2": {
+        "n": 17,
+        "top1": 0.7647,
+        "lo": 0.5274,
+        "hi": 0.9044,
+        "system": "S2 no verifier (Flash judge)",
+        "cost": 0.102
+      },
+      "B1": {
+        "n": 17,
+        "top1": 0.5882,
+        "lo": 0.3601,
+        "hi": 0.7839,
+        "system": "B1 single prompt",
+        "cost": 0.097
+      },
+      "B2": {
+        "n": 17,
+        "top1": 0.2353,
+        "lo": 0.0956,
+        "hi": 0.4726,
+        "system": "B2 classical",
+        "cost": 0
+      }
+    },
+    "claims": {
+      "S1": {
+        "unsupported": 1,
+        "total": 586
+      },
+      "B1": {
+        "unsupported": 54,
+        "total": 645
+      }
+    },
+    "sig": {
+      "S_S1_vs_B1": false,
+      "R_S1_vs_B1": false,
+      "S_p": 0.21875,
+      "R_p": 0.375
+    }
+  },
+  "verifier": {
+    "scenario": "S014",
+    "stopped": "ST60-VIS",
+    "maxIter": 3,
+    "iter1": 1,
+    "iter2": 2,
+    "rejected": {
+      "id": "h1c1",
+      "kind": "causal_order",
+      "text": "ST40-SLR flow rate ramped down at 2026-09-13T20:04:00Z prior to ST60-VIS reject rate ramp beginning at 2026-09-13T23:15:45Z.",
+      "evidence": [
+        "ev_detect_change_points_3",
+        "ev_detect_change_points_1"
+      ],
+      "reason": "reversed: ST60-VIS onset 2026-09-09T07:35:45Z [ev_detect_change_points_1 (reject_rate_pct)] is 390495 s before root ST40-SLR onset 2026-09-13T20:04:00Z [ev_detect_change_points_3 (flow_rate_ccm)]",
+      "measured": -390495,
+      "tsMeasured": "2026-09-09T07:35:45Z",
+      "tsRoot": "2026-09-13T20:04:00Z",
+      "evMeasured": {
+        "ev": "ev_detect_change_points_1",
+        "tag": "reject_rate_pct"
+      },
+      "evRoot": {
+        "ev": "ev_detect_change_points_3",
+        "tag": "flow_rate_ccm"
+      }
+    },
+    "revised": {
+      "text": "ST60-VIS reject rate ramp onset occurred at 2026-09-13T23:15:45Z.",
+      "kind": "temporal",
+      "assertedTs": "2026-09-13T23:15:45Z",
+      "measured": 0,
+      "reason": "2026-09-13T23:15:45Z is +0 s from ev_detect_change_points_1:change_points[1].ts (2026-09-13T23:15:45Z)"
+    },
+    "nClaims2": 7,
+    "nPass2": 7
+  }
+}

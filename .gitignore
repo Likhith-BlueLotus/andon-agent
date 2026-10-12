@@ -53,3 +53,7 @@ data/cmms/
 
 # firebase deploy cache
 .firebase/
+
+# remotion video renders (regenerate with: npm --prefix video run render)
+video/out/*.mp4
+video/node_modules/
