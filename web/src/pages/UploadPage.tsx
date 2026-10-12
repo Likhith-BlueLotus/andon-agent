@@ -323,7 +323,7 @@ function MapRowCard({ col, row, targets, error, onChange }: { col: UploadProposa
           <p className="truncate text-[11px] text-muted" title={col.sample.join(", ")}>e.g. {col.sample.slice(0, 3).map((s) => String(s)).join(", ") || "(empty)"}</p>
         </div>
         <label className="flex min-h-[36px] items-center gap-2 text-sm">
-          <input type="checkbox" checked={row.ignore} onChange={(e) => onChange({ ignore: e.target.checked })} className="h-4 w-4 accent-[rgb(var(--accent))]" />
+          <input type="checkbox" checked={row.ignore} onChange={(e) => onChange({ ignore: e.target.checked })} aria-label={`Ignore column ${col.name}`} className="h-4 w-4 accent-[rgb(var(--accent))]" />
           Ignore this column
         </label>
       </div>
