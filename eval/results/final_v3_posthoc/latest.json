@@ -1,0 +1,60 @@
+{
+ "run_id": "final_v3_posthoc",
+ "generated_at": "2026-10-12T00:18:47+00:00",
+ "git_sha": "bc743b99091f8b7eb68a9c31ed6f1077f30d82e6",
+ "dry_run": false,
+ "purpose": "final",
+ "note": "S-set and R-set are never pooled. Intervals are 95% Wilson. ",
+ "sets": {
+  "S": [
+   {
+    "system": "S1 full pipeline (Flash judge)",
+    "n": 60,
+    "top1": {
+     "value": 0.95,
+     "lo": 0.863,
+     "hi": 0.9829
+    },
+    "top3": {
+     "value": 0.9833,
+     "lo": 0.9114,
+     "hi": 0.9971
+    },
+    "unsupported_claim_rate": {
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.0088
+    },
+    "median_time_s": 75.2,
+    "cost_per_run_usd": 0.109
+   }
+  ],
+  "R": [
+   {
+    "system": "S1 full pipeline (Flash judge)",
+    "n": 17,
+    "top1": {
+     "value": 0.8235,
+     "lo": 0.5897,
+     "hi": 0.9381
+    },
+    "top3": {
+     "value": 1.0,
+     "lo": 0.8157,
+     "hi": 1.0
+    },
+    "unsupported_claim_rate": {
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.0294
+    },
+    "median_time_s": 75.6,
+    "cost_per_run_usd": 0.105
+   }
+  ]
+ },
+ "tests": {
+  "S": [],
+  "R": []
+ }
+}

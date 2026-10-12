@@ -1,0 +1,36 @@
+{
+ "run_id": "r002_repeats_v7",
+ "generated_at": "2026-10-12T00:21:54+00:00",
+ "git_sha": "3412e3f90642e243ab2d8ca8dc8e8ea9502341eb",
+ "dry_run": false,
+ "purpose": "final",
+ "note": "S-set and R-set are never pooled. Intervals are 95% Wilson. ",
+ "sets": {
+  "R": [
+   {
+    "system": "S1 full pipeline (Flash judge)",
+    "n": 1,
+    "top1": {
+     "value": 1.0,
+     "lo": 0.2065,
+     "hi": 1.0
+    },
+    "top3": {
+     "value": 1.0,
+     "lo": 0.2065,
+     "hi": 1.0
+    },
+    "unsupported_claim_rate": {
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.2991
+    },
+    "median_time_s": 69.4,
+    "cost_per_run_usd": 0.148
+   }
+  ]
+ },
+ "tests": {
+  "R": []
+ }
+}
