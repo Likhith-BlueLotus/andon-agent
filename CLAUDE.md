@@ -22,7 +22,7 @@ When an automotive assembly line stops, Andon Agent investigates like a reliabil
 |---|---|---|
 | Tool loops, planning, drafting | `gemini-3.8-flash` | GA. Thinking LOW/MEDIUM/HIGH. Do not send temperature/top_p/top_k. |
 | Bulk triage, text generation for simulator, claim normalisation | `gemini-3.1-flash-lite` | Cheapest. |
-| RCA Judge (final causal ranking) | `gemini-3.1-pro-preview` | Preview, `global` only. Fallback to `gemini-3.8-flash` (thinking HIGH) on 429 or >60 s. |
+| RCA Judge (final causal ranking) | `gemini-3.8-flash` (deployed, `JUDGE_MODEL` default) | Thinking HIGH. `gemini-3.1-pro-preview` stays pinned as an optional judge (eval row only): it measured worse and slower (ADR-026), with fallback to Flash on 429 or >60 s. |
 | Residency mode (pitch only) | `gemini-3.5-flash` | Regional in asia-south1 / asia-southeast1. |
 
 Location for Gemini calls: `global`. Everything else in `asia-south1`. **Phase 0 verifies these IDs with a live call; if any 404s, fix `config.py`, this table, and log it in `docs/DECISIONS.md`.**

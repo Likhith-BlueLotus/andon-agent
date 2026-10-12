@@ -36,7 +36,7 @@ flowchart LR
   SA --> LOOP
   EL --> LOOP
   subgraph LOOP["LoopAgent max 3"]
-    J[RCA Judge<br/>gemini-3.1-pro-preview<br/>fallback 3.8-flash] --> V[Deterministic Verifier]
+    J[RCA Judge<br/>gemini-3.8-flash<br/>Pro optional, eval only] --> V[Deterministic Verifier]
     V -- "FAIL + rejected claims" --> J
   end
   LOOP -- PASS --> AD[Action Drafter<br/>gemini-3.8-flash]
@@ -176,7 +176,7 @@ class GroundTruth(BaseModel):
 - **Session state → ADK session (Firestore-backed).** **Audit → append-only Firestore collection** `audit/{incident_id}/steps/{seq}` holding every model call, tool call, verdict and human action; the same records power replay mode and the eval.
 
 ## 6. Non-functional targets (assumptions — validate on Day 4)
-p50 full diagnosis ≤ 60 s, p95 ≤ 120 s · cost per diagnosis ≤ $0.60 with Pro judge · cold start ≤ 10 s · zero unverified claims rendered as verified · every real-sourced evidence item carries provenance.
+p50 full diagnosis ≤ 60 s, p95 ≤ 120 s · cost per diagnosis ≤ $0.60 (measured ≈ $0.11 with the Flash judge, ADR-026) · cold start ≤ 10 s · zero unverified claims rendered as verified · every real-sourced evidence item carries provenance.
 
 ## 7. Gemini capability coverage (what the Innovation criterion names, where it lives, where judges see it)
 | Capability | Where in the system | Visible in demo at |

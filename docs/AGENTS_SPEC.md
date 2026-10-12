@@ -55,7 +55,7 @@ Every tool stores its result with a fresh `evidence_id` and returns `{evidence_i
 - **Stop:** max 8 tool calls.
 
 ## 4. RCA Judge
-- **Model:** `gemini-3.1-pro-preview`, thinking HIGH. Fallback `gemini-3.8-flash` thinking HIGH on 429 or >60 s; emit `model_fallback`.
+- **Model:** `gemini-3.8-flash`, thinking HIGH (deployed; `config.JUDGE_MODEL`). `gemini-3.1-pro-preview` is an optional judge (`--judge pro`, eval only; S 0.90 / R 0.71 vs Flash 0.98 / 0.76, ADR-026) with fallback to Flash on 429 or >60 s, emitting `model_fallback`.
 - **Job:** rank up to 3 hypotheses. Each claim must cite `evidence_id`s and declare a `kind`. Must state refuting evidence for its top hypothesis. Must pick `no_fault` / `sensor_drift` when the evidence says the "fault" is a sensor artefact, and must not treat data gaps, stuck values or alarm chatter as root causes. `confidence` must be calibrated (the eval measures it). On iteration ≥2, it receives `rejected_claims` and must fix or drop them.
 - **Output:** `RCAReport` as structured output — in ADK that is `LlmAgent(output_schema=RCAReport)`; `generate_content_config.response_schema` is rejected by ADK. Validated with Pydantic; one retry on parse failure, then fail closed.
 - **Fallback implementation:** ADK's experimental `FallbackModel` fails over on 429/5xx only, not on the 60 s timeout. Since the judge needs no tools, implement it as a `BaseAgent` that builds the prompt from state and calls `LLM.generate(PRO_JUDGE, ..., fallback_model=FLASH, primary_timeout_s=60, run_id=ctx.invocation_id)` with `response_schema=RCAReport` (covers 429/5xx/timeout and books cost); emit `model_fallback` from `on_fallback`.
