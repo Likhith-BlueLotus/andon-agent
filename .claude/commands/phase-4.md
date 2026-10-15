@@ -19,6 +19,6 @@ Delegate to `ux-ui-engineer`. docs/UX_SPEC.md is the spec; `web/src/types/events
 8. **Accessibility pass**: keyboard-only full path, focus rings, aria-live announcements, contrast, reduced motion, mobile width.
 9. **Deploy**: `infra/deploy_web.sh` to Firebase Hosting with `VITE_API_URL` = Cloud Run URL; add the Hosting domain to the API's CORS list.
 
-10. **Stretch (only if DEVELOPMENT.md §9b gate is open, in order):** `/upload` BYO-CSV with editable mapping table → `/tech` mobile technician view with voice note → WO language toggle. Each finished + tested before freeze or reverted.
+10. **Stretch (only if DEVELOPMENT.md §9b gate is open, in order):** `/upload` BYO-CSV with editable mapping table → `/tech` mobile technician view with voice note → WO language toggle. Each finished + tested before submission or reverted.
 
 Exit criterion: on the deployed Firebase URL, one full live investigation of R002 (with passcode) and one replay run end to end, provenance chips visible, approval works, keyboard-only path works, screenshots saved to `docs/screenshots/` (desktop + mobile). Update LESSONS_LEARNED, commit, push.

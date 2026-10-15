@@ -244,7 +244,7 @@ def _notes(meta, sets_out, tests, variance, gap, head) -> list[str]:
             )
     if gap is not None and gap <= 0:
         notes.append(
-            "S1 does not beat B1 on S-set top-1: stop and fix before freeze, or say so plainly (EVAL_PLAN §9)."
+            "S1 does not beat B1 on S-set top-1: stop and fix before submission, or say so plainly (EVAL_PLAN §9)."
         )
     if "S" in sets_out:
         for s, m in sets_out["S"].items():

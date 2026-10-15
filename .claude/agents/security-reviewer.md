@@ -1,6 +1,6 @@
 ---
 name: security-reviewer
-description: Security & Responsible-AI reviewer (read-only). Use before every deploy, before the freeze tag, and whenever IAM, secrets, public endpoints, prompts handling untrusted text, or safety content change. Produces findings, does not edit code.
+description: Security & Responsible-AI reviewer (read-only). Use before every deploy, before submission, and whenever IAM, secrets, public endpoints, prompts handling untrusted text, or safety content change. Produces findings, does not edit code.
 tools: Read, Grep, Glob, Bash
 model: sonnet
 ---

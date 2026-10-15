@@ -9,7 +9,7 @@ This kit turns Claude Code into a small engineering org that builds **Andon Agen
 | Path | What it is | Who reads it |
 |---|---|---|
 | `CLAUDE.md` | Constitution: mission, hard rules, pinned models, commands, "which doc answers what", definition of done. Auto-loaded every session. | Every session |
-| `DEVELOPMENT.md` | Roles, contracts-first, phases, day plan, testing, **budget ledger (§7)**, freeze, cut list, **stretch ladder (§9b)**. | Every session |
+| `DEVELOPMENT.md` | Roles, contracts-first, phases, day plan, testing, **budget ledger (§7)**, release check, cut list, **stretch ladder (§9b)**. | Every session |
 | `docs/ARCHITECTURE.md` | Layers, Mermaid diagram, contracts (incl. provenance), SSE events, **capability matrix**, stretch endpoints, observability. | Principal, Staff, all |
 | `docs/AGENTS_SPEC.md` | Every ADK agent: model, job, tools, stop conditions, verifier rules, baselines, stretch agents. | Staff, backend |
 | `docs/DATA_SOURCES.md` | **Licence register**: which public datasets we may use, how, attribution; what's forbidden and why. | Data, Security, Pitch |
@@ -23,7 +23,7 @@ This kit turns Claude Code into a small engineering org that builds **Andon Agen
 | `docs/DECISIONS.md` | 14 ADRs. | All |
 | `docs/LESSONS_LEARNED.md` | Running log. | All |
 | `.claude/agents/*.md` | 10 role subagents. | Claude Code |
-| `.claude/commands/*.md` | `/phase-0` … `/phase-7`, `/judge-review`, `/status`, `/freeze-check`, `/handoff`, `/data-audit`. | You |
+| `.claude/commands/*.md` | `/phase-0` … `/phase-7`, `/judge-review`, `/status`, `/release-check`, `/handoff`, `/data-audit`. | You |
 | `.claude/settings.json` | Permissions: routine allowed, deploys/pushes ask, secrets and destructive ops denied. | Claude Code |
 
 ## Setup (tonight)
@@ -50,7 +50,7 @@ Context you must hold for the whole project:
 - Team: 2 humans, both full-stack. Person A = agents, backend, infra, eval harness.
   Person B = data (S-set + R-set), frontend, deck/video. Each runs their own Claude Code session, both
   committing to `main` (trunk-based, ADR-016). You are working for: <A or B>.
-- Deadline: submit by Sat Oct 17 18:00 IST. Feature freeze Thu Oct 15 23:59 IST. Today is <date>.
+- Deadline: submit by Sat Oct 17 18:00 IST. Today is <date>.
 - Budget: US$300 GCP credits total until the Dec 4 finale; follow the ledger in DEVELOPMENT.md §7.
 - Everything is fresh code written now. Data only from the USE list in docs/DATA_SOURCES.md, with
   provenance. No employer, startup, or past-research code, data, names, or terminology. The reference
@@ -80,7 +80,7 @@ Start now with my first item in the DEVELOPMENT.md §5 day plan.
 | Mon Oct 12 | `/phase-2` verifier, Librarian + cache, Judge loop | `/phase-1 v2` (text, manuals, audio) |
 | Tue Oct 13 | `/phase-2` finish · `/phase-3` stream + **first deploy** | `/phase-1 rset` · `/phase-4` on fixture stream |
 | Wed Oct 14 | `/phase-3` HITL/replay/protection · `/phase-5 harness`, `run20` | `/phase-4` live + deploy web |
-| Thu Oct 15 | `/phase-5 final` · `/freeze-check` 23:59 | a11y, mobile, stretch if gate open, screenshots, manual baseline |
+| Thu Oct 15 | `/phase-5 final` · `/release-check` | a11y, mobile, stretch if gate open, screenshots, manual baseline |
 | Fri Oct 16 | `/phase-6` | `/phase-7 script`, record, deck |
 | Sat Oct 17 | README, Q&A rehearsal, submit | deck PDF, video upload, submit by 18:00 |
 

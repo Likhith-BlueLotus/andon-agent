@@ -99,4 +99,4 @@ bash infra/deploy_api.sh && bash infra/deploy_web.sh
 4. Committed and pushed; `docs/LESSONS_LEARNED.md` updated if anything surprised you.
 
 ## Key dates (IST)
-Team registration closes **Oct 11** · Feature freeze **Thu Oct 15 23:59** · Video + deck **Fri Oct 16** · Submit **Sat Oct 17 18:00** · Official deadline Oct 18 · Finalists Nov 7 · Singapore finale Dec 4.
+Team registration closes **Oct 11** · Video + deck **Fri Oct 16** · Submit **Sat Oct 17 18:00** · Official deadline Oct 18 · Finalists Nov 7 · Singapore finale Dec 4.

@@ -13,7 +13,7 @@ Two humans, each driving one Claude Code session at a time on their own branch. 
 | `ux-ui-engineer` | React app, trace UI, provenance chips, technician view, accessibility | Anything in `web/` |
 | `sre-devops-engineer` | GCP bootstrap, IAM, Cloud Run, Firebase, budgets, deploy scripts, warm/cold | `infra/`, any deploy, any 429/timeout/cold-start issue |
 | `qa-eval-engineer` | Tests, fixtures, eval harness, baselines, statistics, results slide | `tests/` or `eval/` |
-| `security-reviewer` | IAM, secrets, injection, safety rules, data licences (read-only) | Before each deploy, before freeze, `/data-audit` |
+| `security-reviewer` | IAM, secrets, injection, safety rules, data licences (read-only) | Before each deploy, before submission, `/data-audit` |
 | `hackathon-judge` | Skeptical scoring against the rubric (read-only) | `/judge-review`, end of each day |
 | `pitch-lead` | Demo script, deck, README story, Q&A prep, submission | Phase 7, and whenever a result is worth a slide |
 
@@ -50,7 +50,7 @@ Human split (both full-stack; ownership, not exclusivity):
 | Mon Oct 12 | `/phase-2`: verifier, Librarian + cache, Judge loop | `/phase-1 v2`: remaining classes, text (MaintIE style), 5 manuals (OSHA LOTO), MIMII placement |
 | Tue Oct 13 | `/phase-2` finish (drafter, event mapper, fixtures); `/phase-3` stream + **first Cloud Run deploy** | AM: `/phase-1 rset`. PM: `/phase-4` scaffold + trace pane on fixture stream |
 | Wed Oct 14 | AM: `/phase-3` HITL, audit, replay, protection. PM: `/phase-5 harness` + baselines + run20 | `/phase-4`: RCA pane, provenance chips, states; switch to live URL; deploy web |
-| Thu Oct 15 | `/phase-5 final` runs + fixes from failures; `/freeze-check` 23:59 | `/phase-4` a11y + mobile; stretch item 1 if the gate allows; screenshots; manual-baseline sessions |
+| Thu Oct 15 | `/phase-5 final` runs + fixes from failures; `/release-check` | `/phase-4` a11y + mobile; stretch item 1 if the gate allows; screenshots; manual-baseline sessions |
 | Fri Oct 16 | `/phase-6` hardening | `/phase-7 script` + record video (3 takes); deck draft |
 | Sat Oct 17 | README, final tag, Q&A rehearsal | Deck PDF, upload video, **submit by 18:00** |
 | Sun Oct 18 | Buffer | Buffer |
@@ -79,8 +79,8 @@ All Gemini calls go through `agents/llm.py` (backoff, fallback, accounting, audi
 | **Total** | **$300** | |
 `/status` reports spend vs this table. If a line hits its hard stop, the principal-engineer decides what to cut before more is spent.
 
-## 8. Freeze rules (Thu Oct 15 23:59 IST)
-After freeze: bug fixes, copy, styling, performance, docs only. No new agents, tools, endpoints or screens (stretch items not started by freeze are dropped). `/freeze-check` must pass before tagging `v1.0-freeze`.
+## 8. Release check
+Run `/release-check` before recording and before submission. Every item must pass with evidence.
 
 ## 9. Cut list (cut from the top when behind; decide at 20:00 each day)
 1. S3 ablation and variance repeats → 2
@@ -94,7 +94,7 @@ After freeze: bug fixes, copy, styling, performance, docs only. No new agents, t
 **Never cut:** Verifier, eval with B1, the R-set MetroPT-3 scenarios, HITL approval gate, deployed live URL, provenance.
 
 ## 9b. Stretch ladder (only when the gate is open)
-**Gate:** phases 1–4 exit criteria met *and* Run-20 eval shows S1 ≥ B1, by Thu Oct 15 12:00 IST. Take items in order; each must be finished and tested before freeze or it is reverted.
+**Gate:** phases 1–4 exit criteria met *and* Run-20 eval shows S1 ≥ B1, Take items in order; each must be finished and tested before submission or it is reverted.
 1. **Bring-your-own CSV** (ARCHITECTURE §8) — answers "does it work on my data?" and proves the adapter story. Highest judge value.
 2. **Technician mobile view + voice note** — one-card layout, big Approve, 60 s voice note → shift note. Lifts the 10% UX score and adds multimodal input.
 3. **Multilingual work-order summary** (Hindi/Tamil/Bahasa/Vietnamese) with verbatim safety steps + labelled translation — a JAPAC story for Singapore.

@@ -5,7 +5,7 @@
 **Honest reading:** the win over one long prompt is grounding, not accuracy; the verifier loop adds little over S2 in this eval (its value is code-checked LOTO + premises); UCI R009–R011 missed by every system; R002 (demo) unstable across repeats.
 **Fixed because of the eval:** ADR-025 mandatory LOTO + citation premises; ADR-027 runaway tool loop; shared manuals cache. Deployed API = evaluated build. Replays: r002-cloud-1 re-recorded (19 safety steps), r002-live-1 removed.
 **Spend:** eval $70.24 of $110; live/dev today ≈ $1.
-**Open for the owner:** (1) R002 instability — fix (makes R-set post-hoc) or leave; (2) freeze timing — `/freeze-check` + `v1.0-freeze` before phase 6; stretch gate (§9b) is open on Run-20 numbers.
+**Open for the owner:** (1) R002 instability — fix (makes R-set post-hoc) or leave; (2) run `/release-check` before phase 6; stretch gate (§9b) is open on Run-20 numbers.
 
 ## 2026-10-11 — Person A — Phase 4 DONE (frontend live)
 **Live app:** https://andon-agent-b9c77.web.app (Firebase project `andon-agent-b9c77`, hosting only — ADR-024; API/data stay in `andon-agent-511218`). Deploy: `bash infra/deploy_web.sh` (tests → build → deploy → 200 + CORS checks); API CORS now allows only the b9c77 origins (`localhost` removed; `DEV=1` re-adds it).

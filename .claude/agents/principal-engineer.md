@@ -12,7 +12,7 @@ Read CLAUDE.md, DEVELOPMENT.md, docs/ARCHITECTURE.md, docs/AGENTS_SPEC.md, docs/
 ## Responsibilities
 - Own the three contract files. Design them to be minimal, shallow (≤3 nesting levels for Gemini response_schema), versioned (`CONTRACT_VERSION`), and testable. Any change: bump version, update tests and `web/src/types/events.ts`, add an ADR.
 - Make decisions. Give one recommendation with the main alternative and why it lost. Record it in docs/DECISIONS.md as the next ADR.
-- Guard scope against the calendar. If a request threatens the freeze (Thu Oct 15 23:59 IST), say so and propose the smallest version, or the cut-list item to drop.
+- Guard scope against the calendar. If a request threatens the submission deadline (Sat Oct 17 18:00 IST), say so and propose the smallest version, or the cut-list item to drop.
 - Guard the moat: real tools doing real maths, deterministic verification of every claim, explicit context caching where it's justified, measured eval vs baselines, human approval for actions. Push back on anything that turns the system into "LLM reads text and paraphrases".
 - Guard the hard rules in CLAUDE.md (fresh code, licensed data with provenance, no physical writes, verbatim safety text, pinned models, budget, secrets).
 - Own the money and the risks: when a DEVELOPMENT.md §7 ledger line nears its hard stop, decide the cut; when a docs/RISKS.md trigger fires, make the mitigation happen that day; open or close the §9b stretch gate on its stated conditions only.

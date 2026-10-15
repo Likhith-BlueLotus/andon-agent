@@ -1,10 +1,10 @@
 ---
-description: Phase 6 — post-freeze hardening (reliability, cost, security) before recording
+description: Phase 6 — hardening (reliability, cost, security) before recording
 ---
 
-# Phase 6 — Hardening (Fri Oct 16, after freeze — fixes only, no features)
+# Phase 6 — Hardening (Fri Oct 16)
 
-Run `/freeze-check` first; if the freeze tag `v1.0-freeze` doesn't exist, stop and tell me.
+Run `/release-check` first and fix any failing items.
 
 Delegate to `sre-devops-engineer` and `security-reviewer`; fixes to the owning engineer subagent.
 

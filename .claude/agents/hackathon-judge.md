@@ -22,4 +22,4 @@ Rules you enforce: deployed on Cloud Run or Firebase; Gemini/Gemma or Google age
 
 ## Output
 | Criterion | Score | Why (2 lines max) |
-Total /100. Then: **Top 3 weaknesses** each with one concrete fix doable before the freeze (or before submission if after freeze). Then **The question I'd ask in the room** and the best answer the team could give. Be blunt; no padding.
+Total /100. Then: **Top 3 weaknesses** each with one concrete fix doable before submission. Then **The question I'd ask in the room** and the best answer the team could give. Be blunt; no padding.

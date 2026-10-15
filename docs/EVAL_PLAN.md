@@ -68,7 +68,7 @@ Each run: `results.jsonl`, `summary.json` (with intervals and tests), `cost.json
 **Slide:** left — table of S1/S2/B1/B2 × {top-1 [95% CI], top-3, unsupported-claim rate, median time, $/run} for the S-set; a second, smaller table for the R-set ("real signals, n = 17"). Right — top-1 bar chart with CI whiskers, held-out marked. Footnote: "S-set: 60 synthetic scenarios with injected ground truth. R-set: real compressor (MetroPT-3), hydraulic rig (UCI) and bearing (IMS) signals with the source's own labels; surrounding plant context synthetic. Run <id>, <date>."
 
 ## 9. Integrity rules
-- Report whatever is measured, including slices where S1 loses. If S1 doesn't beat B1 on the S-set top-1 or unsupported-claim rate, stop and fix before freeze, or say so plainly.
+- Report whatever is measured, including slices where S1 loses. If S1 doesn't beat B1 on the S-set top-1 or unsupported-claim rate, stop and fix before submission, or say so plainly.
 - No tuning on S051–S060 or the R-set. The demo scenario is named in the README.
 - If numbers look too good, check for leakage (truth fields in prompts, scenario IDs encoding the cause, red herrings that are too easy) before celebrating.
 - Commit truth files and run outputs (minus raw data) to the public repo after the final run.
