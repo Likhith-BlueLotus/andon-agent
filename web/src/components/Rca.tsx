@@ -7,7 +7,9 @@ import { useWoLang } from "../state/useWoLang";
 import { LangControl, SafetyTranslation } from "./LangControl";
 import { fmtNum, fmtUsd, humanize } from "../lib/format";
 import { MAX_VERIFIER_ITERATIONS } from "../lib/config";
-import { EvidenceChip, IconAlert, IconCheck, IconClock, IconLock, IconX, Popover, Spinner, StatusBadge } from "./ui";
+import { motion } from "motion/react";
+import type { Decided } from "../lib/progress";
+import { EvidenceChip, IconAlert, IconArrowRight, IconCheck, IconClock, IconLock, IconShield, IconWrench, IconX, Popover, Spinner, StatusBadge } from "./ui";
 
 const STATE_VIEW: Record<ClaimState, { word: string; tone: "ok" | "bad" | "warn" | "muted"; icon: ReactNode }> = {
   pending: { word: "pending", tone: "muted", icon: <IconClock className="h-3 w-3" /> },
@@ -18,7 +20,7 @@ const STATE_VIEW: Record<ClaimState, { word: string; tone: "ok" | "bad" | "warn"
 
 export function CitationBlock({ c }: { c: Citation }) {
   return (
-    <figure className="mt-1 border-l-2 border-line pl-2">
+    <figure className="mt-1.5 rounded-r-md border-l-2 border-accent/60 bg-sunken/60 py-1 pl-2.5 pr-2">
       <figcaption className="font-mono text-[11px] text-muted">
         {c.doc} · p.{c.page}
       </figcaption>
@@ -69,22 +71,34 @@ export function ClaimRow({ claim, verdict, onEvidence }: { claim: Claim; verdict
 function HypothesisCard({ h, rank, verdicts, final, onEvidence }: { h: Hypothesis; rank: number; verdicts: Record<string, ClaimVerdict>; final: boolean; onEvidence: (id: string) => void }) {
   const pct = Math.round(h.confidence * 100);
   return (
-    <article className="card p-3" aria-label={`Hypothesis ${rank}: ${humanize(h.cause_class)} at ${h.asset_id}`} data-hypothesis-rank={rank}>
+    <motion.article
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.05 * (rank - 1), duration: 0.3, ease: [0.2, 0.8, 0.2, 1] }}
+      className={`card p-3 ${rank === 1 && final ? "border-line-strong" : ""}`}
+      aria-label={`Hypothesis ${rank}: ${humanize(h.cause_class)} at ${h.asset_id}`}
+      data-hypothesis-rank={rank}
+    >
       <header className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-        <span className="font-mono text-xs text-muted">#{rank}</span>
+        <span className={`flex h-5 min-w-[20px] items-center justify-center self-center rounded-md px-1 font-mono text-[11px] font-semibold ${rank === 1 ? "bg-fg text-bg" : "bg-raised text-muted"}`}>#{rank}</span>
         <h3 className="text-[15px] font-semibold capitalize">{humanize(h.cause_class)}</h3>
         <span className="font-mono text-xs text-muted">{h.cause_class}</span>
-        <span className="ml-auto font-mono text-xs">{h.asset_id}</span>
+        <span className="ml-auto rounded-md border border-line bg-sunken px-1.5 font-mono text-xs">{h.asset_id}</span>
       </header>
       <div className="mt-2 flex items-center gap-2">
-        <div role="meter" aria-label="Confidence" aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct} className="h-2 flex-1 overflow-hidden rounded-sm bg-raised">
-          <div className="h-full bg-fg/70" style={{ width: `${pct}%` }} />
+        <div role="meter" aria-label="Confidence" aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct} className="h-1.5 flex-1 overflow-hidden rounded-full bg-sunken">
+          <motion.div className={`h-full rounded-full ${final && rank === 1 ? "bg-ok" : "bg-fg/60"}`} initial={{ width: 0 }} animate={{ width: `${pct}%` }} transition={{ duration: 0.7, ease: [0.2, 0.8, 0.2, 1] }} />
         </div>
         <span className="font-mono text-xs tabular-nums">{pct}%{final ? "" : " (draft)"}</span>
       </div>
       {h.causal_chain.length > 0 && (
-        <p className="mt-2 font-mono text-xs text-muted" aria-label={`Causal chain ${h.causal_chain.join(" then ")}`}>
-          {h.causal_chain.join(" → ")}
+        <p className="mt-2 flex flex-wrap items-center gap-1 font-mono text-[11px] text-muted" aria-label={`Causal chain ${h.causal_chain.join(" then ")}`}>
+          {h.causal_chain.map((c, i) => (
+            <span key={i} aria-hidden className="inline-flex items-center gap-1">
+              {i > 0 && <IconArrowRight className="h-3 w-3" />}
+              <span className="rounded border border-line bg-sunken px-1.5 py-0.5 text-fg">{c}</span>
+            </span>
+          ))}
         </p>
       )}
       <ul className="mt-1 divide-y divide-line" aria-label="Claims">
@@ -103,7 +117,7 @@ function HypothesisCard({ h, rank, verdicts, final, onEvidence }: { h: Hypothesi
       {h.next_check && (
         <p className="mt-1 text-xs"><span className="font-semibold">Next check:</span> {h.next_check}</p>
       )}
-    </article>
+    </motion.article>
   );
 }
 
@@ -115,6 +129,7 @@ export function VerifierCard({ state }: { state: IncidentState }) {
   return (
     <section className="card p-3" aria-label="Verifier loop" data-verifier={v.overall ?? "checking"}>
       <div className="flex flex-wrap items-center gap-2">
+        <IconShield className="h-4 w-4 text-muted" />
         <h3 className="label">Verifier</h3>
         <span className="font-mono text-xs" data-testid="verifier-iteration">iteration {Math.min(iter, MAX_VERIFIER_ITERATIONS)}/{MAX_VERIFIER_ITERATIONS}</span>
         {v.checking ? (
@@ -125,9 +140,18 @@ export function VerifierCard({ state }: { state: IncidentState }) {
           <StatusBadge tone="bad" icon={<IconX className="h-3 w-3" />}>{label}</StatusBadge>
         ) : null}
       </div>
-      <p className="mt-1 text-xs text-muted">Code re-runs the tools and compares every number, timestamp, quote and ordering. The model does not grade itself.</p>
+      <div aria-hidden className="mt-2 flex gap-1">
+        {Array.from({ length: MAX_VERIFIER_ITERATIONS }, (_, i) => {
+          const n = i + 1;
+          const failed = state.revisions.some((r) => r.iteration === n);
+          const passed = v.overall === "PASS" && n === v.iteration;
+          const now = v.checking && n === iter;
+          return <span key={n} className={`h-1 flex-1 rounded-full ${passed ? "bg-ok" : failed ? "bg-bad" : now ? "bg-accent blink" : "bg-sunken"}`} />;
+        })}
+      </div>
+      <p className="mt-1.5 text-xs text-muted">Code re-runs the tools and compares every number, timestamp, quote and ordering. The model does not grade itself.</p>
       {state.revisions.map((r) => (
-        <div key={r.iteration} className="mt-2 rounded border border-bad/50 p-2" data-revision={r.iteration}>
+        <div key={r.iteration} className="mt-2 rounded-lg border border-bad/40 bg-bad/5 p-2" data-revision={r.iteration}>
           <p className="text-xs font-semibold text-bad">Iteration {r.iteration}: {r.rejected.length} claim{r.rejected.length > 1 ? "s" : ""} rejected, Judge asked to revise</p>
           <ul className="mt-1 space-y-1">
             {r.rejected.map(({ claim, verdict }) => (
@@ -175,9 +199,11 @@ export interface RcaPaneProps {
   techLink?: { href: string; onOpen: () => void } | null;
   /** Work-order language toggle (stretch "lang" flag). */
   langEnabled?: boolean;
+  /** Told when the human approves or rejects the work order (drives the progress rail). */
+  onDecided?: (d: Decided) => void;
 }
 
-export function RcaPane({ state, passcode, isMock, onEvidence, techLink, langEnabled }: RcaPaneProps) {
+export function RcaPane({ state, passcode, isMock, onEvidence, techLink, langEnabled, onDecided }: RcaPaneProps) {
   const report: RCAReport | null = state.final ?? state.draft;
   const isFinal = !!state.final;
   const insufficient = state.final?.status === "insufficient_evidence";
@@ -188,16 +214,30 @@ export function RcaPane({ state, passcode, isMock, onEvidence, techLink, langEna
   const empty = !report && !state.verifier.iteration && state.phase !== "streaming";
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      <div className="border-b border-line px-3 py-2"><h2 className="label">Root cause &amp; action</h2></div>
+      <div className="pane-head"><h2 className="label">Root cause &amp; action</h2></div>
       <div className="relative min-h-0 flex-1 space-y-3 overflow-y-auto p-3" tabIndex={0} role="region" aria-label="Root cause and action, scrollable">
         {empty && (
-          <div className="rounded-md border border-dashed border-line p-4 text-sm text-muted">
+          <div className="rounded-xl border border-dashed border-line-strong/70 p-5 text-sm text-muted">
+            <div aria-hidden className="mb-3 flex items-end gap-1.5">
+              {[72, 48, 30].map((w, i) => (
+                <span key={i} className="block h-2 rounded-full bg-raised" style={{ width: `${w}%`, opacity: 1 - i * 0.25 }} />
+              ))}
+            </div>
             <p className="font-semibold text-fg">No root cause yet.</p>
             <p className="mt-1">Hypotheses appear here ranked by confidence. Every claim starts as <span className="font-semibold">pending</span> and turns <span className="font-semibold">verified</span> or struck through once code has checked it.</p>
           </div>
         )}
         {!report && state.phase === "streaming" && (
-          <p className="flex items-center gap-2 text-sm text-muted"><Spinner label="investigating" />The Judge will rank hypotheses once the evidence is in.</p>
+          <div className="space-y-2" aria-hidden={false}>
+            <p className="flex items-center gap-2 text-sm text-muted"><Spinner label="investigating" />The Judge will rank hypotheses once the evidence is in.</p>
+            {[0, 1].map((i) => (
+              <div key={i} aria-hidden className="card space-y-2 p-3 motion-safe:animate-pulse" style={{ opacity: 1 - i * 0.4 }}>
+                <div className="h-3 w-1/2 rounded bg-raised" />
+                <div className="h-1.5 w-full rounded-full bg-raised" />
+                <div className="h-2.5 w-4/5 rounded bg-raised" />
+              </div>
+            ))}
+          </div>
         )}
         {state.verifier.revising && (
           <div role="status" className="flex items-start gap-2 rounded border border-bad p-2 text-sm" data-testid="revising-banner">
@@ -208,7 +248,7 @@ export function RcaPane({ state, passcode, isMock, onEvidence, techLink, langEna
         <VerifierCard state={state} />
 
         {insufficient && (
-          <section className="rounded-md border border-warn p-3" aria-label="Insufficient evidence" data-testid="insufficient-evidence">
+          <section className="rounded-xl border border-warn/60 bg-gradient-to-br from-warn/10 to-transparent p-4" aria-label="Insufficient evidence" data-testid="insufficient-evidence">
             <p className="flex items-center gap-2 font-semibold text-warn"><IconAlert />Insufficient evidence</p>
             <p className="mt-1 text-sm">No hypothesis survived verification, so none is offered as a root cause and no work order is drafted. The candidates below are unverified leads, listed so a human can decide what to check next.</p>
           </section>
@@ -217,9 +257,8 @@ export function RcaPane({ state, passcode, isMock, onEvidence, techLink, langEna
         {report && report.hypotheses.length > 0 && (
           <section aria-label={isFinal && !insufficient ? "Verified root cause" : "Hypotheses"} className="space-y-2" data-final={isFinal}>
             {!isFinal && <p className="label">Draft hypotheses · not yet verified</p>}
-            {isFinal && !insufficient && (
-              <p className="flex items-center gap-2 text-sm font-semibold text-ok"><IconCheck />Verified root cause</p>
-            )}
+            {isFinal && !insufficient && <VerdictHero report={report} state={state} />}
+            {isFinal && !insufficient && <p className="label pt-1">Ranked hypotheses · claim by claim</p>}
             {report.hypotheses.map((h, i) => (
               <HypothesisCard key={`${h.cause_class}${h.asset_id}${i}`} h={h} rank={i + 1} verdicts={state.verdicts} final={isFinal} onEvidence={onEvidence} />
             ))}
@@ -227,20 +266,28 @@ export function RcaPane({ state, passcode, isMock, onEvidence, techLink, langEna
         )}
 
         {isFinal && !insufficient && (
-          <section aria-label="Your decision on the root cause" className="card p-3">
-            <h3 className="label">Your decision</h3>
-            <div role="group" aria-describedby={decisionHint} className="mt-2 flex flex-wrap gap-2">
-              {(["accept", "edit", "reject"] as Decision[]).map((d) => (
-                <button key={d} type="button" className={decision === d ? "btn-primary" : "btn"} aria-pressed={decision === d} onClick={() => setDecision(d)}>
-                  {d === "accept" ? "Accept" : d === "edit" ? "Edit" : "Reject"}
-                </button>
-              ))}
+          <section aria-label="Your decision on the root cause" className={`card p-3 ${decision ? "" : "border-accent/50"}`}>
+            <div className="flex items-center gap-2">
+              <span aria-hidden className={`flex h-5 w-5 items-center justify-center rounded-full font-mono text-[10px] font-bold ${decision ? "bg-ok text-bg" : "bg-accent text-accent-fg"}`}>{decision ? <IconCheck className="h-3 w-3" /> : 1}</span>
+              <h3 className="label">Your decision</h3>
+            </div>
+            <div role="group" aria-describedby={decisionHint} className="mt-2 grid grid-cols-3 gap-2">
+              {(["accept", "edit", "reject"] as Decision[]).map((d) => {
+                const on = decision === d;
+                const tone = d === "reject" ? "border-bad bg-bad/15 text-bad" : d === "edit" ? "border-warn bg-warn/15 text-warn" : "border-ok bg-ok/15 text-ok";
+                return (
+                  <button key={d} type="button" className={`btn !min-h-[42px] ${on ? `${tone} !font-semibold` : ""}`} aria-pressed={on} onClick={() => setDecision(d)}>
+                    {d === "accept" ? <IconCheck className="h-4 w-4" /> : d === "edit" ? <IconWrench className="h-4 w-4" /> : <IconX className="h-4 w-4" />}
+                    {d === "accept" ? "Accept" : d === "edit" ? "Edit" : "Reject"}
+                  </button>
+                );
+              })}
             </div>
             <p id={decisionHint} className="mt-1 text-xs text-muted">Accepting is a human judgement. The work order below stays locked until you decide.</p>
             {decision === "edit" && (
               <div className="mt-2">
                 <label htmlFor="rca-edits" className="text-xs font-semibold">Your correction (kept in the audit log)</label>
-                <textarea id="rca-edits" value={edits} onChange={(e) => setEdits(e.target.value)} rows={3} maxLength={4000} className="mt-1 w-full rounded border border-line bg-raised p-2 text-sm" />
+                <textarea id="rca-edits" value={edits} onChange={(e) => setEdits(e.target.value)} rows={3} maxLength={4000} className="field mt-1" />
               </div>
             )}
             {decision === "reject" && <p className="mt-2 text-sm text-bad"><span className="font-semibold">Root cause rejected.</span> The work order cannot be approved. Record the rejection below.</p>}
@@ -248,12 +295,12 @@ export function RcaPane({ state, passcode, isMock, onEvidence, techLink, langEna
         )}
 
         {techLink && isFinal && (state.workOrder || insufficient || state.phase === "done") && (
-          <a href={techLink.href} onClick={(e) => { e.preventDefault(); techLink.onOpen(); }} className="btn w-full !min-h-[44px] justify-between" data-testid="open-tech">
-            Open in technician view <span aria-hidden>→</span>
+          <a href={techLink.href} onClick={(e) => { e.preventDefault(); techLink.onOpen(); }} className="btn group w-full !min-h-[44px] justify-between" data-testid="open-tech">
+            Open in technician view <IconArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </a>
         )}
         {state.workOrder && !insufficient && (
-          <WorkOrderPanel key={state.workOrder.wo_id} wo={state.workOrder} incidentId={state.incidentId} decision={decision} edits={edits} enabled={isFinal} passcode={passcode} isMock={isMock} langEnabled={langEnabled} />
+          <WorkOrderPanel key={state.workOrder.wo_id} onDecided={onDecided} wo={state.workOrder} incidentId={state.incidentId} decision={decision} edits={edits} enabled={isFinal} passcode={passcode} isMock={isMock} langEnabled={langEnabled} />
         )}
         <CostChip state={state} />
         {state.phase === "done" && state.done && <p className="font-mono text-[11px] text-muted">run finished in {(state.done.duration_ms / 1000).toFixed(1)} s · {claimsOf(report).length} claims checked</p>}
@@ -271,6 +318,7 @@ export function WorkOrderPanel({
   passcode,
   isMock,
   langEnabled = false,
+  onDecided,
 }: {
   wo: WorkOrder;
   incidentId: string | null;
@@ -280,6 +328,7 @@ export function WorkOrderPanel({
   passcode: string | null;
   isMock: boolean;
   langEnabled?: boolean;
+  onDecided?: (d: Decided) => void;
 }) {
   const wl = useWoLang(langEnabled ? wo : null, incidentId, passcode, isMock);
   const { steps, safety, ticked, toggle, name, setName, busy, error, result, decided, missing, canApprove, submit } = useApproval({ wo, incidentId, decision, edits, enabled, passcode, isMock });
@@ -289,10 +338,15 @@ export function WorkOrderPanel({
   useEffect(() => {
     if (result) bannerRef.current?.focus();
   }, [result]);
+  useEffect(() => {
+    if (decided === "APPROVED" || decided === "REJECTED") onDecided?.(decided);
+  }, [decided]); // eslint-disable-line react-hooks/exhaustive-deps
+  const safetyPct = safety.length ? (ticked.size / safety.length) * 100 : 100;
 
   return (
-    <section aria-label="Draft work order" className="card p-3" data-wo-status={decided ?? wo.status}>
+    <section aria-label="Draft work order" className={`card p-3 ${decided === "APPROVED" ? "border-ok/60" : ""}`} data-wo-status={decided ?? wo.status}>
       <header className="flex flex-wrap items-center gap-2">
+        <IconWrench className="h-4 w-4 text-muted" />
         <h3 className="label">Draft work order</h3>
         <span className="font-mono text-xs">{wo.wo_id}</span>
         {decided === "APPROVED" ? (
@@ -315,29 +369,29 @@ export function WorkOrderPanel({
       <ol className="mt-2 space-y-2" aria-label="Work order steps">
         {steps.map((s) =>
           s.is_safety ? (
-            <li key={s.order} className="rounded border border-warn/60 p-2" data-safety-step={s.order}>
-              <label className="flex cursor-pointer items-start gap-2">
+            <li key={s.order} className={`rounded-lg border p-2.5 transition-colors duration-200 ${ticked.has(s.order) ? "border-ok/50 bg-ok/5" : "border-warn/50 bg-warn/5"}`} data-safety-step={s.order}>
+              <label className="flex cursor-pointer items-start gap-2.5">
                 <input
                   type="checkbox"
-                  className="mt-1 h-4 w-4 shrink-0 accent-[rgb(var(--accent))]"
+                  className="mt-0.5 h-5 w-5 shrink-0 accent-[rgb(var(--ok))]"
                   checked={ticked.has(s.order)}
                   disabled={!!decided}
                   onChange={(e) => toggle(s.order, e.target.checked)}
                 />
                 <span className="min-w-0">
-                  <span className="mb-0.5 flex items-center gap-1 font-mono text-[11px] font-semibold uppercase text-warn">
+                  <span className={`mb-0.5 flex items-center gap-1 font-mono text-[11px] font-semibold uppercase ${ticked.has(s.order) ? "text-ok" : "text-warn"}`}>
                     <IconLock className="h-3 w-3" />LOTO safety step {s.order}
                   </span>
                   <span className="block text-[13px]">{s.text}</span>
                 </span>
               </label>
               {s.citation && (
-                <div className="ml-6">
+                <div className="ml-[30px]">
                   <p className="font-mono text-[11px] text-muted">verbatim from {s.citation.doc} · p.{s.citation.page}</p>
                   {s.citation.quote !== s.text && <CitationBlock c={s.citation} />}
                 </div>
               )}
-              {wl.lang && wl.data && <div className="ml-6"><SafetyTranslation text={wl.byOrder.get(s.order)} lang={wl.lang} order={s.order} /></div>}
+              {wl.lang && wl.data && <div className="ml-[30px]"><SafetyTranslation text={wl.byOrder.get(s.order)} lang={wl.lang} order={s.order} /></div>}
             </li>
           ) : (
             <li key={s.order} className="flex gap-2 text-[13px]" data-step={s.order}>
@@ -369,29 +423,45 @@ export function WorkOrderPanel({
         {decided === "APPROVED" ? `Work order ${result?.wo_id ?? wo.wo_id} approved and sent to the mock CMMS.` : decided ? "Work order rejected." : ""}
       </p>
       {decided ? (
-        <div ref={bannerRef} tabIndex={-1} className={`mt-3 flex items-start gap-2 rounded border p-2 text-sm ${decided === "APPROVED" ? "border-ok" : "border-bad"}`} data-testid="decision-banner">
-          {decided === "APPROVED" ? <IconCheck className="mt-0.5 text-ok" /> : <IconX className="mt-0.5 text-bad" />}
+        <motion.div
+          ref={bannerRef}
+          tabIndex={-1}
+          initial={{ opacity: 0, scale: 0.97 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ type: "spring", stiffness: 400, damping: 30 }}
+          className={`mt-3 flex items-start gap-2.5 rounded-lg border p-3 text-sm ${decided === "APPROVED" ? "border-ok bg-ok/10" : "border-bad bg-bad/10"}`}
+          data-testid="decision-banner"
+        >
+          <span aria-hidden className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full ${decided === "APPROVED" ? "bg-ok" : "bg-bad"}`} style={{ color: "rgb(var(--bg))" }}>
+            {decided === "APPROVED" ? <IconCheck className="h-4 w-4" /> : <IconX className="h-4 w-4" />}
+          </span>
           <span>
             <span className={`font-semibold ${decided === "APPROVED" ? "text-ok" : "text-bad"}`}>{decided === "APPROVED" ? "Approved and sent to the mock CMMS" : "Rejected"}</span>
             {result && <> · <span className="font-mono text-xs">{result.wo_id}</span> · {result.decided_at.slice(0, 19).replace("T", " ")}Z{result.demo ? " · demo record (mock CMMS)" : ""}</>}
           </span>
-        </div>
+        </motion.div>
       ) : (
         <div className="mt-3 space-y-2 border-t border-line pt-3">
           <div>
             <label htmlFor="approver" className="text-xs font-semibold">Approver name</label>
-            <input id="approver" value={name} onChange={(e) => setName(e.target.value)} maxLength={80} autoComplete="name" className="mt-1 w-full rounded border border-line bg-raised px-2 py-1.5 text-sm" />
+            <input id="approver" value={name} onChange={(e) => setName(e.target.value)} maxLength={80} autoComplete="name" className="field mt-1" />
           </div>
-          <p className="text-xs" aria-live="polite">
-            <span className="font-semibold">Safety steps ticked: </span>
-            <span className="font-mono" data-testid="safety-count">{ticked.size}/{safety.length}</span>
-          </p>
+          <div>
+            <p className="flex items-center justify-between text-xs" aria-live="polite">
+              <span className="font-semibold">Safety steps ticked: </span>
+              <span className={`font-mono ${ticked.size === safety.length ? "text-ok" : ""}`} data-testid="safety-count">{ticked.size}/{safety.length}</span>
+            </p>
+            <div aria-hidden className="mt-1 h-1.5 overflow-hidden rounded-full bg-sunken">
+              <motion.div className={`h-full rounded-full ${safetyPct === 100 ? "bg-ok" : "bg-warn"}`} initial={false} animate={{ width: `${safetyPct}%` }} transition={{ duration: 0.3 }} />
+            </div>
+          </div>
           <div className="flex flex-wrap gap-2">
-            <button type="button" className="btn-primary" disabled={!canApprove} aria-describedby={why} onClick={() => submit("approve")}>
+            <button type="button" className="btn-ok !min-h-[44px] flex-1" disabled={!canApprove} aria-describedby={why} onClick={() => submit("approve")}>
+              {busy ? <Spinner label="sending" /> : canApprove ? <IconCheck className="h-4 w-4" /> : <IconLock className="h-4 w-4" />}
               {busy ? "Sending…" : "Approve & send to CMMS (mock)"}
             </button>
             {enabled && decision === "reject" && (
-              <button type="button" className="btn" disabled={busy || !name.trim()} onClick={() => submit("reject")}>Record rejection</button>
+              <button type="button" className="btn !min-h-[44px] border-bad/60 text-bad" disabled={busy || !name.trim()} onClick={() => submit("reject")}>Record rejection</button>
             )}
           </div>
           <p id={why} className="text-xs text-muted">{canApprove ? "Ready. Approval is recorded with your name in the audit log." : `Locked until: ${missing.join("; ")}.`}</p>
@@ -399,5 +469,61 @@ export function WorkOrderPanel({
         </div>
       )}
     </section>
+  );
+}
+
+/** Animated confidence ring. The number is the Judge's confidence, shown as-is. */
+export function ConfidenceRing({ pct, size = 76 }: { pct: number; size?: number }) {
+  const r = (size - 8) / 2;
+  const c = 2 * Math.PI * r;
+  return (
+    <div className="relative shrink-0" style={{ width: size, height: size }} role="img" aria-label={`Confidence ${pct} percent`}>
+      <svg width={size} height={size} className="-rotate-90" aria-hidden>
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="rgb(var(--ok) / 0.15)" strokeWidth="6" />
+        <motion.circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="rgb(var(--ok))" strokeWidth="6" strokeLinecap="round" strokeDasharray={c} initial={{ strokeDashoffset: c }} animate={{ strokeDashoffset: c * (1 - pct / 100) }} transition={{ duration: 0.9, ease: [0.2, 0.8, 0.2, 1], delay: 0.15 }} />
+      </svg>
+      <span aria-hidden className="absolute inset-0 flex flex-col items-center justify-center">
+        <span className="font-mono text-lg font-semibold leading-none tabular-nums">{pct}<span className="text-xs text-muted">%</span></span>
+        <span className="mt-0.5 font-mono text-[9px] uppercase tracking-wider text-muted">conf.</span>
+      </span>
+    </div>
+  );
+}
+
+/** The moment the investigation lands: verified cause, confidence, and what the verifier caught on the way. */
+function VerdictHero({ report, state }: { report: RCAReport; state: IncidentState }) {
+  const h = report.hypotheses[0];
+  if (!h) return null;
+  const claims = claimsOf(report);
+  const verified = claims.filter((c) => claimState(state.verdicts, c.claim_id) === "verified").length;
+  const caught = state.revisions.reduce((n, r) => n + r.rejected.length, 0);
+  const cited = claims.filter((c) => c.citation).length;
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 10, scale: 0.98 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ type: "spring", stiffness: 300, damping: 28 }}
+      className="relative overflow-hidden rounded-xl border border-ok/50 bg-gradient-to-br from-ok/15 via-ok/[0.04] to-transparent p-4"
+      aria-label="Verified root cause summary"
+      data-testid="verdict-hero"
+    >
+      <div aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-ok/20 blur-3xl" />
+      <p className="eyebrow flex items-center gap-1.5 text-ok"><IconShield className="h-3.5 w-3.5" />Verified root cause</p>
+      <div className="mt-2 flex items-start gap-3">
+        <div className="min-w-0 flex-1">
+          <h3 className="text-xl font-semibold capitalize leading-tight tracking-tight">{humanize(h.cause_class)}</h3>
+          <p className="mt-1 text-sm text-muted">
+            at <span className="rounded-md border border-line bg-sunken px-1.5 font-mono text-[13px] text-fg">{h.asset_id}</span>
+            {state.verifier.iteration > 0 && <> · passed on iteration {Math.min(state.verifier.iteration, MAX_VERIFIER_ITERATIONS)}/{MAX_VERIFIER_ITERATIONS}</>}
+          </p>
+        </div>
+        <ConfidenceRing pct={Math.round(h.confidence * 100)} />
+      </div>
+      <ul className="mt-3 flex flex-wrap gap-1.5 text-xs" aria-label="Verifier tally">
+        <li className="inline-flex items-center gap-1 rounded-md border border-ok/40 bg-panel/60 px-2 py-1"><IconCheck className="h-3 w-3 text-ok" /><span className="font-mono font-semibold">{verified}/{claims.length}</span> claims checked by code</li>
+        {caught > 0 && <li className="inline-flex items-center gap-1 rounded-md border border-bad/40 bg-panel/60 px-2 py-1"><IconX className="h-3 w-3 text-bad" /><span className="font-mono font-semibold">{caught}</span> wrong claim{caught > 1 ? "s" : ""} caught &amp; corrected</li>}
+        {cited > 0 && <li className="inline-flex items-center gap-1 rounded-md border border-line bg-panel/60 px-2 py-1"><span className="font-mono font-semibold">{cited}</span> manual citation{cited > 1 ? "s" : ""}</li>}
+      </ul>
+    </motion.section>
   );
 }

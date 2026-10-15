@@ -7,9 +7,11 @@ export default {
     extend: {
       colors: {
         bg: v("bg"),
+        sunken: v("sunken"),
         panel: v("panel"),
         raised: v("raised"),
         line: v("line"),
+        "line-strong": v("line-strong"),
         fg: v("fg"),
         muted: v("muted"),
         accent: v("accent"),
@@ -17,10 +19,13 @@ export default {
         ok: v("ok"),
         warn: v("warn"),
         bad: v("bad"),
+        indigo: v("c-indigo"),
+        mint: v("c-mint"),
+        sky: v("c-sky"),
       },
       fontFamily: {
         mono: ['"IBM Plex Mono"', "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
-        sans: ['"IBM Plex Sans"', "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+        sans: ['"Inter"', "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
       },
       keyframes: {
         stoppulse: { "0%,100%": { boxShadow: "0 0 0 0 rgb(var(--bad) / 0.55)" }, "50%": { boxShadow: "0 0 0 6px rgb(var(--bad) / 0)" } },

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { motion } from "motion/react";
 import type { IncidentState } from "../state/reducer";
 import { stationKey } from "../lib/format";
 import { assetsInArgs } from "../lib/summary";
@@ -98,39 +99,62 @@ function Block({ s, m }: { s: Station; m: Marks }) {
   if (active) status.push("being checked");
   else if (seen) status.push("checked");
   if (root) status.push("verified root cause");
+  const lamp = root ? "bg-ok lamp-glow-ok" : stopped ? "bg-bad lamp-glow-bad" : alarms ? "bg-warn lamp-glow-warn" : active ? "bg-accent lamp-glow-accent" : seen ? "bg-accent/60" : "bg-line-strong";
+  const frame = root
+    ? "border-ok bg-ok/10 ring-2 ring-ok/50 ring-offset-2 ring-offset-panel"
+    : stopped
+      ? "station-stopped border-bad bg-bad/10"
+      : active
+        ? "scan border-accent bg-accent/5"
+        : seen
+          ? "border-accent/50 bg-raised"
+          : "border-line bg-raised";
   return (
-    <li
+    <motion.li
       data-station={s.key}
       data-state={status.join(",") || "ok"}
       aria-label={`${s.label} ${s.name}: ${status.join(", ") || "running"}`}
-      className={`relative min-w-0 rounded border px-1.5 py-1.5 text-center ${
-        stopped ? "station-stopped border-bad bg-bad/10" : "border-line bg-raised"
-      } ${seen || active ? "outline outline-2 outline-offset-1 outline-accent" : ""}`}
+      animate={root ? { scale: [1, 1.07, 1] } : { scale: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className={`relative min-w-0 overflow-hidden rounded-lg border px-2 pb-1.5 pt-2.5 text-left transition-colors duration-300 ${frame}`}
     >
-      <div className="font-mono text-xs font-semibold">{s.label}</div>
+      <span aria-hidden className={`absolute inset-x-0 top-0 h-[3px] ${lamp}`} />
+      <div className="flex items-center justify-between gap-1">
+        <span className="font-mono text-[12px] font-semibold">{s.label}</span>
+        {seen && !active && !root && <IconCheck className="h-3 w-3 shrink-0 text-accent" aria-hidden />}
+      </div>
       <div className="truncate text-[11px] text-muted">{s.name}</div>
-      <div className="mt-1 flex min-h-[16px] flex-col items-center gap-0.5 text-[10px] font-semibold leading-3">
-        {stopped && (
-          <span className="inline-flex items-center gap-0.5 text-bad"><IconX className="h-3 w-3" />STOPPED</span>
+      <div className="mt-1 flex min-h-[16px] flex-col gap-0.5 text-[10px] font-semibold uppercase leading-3 tracking-wide">
+        {stopped && !root && (
+          <span className="inline-flex items-center gap-0.5 text-bad"><IconX className="h-3 w-3" />Stopped</span>
         )}
         {alarms > 0 && !stopped && (
-          <span className="inline-flex items-center gap-0.5 text-warn"><IconAlert className="h-3 w-3" />ALARM {alarms}</span>
+          <span className="inline-flex items-center gap-0.5 text-warn"><IconAlert className="h-3 w-3" />Alarm {alarms}</span>
         )}
-        {active && <span className="inline-flex items-center gap-1 text-accent"><Spinner label="checking" />CHECK</span>}
-        {!active && seen && !root && <span className="text-accent">checked</span>}
-        {root && <span className="inline-flex items-center gap-0.5 text-ok"><IconCheck className="h-3 w-3" />ROOT CAUSE</span>}
+        {active && <span className="inline-flex items-center gap-1 text-accent"><Spinner label="checking" />Check</span>}
+        {!active && seen && !root && !stopped && !alarms && <span className="normal-case tracking-normal text-accent">checked</span>}
+        {root && <span className="inline-flex items-center gap-0.5 text-ok"><IconCheck className="h-3 w-3" />Root cause</span>}
       </div>
-    </li>
+    </motion.li>
   );
 }
 
-const Arrow = ({ dir }: { dir: "r" | "l" | "d" }) => (
-  <li aria-hidden className="flex items-center justify-center text-muted">
-    <svg width="14" height="14" viewBox="0 0 14 14" className={dir === "l" ? "rotate-180" : dir === "d" ? "rotate-90" : ""}>
-      <path d="M1 7h11" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" className="flow-dash" /><path d="M8 3.5L12 7l-4 3.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
+/** Conveyor segment between stations. The line is stopped, so the belt is halted (static red hatching). */
+const Belt = ({ dir }: { dir: "r" | "l" }) => (
+  <li aria-hidden className="flex items-center justify-center">
+    <span className="relative flex w-4 flex-col items-center gap-0.5 text-muted">
+      <span className="conveyor halted h-1 w-full rounded-full" />
+      <svg width="10" height="8" viewBox="0 0 10 8" className={dir === "l" ? "rotate-180" : ""}><path d="M1 1l3 3-3 3M5 1l3 3-3 3" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+    </span>
   </li>
 );
+
+const LEGEND: { cls: string; text: string }[] = [
+  { cls: "bg-bad", text: "stopped" },
+  { cls: "bg-warn", text: "alarm" },
+  { cls: "bg-accent", text: "agent checked" },
+  { cls: "bg-ok", text: "verified root cause" },
+];
 
 export function Mimic({ state, stoppedFallback }: { state: IncidentState; stoppedFallback: string | null }) {
   const { line, util } = useMemo(() => stationsFrom(state), [state]);
@@ -138,27 +162,38 @@ export function Mimic({ state, stoppedFallback }: { state: IncidentState; stoppe
   const top = line.slice(0, 3);
   const bottom = line.slice(3).reverse();
   return (
-    <section aria-label="Line mimic" className="space-y-2">
+    <section aria-label="Line mimic" className="card space-y-3 p-3">
+      <div className="flex items-center justify-between">
+        <h3 className="label">Line L1 · synthetic</h3>
+        <span className="inline-flex items-center gap-1.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-bad">
+          <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-bad blink" />conveyor halted
+        </span>
+      </div>
       <ol className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-stretch gap-1" aria-label="Production line, flow left to right then back along the second row">
         {top.map((s, i) => (
           <FlowItem key={s.key} s={s} m={m} arrow={i < top.length - 1 ? "r" : null} />
         ))}
-        <li aria-hidden className="col-span-5 -my-0.5 flex justify-end pr-[14%] text-muted">
-          <svg width="14" height="16" viewBox="0 0 14 16"><path d="M7 1v11" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" className="flow-dash" /><path d="M3 9l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+        <li aria-hidden className="col-span-5 -my-0.5 flex justify-end pr-[15%] text-muted">
+          <svg width="10" height="14" viewBox="0 0 10 14"><path d="M5 1v10" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeDasharray="2 2" /><path d="M2 8l3 3 3-3" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </li>
         {bottom.map((s, i) => (
           <FlowItem key={s.key} s={s} m={m} arrow={i < bottom.length - 1 ? "l" : null} />
         ))}
       </ol>
       <div className="relative pt-3">
-        <div className="absolute left-0 right-0 top-1.5 h-px bg-line" aria-hidden />
-        <span className="label absolute -top-0.5 left-0 bg-panel pr-2">utilities rail</span>
+        <div className="absolute left-0 right-0 top-1.5 h-[3px] rounded-full bg-gradient-to-r from-line via-line-strong to-line" aria-hidden />
+        <span className="label absolute -top-0.5 left-2 bg-panel px-1.5">utilities header</span>
         <ul className="mt-2 grid grid-cols-2 gap-1" aria-label="Utilities feeding the line">
           {util.map((s) => (
             <Block key={s.key} s={s} m={m} />
           ))}
         </ul>
       </div>
+      <ul className="flex flex-wrap gap-x-3 gap-y-1 border-t border-line pt-2 text-[10px] text-muted" aria-label="Legend">
+        {LEGEND.map((l) => (
+          <li key={l.text} className="inline-flex items-center gap-1"><span aria-hidden className={`h-1.5 w-3 rounded-full ${l.cls}`} />{l.text}</li>
+        ))}
+      </ul>
     </section>
   );
 }
@@ -167,7 +202,7 @@ function FlowItem({ s, m, arrow }: { s: Station; m: Marks; arrow: "r" | "l" | nu
   return (
     <>
       <Block s={s} m={m} />
-      {arrow ? <Arrow dir={arrow} /> : null}
+      {arrow ? <Belt dir={arrow} /> : null}
     </>
   );
 }
@@ -185,15 +220,22 @@ export function CostTicker({ running, startKey }: { running: boolean; startKey: 
     return () => clearInterval(id);
   }, [running, startKey]);
   const usd = (elapsed / 60) * ASSUMED_DOWNTIME_USD_PER_MIN;
+  const mm = String(Math.floor(elapsed / 60)).padStart(2, "0");
+  const ss = String(Math.floor(elapsed % 60)).padStart(2, "0");
   return (
-    <div className="rounded border border-line bg-raised px-2 py-1.5" data-testid="cost-ticker">
-      <div className="label">Downtime cost · est.</div>
-      <div className="font-mono text-lg font-semibold tabular-nums" aria-label={`Estimated downtime cost ${Math.round(usd)} dollars`}>
-        ${Math.round(usd).toLocaleString("en-US")}
+    <div className="kpi kpi-1" data-testid="cost-ticker">
+      <div className="flex items-center justify-between">
+        <p className="text-sm font-semibold">Downtime cost · est.</p>
+        <span className="kpi-muted inline-flex items-center gap-1 font-mono text-[11px]" aria-label={`Elapsed ${mm} minutes ${ss} seconds`}>
+          {running && <span aria-hidden className="blink h-1.5 w-1.5 rounded-full" style={{ background: "rgb(200 36 36)" }} />}
+          {mm}:{ss}
+        </span>
       </div>
-      <div className="text-[11px] text-muted">
-        est. · assumption: ${Math.round(ASSUMED_DOWNTIME_USD_PER_MIN).toLocaleString("en-US")}/min (US$2.3M/h unplanned automotive downtime, Siemens 2024). Not a measurement.
+      <div className="mt-2 flex items-end justify-between gap-2">
+        <span className="text-2xl font-semibold leading-none tabular-nums" aria-label={`Estimated downtime cost ${Math.round(usd)} dollars`}>${Math.round(usd).toLocaleString("en-US")}</span>
       </div>
+      <p className="kpi-muted mt-1.5 text-[11px] leading-snug sm:hidden">est. · assumed ${Math.round(ASSUMED_DOWNTIME_USD_PER_MIN).toLocaleString("en-US")}/min · not a measurement</p>
+      <p className="kpi-muted mt-1.5 hidden text-[11px] leading-snug sm:block">est. · assumption: ${Math.round(ASSUMED_DOWNTIME_USD_PER_MIN).toLocaleString("en-US")}/min (US$2.3M/h unplanned automotive downtime, Siemens 2024). Not a measurement.</p>
     </div>
   );
 }

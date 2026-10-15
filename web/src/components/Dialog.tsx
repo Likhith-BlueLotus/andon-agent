@@ -1,4 +1,6 @@
 import { useEffect, useRef, type ReactNode } from "react";
+import { motion } from "motion/react";
+import { IconX } from "./ui";
 
 const FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]),textarea:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])';
 
@@ -6,7 +8,7 @@ const FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]),textarea
  * Modal dialog / side drawer: role=dialog + aria-modal, focus moves in, Tab is trapped,
  * Esc closes, focus returns to the opener.
  */
-export function Dialog({ title, onClose, children, side = false, labelId }: { title: string; onClose: () => void; children: ReactNode; side?: boolean; labelId: string }) {
+export function Dialog({ title, onClose, children, side = false, labelId }: { title: string; onClose: () => void; children: ReactNode; side?: boolean | "left"; labelId: string }) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const opener = document.activeElement as HTMLElement | null;
@@ -43,23 +45,29 @@ export function Dialog({ title, onClose, children, side = false, labelId }: { ti
   }, []);
   return (
     <div className="fixed inset-0 z-50 flex" data-dialog>
-      <div className="absolute inset-0 bg-black/60" onClick={onClose} aria-hidden />
-      <div
+      <motion.div className="absolute inset-0 bg-black/55 backdrop-blur-[2px]" onClick={onClose} aria-hidden initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.18 }} />
+      <motion.div
         ref={ref}
         role="dialog"
         aria-modal="true"
         aria-labelledby={labelId}
         tabIndex={-1}
-        className={`relative flex max-h-full flex-col overflow-hidden border border-line bg-panel shadow-2xl ${
-          side ? "ml-auto h-full w-full max-w-2xl border-y-0 border-r-0" : "m-auto w-[min(92vw,28rem)] rounded-md"
+        initial={side ? { x: side === "left" ? -32 : 32 } : { scale: 0.97, y: 6 }}
+        animate={side ? { x: 0 } : { scale: 1, y: 0 }}
+        transition={{ type: "spring", stiffness: 420, damping: 36 }}
+        className={`relative flex max-h-full flex-col overflow-hidden border border-line bg-bg shadow-2xl ${
+          side === "left" ? "mr-auto h-full w-[min(86vw,280px)] border-y-0 border-l-0" : side ? "ml-auto h-full w-full max-w-2xl border-y-0 border-r-0" : "m-auto w-[min(92vw,28rem)] rounded-2xl"
         }`}
       >
         <header className="flex items-center justify-between gap-2 border-b border-line px-4 py-3">
           <h2 id={labelId} className="font-mono text-sm font-semibold">{title}</h2>
-          <button type="button" className="btn !min-h-[32px]" onClick={onClose} aria-label="Close">Close (Esc)</button>
+          <button type="button" className="btn-ghost !min-h-[32px] gap-2" onClick={onClose} aria-label="Close">
+            <IconX className="h-4 w-4" />
+            <span className="kbd" aria-hidden>Esc</span>
+          </button>
         </header>
         <div className="relative min-h-0 flex-1 overflow-y-auto p-4">{children}</div>
-      </div>
+      </motion.div>
     </div>
   );
 }

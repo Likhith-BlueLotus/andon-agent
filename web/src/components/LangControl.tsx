@@ -15,7 +15,7 @@ export function LangControl({ wl, large = false }: { wl: WoLang; large?: boolean
           id={id}
           value={lang ?? ""}
           onChange={(e) => setLang((e.target.value || null) as LangCode | null)}
-          className={`rounded border border-line bg-raised px-2 ${large ? "min-h-[44px] text-base" : "py-1 text-xs"}`}
+          className={`field !w-auto !py-1 ${large ? "min-h-[44px] text-base" : "py-1 text-xs"}`}
         >
           <option value="">Original (English)</option>
           {LANGS.map((l) => (

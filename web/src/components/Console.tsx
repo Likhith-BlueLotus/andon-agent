@@ -4,6 +4,8 @@ import { useIncidentStream } from "../state/useIncidentStream";
 import { readMock } from "../lib/config";
 import { fmtDateTime } from "../lib/format";
 import { CostTicker, Mimic } from "./Mimic";
+import { claimState, claimsOf, type IncidentState } from "../state/reducer";
+import { IconArrowRight, IconCheck as IconCheckK } from "./ui";
 import { TracePane } from "./Trace";
 import { RcaPane } from "./Rca";
 import { getPasscode, setPasscode as storePasscode } from "../lib/passcode";
@@ -11,7 +13,12 @@ import { adHocScenario, isUploadId, uploadLabel } from "../lib/uploadMapping";
 import { setHandoff, techHref } from "../lib/handoff";
 import { langEnabled, techEnabled } from "../lib/features";
 import { PasscodeDialog } from "./PasscodeDialog";
-import { IconAlert, IconClock, IconInfo, Spinner } from "./ui";
+import { IconAlert, IconClock, IconInfo, IconPlay, IconStop, Spinner } from "./ui";
+import { motion } from "motion/react";
+import { Stepper } from "./Stepper";
+import { investigationSteps, runStatus, type Decided } from "../lib/progress";
+import { publishRun, resetRun } from "../lib/runStore";
+import { useHotkeys } from "../lib/hotkeys";
 
 const EvidenceDrawer = lazy(() => import("./EvidenceDrawer").then((m) => ({ default: m.EvidenceDrawer })));
 
@@ -40,6 +47,7 @@ export function Console({ catalog }: { catalog: Catalog }) {
     return q >= 1 && q <= 4 ? q : 1;
   });
   const fellBack = useRef(false);
+  const [decided, setDecided] = useState<Decided>(null);
 
   const adHoc = isUploadId(scenarioId);
   const scenario = useMemo(() => all.find((s) => s.id === scenarioId) ?? (adHoc && scenarioId ? adHocScenario(scenarioId) : null), [all, scenarioId, adHoc]);
@@ -155,12 +163,30 @@ export function Console({ catalog }: { catalog: Catalog }) {
     };
   }, [config, state, scenarioId, passcode]);
 
+  useEffect(() => setDecided(null), [state.incidentId]);
+  const steps = useMemo(() => investigationSteps(state, decided, conn), [state, decided, conn]);
+  useEffect(() => publishRun({ ...runStatus(state, decided, conn), steps, scenario: scenario?.title ?? null }), [state, decided, conn, steps, scenario]);
+  useEffect(() => resetRun, []);
+  const canInvestigate = !streaming && !!scenarioId && !(mode === "replay" && !canReplay);
+  const focusPane = (t: Tab) => {
+    setTab(t);
+    requestAnimationFrame(() => document.getElementById(`pane-${t}`)?.querySelector<HTMLElement>("[role=region], select, button")?.focus());
+  };
+  useHotkeys({
+    i: () => canInvestigate && investigate(),
+    "1": () => focusPane("line"),
+    "2": () => focusPane("trace"),
+    "3": () => focusPane("rca"),
+  });
+
   const showBudgetBanner = budgetHit || (config?.budget.exhausted ?? false);
   const idle = state.phase === "idle" && conn === "idle";
   const rcaReady = !!state.final;
 
   return (
     <>
+      <div className="lg:hidden"><Stepper steps={steps} /></div>
+      <Kpis state={state} running={state.phase === "streaming" && conn !== "dropped"} />
       <div className="sticky top-0 z-20 border-b border-line bg-bg xl:hidden">
         <div role="tablist" aria-label="Console sections" className="flex">
           {(["line", "trace", "rca"] as Tab[]).map((t) => (
@@ -172,26 +198,33 @@ export function Console({ catalog }: { catalog: Catalog }) {
               aria-controls={`pane-${t}`}
               type="button"
               onClick={() => setTab(t)}
-              className={`min-h-[44px] flex-1 border-b-2 px-2 text-sm font-semibold ${tab === t ? "border-accent text-fg" : "border-transparent text-muted"}`}
+              className={`relative min-h-[44px] flex-1 whitespace-nowrap px-2 text-sm font-semibold transition-colors ${tab === t ? "text-fg" : "text-muted hover:text-fg"}`}
             >
+              {tab === t && <motion.span layoutId="console-tab" aria-hidden className="absolute inset-x-3 bottom-0 h-0.5 rounded-full bg-accent" />}
               {t === "line" ? "Line" : t === "trace" ? "Agent trace" : "Root cause"}
-              {t === "rca" && rcaReady && <span className="ml-1 text-[11px] font-normal text-accent">· ready</span>}
-              {t === "trace" && streaming && <span className="ml-1 text-[11px] font-normal text-accent">· live</span>}
+              {t === "rca" && rcaReady && <><span aria-hidden className="ml-1.5 inline-block h-1.5 w-1.5 rounded-full bg-ok align-middle" /><span className="sr-only"> · ready</span></>}
+              {t === "trace" && streaming && <><span aria-hidden className="blink ml-1.5 inline-block h-1.5 w-1.5 rounded-full bg-accent align-middle" /><span className="sr-only"> · live</span></>}
             </button>
           ))}
         </div>
       </div>
 
-      <main className="flex min-h-0 flex-1 flex-col xl:grid xl:grid-cols-[25fr_45fr_30fr] xl:grid-rows-[minmax(0,1fr)] xl:gap-px xl:bg-line">
+      <main className="flex min-h-0 flex-1 flex-col xl:grid xl:grid-cols-[minmax(300px,24fr)_44fr_minmax(380px,32fr)] xl:grid-rows-[minmax(0,1fr)] xl:gap-4 xl:pb-3 xl:pl-4 xl:pr-3">
         {/* ---- Left: line mimic ---- */}
-        <section id="pane-line" role="tabpanel" aria-labelledby="tab-line" aria-label="Line and controls" className={`${tab === "line" ? "flex" : "hidden"} min-h-0 flex-1 relative flex-col overflow-y-auto bg-panel xl:flex xl:flex-none`}>
-          <div className="space-y-3 p-3">
-            <h2 className="label">Line L1 · stopped</h2>
+        <section id="pane-line" role="tabpanel" aria-labelledby="tab-line" aria-label="Line and controls" className={`${tab === "line" ? "flex" : "hidden"} min-h-0 flex-1 relative flex-col overflow-y-auto xl:flex xl:flex-none`}>
+          <div className="space-y-4 p-4 xl:p-0">
+            <div className="card space-y-3 p-3">
+            <div className="flex items-center justify-between">
+              <h2 className="label">Incident</h2>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-bad/10 px-2 py-0.5 text-[11px] font-semibold text-bad">
+                <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-bad" />Line L1 · stopped
+              </span>
+            </div>
             {catalog.error && (
-              <p role="alert" className="flex items-start gap-2 rounded border border-bad p-2 text-sm"><IconAlert className="mt-0.5 shrink-0 text-bad" /><span><b className="text-bad">API unreachable.</b> {catalog.error}. Add <code className="font-mono">?mock=1</code> to the URL to play the recorded fixture offline.</span></p>
+              <p role="alert" className="flex items-start gap-2 rounded-lg border border-bad bg-bad/10 p-2 text-sm"><IconAlert className="mt-0.5 shrink-0 text-bad" /><span><b className="text-bad">API unreachable.</b> {catalog.error}. Add <code className="font-mono">?mock=1</code> to the URL to play the recorded fixture offline.</span></p>
             )}
             <div>
-              <label htmlFor="scenario" className="text-xs font-semibold">Stopped-line scenario</label>
+              <label htmlFor="scenario" className="text-xs font-semibold text-muted">Stopped-line scenario</label>
               <select
                 id="scenario"
                 value={scenarioId ?? ""}
@@ -200,7 +233,7 @@ export function Console({ catalog }: { catalog: Catalog }) {
                   setScenarioId(e.target.value);
                   reset();
                 }}
-                className="mt-1 w-full rounded border border-line bg-raised px-2 py-2 text-sm"
+                className="field mt-1"
               >
                 {adHoc && scenarioId && <optgroup label="Your upload"><option value={scenarioId}>{uploadLabel(scenarioId)}</option></optgroup>}
                 {scenarios?.groups.map((g) => (
@@ -215,21 +248,24 @@ export function Console({ catalog }: { catalog: Catalog }) {
                 ))}
               </select>
               {scenario && (
-                <p className="mt-1 text-[11px] text-muted">
-                  {adHoc ? "Your data" : scenario.real_signal ? "Real signals" : "Simulated"} · <span className="font-mono">{scenario.source_label}</span>{scenario.stop_ts && <> · stop at {fmtDateTime(scenario.stop_ts)}</>}
+                <p className="mt-1.5 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[11px] text-muted">
+                  <span className={`chip ${adHoc ? "border-dashed border-accent text-accent" : scenario.real_signal ? "border-fg/70 font-semibold text-fg" : "border-transparent bg-raised"}`}>{adHoc ? "Your data" : scenario.real_signal ? "Real signals" : "Simulated"}</span>
+                  <span className="font-mono">{scenario.source_label}</span>{scenario.stop_ts && <span>· stop at {fmtDateTime(scenario.stop_ts)}</span>}
                 </p>
               )}
             </div>
 
             <fieldset className="space-y-1" disabled={streaming}>
-              <legend className="text-xs font-semibold">Mode</legend>
-              <div className="flex gap-2">
-                <label className={`flex flex-1 items-center gap-2 rounded border px-2 py-1.5 text-sm ${mode === "replay" ? "border-accent" : "border-line"} ${adHoc ? "cursor-not-allowed opacity-60" : "cursor-pointer"}`}>
-                  <input type="radio" name="mode" value="replay" checked={mode === "replay"} disabled={adHoc} onChange={() => setMode("replay")} className="accent-[rgb(var(--accent))]" />
+              <legend className="mb-1 text-xs font-semibold text-muted">Mode</legend>
+              <div className="seg">
+                <label>
+                  <input type="radio" name="mode" value="replay" checked={mode === "replay"} disabled={adHoc} onChange={() => setMode("replay")} />
+                  <IconClock className="h-3.5 w-3.5" aria-hidden />
                   Replay
                 </label>
-                <label className={`flex flex-1 items-center gap-2 rounded border px-2 py-1.5 text-sm ${mode === "live" ? "border-accent" : "border-line"} ${liveAllowed ? "cursor-pointer" : "cursor-not-allowed opacity-60"}`}>
-                  <input type="radio" name="mode" value="live" checked={mode === "live"} disabled={!liveAllowed} onChange={() => setMode("live")} className="accent-[rgb(var(--accent))]" />
+                <label>
+                  <input type="radio" name="mode" value="live" checked={mode === "live"} disabled={!liveAllowed} onChange={() => setMode("live")} />
+                  <span aria-hidden className={`h-1.5 w-1.5 rounded-full ${mode === "live" ? "bg-bad blink" : "bg-muted"}`} />
                   Run live
                 </label>
               </div>
@@ -238,8 +274,8 @@ export function Console({ catalog }: { catalog: Catalog }) {
               {mode === "live" && liveAllowed && <p className="text-[11px] text-muted">Needs the demo passcode. Calls Gemini; costs real money.</p>}
               {mode === "replay" && runs.length > 1 && (
                 <div>
-                  <label htmlFor="run" className="text-xs font-semibold">Recorded run</label>
-                  <select id="run" value={runId ?? ""} onChange={(e) => setRunId(e.target.value)} className="mt-1 w-full rounded border border-line bg-raised px-2 py-2 text-sm">
+                  <label htmlFor="run" className="text-xs font-semibold text-muted">Recorded run</label>
+                  <select id="run" value={runId ?? ""} onChange={(e) => setRunId(e.target.value)} className="field mt-1">
                     {runs.map((r) => {
                       const info = replays.find((x) => x.run_id === r);
                       return <option key={r} value={r}>{r}{info ? ` · ${info.label.slice(0, 48)}` : ""}</option>;
@@ -248,13 +284,17 @@ export function Console({ catalog }: { catalog: Catalog }) {
                 </div>
               )}
               {mode === "replay" && canReplay && (
-                <div>
-                  <label htmlFor="speed" className="text-xs font-semibold">Replay speed</label>
-                  <select id="speed" value={speed} onChange={(e) => setSpeed(Number(e.target.value))} className="mt-1 w-full rounded border border-line bg-raised px-2 py-2 text-sm">
-                    <option value={1}>1x (as recorded, long pauses capped)</option>
-                    <option value={2}>2x</option>
-                    <option value={4}>4x</option>
-                  </select>
+                <div role="radiogroup" aria-labelledby="speed-label" className="pt-1">
+                  <span id="speed-label" className="mb-1 block text-xs font-semibold text-muted">Replay speed</span>
+                  <div className="seg">
+                    {[1, 2, 4].map((x) => (
+                      <label key={x} title={x === 1 ? "As recorded, long pauses capped" : undefined}>
+                        <input type="radio" name="speed" value={x} checked={speed === x} onChange={() => setSpeed(x)} aria-label={x === 1 ? "1x, as recorded with long pauses capped" : `${x}x`} />
+                        <span className="font-mono">{x}×</span>
+                      </label>
+                    ))}
+                  </div>
+                  <p className="mt-1 text-[11px] text-muted">1× plays as recorded, long pauses capped.</p>
                 </div>
               )}
               {mode === "replay" && !canReplay && <p className="text-[11px] text-warn">No recorded run for this scenario yet. Pick one marked ▶ replay, or run live.</p>}
@@ -262,21 +302,22 @@ export function Console({ catalog }: { catalog: Catalog }) {
 
             <div className="flex gap-2">
               {streaming ? (
-                <button type="button" className="btn flex-1" onClick={abort}>Stop watching</button>
+                <button type="button" className="btn !min-h-[44px] flex-1" onClick={abort}><IconStop className="h-3.5 w-3.5 text-bad" />Stop watching</button>
               ) : (
-                <button type="button" className="btn-primary flex-1" onClick={investigate} disabled={!scenarioId || (mode === "replay" && !canReplay)}>
-                  <IconBolt2 />{state.phase === "done" || conn === "dropped" ? "Investigate again" : "Investigate stop"}
+                <button type="button" className="btn-primary group !min-h-[44px] flex-1 !text-[15px]" onClick={investigate} disabled={!canInvestigate} aria-keyshortcuts="i">
+                  <IconPlay className="h-4 w-4" />{state.phase === "done" || conn === "dropped" ? "Investigate again" : "Investigate stop"}
+                  <span aria-hidden className="ml-1 hidden rounded border border-bg/30 px-1 font-mono text-[10px] leading-4 opacity-70 sm:inline">I</span>
                 </button>
               )}
             </div>
+            </div>
 
             <Mimic state={state} stoppedFallback={scenario?.stopped_station ?? null} />
-            <CostTicker running={state.phase === "streaming" && conn !== "dropped"} startKey={state.incidentId} />
           </div>
         </section>
 
         {/* ---- Centre: trace ---- */}
-        <section id="pane-trace" role="tabpanel" aria-labelledby="tab-trace" aria-label="Agent trace" className={`${tab === "trace" ? "flex" : "hidden"} min-h-0 flex-1 flex-col bg-panel xl:flex xl:flex-none`}>
+        <section id="pane-trace" role="tabpanel" aria-labelledby="tab-trace" aria-label="Agent trace" className={`${tab === "trace" ? "flex" : "hidden"} min-h-0 flex-1 flex-col overflow-hidden bg-panel xl:flex xl:flex-none xl:rounded-2xl`}>
           <Banners
             mode={active?.mode ?? null}
             replayInfo={replayInfo}
@@ -293,8 +334,8 @@ export function Console({ catalog }: { catalog: Catalog }) {
         </section>
 
         {/* ---- Right: RCA + action ---- */}
-        <section id="pane-rca" tabIndex={-1} role="tabpanel" aria-labelledby="tab-rca" aria-label="Root cause and action" className={`${tab === "rca" ? "flex" : "hidden"} min-h-0 flex-1 flex-col bg-panel xl:flex xl:flex-none`}>
-          <RcaPane key={state.incidentId ?? "none"} state={state} passcode={state.mode === "live" ? passcode : null} isMock={!!mock} onEvidence={setEvidence} techLink={techLink} langEnabled={langEnabled(config)} />
+        <section id="pane-rca" tabIndex={-1} role="tabpanel" aria-labelledby="tab-rca" aria-label="Root cause and action" className={`${tab === "rca" ? "flex" : "hidden"} min-h-0 flex-1 flex-col overflow-hidden bg-panel xl:flex xl:flex-none xl:rounded-2xl`}>
+          <RcaPane key={state.incidentId ?? "none"} onDecided={setDecided} state={state} passcode={state.mode === "live" ? passcode : null} isMock={!!mock} onEvidence={setEvidence} techLink={techLink} langEnabled={langEnabled(config)} />
         </section>
       </main>
 
@@ -322,7 +363,6 @@ export function Console({ catalog }: { catalog: Catalog }) {
   );
 }
 
-const IconBolt2 = () => <span aria-hidden className="font-mono">▶</span>;
 
 function describeHttp(status: number, code: string, message: string, retryAfter: number | null): string {
   if (status === 429) return `Too many requests (${code}). ${retryAfter ? `Try again in ${retryAfter} s. ` : ""}${message}`;
@@ -347,7 +387,7 @@ function Banners(p: {
   return (
     <div className="space-y-px">
       {p.mode === "replay" && p.runId && (
-        <div className="flex items-start gap-2 border-b border-line bg-raised px-3 py-1.5 text-xs" data-testid="replay-banner">
+        <div className="flex items-start gap-2 border-b border-line bg-raised/60 px-4 py-2 text-xs" data-testid="replay-banner">
           <IconClock className="mt-0.5 shrink-0 text-muted" />
           <span>
             <b>Replay</b> of run <span className="font-mono">#{p.runId}</span>
@@ -356,27 +396,70 @@ function Banners(p: {
         </div>
       )}
       {p.mode === "live" && (
-        <div className="border-b border-line bg-raised px-3 py-1.5 text-xs" data-testid="live-banner"><b>Live run.</b> Agents are calling Gemini now.</div>
+        <div className="flex items-center gap-2 border-b border-bad/30 bg-bad/5 px-4 py-2 text-xs" data-testid="live-banner"><span aria-hidden className="h-2 w-2 rounded-full bg-bad blink" /><span><b>Live run.</b> Agents are calling Gemini now.</span></div>
       )}
       {p.notice && (
-        <div role="status" className="flex items-start gap-2 border-b border-warn bg-warn/10 px-3 py-2 text-sm" data-testid="budget-notice"><IconInfo className="mt-0.5 shrink-0 text-warn" /><span><b className="text-warn">Budget exhausted: switched to replay.</b> {p.notice}</span></div>
+        <div role="status" className="flex items-start gap-2 border-b border-warn bg-warn/10 px-4 py-2 text-sm" data-testid="budget-notice"><IconInfo className="mt-0.5 shrink-0 text-warn" /><span><b className="text-warn">Budget exhausted: switched to replay.</b> {p.notice}</span></div>
       )}
       {p.showBudgetBanner && (
         <div className="flex items-start gap-2 border-b border-line px-3 py-1.5 text-xs text-muted"><IconInfo className="mt-0.5 shrink-0" />Live budget for today is used up; recorded replays still work.</div>
       )}
       {p.conn === "reconnecting" && (
-        <div role="status" className="flex items-center gap-2 border-b border-warn bg-warn/10 px-3 py-2 text-sm" data-testid="reconnecting"><Spinner label="reconnecting" /><b className="text-warn">Connection lost, reconnecting…</b></div>
+        <div role="status" className="flex items-center gap-2 border-b border-warn bg-warn/10 px-4 py-2 text-sm" data-testid="reconnecting"><Spinner label="reconnecting" /><b className="text-warn">Connection lost, reconnecting…</b></div>
       )}
       {p.conn === "dropped" && (
-        <div role="alert" className="flex flex-wrap items-center gap-2 border-b border-bad bg-bad/10 px-3 py-2 text-sm" data-testid="dropped">
+        <div role="alert" className="flex flex-wrap items-center gap-2 border-b border-bad bg-bad/10 px-4 py-2 text-sm" data-testid="dropped">
           <IconAlert className="text-bad" />
           <span className="flex-1"><b className="text-bad">Stream dropped.</b> The partial trace above is kept. A live run is never restarted automatically because that would bill a second run.</span>
           {p.canOfferReplay && <button type="button" className="btn" onClick={p.onOfferReplay}>Play the recorded replay</button>}
         </div>
       )}
       {p.httpErrorMsg && (
-        <div role="alert" className="flex items-start gap-2 border-b border-bad bg-bad/10 px-3 py-2 text-sm" data-testid="http-error"><IconAlert className="mt-0.5 shrink-0 text-bad" /><span>{p.httpErrorMsg}</span></div>
+        <div role="alert" className="flex items-start gap-2 border-b border-bad bg-bad/10 px-4 py-2 text-sm" data-testid="http-error"><IconAlert className="mt-0.5 shrink-0 text-bad" /><span>{p.httpErrorMsg}</span></div>
       )}
     </div>
+  );
+}
+
+/** Pastel KPI tiles, after the kit's top row. Every number is read from the stream or labelled as an assumption. */
+function Kpis({ state, running }: { state: IncidentState; running: boolean }) {
+  const report = state.final ?? state.draft;
+  const claims = claimsOf(report);
+  const verified = claims.filter((c) => claimState(state.verdicts, c.claim_id) === "verified").length;
+  const caught = state.revisions.reduce((n, r) => n + r.rejected.length, 0);
+  const real = state.toolOrder.filter((id) => state.tools[id]?.provenance.some((p) => p.real)).length;
+  const top = state.final?.status === "verified" ? state.final.hypotheses[0] : null;
+  return (
+    <section aria-label="Incident at a glance" className="flex shrink-0 snap-x gap-3 overflow-x-auto px-4 py-3 [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-3 lg:gap-4 lg:pl-4 lg:pr-3 lg:pt-4 xl:grid-cols-4 [&>div]:min-w-[168px] [&>div]:snap-start [&>div]:max-sm:p-3">
+      <h2 className="sr-only">Incident at a glance</h2>
+      <CostTicker running={running} startKey={state.incidentId} />
+      <div className="kpi kpi-2" data-testid="kpi-evidence">
+        <p className="text-sm font-semibold">Evidence</p>
+        <div className="mt-2 flex items-end justify-between gap-2">
+          <span className="text-2xl font-semibold leading-none tabular-nums">{state.toolOrder.length}</span>
+          <span className="kpi-muted text-xs">{real ? `${real} on REAL signals` : "tool calls"}</span>
+        </div>
+      </div>
+      <div className="kpi kpi-1" data-testid="kpi-claims">
+        <p className="text-sm font-semibold">Claims verified</p>
+        <div className="mt-2 flex items-end justify-between gap-2">
+          <span className="text-2xl font-semibold leading-none tabular-nums">{claims.length ? `${verified}/${claims.length}` : "–"}</span>
+          {caught > 0 ? (
+            <span className="kpi-muted inline-flex items-center gap-1 text-xs">{caught} caught <IconArrowRight className="h-3 w-3 -rotate-45" /></span>
+          ) : (
+            <span className="kpi-muted text-xs">checked by code</span>
+          )}
+        </div>
+      </div>
+      <div className="kpi kpi-2" data-testid="kpi-root">
+        <p className="text-sm font-semibold">Root cause</p>
+        <div className="mt-2 flex items-end justify-between gap-2">
+          <span className="text-2xl font-semibold leading-none tabular-nums">{top ? `${Math.round(top.confidence * 100)}%` : "–"}</span>
+          <span className="kpi-muted inline-flex min-w-0 items-center gap-1 truncate text-xs">
+            {top ? <><IconCheckK className="h-3 w-3 shrink-0" /><span className="truncate font-mono">{top.asset_id}</span></> : state.final ? "insufficient evidence" : "not yet verified"}
+          </span>
+        </div>
+      </div>
+    </section>
   );
 }

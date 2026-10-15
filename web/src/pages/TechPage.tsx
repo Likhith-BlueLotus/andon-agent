@@ -17,7 +17,7 @@ import { IconAlert, IconCheck, IconClock, IconInfo, IconLock, IconX, Spinner, St
 const STEPS = ["Pick", "Stopped", "Root cause", "Safety", "Approve"] as const;
 const PICK = 0, STOPPED = 1, CAUSE = 2, SAFETY = 3, APPROVE = 4;
 
-const inputCls = "mt-1 w-full rounded-md border border-line bg-raised px-3 py-3 text-base";
+const inputCls = "field mt-1 !py-3 !text-base";
 const bigBtn = "!min-h-[56px] !text-base";
 
 export function TechPage({ catalog }: { catalog: Catalog }) {

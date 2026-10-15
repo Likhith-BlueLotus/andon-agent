@@ -187,7 +187,7 @@ export function UploadPage({ catalog, navigate }: { catalog: Catalog; navigate: 
             )}
             <div className="mt-2 max-w-sm">
               <label htmlFor="ts-col" className="text-xs font-semibold">Timestamp column</label>
-              <select id="ts-col" value={ts} onChange={(e) => setTs(e.target.value)} aria-invalid={showErrors && !ts} className="mt-1 w-full rounded border border-line bg-raised px-2 py-2 text-sm">
+              <select id="ts-col" value={ts} onChange={(e) => setTs(e.target.value)} aria-invalid={showErrors && !ts} className="field mt-1">
                 <option value="">Choose…</option>
                 {proposal.columns.map((c) => <option key={c.name} value={c.name}>{c.name} ({c.dtype})</option>)}
               </select>
@@ -204,19 +204,19 @@ export function UploadPage({ catalog, navigate }: { catalog: Catalog; navigate: 
             <div className="grid gap-3 sm:grid-cols-2">
               <div>
                 <label htmlFor="stn" className="text-xs font-semibold">Stopped station</label>
-                <select id="stn" value={station} onChange={(e) => setStation(e.target.value)} className="mt-1 w-full rounded border border-line bg-raised px-2 py-2 text-sm">
+                <select id="stn" value={station} onChange={(e) => setStation(e.target.value)} className="field mt-1">
                   {STATIONS.map((s) => <option key={s.id} value={s.id}>{s.id} · {s.name}</option>)}
                 </select>
               </div>
               <div>
                 <label htmlFor="stop-ts" className="text-xs font-semibold">Stop time, UTC (optional)</label>
-                <input id="stop-ts" type="datetime-local" value={stopLocal} onChange={(e) => setStopLocal(e.target.value)} className="mt-1 w-full rounded border border-line bg-raised px-2 py-2 text-sm" aria-describedby="stop-ts-help" />
+                <input id="stop-ts" type="datetime-local" value={stopLocal} onChange={(e) => setStopLocal(e.target.value)} className="field mt-1" aria-describedby="stop-ts-help" />
                 <p id="stop-ts-help" className="mt-1 text-[11px] text-muted">Leave blank to use the last timestamp in the file.</p>
               </div>
             </div>
             <div>
               <label htmlFor="stop-text" className="text-xs font-semibold">What happened (short, optional)</label>
-              <textarea id="stop-text" rows={2} maxLength={400} value={stopText} onChange={(e) => setStopText(e.target.value)} placeholder="e.g. Line stopped at ST20, weld gun faults, operator heard hissing" className="mt-1 w-full rounded border border-line bg-raised px-2 py-2 text-sm" />
+              <textarea id="stop-text" rows={2} maxLength={400} value={stopText} onChange={(e) => setStopText(e.target.value)} placeholder="e.g. Line stopped at ST20, weld gun faults, operator heard hissing" className="field mt-1" />
             </div>
           </section>
 
@@ -331,21 +331,21 @@ function MapRowCard({ col, row, targets, error, onChange }: { col: UploadProposa
         <div className="mt-2 grid gap-2 sm:grid-cols-[1fr_1fr_6rem]">
           <div>
             <label htmlFor={`${id}-a`} className="text-xs font-semibold">Asset</label>
-            <select id={`${id}-a`} value={row.asset_id} onChange={(e) => onChange({ asset_id: e.target.value, tag: "" })} aria-invalid={!!error} className="mt-1 w-full rounded border border-line bg-raised px-2 py-2 text-sm">
+            <select id={`${id}-a`} value={row.asset_id} onChange={(e) => onChange({ asset_id: e.target.value, tag: "" })} aria-invalid={!!error} className="field mt-1">
               <option value="">Choose…</option>
               {targets.map((a) => <option key={a.asset_id} value={a.asset_id}>{a.asset_id} · {a.name}</option>)}
             </select>
           </div>
           <div>
             <label htmlFor={`${id}-t`} className="text-xs font-semibold">Tag</label>
-            <select id={`${id}-t`} value={row.tag} disabled={!asset} onChange={(e) => onChange({ tag: e.target.value })} aria-invalid={!!error} className="mt-1 w-full rounded border border-line bg-raised px-2 py-2 text-sm">
+            <select id={`${id}-t`} value={row.tag} disabled={!asset} onChange={(e) => onChange({ tag: e.target.value })} aria-invalid={!!error} className="field mt-1">
               <option value="">{asset ? "Choose…" : "Pick an asset first"}</option>
               {asset?.tags.map((t) => <option key={t.tag} value={t.tag}>{t.tag}{t.unit ? ` (${t.unit})` : ""}</option>)}
             </select>
           </div>
           <div>
             <label htmlFor={`${id}-s`} className="text-xs font-semibold">Scale</label>
-            <input id={`${id}-s`} inputMode="decimal" value={row.scale} onChange={(e) => onChange({ scale: e.target.value })} aria-invalid={!!error} className="mt-1 w-full rounded border border-line bg-raised px-2 py-2 font-mono text-sm" />
+            <input id={`${id}-s`} inputMode="decimal" value={row.scale} onChange={(e) => onChange({ scale: e.target.value })} aria-invalid={!!error} className="field mt-1 font-mono" />
           </div>
           {tag && (
             <p className="text-[11px] text-muted sm:col-span-3" data-testid={`range-${col.name}`}>

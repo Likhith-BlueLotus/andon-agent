@@ -201,3 +201,8 @@ Template — copy for each entry:
 - **Do differently / rule added:** check the page for the backend you actually use; for "memory only" claims check what the framework's parser does with large parts.
 - **Cost (time / $):** ~1 h / $0.002 (two live clips: WAV 16 kHz and AAC in mp4).
 
+
+### 2026-10-12 — Vite keeps the old Tailwind config until restarted; hidden preview tabs freeze motion mid-flight (UI/UX pass, person A)
+- **What happened:** adding colour tokens to `tailwind.config.js` broke the running dev server (`bg-sunken class does not exist`) until it was restarted. Screenshots of a hidden browser pane showed animations half-done (stepper underline, eval dots) because rAF is throttled; computed styles were already final.
+- **Do differently / rule added:** restart `npm run dev` after any Tailwind config change; verify animated end-states with computed styles, not screenshots. Exit animations stay off (enter-only) so dialogs unmount at once and tests stay deterministic.
+- **Cost (time / $):** ~10 min / $0.
