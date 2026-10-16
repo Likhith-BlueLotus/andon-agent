@@ -27,9 +27,9 @@ Real numbers from the recorded run `s014-cloud-1` (`data/replays/s014-cloud-1.js
 Layout from `docs/ARCHITECTURE.md` section 2 (agent graph: Commander, then Parallel(Signal Analyst, Evidence Librarian), then Loop(RCA Judge <-> Verifier, max 3), then Action Drafter; human approval at the end). Build it as a left-to-right flow, not a copy of the Mermaid.
 - Boxes, in order: `Incident Commander` -> `Signal Analyst` + `Evidence Librarian` (parallel) -> `RCA Judge` <-> `Deterministic Verifier (code, no LLM)` -> `Action Drafter` -> `Human approval` -> `Mock CMMS (PENDING_APPROVAL)`.
 - Model labels: Commander, Signal Analyst, Evidence Librarian, RCA Judge: `Gemini 3.8 Flash` (Librarian also `Gemini 3.1 Flash-Lite` for bulk text). Verifier: no model. Do not show 3.1 Pro anywhere; the measured judge is Flash (ADR-026, `eval/results/final_pro/results_table.md` shows Pro was worse: S 0.90, R 0.71).
-- Service strip along the bottom: `Cloud Run` `Firebase Hosting` `BigQuery` `Firestore` `Cloud Storage` `Secret Manager` (all in `docs/ARCHITECTURE.md` section 2 and its table; also Vertex AI / Agent Platform for Gemini).
+- Service strip along the bottom: `Agent Platform (Gemini)` `Cloud Run` `Firebase Hosting` `Firestore` `Cloud Storage` `Secret Manager` (all in `docs/ARCHITECTURE.md` section 2 and its table; also Vertex AI / Agent Platform for Gemini).
 - Footer chip: `No physical writes. One write tool: draft_work_order`.
-- Voiceover: "Six ADK agents: commander, signal analyst, evidence librarian, RCA judge, a deterministic verifier with no model in it, and an action drafter. Gemini 3.8 Flash reasons; 3.1 Flash-Lite handles volume. Cloud Run, Firebase Hosting, BigQuery, Firestore, Cloud Storage, Secret Manager." (40 words)
+- Voiceover: "Six ADK agents: commander, signal analyst, evidence librarian, RCA judge, a deterministic verifier with no model in it, and an action drafter. Gemini 3.8 Flash reasons; 3.1 Flash-Lite handles volume. Agent Platform runs Gemini; Cloud Run, Firebase Hosting, Firestore, Cloud Storage, Secret Manager." (40 words)
 
 ## M5 Results, 2:25-2:45 (20 s)
 All numbers from run id `final_v2`: `eval/results/final_v2/results_table.md` and `eval/results/final_v2/summary.json`. Two separate panels, never merged. Use 95% Wilson intervals as printed.

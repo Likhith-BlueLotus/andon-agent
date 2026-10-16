@@ -2,7 +2,15 @@
 
 All commands use `CLOUDSDK_ACTIVE_CONFIG_NAME=andon` (project `andon-511816`, region `asia-south1`).
 
+## Who checks, when (Oct 19 - Nov 6; finale Dec 4)
+| Days | Daily check owner | Backup |
+|---|---|---|
+| Mon, Wed, Fri, Sun | Person A (Likhith M) | Person B |
+| Tue, Thu, Sat | Person B | Person A |
+One-line status in the team chat after each check: `judging_check: ALL PASS` or the failing line.
+
 ## Daily URL check (once a day, 2 min)
+0. `bash infra/judging_check.sh` (free, replay only) — expect `ALL PASS`. Once a week, or after any deploy: `LIVE=1 bash infra/judging_check.sh` (~$0.15).
 1. `bash scripts/smoke.sh https://<api-url>` (add `TOKEN=$(gcloud auth print-identity-token)` only if the service is private). Expect `PASS`, replay `done` within 120 s, events spread over time (no buffering warning).
 2. Open the web URL in an incognito window: badge `SYNTHETIC LINE · REAL SIGNALS MARKED` visible, replay plays.
 3. Spend: `bash infra/cost_report.sh` (when present) or Console > Billing > Reports (gross cost, group by SKU). Compare with the DEVELOPMENT.md section 7 ledger. Budget alerts fire at $100/$200/$250.

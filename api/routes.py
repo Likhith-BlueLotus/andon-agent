@@ -6,6 +6,7 @@ import asyncio
 import hashlib
 import hmac
 import logging
+import os
 import re
 import uuid
 from datetime import UTC, datetime
@@ -113,6 +114,7 @@ def build_router(ctx: AppContext) -> APIRouter:
         return {
             "status": "ok",
             "version": config.APP_VERSION,
+            "git_sha": os.environ.get("GIT_SHA", "unknown"),  # set by infra/deploy_api.sh
             "contract_version": CONTRACT_VERSION,
             "theme": config.THEME,
             "store_backend": st.store_backend,

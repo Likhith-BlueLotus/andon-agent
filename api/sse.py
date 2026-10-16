@@ -164,6 +164,7 @@ async def sse_frames(
     finally:
         if pump is not None and not pump.done():
             pump.cancel()  # cancels the ADK run; do not await (we may be inside a cancel scope)
+            log.info("stream closed before the run finished; investigation cancelled")
         if recorder is not None:
             recorder.finish("cancelled", int((time.perf_counter() - t0) * 1000))  # no-op if done
         if on_close is not None:

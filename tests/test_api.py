@@ -756,6 +756,7 @@ async def test_scenarios_from_local_db_never_leak_truth(tmp_path):
 async def test_health_config_eval_sources(h):
     hl = (await h.client.get("/health")).json()
     assert hl["status"] == "ok" and hl["contract_version"] and "models" in hl
+    assert "git_sha" in hl  # proves which commit is deployed (release check)
     cfg = (await h.client.get("/api/config")).json()
     assert cfg["theme"].startswith("Manufacturing") and cfg["modes"]["live"] is True
     assert cfg["budget"]["remaining_usd"] == 5.0

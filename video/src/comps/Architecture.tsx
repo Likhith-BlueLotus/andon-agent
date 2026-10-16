@@ -50,7 +50,7 @@ const Tool: React.FC<{ f: number; at: number; text: string; note?: string }> = (
 export const Architecture: React.FC = () => {
   useFonts();
   const f = useCurrentFrame();
-  const cloud = ["Agent Platform (Gemini)", "Cloud Run", "Firebase Hosting", "BigQuery", "Firestore", "Cloud Storage", "Secret Manager"];
+  const cloud = ["Agent Platform (Gemini)", "Cloud Run", "Firebase Hosting", "Firestore", "Cloud Storage", "Secret Manager"];
   return (
     <AbsoluteFill>
       <Stage>
