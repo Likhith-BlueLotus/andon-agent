@@ -318,6 +318,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--prefix", default=STORE_PREFIX)
     ap.add_argument("--project", default=None)
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--workers", type=int, default=4, help="parallel uploads (1 on a slow uplink)")
     args = ap.parse_args(argv)
     tokens = [x.strip() for x in args.ids.split(",") if x.strip()]
     ids = None
@@ -330,7 +331,12 @@ def main(argv: list[str] | None = None) -> int:
             ap.error(f"--ids {args.ids!r} matches no scenario")
     t0 = time.time()
     res = publish(
-        args.scenarios, GcsBucket(args.bucket, args.project), ids, args.prefix, args.dry_run
+        args.scenarios,
+        GcsBucket(args.bucket, args.project),
+        ids,
+        args.prefix,
+        args.dry_run,
+        workers=max(1, args.workers),
     )
     n_denied = sum(len(v) for v in res["denied"].values())
     print(
