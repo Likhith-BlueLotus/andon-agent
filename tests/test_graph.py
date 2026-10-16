@@ -243,6 +243,20 @@ def test_tool_budget_guard_returns_structured_result(store):
     assert out[12]["error"]["code"] == "budget_reached" and out[12]["evidence_id"] is None
 
 
+def test_set_model_response_is_never_counted_or_refused(store):
+    # ADR-031: on endpoints without native schema+tools the answer arrives via set_model_response;
+    # refusing it as "budget_reached" lost the commander's plan
+    rt = Runtime(store=store, mode="live")
+    scope = rt.open_scope("inc", SID)
+    guard = rt.budget_guard("commander")
+    tc = SimpleNamespace(state={"andon_run": scope.key})
+    for _ in range(3):
+        assert guard(SimpleNamespace(name="list_assets"), {}, tc) is None
+    assert guard(SimpleNamespace(name="list_assets"), {}, tc)["error"]["code"] == "budget_reached"
+    assert guard(SimpleNamespace(name="set_model_response"), {}, tc) is None
+    assert scope.used("commander") == 4  # the answer did not count
+
+
 def test_cmms_only_creates_pending_drafts(tmp_path):
     wo = WorkOrder(
         wo_id="W1",

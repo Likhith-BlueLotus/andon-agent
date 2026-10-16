@@ -33,6 +33,7 @@ from typing import Any
 
 from google.adk.agents.invocation_context import LlmCallsLimitExceededError
 from google.adk.models import Gemini
+from google.adk.models.base_llm import LlmCapabilities, gemini_output_schema_and_tools
 from google.adk.models.llm_request import LlmRequest
 from google.adk.models.llm_response import LlmResponse
 from google.adk.plugins.base_plugin import BasePlugin
@@ -77,6 +78,12 @@ class PinnedGemini(Gemini):
 
     thinking_level: str | None = None
     timeout_s: float = config.LLM_TIMEOUT_S
+
+    @property
+    def capabilities(self) -> LlmCapabilities:
+        # see config.NATIVE_SCHEMA_WITH_TOOLS: off unless explicitly enabled for an endpoint that takes it
+        native = config.NATIVE_SCHEMA_WITH_TOOLS and gemini_output_schema_and_tools(self.model)
+        return LlmCapabilities(output_schema_and_tools=native)
 
     async def generate_content_async(
         self, llm_request: LlmRequest, stream: bool = False

@@ -78,6 +78,10 @@ HARD_STOP_REFUSALS = 3
 TOOLS_WITHDRAWN_NOTE = (
     "Tool budget used up: answer now from the evidence you have. Do not call any tool."
 )
+TOOLS_WITHDRAWN_STRUCTURED_NOTE = (
+    "Tool budget used up: call set_model_response now with your final answer from the evidence "
+    "you have. Do not call any other tool."
+)
 # ADK's own structured-output tool (output_schema + tools on a model without native support):
 # kept when tools are withdrawn, it is how such an agent returns its final answer.
 _KEEP_TOOLS = frozenset({"set_model_response"})
@@ -467,6 +471,10 @@ class Runtime:
         cap = limit if limit is not None else TOOL_BUDGETS[agent]
 
         def before_tool(tool: Any, args: dict[str, Any], tool_context: Any) -> dict | None:
+            if getattr(tool, "name", None) in _KEEP_TOOLS:
+                return (
+                    None  # ADK's set_model_response hands in the answer; never count or refuse it
+                )
             try:
                 scope = self.scope_for(tool_context.state)
             except RuntimeError:
@@ -538,7 +546,18 @@ def withdraw_tools(llm_request: LlmRequest, output_schema: Any = None) -> None:
             kept.append(types.Tool(function_declarations=decls))
     cfg.tools = kept or None
     cfg.tool_config = None
-    if output_schema is not None and not kept and cfg.response_schema is None:
+    if kept:
+        # structured output travels through ADK's set_model_response tool (no native schema +
+        # tools, ADR-031): force exactly that call, or the model answers in prose and the
+        # agent's output_schema fails to parse
+        cfg.tool_config = types.ToolConfig(
+            function_calling_config=types.FunctionCallingConfig(
+                mode=types.FunctionCallingConfigMode.ANY, allowed_function_names=sorted(_KEEP_TOOLS)
+            )
+        )
+        llm_request.append_instructions([TOOLS_WITHDRAWN_STRUCTURED_NOTE])
+        return
+    if output_schema is not None and cfg.response_schema is None:
         llm_request.set_output_schema(output_schema)
     llm_request.append_instructions([TOOLS_WITHDRAWN_NOTE])
 

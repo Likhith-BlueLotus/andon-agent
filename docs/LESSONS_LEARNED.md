@@ -206,3 +206,9 @@ Template — copy for each entry:
 - **What happened:** adding colour tokens to `tailwind.config.js` broke the running dev server (`bg-sunken class does not exist`) until it was restarted. Screenshots of a hidden browser pane showed animations half-done (stepper underline, eval dots) because rAF is throttled; computed styles were already final.
 - **Do differently / rule added:** restart `npm run dev` after any Tailwind config change; verify animated end-states with computed styles, not screenshots. Exit animations stay off (enter-only) so dialogs unmount at once and tests stay deterministic.
 - **Cost (time / $):** ~10 min / $0.
+
+### 2026-10-16 — Same model ID, different endpoint behaviour after the project move (person A)
+- **What happened:** after moving to `andon-511816` every live run failed after the commander: `400 Function calling with a response mime type: 'application/json' is unsupported`. ADK assumes every Vertex Gemini can pair an output schema with tools; the new project's endpoint refuses it although the old one accepted the same pinned ID.
+- **Fix:** `config.NATIVE_SCHEMA_WITH_TOOLS=0` → `PinnedGemini.capabilities` says no, so ADK carries structured output through its `set_model_response` tool. That exposed two of our bugs on that path: the tool-budget guard counted and refused `set_model_response` (plan lost), and the ADR-027 gate told the model "do not call any tool" instead of forcing `set_model_response`.
+- **Do differently / rule added:** after any project/region move, run one live diagnosis before declaring the deploy done; never let a budget guard touch the framework's answer channel.
+- **Cost (time / $):** ~40 min / ~$0.35 of live checks.

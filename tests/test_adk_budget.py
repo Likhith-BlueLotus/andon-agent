@@ -370,3 +370,13 @@ def _causes(e):
         out.append(e)
         e = e.__cause__ or e.__context__
     return out
+
+
+def test_live_model_does_not_pair_output_schema_with_tools_by_default(monkeypatch):
+    # ADR-031: the andon-511816 endpoint rejects tools + response_mime_type in one request
+    from agents.adk_budget import make_model
+
+    m = make_model(config.FLASH, "LOW")
+    assert m.capabilities.output_schema_and_tools is False
+    monkeypatch.setattr(config, "NATIVE_SCHEMA_WITH_TOOLS", True)
+    assert make_model(config.FLASH, "LOW").capabilities.output_schema_and_tools is True

@@ -19,6 +19,7 @@ Every event is validated against the contract (``api.events.parse_event``); ``se
 
 from __future__ import annotations
 
+import json
 import logging
 import time
 import uuid
@@ -36,6 +37,8 @@ from agents.judge import MODEL_KEY
 from agents.runtime import AGENT_MARK, EVENT_PREFIX, RUN_KEY
 from api.events import Event, parse_event
 
+# ADK's structured-output tool (ADR-031): how an agent hands in its answer, not a tool card
+INTERNAL_TOOLS = frozenset({"set_model_response"})
 log = logging.getLogger("andon.events")
 
 PASSTHROUGH = frozenset(
@@ -113,7 +116,7 @@ class EventMapper:
         ts = float(getattr(ev, "timestamp", None) or time.time())
         for p in parts:
             fc = getattr(p, "function_call", None)
-            if fc is not None:
+            if fc is not None and fc.name not in INTERNAL_TOOLS:
                 cid = fc.id or f"call_{uuid.uuid4().hex[:8]}"
                 self._call_ts[cid] = ts
                 self._safe(out, "tool_call", {"call_id": cid, "tool": fc.name, "args": dict(fc.args or {})}, author)  # fmt: skip
@@ -122,7 +125,7 @@ class EventMapper:
                 self._safe(out, v["type"], v.get("data") or {}, author)
         for p in parts:
             fr = getattr(p, "function_response", None)
-            if fr is not None:
+            if fr is not None and fr.name not in INTERNAL_TOOLS:
                 self._safe(out, "tool_result", self._tool_result(fr, delta, ts), author)
 
         meta = getattr(ev, "custom_metadata", None) or {}
@@ -134,8 +137,9 @@ class EventMapper:
         if kind in PASSTHROUGH:
             self._safe(out, kind, data, author)
 
-        if isinstance(delta.get("plan"), dict) and "steps" in delta["plan"]:
-            self._safe(out, "plan", {"steps": list(delta["plan"]["steps"])}, author)
+        plan = _as_dict(delta.get("plan"))
+        if plan is not None and "steps" in plan:
+            self._safe(out, "plan", {"steps": list(plan["steps"])}, author)
         if isinstance(delta.get("rca_final"), dict):
             self._safe(out, "rca_final", delta["rca_final"], author)
         if isinstance(delta.get("work_order"), dict):
@@ -300,3 +304,19 @@ def run_cost(app: AndonApp, invocation: str, *, pop: bool = True) -> dict:
 
 def _zero_cost() -> dict:
     return {"input_tokens": 0, "output_tokens": 0, "cached_tokens": 0, "usd": 0.0, "by_model": {}}
+
+
+def _as_dict(value: Any) -> dict | None:
+    """An agent's ``output_key`` value as a dict: native structured output stores a dict, ADK's
+    ``set_model_response`` path (ADR-031) can store a JSON string or a pydantic model."""
+    if isinstance(value, dict):
+        return value
+    if hasattr(value, "model_dump"):
+        return value.model_dump()
+    if isinstance(value, str):
+        try:
+            parsed = json.loads(value)
+        except ValueError:
+            return None
+        return parsed if isinstance(parsed, dict) else None
+    return None

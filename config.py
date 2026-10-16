@@ -100,6 +100,10 @@ def price_for(model_id: str) -> Price:
 DAILY_BUDGET_USD = float(_env("DAILY_BUDGET_USD", "8"))
 BUDGET_TIMEZONE = "Asia/Kolkata"  # the "day" for the kill switch is an IST day
 MAX_LLM_CALLS = int(_env("MAX_LLM_CALLS", "40"))
+# Output schema + tools in ONE Gemini request. ADK assumes every Vertex Gemini supports it, but the
+# andon-511816 endpoint rejects it (400 "Function calling with a response mime type ... unsupported",
+# ADR-031); off = ADK's own set_model_response tool carries the structured output (works everywhere).
+NATIVE_SCHEMA_WITH_TOOLS = _env("NATIVE_SCHEMA_WITH_TOOLS", "0") == "1"
 LLM_MAX_RETRIES = 4
 LLM_BACKOFF_BASE_S = 1.0
 LLM_BACKOFF_MAX_S = 20.0
