@@ -1,5 +1,13 @@
 # Handoff log (newest first)
 
+## 2026-10-17 — Person A — Release candidate v1.0-rc (new GCP project andon-511816)
+**Live:** web https://andon-agent-b9c77.web.app · API https://andon-api-359520289475.asia-south1.run.app (revision with `/health` git_sha 6f6ea10, max-instances 1, stretch upload,tech,lang). Old project `andon-agent-511218` suspended 2026-10-13 (appeal pending) → moved per ADR-031; new demo passcode in Secret Manager (`--project andon-511816`).
+**Release check: all pass.** main green (708 pytest, ruff, 150 vitest + build); judging_check ALL PASS; live R002 in the browser verified air_pressure_drop @ UT-AIR (7/7 claims, PASS iter 1, 19 LOTO steps, $0.14); replay `r002-cloud-1` re-recorded on the final build, `s014-cloud-1` keeps the verifier rejection; final security review + data audit: OK to submit, no blockers.
+**Hardening:** 5/5 live runs PASS (p50 104 s, p95 112 s, 0 fallbacks, $0.77); warm /health 0.16 s; cancel on client disconnect does NOT happen on Cloud Run (RISKS #27, bounded by limits + kill switch); andon.* INFO logs (cost ledger) now reach Cloud Logging.
+**Fixes in the move:** new endpoint rejects tools + JSON schema in one request → set_model_response path (ADR-031 lesson); deploy script exit bug; publish --workers.
+**Spend:** ≈ $86 Gemini to date (ledger in DEVELOPMENT.md §7); eval $79 of $120 hard stop.
+**Remaining (Person B / both):** record screen segments (no mock screenshots 04/53), edit + upload the video (<3:00, public), deck content + PDF, fresh screenshots of the redesigned UI, submission form + confirmation screenshot, Q&A rehearsal. Daily judging check owners in docs/RUNBOOK_JUDGING.md. Warm for recording: `bash infra/warm.sh on` (off after).
+
 ## 2026-10-12 — Person A — Phase 5 DONE (eval), ADR-025/026/027
 **Results (final_v2, Flash judge, `eval/results/final_v2`, slide `results_slide.png`, live at /eval):** S-set top-1 S1 0.98 [0.91, 1.00] · S2 1.00 · B1 0.92 · B2 0.15; held-out S051–S060 S1 10/10, B1 9/10. R-set S1 0.76 [0.53, 0.90] · S2 0.76 · B1 0.59 · B2 0.24. Unsupported claims S1 1/586 vs B1 54/645. S1 vs B1 top-1 not significant (McNemar p 0.219 S / 0.375 R). Variance (15×3): 0.80/0.73/0.87. S3 (no audio/spectrum) 1.00 on the audio subset. S1 Pro judge: S 0.90 / R 0.71, $0.16/run → Flash stays.
 **Honest reading:** the win over one long prompt is grounding, not accuracy; the verifier loop adds little over S2 in this eval (its value is code-checked LOTO + premises); UCI R009–R011 missed by every system; R002 (demo) unstable across repeats.
