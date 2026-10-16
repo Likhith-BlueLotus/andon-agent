@@ -62,8 +62,8 @@ def _ts(t: TimeLike) -> datetime:
 
 
 def scenario_num(scenario_id: str) -> int:
-    """Integer partition key: S001 -> 1, R001 -> 1001, U001 -> 2001."""
-    base = {"S": 0, "R": 1000, "U": 2000}[scenario_id[0]]
+    """Integer partition key: S001 -> 1, R001 -> 1001, U001 -> 2001, C001 -> 3001."""
+    base = {"S": 0, "R": 1000, "U": 2000, "C": 3000}[scenario_id[0]]
     return base + int(scenario_id[1:])
 
 

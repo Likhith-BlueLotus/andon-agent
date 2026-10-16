@@ -245,7 +245,7 @@ def publish(
         sources, label = source_info(prov)
         stop = json.loads((d / "stop_event.json").read_text())
         entries[sid] = {
-            "set": "real_signal" if sid.startswith("R") else "synthetic",
+            "set": "real_signal" if sid[0] in "RC" else "synthetic",
             "source_label": label,
             "sources": sources,
             # display fields from the agent-visible stop record (what the incident picker shows)

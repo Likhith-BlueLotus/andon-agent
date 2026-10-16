@@ -40,7 +40,7 @@ SCENARIO_OBJECTS = (
 # Shared by every scenario: historical work orders and the static plant tables.
 SHARED_OBJECTS = ("work_orders.parquet", "assets.parquet", "spec_limits.parquet")
 
-SCENARIO_ID_RE = re.compile(r"^[SRU]\d{3}$")
+SCENARIO_ID_RE = re.compile(r"^[SRCU]\d{3}$")  # C = confirmation set (real signals)
 
 
 def sha256_hex(data: bytes) -> str:

@@ -2,6 +2,7 @@
 
     uv run python -m simulator.real_signals --out data/scenarios            # R001-R017
     uv run python -m simulator.real_signals --out data/scenarios --upload   # + GCS audio/vibration
+    uv run python -m simulator.real_signals --set C --out data/scenarios    # C001-C010 (confirmation)
 
 Honesty rule: the *root-cause signal* is real and its ground truth comes only from the source
 (MetroPT-3 failure reports, UCI hydraulic cycle labels, IMS readme). Everything around it - the
@@ -15,6 +16,7 @@ line", never "real plant data".
 | R005-R008 | MetroPT-3 normal windows, far from failures and from unlabelled continuous-load episodes | same | no_fault (benign stop) |
 | R009-R014 | UCI hydraulic: stable healthy cycles, then one labelled condition | ST10 pressure (PS1), motor current (EPS1), oil temp (TS1), vibration (VS1) | hydraulic_degradation + sub-type, onset = first labelled cycle; or no_fault |
 | R015-R017 | IMS test 2, bearing 1 (outer race failure at end of test, readme) | ST50 vibration_rms_mms | no_fault (healthy window) / conveyor_bearing_defect |
+| C001-C010 | Confirmation set (pre-registered, eval/preregistration_confirm.md): 5 MetroPT-3 normal windows disjoint from every R window + the 5 unused single-component UCI conditions; IDs are a seeded shuffle | as above | no_fault (benign stop) / hydraulic_degradation + sub-type |
 
 Mapping rules (each is a fixed per-tag transform shared by every scenario; never per-segment
 normalisation, so small real shifts survive):
@@ -78,6 +80,8 @@ HISTORY_S = 7 * 86400
 MAX_BRIDGE_S = 20  # MetroPT-3: never interpolate between samples further apart than this
 PLANT_DATE0 = date(2026, 8, 5)  # plant calendar for R stops: PLANT_DATE0 + 0..49 days
 SEED_OFFSET = 100  # R seeds: seed*1000 + 100 + n (S seeds are seed*1000 + n, n <= 60)
+SEED_OFFSET_C = 200  # C seeds: seed*1000 + 200 + n
+WO_ID_BASE = {"R": 95000, "C": 97000}  # recent-WO ids per set (S uses 90000 + n*10)
 SYNTH_TRANSFORM = (
     "simulated at 1 Hz; quantised to sensor resolution; data-quality imperfections applied"
 )
@@ -117,6 +121,19 @@ METROPT3_NORMAL_STOPS: tuple[datetime, ...] = (
     datetime(2020, 8, 10, 11, 30),
     datetime(2020, 8, 26, 16, 20),
 )
+# Confirmation-set normal windows (stop, history floor), source clock. Same rules as above (stop
+# >= 3 weeks from any reported failure, history free of the continuous-load episodes) plus: no
+# source row shared with any R window. One window per free interval left by R001-R008 and the
+# episodes; where the interval is shorter than 7 days the history starts at the floor (as R015's
+# starts at the first IMS snapshot). Mar 11 afternoon is avoided (8 h of gaps, then low pressure
+# leading into the Mar 12 episode). docs/data_inspection/confirm_set.md.
+METROPT3_CONFIRM_STOPS: tuple[tuple[datetime, datetime], ...] = (
+    (datetime(2020, 2, 13, 8, 20), datetime(2020, 2, 1, 0, 0)),  # R005 history starts 02-13 10:15
+    (datetime(2020, 3, 10, 16, 45), datetime(2020, 2, 20, 12, 0)),  # R005 stop 02-20 10:15; episode 03-12 04:04
+    (datetime(2020, 3, 18, 12, 30), datetime(2020, 3, 12, 14, 0)),  # episode ends 03-12 12:04; R006 history 03-18 14:40
+    (datetime(2020, 8, 19, 14, 10), datetime(2020, 8, 10, 13, 0)),  # R007 stop 08-10 11:30; R008 history 08-19 16:20
+    (datetime(2020, 8, 31, 16, 40), datetime(2020, 8, 26, 18, 20)),  # R008 stop 08-26 16:20; data end 09-01 04:00
+)  # fmt: skip
 METROPT3_CSV = "MetroPT3(AirCompressor).csv"
 # The operator's continuous-load rule used for the line-hold stop: trailing 4 h with the
 # compressor loaded (Motor_current > 4.8 A, i.e. above the ~3-4 A unloaded-running band) in
@@ -138,6 +155,15 @@ UCI_CONDITIONS: dict[str, dict[str, Any]] = {
     # component optimal (cycles 0-209, flag 1 = not yet static) then the stable cycles 323-332.
     # Using the real warm-up avoids an unphysical 20 degC step at the splice.
     "cooler_near_failure": {"cycles": tuple(range(0, 210)) + tuple(range(323, 333)), "label": (3, 100, 0, 130)},
+    # Confirmation set: every other stable single-component condition in profile.txt, names from
+    # the UCI documentation. Cooler 20 % (1055-1064) is excluded: its oil runs ~9 degC hotter than
+    # the healthy cycles and the rig has no single-component warm-up into it, so the splice would
+    # be an unphysical step (the reason R012 uses the cooler-3 % warm-up).
+    "pump_leakage_weak": {"cycles": tuple(range(1746, 1756)), "label": (100, 100, 1, 130)},
+    "valve_close_to_total_failure": {"cycles": tuple(range(1757, 1767)), "label": (100, 73, 0, 130)},
+    "valve_small_lag": {"cycles": tuple(range(1777, 1787)), "label": (100, 90, 0, 130)},
+    "accumulator_slightly_reduced": {"cycles": tuple(range(1920, 1930)), "label": (100, 100, 0, 115)},
+    "accumulator_severely_reduced": {"cycles": tuple(range(2053, 2063)), "label": (100, 100, 0, 100)},
 }  # fmt: skip
 
 # IMS test 2 (readme): 4 bearings, 20 kHz, 20,480 points per 1 s snapshot every 10 min;
@@ -388,6 +414,7 @@ class RSpec:
     condition: str | None = None  # UCI condition name (None = healthy)
     benign: tuple[str, str, str] | None = None  # (station asset, glitch kind, tag or "")
     ims_window: Literal["healthy", "degrading", "near_failure"] | None = None
+    floor: datetime | None = None  # MetroPT-3 normal (C-set): no source row before this is used
 
 
 R_SPECS: tuple[RSpec, ...] = (
@@ -406,6 +433,28 @@ R_SPECS: tuple[RSpec, ...] = (
     RSpec("R016", "ims", ims_window="degrading"),
     RSpec("R017", "ims", ims_window="near_failure"),
 )  # fmt: skip
+
+
+def _confirm_specs(seed: int = 2026) -> tuple[RSpec, ...]:
+    """C-set (pre-registered in eval/preregistration_confirm.md): 5 MetroPT-3 normal windows with
+    the R005-R008 stop mix (air-sounding glitches included) and the 5 unused UCI conditions. IDs
+    are a seeded shuffle, so an ID never leaks its cause."""
+    benign = (("ST20-WLD", "sensor_spike", "air_pressure_bar"), ("ST30-WLD", "comm_timeout", ""),
+              ("ST30-WLD", "sensor_spike", "air_pressure_bar"), ("ST20-WLD", "safety_trip", ""),
+              ("ST20-WLD", "sensor_spike", "air_pressure_bar"))  # fmt: skip
+    base: list[dict[str, Any]] = [
+        {"kind": "metropt3_normal", "normal_stop": stop, "floor": floor, "benign": b}
+        for (stop, floor), b in zip(METROPT3_CONFIRM_STOPS, benign, strict=True)
+    ]
+    base += [{"kind": "uci", "condition": c} for c in CONFIRM_UCI_CONDITIONS]
+    order = rng_for(seed, "confirm_ids").permutation(len(base))
+    return tuple(RSpec(f"C{k:03d}", **base[int(j)]) for k, j in enumerate(order, 1))
+
+
+CONFIRM_UCI_CONDITIONS = ("pump_leakage_weak", "valve_close_to_total_failure", "valve_small_lag",
+                          "accumulator_slightly_reduced", "accumulator_severely_reduced")  # fmt: skip
+C_SPECS: tuple[RSpec, ...] = _confirm_specs()
+SPECS_BY_SET = {"R": R_SPECS, "C": C_SPECS}
 
 
 @dataclass
@@ -672,7 +721,10 @@ def build_r(spec: RSpec, seed: int, gen: TextGen, wo_pool: list[dict[str, Any]],
         df = load_metropt3(raw)
         assert spec.normal_stop is not None
         tm = pick_timemap(seed, spec.normal_stop.date())
-        pl = Plan(tm.to_plant(spec.normal_stop), HISTORY_S, tm)
+        hist = HISTORY_S
+        if spec.floor is not None:
+            hist = min(HISTORY_S, int((spec.normal_stop - spec.floor).total_seconds()))
+        pl = Plan(tm.to_plant(spec.normal_stop), hist, tm)
         real_tags = {m.key for m in METROPT3_MAPS}
     elif spec.kind == "uci":
         uci = load_uci(raw)
@@ -705,6 +757,13 @@ def build_r(spec: RSpec, seed: int, gen: TextGen, wo_pool: list[dict[str, Any]],
     onset_epoch = int(pl.onset.timestamp()) if pl.onset else None
     if spec.kind.startswith("metropt3"):
         real = metropt3_real(df, tm, grid)
+        if spec.floor is not None:
+            # C-set: no source row before the history start, not even for the pre-buffer physics
+            # (the regulator model is warmed up on the first real header value instead)
+            cut = tl.n - pl.history_s
+            for v in real.values.values():
+                v[:cut] = np.nan
+            real.source_gaps = [(a, b) for a, b in real.source_gaps if b > int(grid[cut])]
         hdr = real.values[("UT-AIR", "header_pressure_bar")]
         mods.header_override = hold_fill(hdr, 6.75)
         coupled = {(c, "air_pressure_bar"): "regulated gun air from the plant's regulator model min(5.6, header - 0.25) bar, "
@@ -819,7 +878,7 @@ def build_r(spec: RSpec, seed: int, gen: TextGen, wo_pool: list[dict[str, Any]],
     )
     wos = sorted(wos, key=lambda w: w["date"])
     for j, w in enumerate(wos):
-        w["wo_id"] = f"WO-{w['date']:%y}{95000 + int(sid[1:]) * 10 + j:05d}"
+        w["wo_id"] = f"WO-{w['date']:%y}{WO_ID_BASE[sid[0]] + int(sid[1:]) * 10 + j:05d}"
     touched = set(real_tags) | set(coupled)
     if spec.benign and spec.benign[2]:
         touched.add((spec.benign[0], spec.benign[2]))
@@ -876,7 +935,7 @@ def build_r(spec: RSpec, seed: int, gen: TextGen, wo_pool: list[dict[str, Any]],
         }  # type: ignore[arg-type]
     meta = {
         "sim_version": SIM_VERSION,
-        "set": "R",
+        "set": sid[0],
         "source_kind": spec.kind,
         "primary": {
             "cause": cause.value, "asset_id": root, "onset_ts": _iso(truth.onset_ts) if truth.onset_ts else None,
@@ -897,6 +956,7 @@ def build_r(spec: RSpec, seed: int, gen: TextGen, wo_pool: list[dict[str, Any]],
                 "number": spec.report.number, "page_label": spec.report.page_label,
                 "start": str(spec.report.start), "end": str(spec.report.end), "report": spec.report.report},
             "normal_stop_src": str(spec.normal_stop) if spec.normal_stop else None,
+            **({"history_floor_src": str(spec.floor)} if spec.floor else {}),  # R files unchanged
             "ims_window": spec.ims_window, "uci": real.segment_meta or None,
             **meta_real,
         },
@@ -1082,13 +1142,16 @@ def main(argv: list[str] | None = None) -> int:
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
     ap.add_argument("--out", type=Path, default=Path("data/scenarios"))
+    ap.add_argument("--set", choices=sorted(SPECS_BY_SET), default="R",
+                    help="R = R001-R017; C = C001-C010 confirmation set (pre-registered)")  # fmt: skip
     ap.add_argument("--ids", default="", help="comma-separated subset, e.g. R001,R015")
     ap.add_argument("--seed", type=int, default=2026)
     ap.add_argument("--raw", type=Path, default=RAW)
     ap.add_argument("--text", choices=["template", "cached", "live"], default="cached")
     ap.add_argument("--cache-dir", type=Path, default=text_artifacts.DEFAULT_CACHE_DIR)
     ap.add_argument("--bucket", default=audio_mod.DEFAULT_BUCKET)
-    ap.add_argument("--plots", type=Path, default=Path("docs/rset_inspection"))
+    ap.add_argument("--plots", type=Path, default=None,
+                    help="default docs/rset_inspection (R) or docs/data_inspection/confirm_set (C)")  # fmt: skip
     ap.add_argument("--no-audio", action="store_true")
     ap.add_argument("--plots-only", action="store_true", help="re-render docs/rset_inspection only")
     ap.add_argument(
@@ -1097,7 +1160,12 @@ def main(argv: list[str] | None = None) -> int:
     args = ap.parse_args(argv)
 
     wanted = {s.strip() for s in args.ids.split(",") if s.strip()}
-    specs = [s for s in R_SPECS if not wanted or s.sid in wanted]
+    specs = [s for s in SPECS_BY_SET[args.set] if not wanted or s.sid in wanted]
+    if args.plots is None:
+        args.plots = Path(
+            "docs/rset_inspection" if args.set == "R" else "docs/data_inspection/confirm_set"
+        )
+    offset = SEED_OFFSET if args.set == "R" else SEED_OFFSET_C
     if args.plots_only:
         for spec in specs:
             print(plot_scenario(args.out / spec.sid, args.plots))
@@ -1108,7 +1176,7 @@ def main(argv: list[str] | None = None) -> int:
     pool = ensure_work_orders(args.out.parent, gen, args.seed)
     written = []
     for spec in specs:
-        seed = args.seed * 1000 + SEED_OFFSET + int(spec.sid[1:])
+        seed = args.seed * 1000 + offset + int(spec.sid[1:])
         built = build_r(spec, seed, gen, pool, args.raw, args.bucket)
         d = write_scenario(args.out, spec.sid, built)
         if spec.kind == "ims":

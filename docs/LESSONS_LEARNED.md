@@ -212,3 +212,9 @@ Template — copy for each entry:
 - **Fix:** `config.NATIVE_SCHEMA_WITH_TOOLS=0` → `PinnedGemini.capabilities` says no, so ADK carries structured output through its `set_model_response` tool. That exposed two of our bugs on that path: the tool-budget guard counted and refused `set_model_response` (plan lost), and the ADR-027 gate told the model "do not call any tool" instead of forcing `set_model_response`.
 - **Do differently / rule added:** after any project/region move, run one live diagnosis before declaring the deploy done; never let a budget guard touch the framework's answer channel.
 - **Cost (time / $):** ~40 min / ~$0.35 of live checks.
+
+### 2026-10-17 — A "fresh" real-signal set is bounded by what the sources label (data)
+- **What happened:** building the pre-registered C-set (C001–C010) to confirm the post-hoc R002 fix: MetroPT-3 has exactly 4 failure reports and R001–R004 use all of them, IMS bearing 1 is fully used by R015–R017, and UCI has 5 unused single-component conditions (all 10-minute, < 1 % shifts like R009–R011). So the confirmation set has no new air leak; it can only test the v7 rule for false positives on healthy compressor windows. Also found: the local R015–R017 `vibration_index.json`/provenance still name `gs://andon-agent-511218-assets` (the suspended project); regenerating them today gives `andon-511816-assets`.
+- **Fix:** C-set = 5 MetroPT-3 normal windows disjoint from every R window + the 5 unused UCI conditions, IDs shuffled, data pinned by SHA-256 in `eval/preregistration_confirm.md`, the limit stated there before any run. R files left untouched (bucket mismatch reported, not fixed here).
+- **Do differently / rule added:** before promising a held-out real set, count the labelled events left in each source; plan the held-out split at R-set construction time.
+- **Cost (time / $):** ~2 h / $0 (template shift notes, no LLM).
