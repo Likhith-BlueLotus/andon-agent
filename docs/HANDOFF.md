@@ -16,11 +16,11 @@
 **Next:** ADR-025 fixes → `/phase-5` (harness being built) → `/phase-6`.
 
 ## 2026-10-11 — Person A — Phase 3 DONE
-**Live API:** https://andon-api-891056416508.asia-south1.run.app (public; revision andon-api-00007). Replay for everyone, live behind `X-Demo-Passcode` (Secret Manager `demo-passcode`; read with `gcloud secrets versions access latest --secret demo-passcode` under config `andon` — never paste it anywhere).
+**Live API:** https://andon-api-891056416508.asia-south1.run.app (stale: old project suspended — now https://andon-api-359520289475.asia-south1.run.app, ADR-031) (public; revision andon-api-00007). Replay for everyone, live behind `X-Demo-Passcode` (Secret Manager `demo-passcode`; read with `gcloud secrets versions access latest --secret demo-passcode` under config `andon` — never paste it anywhere).
 **Endpoints:** `POST /api/incidents/{id}/investigate?mode=live|replay&run_id=&speed=` (SSE), `POST /api/incidents/{id}/approve`, `GET /api/incidents/{id}/audit`, `/api/scenarios`, `/api/replays`, `/api/config`, `/api/sources`, `/api/eval/latest` (404 until phase 5), `/health`.
 **Replays:** `r002-cloud-1` (demo: real MetroPT-3 leak, listen on UT-AIR, approved WO), `s014-cloud-1` (verifier rejects reversed causal order → revision → PASS), `r002-live-1` (local live).
 **Exit checks passed on the URL:** live R002 from a clean curl ($0.156, 117 s, verified air_pressure_drop @ UT-AIR); live S014 ($0.171, 95 s, verified sealer_pump_cavitation @ ST40-SLR, 1 natural rejection); approve → 409 partial / APPROVED in Firestore `work_orders` / 409 second decision; kill switch at $0.01 refused live with `budget_exhausted` from the shared Firestore counter (restored to $8, secret v2 disabled); anonymous live 401; CORS rejects other origins; security review: OK to make public, all should-fix items done.
-**For Person B:** `VITE_API_URL=https://andon-api-891056416508.asia-south1.run.app`; CORS allows `https://andon-agent-511218.web.app`, `.firebaseapp.com` and `http://localhost:5173`. Stream contract = `api/events.py` / `web/src/types/events.ts`; replay first, live with passcode.
+**For Person B:** `VITE_API_URL=https://andon-api-891056416508.asia-south1.run.app (stale: old project suspended — now https://andon-api-359520289475.asia-south1.run.app, ADR-031)`; CORS allows `https://andon-agent-511218.web.app`, `.firebaseapp.com` and `http://localhost:5173`. Stream contract = `api/events.py` / `web/src/types/events.ts`; replay first, live with passcode.
 **Next (A): `/phase-5 harness`** (eval) — the Phase 4 frontend is Person B's.
 **Open:** `/api/eval/latest` needs `eval/results/latest.json` copied into the image (phase 5); judging-window runbook in `docs/RUNBOOK_JUDGING.md`.
 
@@ -34,7 +34,7 @@
 **For Person B (frontend):** the real stream matches `tests/fixtures/sample_stream.jsonl` shape; `uv run python -m agents.cli --scenario R002 --mode replay --json` prints real contract events (JSONL) to build against.
 
 ## 2026-10-11 ~01:00 IST — Person A — Phase 0 DONE
-**Live:** API https://andon-api-891056416508.asia-south1.run.app/health (runtime SA `andon-api@`, max-instances 1, timeout 900 s, docs disabled in prod). Repo: https://github.com/Likhith-BlueLotus/andon-agent, trunk-based on `main` (ADR-016), CI = ruff + pytest + gitleaks.
+**Live:** API https://andon-api-891056416508.asia-south1.run.app (stale: old project suspended — now https://andon-api-359520289475.asia-south1.run.app, ADR-031)/health (runtime SA `andon-api@`, max-instances 1, timeout 900 s, docs disabled in prod). Repo: https://github.com/Likhith-BlueLotus/andon-agent, trunk-based on `main` (ADR-016), CI = ruff + pytest + gitleaks.
 **GCP `andon-agent-511218`** (gcloud config `andon`; run `export CLOUDSDK_ACTIVE_CONFIG_NAME=andon`): APIs, Artifact Registry, SAs `andon-api@` / `andon-eval@` / `andon-build@`, BQ `andon`, buckets `-assets` / `-eval`, Firestore native asia-south1, budget `andon-300` ₹26,500 (INR account; credits excluded).
 **Model smoke (live, 2026-10-11):** all 4 pinned IDs answer — 3.8 Flash 2.4 s, 3.1 Flash-Lite 1.3 s, 3.1 Pro preview 4.0 s, 3.5 Flash asia-south1 1.6 s; total $0.0019. Flash-Lite still spent 144 thinking tokens at LOW.
 **Spend to date:** ~$0.002 Gemini + Cloud Build minutes (free tier).

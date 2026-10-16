@@ -14,7 +14,7 @@ EXTRA_ENV="${EXTRA_ENV:-}"   # e.g. ";REPLAY_ONLY=1" (leading ';' because of the
 # Stretch CSV upload (ADR-028) stays OFF unless asked: EXTRA_ENV=";ENABLE_STRETCH=upload". Uploads and their
 # U<id> scenarios live in ONE instance's memory/tmp, so a second instance would answer 404 unknown_upload:
 # max instances is forced to 1 when 'upload' appears in EXTRA_ENV / ENABLE_STRETCH.
-MAXI="${MAXI:-3}"
+MAXI="${MAXI:-1}"  # one instance: upload ids/files and in-memory limiters are per process
 # upload keeps files/ids per process; upload and tech rate limits are in memory (ADR-028/029)
 if [[ "$EXTRA_ENV ${ENABLE_STRETCH:-}" == *upload* || "$EXTRA_ENV ${ENABLE_STRETCH:-}" == *tech* ]]; then MAXI=1; fi
 echo "max instances: $MAXI"
