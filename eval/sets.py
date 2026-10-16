@@ -3,6 +3,8 @@
 * ``S``      S001-S060 (synthetic, injected truth); ``dev`` = S001-S050 (tuning allowed, but see
   ``DEV_TUNING``: day-to-day iteration uses S001-S020), ``heldout`` = S051-S060 (no tuning, ever).
 * ``R``      R001-R017 (real signals, truth from the source dataset's own labels).
+* ``C``      C001-C010 confirmation set (real signals, R-set rules, source segments unused by R;
+  pre-registered in eval/preregistration_confirm.md). Never tuned on: ``--purpose dev`` refuses it.
 * ``variance15`` S001, S006, ..., S056 (12) + R002, R010, R016 (one per real source).
 * ``audio`` scenarios with an abnormal MIMII clip or IMS vibration (the S3 ablation's population).
 
@@ -24,16 +26,19 @@ DEFAULT_SCENARIOS = ROOT / "data" / "scenarios"
 
 S_IDS = [f"S{i:03d}" for i in range(1, 61)]
 R_IDS = [f"R{i:03d}" for i in range(1, 18)]
+C_IDS = [f"C{i:03d}" for i in range(1, 11)]
 DEV_TUNING = [f"S{i:03d}" for i in range(1, 21)]  # EVAL_PLAN §7 dev iterations
 DEV_IDS = [f"S{i:03d}" for i in range(1, 51)]
 HELDOUT_IDS = [f"S{i:03d}" for i in range(51, 61)]
 VARIANCE15 = [f"S{i:03d}" for i in range(1, 61, 5)] + ["R002", "R010", "R016"]
 HELDOUT = frozenset(HELDOUT_IDS)
-_ID = re.compile(r"^[SR]\d{3}$")
+NO_TUNING_PREFIXES = ("R", "C")  # whole sets that --purpose dev refuses (plus HELDOUT)
+_ID = re.compile(r"^[SRC]\d{3}$")
 
 NAMED = {
     "S": S_IDS,
     "R": R_IDS,
+    "C": C_IDS,
     "dev": DEV_TUNING,
     "dev50": DEV_IDS,
     "heldout": HELDOUT_IDS,
@@ -42,7 +47,7 @@ NAMED = {
 
 
 def set_of(scenario_id: str) -> str:
-    """``S`` or ``R`` (the id prefix; the two sets are never merged in a headline)."""
+    """``S``, ``R`` or ``C`` (the id prefix; sets are never merged in a headline)."""
     if not _ID.match(scenario_id):
         raise ValueError(f"not a scenario id: {scenario_id!r}")
     return scenario_id[0]
@@ -56,7 +61,7 @@ def resolve(spec: str, scenarios_dir: Path = DEFAULT_SCENARIOS) -> list[str]:
             ids: Iterable[str] = NAMED[tok]
         elif tok == "audio":
             ids = audio_signature_ids(scenarios_dir)
-        elif m := re.fullmatch(r"([SR])(\d{3})-\1?(\d{3})", tok):
+        elif m := re.fullmatch(r"([SRC])(\d{3})-\1?(\d{3})", tok):
             ids = [f"{m[1]}{i:03d}" for i in range(int(m[2]), int(m[3]) + 1)]
         elif _ID.match(tok):
             ids = [tok]
@@ -89,6 +94,11 @@ def audio_signature_ids(scenarios_dir: Path = DEFAULT_SCENARIOS) -> list[str]:
 
 def heldout_in(ids: Iterable[str]) -> list[str]:
     return [i for i in ids if i in HELDOUT]
+
+
+def no_tuning_in(ids: Iterable[str]) -> list[str]:
+    """Ids a tuning (``--purpose dev``) run must refuse: S051-S060, the R-set and the C-set."""
+    return [i for i in ids if i in HELDOUT or i.startswith(NO_TUNING_PREFIXES)]
 
 
 # --- ground truth (grader only) ----------------------------------------------------------------

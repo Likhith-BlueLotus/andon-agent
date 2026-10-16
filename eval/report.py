@@ -39,6 +39,7 @@ JUDGE_SHORT = {"gemini-3.1-pro-preview": "Pro judge", "gemini-3.8-flash": "Flash
 SET_TITLE = {
     "S": "S-set · synthetic line, injected truth",
     "R": "R-set · real signals on the synthetic line",
+    "C": "C-set · pre-registered confirmation, real signals (unused source segments)",
 }
 FOOTNOTE = (
     "S-set: {n_s} synthetic scenarios with injected ground truth. R-set: real compressor "
@@ -149,10 +150,11 @@ def build_summary(out: Path, truth_dir: Path | str) -> tuple[dict, list[dict], l
     expected_ids = {
         "S": [i for i in (meta.get("ids") or ids) if i.startswith("S")],
         "R": [i for i in (meta.get("ids") or ids) if i.startswith("R")],
+        "C": [i for i in (meta.get("ids") or ids) if i.startswith("C")],
     }
     coverage: dict[str, dict] = {}
     sets_out: dict[str, dict] = {}
-    for sname in ("S", "R"):
+    for sname in ("S", "R", "C"):
         sel = [g for g in head if g["set"] == sname]
         if not sel and not expected_ids[sname]:
             continue
@@ -480,9 +482,11 @@ def render_slide(summary: dict, path: Path) -> None:
     n_r = max(len(summary["sets"].get("R", {})), 1)
     ax_s = fig.add_axes((0.025, 0.58, 0.60, 0.28))
     table(ax_s, "S", 16, 1 / (n_s + 3.4))
-    if "R" in summary["sets"]:
+    r_key = "R" if "R" in summary["sets"] else "C" if "C" in summary["sets"] else None
+    if r_key:  # a C-only (confirmation) run shows its table in the R slot
+        n_r = max(len(summary["sets"][r_key]), 1)
         ax_r = fig.add_axes((0.025, 0.285, 0.60, 0.23))
-        table(ax_r, "R", 14, 1 / (n_r + 3.4))
+        table(ax_r, r_key, 14, 1 / (n_r + 3.4))
     else:
         fig.text(0.025, 0.4, "R-set not in this run", fontsize=16, color=muted)
 
@@ -493,6 +497,7 @@ def render_slide(summary: dict, path: Path) -> None:
         ("S", s_col, "S-set (all)", None),
         ("H", h_col, "S held-out S051-S060", "///"),
         ("R", r_col, "R-set (real signals)", None),
+        ("C", "#7a3fb0", "C-set (confirmation)", None),
     ]
     width = 0.26
     drawn = set()
@@ -565,7 +570,7 @@ def render_slide(summary: dict, path: Path) -> None:
 
     # ---- tests + footnote ----
     tests = []
-    for sname in ("S", "R"):
+    for sname in ("S", "R", "C"):
         for t in summary["tests"].get(sname, []):
             if t["a"].startswith("S1") and base_of(t["b"]) in ("B1", "S2"):
                 tests.append(

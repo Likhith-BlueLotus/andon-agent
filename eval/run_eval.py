@@ -5,7 +5,7 @@
     uv run python -m eval.run_eval --dry-run --systems S1,S2,S3,B1,B2 --sets dev --out /tmp/dry
 
 * **systems** ``S1,S2,S3,B1,B2``; ``S2@flash`` pins a system's judge; ``--judge flash|pro`` sets the
-  default for the graph systems. **sets** ``S``, ``R``, ``dev`` (S001-S020), ``heldout``,
+  default for the graph systems. **sets** ``S``, ``R``, ``C``, ``dev`` (S001-S020), ``heldout``,
   ``variance15``, ``audio`` or ids/ranges (``S001-S010``).
 * **Resumable**: rows are appended to ``results.jsonl`` as they finish; a re-run skips every
   completed (system, scenario, repeat) and retries errored ones (``--no-retry-errors`` to keep them).
@@ -294,7 +294,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--purpose",
         choices=["dev", "final"],
         default=None,
-        help="dev = tuning run: refuses held-out and R-set scenarios",
+        help="dev = tuning run: refuses held-out, R-set and C-set scenarios",
     )
     p.add_argument("--db", default=str(DEFAULT_DB))
     p.add_argument("--scenarios-dir", default=str(sets.DEFAULT_SCENARIOS))
@@ -329,11 +329,11 @@ def resolve_plan(args: argparse.Namespace) -> tuple[list[SystemSpec], list[str]]
         raise ValueError("no scenarios selected")
     purpose = args.purpose or ("dev" if all(i in sets.DEV_IDS for i in ids) else "final")
     if args.purpose == "dev":
-        bad = [i for i in ids if i in sets.HELDOUT or i.startswith("R")]
+        bad = sets.no_tuning_in(ids)
         if bad:
             raise ValueError(
-                f"--purpose dev refuses held-out/R-set scenarios ({', '.join(bad[:5])} ...): "
-                "never tune on S051-S060 or the R-set (EVAL_PLAN §9)"
+                f"--purpose dev refuses held-out/R-set/C-set scenarios ({', '.join(bad[:5])} ...): "
+                "never tune on S051-S060, the R-set or the C-set (EVAL_PLAN §9)"
             )
     args.purpose = purpose
     return specs, ids

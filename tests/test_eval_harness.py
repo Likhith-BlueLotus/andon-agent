@@ -48,6 +48,21 @@ def test_named_sets_and_ranges():
 
 def test_set_of_never_pools():
     assert sets.set_of("S010") == "S" and sets.set_of("R010") == "R"
+    assert sets.set_of("C010") == "C"
+
+
+def test_confirmation_set_is_registered_and_never_tunable():
+    assert sets.resolve("C") == [f"C{i:03d}" for i in range(1, 11)] == sets.C_IDS
+    assert sets.resolve("C002-C004") == ["C002", "C003", "C004"]
+    assert not set(sets.C_IDS) & set(sets.S_IDS + sets.R_IDS)
+    for spec in ("C", "C003", "dev,C001"):
+        args = run_eval.build_parser().parse_args(["--sets", spec, "--purpose", "dev"])
+        with pytest.raises(ValueError, match="never tune"):
+            run_eval.resolve_plan(args)
+    auto = run_eval.build_parser().parse_args(["--sets", "C"])
+    run_eval.resolve_plan(auto)
+    assert auto.purpose == "final"
+    assert "C" in report.SET_TITLE
 
 
 def test_dev_purpose_refuses_heldout_and_r(tmp_path):
