@@ -112,7 +112,7 @@ Veloso, B., Ribeiro, R. P., Gama, J., & Pereira, P. M. (2022). The MetroPT datas
 - **Licence check:** match on 2026-10-11 against https://zenodo.org/api/records/3384388 (pattern `"cc-by-sa-4\.0"`)
 - **Downloaded:** 2026-10-11
 - **Maps to:** listen(): pump->ST40, slider->ST50, fan->ST20/ST30 cooling, valve->UT-AIR
-- **Redistribution:** CC BY-SA 4.0 share-alike: clips we redistribute and any derived audio dataset stay CC BY-SA 4.0 with this attribution. Usage: `simulator/audio.py` downmixes each clip to mono (mean of the 8 channels, 16 kHz, 16-bit; some get added plant background noise) and serves it from `gs://andon-agent-511218-assets/audio/{scenario_id}/{asset_id}/{ts}.wav` (object metadata `licence: CC BY-SA 4.0`); each placement has a provenance row. MIMII DUE/DG (CC BY-NC-SA) are NOT used.
+- **Redistribution:** CC BY-SA 4.0 share-alike: clips we redistribute and any derived audio dataset stay CC BY-SA 4.0 with this attribution. Usage: `simulator/audio.py` downmixes each clip to mono (mean of the 8 channels, 16 kHz, 16-bit; some get added plant background noise) and serves it from `gs://andon-511816-assets/audio/{scenario_id}/{asset_id}/{ts}.wav` (object metadata `licence: CC BY-SA 4.0`); each placement has a provenance row. MIMII DUE/DG (CC BY-NC-SA) are NOT used.
 - **Fetch transforms:**
   - remotezip range-extract of individual wavs from the 6_dB zips for pump, fan, slider, valve (whole zips never downloaded)
   - deterministic selection: 50 normal + 50 abnormal per machine type, spread evenly over machine ids, seeded shuffle (seed 2026)

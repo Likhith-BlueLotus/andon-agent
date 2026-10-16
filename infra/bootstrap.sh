@@ -32,9 +32,10 @@ gcloud firestore databases create --location="$REGION" --type=firestore-native |
 
 # Budget alerts at $100 / $200 / $250 of the $300 credit, on gross cost (credits excluded,
 # otherwise spend nets to 0 while credits last and alerts never fire). The budget must be in the
-# billing account's currency; INR uses BUDGET_INR (default assumes ~88 INR/USD).
+# billing account's currency; INR uses BUDGET_INR (default assumes ~88 INR/USD). Named per project so a
+# replacement project (ADR-031) gets its own budget; pass the remaining amount, not the original $300.
 if [[ -n "$BILLING_ACCOUNT" ]]; then
-  if ! gcloud billing budgets list --billing-account="$BILLING_ACCOUNT" --format="value(displayName)" | grep -qx "andon-300"; then
+  if ! gcloud billing budgets list --billing-account="$BILLING_ACCOUNT" --format="value(displayName)" | grep -qx "andon-300-$PROJECT"; then
     CURRENCY=$(gcloud billing accounts describe "$BILLING_ACCOUNT" --format="value(currencyCode)")
     case "$CURRENCY" in
       USD) AMOUNT="300USD" ;;
@@ -43,7 +44,7 @@ if [[ -n "$BILLING_ACCOUNT" ]]; then
     esac
     PROJECT_NUMBER=$(gcloud projects describe "$PROJECT" --format="value(projectNumber)")
     gcloud billing budgets create --billing-account="$BILLING_ACCOUNT" \
-      --display-name="andon-300" --budget-amount="$AMOUNT" \
+      --display-name="andon-300-$PROJECT" --budget-amount="$AMOUNT" \
       --filter-projects="projects/$PROJECT_NUMBER" --credit-types-treatment=exclude-all-credits \
       --threshold-rule=percent=0.3333 --threshold-rule=percent=0.6667 --threshold-rule=percent=0.8333 \
       --threshold-rule=percent=1.0

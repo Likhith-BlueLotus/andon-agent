@@ -49,7 +49,7 @@
           },
           {
             "key": "Content-Security-Policy",
-            "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; media-src 'self' blob: https://andon-api-p4ujm2bnka-el.a.run.app https://andon-api-891056416508.asia-south1.run.app; connect-src 'self' https://andon-api-p4ujm2bnka-el.a.run.app https://andon-api-891056416508.asia-south1.run.app; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+            "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; media-src 'self' blob: https://andon-api-359520289475.asia-south1.run.app; connect-src 'self' https://andon-api-359520289475.asia-south1.run.app; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
           }
         ]
       }

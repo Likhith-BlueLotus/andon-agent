@@ -15,7 +15,7 @@ npm run build       # tsc + vite build -> dist/
 
 | Env var | Meaning |
 |---|---|
-| `VITE_API_URL` | API base URL, no trailing slash. Default `http://localhost:8080`. Prod: `https://andon-api-891056416508.asia-south1.run.app` |
+| `VITE_API_URL` | API base URL, no trailing slash. Default `http://localhost:8080`. Prod: `https://andon-api-359520289475.asia-south1.run.app` |
 
 The demo passcode for live runs is typed into a dialog and kept in memory only (never in a URL, localStorage or sessionStorage).
 

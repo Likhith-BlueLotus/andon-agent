@@ -25,7 +25,7 @@ BQ_DATASET = _env("BQ_DATASET", "andon")
 GCS_BUCKET = _env("GCS_BUCKET", "")
 STORE_BACKEND = _env("STORE_BACKEND", "duckdb")  # duckdb | gcs | bigquery (ADR-021)
 # Live serving store (agents/store_cache.py): published Parquet -> per-scenario DuckDB.
-STORE_BUCKET = _env("STORE_BUCKET", "andon-agent-511218-assets")  # GCS_BUCKET wins if set
+STORE_BUCKET = _env("STORE_BUCKET", "andon-511816-assets")  # GCS_BUCKET wins if set
 STORE_CACHE_DIR = _env("STORE_CACHE_DIR", "/tmp/andon-store")
 STORE_CACHE_MAX = int(_env("STORE_CACHE_MAX", "8"))  # scenarios kept (~10 MB each)
 STORE_MANIFEST_TTL_S = float(_env("STORE_MANIFEST_TTL_S", "300"))

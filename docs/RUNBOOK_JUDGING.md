@@ -1,6 +1,6 @@
 # Judging-window runbook (Oct 19 - Nov 6; finale Dec 4)
 
-All commands use `CLOUDSDK_ACTIVE_CONFIG_NAME=andon` (project `andon-agent-511218`, region `asia-south1`).
+All commands use `CLOUDSDK_ACTIVE_CONFIG_NAME=andon` (project `andon-511816`, region `asia-south1`).
 
 ## Daily URL check (once a day, 2 min)
 1. `bash scripts/smoke.sh https://<api-url>` (add `TOKEN=$(gcloud auth print-identity-token)` only if the service is private). Expect `PASS`, replay `done` within 120 s, events spread over time (no buffering warning).

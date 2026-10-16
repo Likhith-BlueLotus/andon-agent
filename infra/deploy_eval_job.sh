@@ -15,7 +15,7 @@
 #   uv run python -m eval.run_eval --estimate-only ...   before RUN=1.
 set -euo pipefail
 export CLOUDSDK_ACTIVE_CONFIG_NAME="${CLOUDSDK_ACTIVE_CONFIG_NAME:-andon}"
-PROJECT="${PROJECT:-andon-agent-511218}"
+PROJECT="${PROJECT:-andon-511816}"
 REGION="${REGION:-asia-south1}"
 SA="andon-eval@$PROJECT.iam.gserviceaccount.com"
 BUILD_SA="projects/$PROJECT/serviceAccounts/andon-build@$PROJECT.iam.gserviceaccount.com"

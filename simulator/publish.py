@@ -51,7 +51,7 @@ from simulator.blobstore import (
 )
 from simulator.truth_schema import GroundTruth
 
-DEFAULT_BUCKET = "andon-agent-511218-assets"
+DEFAULT_BUCKET = "andon-511816-assets"
 
 # Hard deny: never uploaded, whatever the allow-list says.
 DENY_NAMES = frozenset({"truth.json", "sim_meta.json", "audio_truth.json"})

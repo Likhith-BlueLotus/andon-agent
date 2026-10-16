@@ -8,7 +8,7 @@
 # Cloud Run flags checked: https://cloud.google.com/sdk/gcloud/reference/run/deploy
 set -euo pipefail
 export CLOUDSDK_ACTIVE_CONFIG_NAME="${CLOUDSDK_ACTIVE_CONFIG_NAME:-andon}"
-PROJECT="${PROJECT:-andon-agent-511218}"
+PROJECT="${PROJECT:-andon-511816}"
 REGION="${REGION:-asia-south1}"
 EXTRA_ENV="${EXTRA_ENV:-}"   # e.g. ";REPLAY_ONLY=1" (leading ';' because of the ^;^ delimiter)
 # Stretch CSV upload (ADR-028) stays OFF unless asked: EXTRA_ENV=";ENABLE_STRETCH=upload". Uploads and their

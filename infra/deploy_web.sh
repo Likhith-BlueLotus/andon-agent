@@ -10,13 +10,15 @@
 # Needs: `firebase login` as the owner (CLI 15.x); hosting site $FIREBASE_PROJECT exists.
 set -euo pipefail
 export CLOUDSDK_ACTIVE_CONFIG_NAME="${CLOUDSDK_ACTIVE_CONFIG_NAME:-andon}"
-PROJECT="${PROJECT:-andon-agent-511218}"            # GCP project of the API (Cloud Run)
+PROJECT="${PROJECT:-andon-511816}"            # GCP project of the API (Cloud Run)
 FIREBASE_PROJECT="${FIREBASE_PROJECT:-andon-agent-b9c77}"  # separate Firebase project that only hosts the static app (ADR-024)
 REGION="${REGION:-asia-south1}"
 cd "$(dirname "$0")/.."
 SITE_URL="https://$FIREBASE_PROJECT.web.app"
 
-API_URL="${VITE_API_URL:-$(gcloud run services describe andon-api --project "$PROJECT" --region "$REGION" --format='value(status.url)')}"
+# deterministic URL form https://<service>-<project-number>.<region>.run.app (the one firebase.json's CSP allows)
+PROJECT_NUMBER=$(gcloud projects describe "$PROJECT" --format='value(projectNumber)')
+API_URL="${VITE_API_URL:-https://andon-api-$PROJECT_NUMBER.$REGION.run.app}"
 [[ -n "$API_URL" ]] || { echo "FAIL: cannot resolve API URL"; exit 1; }
 API_URL="${API_URL%/}"
 export VITE_API_URL="$API_URL"

@@ -772,7 +772,7 @@ SPECS: dict[str, DatasetSpec] = {
                 "stay CC BY-SA 4.0 with this attribution. Usage: `simulator/audio.py` downmixes "
                 "each clip to mono (mean of the 8 channels, 16 kHz, 16-bit; some get added plant "
                 "background noise) and serves it from "
-                "`gs://andon-agent-511218-assets/audio/{scenario_id}/{asset_id}/{ts}.wav` "
+                "`gs://andon-511816-assets/audio/{scenario_id}/{asset_id}/{ts}.wav` "
                 "(object metadata `licence: CC BY-SA 4.0`); each placement has a provenance row. "
                 "MIMII DUE/DG (CC BY-NC-SA) are NOT used."
             ),

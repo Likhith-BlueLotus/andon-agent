@@ -70,7 +70,7 @@ NOISY = "pink-noise+50Hz-hum@3dB-SNR-v1"
 NOISY_SNR_DB = 3.0
 BASELINE_FRACTIONS = (0.12, 0.45, 0.80)  # of the history, +/- jitter
 RECENT_MIN_S, RECENT_MAX_S = 8 * 60, 50 * 60  # recent clip: this long before the stop
-DEFAULT_BUCKET = "andon-agent-511218-assets"
+DEFAULT_BUCKET = "andon-511816-assets"
 DEFAULT_RAW = Path("data/raw/mimii")
 DEFAULT_CLIP_DIR = Path("data/audio/clips")
 TS = pa.timestamp("s", tz="UTC")
