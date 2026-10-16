@@ -44,6 +44,23 @@ from api.uploads import UploadOverlayProvider, UploadRegistry
 from api.voicenotes import MAX_BYTES as VOICE_MAX_BYTES
 
 log = logging.getLogger("andon.api")
+
+
+def configure_logging() -> None:
+    """Send our ``andon.*`` INFO lines (cost ledger, cache, cancel) to stdout -> Cloud Logging.
+
+    Without this Python's default WARNING level silently drops them (found 2026-10-16)."""
+    root = logging.getLogger("andon")
+    if not any(getattr(h, "_andon", False) for h in root.handlers):
+        h = logging.StreamHandler()
+        h._andon = True  # type: ignore[attr-defined]
+        h.setFormatter(logging.Formatter("%(levelname)s %(name)s: %(message)s"))
+        root.addHandler(h)
+    root.setLevel(logging.INFO)
+    root.propagate = False
+
+
+configure_logging()
 _ON_CLOUD_RUN = bool(os.environ.get("K_SERVICE"))
 
 
