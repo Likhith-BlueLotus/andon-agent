@@ -1,6 +1,6 @@
 {
  "r002-cloud-1": {
-  "label": "Demo: real MetroPT-3 air leak; verified root cause, premise-checked citation, all mandatory LOTO steps (live on Cloud Run)"
+  "label": "Demo: real MetroPT-3 air leak; verified root cause, premise-checked citation, all mandatory LOTO steps (final build, live on Cloud Run)"
  },
  "s014-cloud-1": {
   "label": "Synthetic sealer cavitation: verifier rejects a reversed causal-order claim, Judge revises, PASS (live on Cloud Run)"

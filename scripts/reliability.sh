@@ -15,7 +15,10 @@ for sid in "${IDS[@]}"; do
   out=$(curl -sN -X POST --max-time 600 "$API/api/incidents/$sid/investigate?mode=live" -H "X-Demo-Passcode: $PC" -H "$O")
   dt=$(python3 -c "import time;print(round(time.time()-$t0,1))")
   verdict=$(grep -o '"overall":"[A-Z]*"' <<<"$out" | tail -1); err=$(grep -o '"type":"error"[^}]*"code":"[a-z_]*"' <<<"$out" | grep -o 'code":"[a-z_]*' | head -1)
-  top=$(grep -o '"type":"rca_final".\{0,400\}' <<<"$out" | grep -o '"cause_class":"[a-z_]*","asset_id":"[A-Z0-9-]*"' | head -1)
+  top=$(python3 -c 'import json,sys
+for l in sys.stdin:
+    if l.startswith("data: ") and "\"rca_final\"" in l:
+        h=json.loads(l[6:])["data"]["hypotheses"][0]; print(h["cause_class"]+"@"+h["asset_id"]); break' <<<"$out")
   usd=$(grep -o '"type":"cost".*"usd":[0-9.]*' <<<"$out" | grep -o '"usd":[0-9.]*' | tail -1)
   fb=$(grep -c '"type":"model_fallback"' <<<"$out")
   echo "$sid  ${dt}s  ${verdict:-no-verdict}  ${top:-no-rca}  ${usd:-}  fallbacks=$fb  ${err:+ERROR $err}"

@@ -31,7 +31,9 @@ gcloud secrets describe daily-budget-usd --project "$PROJECT" >/dev/null || { ec
 # `,` inside values needs the ^;^ delimiter; EXTRA_ENV commas are rewritten to ';'-safe form by the caller.
 ENVV="GOOGLE_CLOUD_PROJECT=$PROJECT;GOOGLE_CLOUD_LOCATION=global;GOOGLE_GENAI_USE_ENTERPRISE=true;GOOGLE_GENAI_USE_VERTEXAI=True"
 ENVV="$ENVV;APP_REGION=$REGION;STORE_BACKEND=gcs;STORE_CACHE_DIR=/tmp/andon-store;FIRESTORE=1;BQ_DATASET=andon"
-GIT_SHA="$(git rev-parse --short HEAD)$([[ -n "$(git status --porcelain -- agents api config.py simulator analytics Dockerfile)" ]] && echo -dirty)"
+GIT_SHA="$(git rev-parse --short HEAD)"
+# (an `[[ ]] && echo` inside the substitution would exit non-zero on a clean tree and stop the script under set -e)
+if [[ -n "$(git status --porcelain -- agents api config.py simulator analytics Dockerfile)" ]]; then GIT_SHA="$GIT_SHA-dirty"; fi
 ENVV="$ENVV;GCS_BUCKET=$PROJECT-assets;GIT_SHA=$GIT_SHA;ALLOWED_ORIGINS=$ORIGINS$EXTRA_ENV"
 
 gcloud run deploy andon-api --source . --project "$PROJECT" --region "$REGION" \
