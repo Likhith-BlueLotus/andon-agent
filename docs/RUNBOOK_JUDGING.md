@@ -20,7 +20,7 @@ One-line status in the team chat after each check: `judging_check: ALL PASS` or 
 Default `min-instances 0` (cold start about 1-3 s plus first-request imports). Warm only when needed:
 - `bash infra/warm.sh on` 30 min before a recording or a known judging session; `bash infra/warm.sh off` after.
 - A warm instance (2 vCPU / 4 GiB, instance-based idle) costs a few USD per day; never leave on overnight without checking the ledger.
-- Or `WARM=1 PUBLIC=1 bash infra/deploy_api.sh` on redeploy.
+- Or `WARM=1 PUBLIC=1 EXTRA_ENV=";ENABLE_STRETCH=upload,tech,lang" bash infra/deploy_api.sh` on redeploy. Without `EXTRA_ENV` the upload, technician and language features switch off (`/api/config` shows `features: []`), as happened on 2026-10-17.
 
 ## Rotate the passcode
 ```
