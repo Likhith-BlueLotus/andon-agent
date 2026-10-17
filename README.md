@@ -4,7 +4,7 @@ Theme: Manufacturing: Intelligent Operations & Industrial Efficiency
 
 When an automotive assembly line stops, Andon Agent investigates like a reliability engineer: it plans checks, runs analytics on telemetry and machine sound, cites the manual, has code verify every claim, and hands a human a verified root cause plus a safety-gated draft work order.
 
-**Live app:** https://andon-agent-b9c77.web.app · **API:** https://andon-api-359520289475.asia-south1.run.app/health · **Repo:** https://github.com/Likhith-BlueLotus/andon-agent
+**Live app:** https://andon-agent-b9c77.web.app · **Demo video (3:29):** https://youtu.be/lBHRCLir0A8 · **API:** https://andon-api-359520289475.asia-south1.run.app/health · **Repo:** https://github.com/Likhith-BlueLotus/andon-agent
 
 Replays play for anyone, no login. Live investigations call Gemini and need the demo passcode (ask the team). Every screen shows `SYNTHETIC LINE · REAL SIGNALS MARKED`: the line is simulated and real public signals are mapped onto it, each with its provenance. This is not real plant data.
 
