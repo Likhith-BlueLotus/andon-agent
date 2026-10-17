@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { MOCK_PROPOSAL } from "./uploadMock";
-import { buildConfirm, checkFile, initialRows, initialTimestamp, isHeuristic, stopTsToIso, validate } from "./uploadMapping";
+import { buildConfirm, checkFile, initialRows, initialTimestamp, isHeuristic, isUploadId, stopTsToIso, validate } from "./uploadMapping";
 
 const p = MOCK_PROPOSAL("upload_air_leak.csv", false);
 
@@ -72,5 +72,15 @@ describe("checkFile", () => {
     expect(checkFile({ name: "a.csv", size: 10 })).toBeNull();
     expect(checkFile({ name: "a.xlsx", size: 10 })).toMatch(/csv/i);
     expect(checkFile({ name: "a.csv", size: 21 * 1024 * 1024 })).toMatch(/20 MB/);
+  });
+});
+
+describe("upload scenario ids", () => {
+  it("accepts the ids the API issues (U + 10 base32) and the mock id", () => {
+    expect(isUploadId("UK7Q2ZD4MXA")).toBe(true); // shape of api/uploads.py UPLOAD_ID_RE
+    expect(isUploadId("U001")).toBe(true);
+  });
+  it("rejects catalog scenarios and malformed ids", () => {
+    for (const id of ["R002", "S014", "U", "Uk7q2zd4mxa", "UK7Q2ZD4MX", "up_e5b01bbc82b9", null]) expect(isUploadId(id)).toBe(false);
   });
 });

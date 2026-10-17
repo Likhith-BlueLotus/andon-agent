@@ -114,7 +114,8 @@ export interface UploadMeta { filename: string; station: string; stop_ts: string
 const uploads = new Map<string, UploadMeta>();
 export const rememberUpload = (scenarioId: string, meta: UploadMeta) => void uploads.set(scenarioId, meta);
 export const uploadMeta = (scenarioId: string): UploadMeta | null => uploads.get(scenarioId) ?? null;
-export const isUploadId = (id: string | null | undefined): boolean => !!id && /^U\d+$/.test(id);
+/** Upload scenario ids: the API issues `U` + 10 base32 chars (api/uploads.py UPLOAD_ID_RE); the mock uses `U001`. */
+export const isUploadId = (id: string | null | undefined): boolean => !!id && /^U(?:[A-Z2-7]{10}|\d+)$/.test(id);
 export const uploadLabel = (id: string): string => `${id} · your upload (${uploadMeta(id)?.filename ?? "file"})`;
 
 /** A ScenarioInfo-shaped stand-in so the console can run an uploaded scenario. */
