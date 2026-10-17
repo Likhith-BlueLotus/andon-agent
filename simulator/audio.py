@@ -225,7 +225,8 @@ def plan(
     return sorted(out, key=lambda p: (p.ts, p.asset_id))
 
 
-SET_SIZES = {"S": 60, "R": 17, "C": 10}  # canonical set sizes, so a subset run picks the same scenarios
+# canonical set sizes, so a subset run picks the same scenarios
+SET_SIZES = {"S": 60, "R": 17, "C": 10}
 
 
 def noisy_scenarios(scenario_ids: list[str], seed: int = 2026) -> set[str]:
