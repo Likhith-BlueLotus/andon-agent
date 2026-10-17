@@ -451,6 +451,11 @@ def _detect_change_points(
         w = res["bin_s"]
         if any(abs(ts - st) <= w or abs(ts - st - d) <= w for st, d in stuck):
             cp["data_issue"] = "stuck_value"
+    sh = res.get("short_shift") or {}
+    if sh.get("status") == "found":  # a sensor frozen through the tail is not a level shift
+        s0, s1 = _parse_time("ts", sh["ts"]), _parse_time("end_ts", sh["end_ts"])
+        if any(st < s1 and st + d > s0 for st, d in stuck):
+            sh["data_issue"] = "stuck_value"
     summary = {"asset_id": asset_id, "tag": tag, "t0": iso(a), "t1": iso(b), **res,
                "n_change_points": len(res["change_points"]), "data_quality": dq}  # fmt: skip
     return summary, _prov_refs(_provenance(ctx, asset_id, [tag], a, b))
@@ -808,7 +813,11 @@ def detect_change_points(ctx: ToolContext, asset_id: str, tag: str, t0: str, t1:
     (loaded-time fraction for the load/unload compressor current), daily pattern removed, onset
     refined with CUSUM. Each change: ts (onset), before_mean, after_mean, delta, magnitude_pct,
     direction, shape (step/ramp/excursion), across_gap, at_changeover. `signal` names what was
-    analysed (e.g. duty_fraction_10min). Includes data quality."""
+    analysed (e.g. duty_fraction_10min). `short_shift` separately tests whether the last 5-60
+    min of the window sit at a different level from the hours before (short faults right before
+    a stop that are too small for change_points): status found/none, and when found ts, end_ts,
+    duration_s, before_mean, after_mean, delta, magnitude_pct, direction, z. Includes data
+    quality."""
     return _run("detect_change_points", ctx, {"asset_id": asset_id, "tag": tag, "t0": t0, "t1": t1})
 
 

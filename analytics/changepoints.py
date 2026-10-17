@@ -215,9 +215,11 @@ def detect(
     }
     if len(y) < 4 * cfg.min_size:
         out["status"] = "insufficient_data"
+        out["short_shift"] = {"status": "insufficient_data", "method": "tail_scan_z"}
         return out
 
-    prof, n_days = daily_profile(history if history is not None else s, sd, t0, t1, width)
+    hs = history if history is not None else s
+    prof, n_days = daily_profile(hs, sd, t0, t1, width)
     out["daily_profile_days"] = n_days if prof else 0
     off = plant.PLANT_UTC_OFFSET_S
     seas = np.array([prof.get(int(k), 0.0) for k in ((tt + off) % DAY) // width])
@@ -304,7 +306,173 @@ def detect(
         cps = [cps[i] for i in sorted(keep[: cfg.max_report])]
         out["truncated"] = True
     out["change_points"] = cps
+    out["short_shift"] = short_shift(hs, t0, t1, sd, SHORT)
     return out
+
+
+@dataclass(frozen=True)
+class ShortConfig:
+    """End-anchored short-shift scan (ADR-033). A line stop is investigated with windows that end
+    at the stop, and the fault that stopped the line is active at the stop. A 10-20 min step of
+    0.3-6 % is many bin-sigmas but far below PELT's physical ``min_effect`` (8 % of the normal
+    span, sized for multi-day windows with daily patterns), so ``merge_small`` removes it. This
+    scan asks one narrower question: do the last ``L`` minutes of the window (``L`` in
+    [``min_len_s``, ``scan_s``]) sit at a different level from the preceding baseline?"""
+
+    scan_s: int = 3600  # longest tail tested (longer faults are PELT's job)
+    min_len_s: int = 300  # shortest tail tested (and >= ``min_bins`` bins)
+    min_bins: int = 3
+    base_s: int = 4 * 3600  # baseline length before the scanned tail
+    min_base_bins: int = 60  # and at least 2 x the tail length
+    z_min: float = 8.0  # |z| against the baseline's own variability of L-bin means
+    persist: float = 0.75  # share of tail bins on the shifted side of the baseline level
+    rel_floor: float = 0.01  # ... and |delta| >= 1 % of the normal span and >= 2 x resolution
+    max_ar: float = 0.95
+
+
+SHORT = ShortConfig()
+
+
+def short_shift(hist: Series, t0: int, t1: int, sd: SignalDef, cfg: ShortConfig = SHORT) -> dict:
+    """End-anchored likelihood-ratio scan for a sustained level shift in the last <= ``scan_s``.
+
+    ``hist`` is the raw 1 Hz history ending at ``t1`` (up to 7 days; the baseline may start
+    before ``t0``, the tested tail always lies inside ``[t0, t1)``). Bins of ``max(60 s, signal
+    base width)``; changeover bins and gaps removed; only data after the last planned changeover
+    (no recipe change between baseline and tail). The daily pattern is removed with a 5-min
+    profile estimated on whole local days before the tested tail (a fault is never absorbed into
+    its own baseline), interpolated to the bins. For each tail length ``L`` the null spread of an
+    L-bin mean comes from the baseline itself (max of an AR(1) long-run-variance model and the
+    empirical spread of rolling L-means), inflated if the tail is noisier than the baseline (a
+    noise increase is not a level shift). Decision: max ``|z|`` >= ``z_min``. Onset: the
+    likelihood-ratio estimate ``argmax_L L (mean_L - mu)^2`` in the decided direction; the shift
+    must persist over that tail and clear a physical floor."""
+    width = max(60, sd.base_width_s)
+    how = "median" if sd.kind == "median" else "mean"
+    floor = sd.min_effect if sd.min_effect is not None else 0.0
+    floor = max(floor, cfg.rel_floor * sd.scale, 2 * sd.resolution)
+    out: dict = {"status": "none", "method": "tail_scan_z", "bin_s": width,
+                 "z_min": cfg.z_min, "min_effect": sig(floor)}  # fmt: skip
+    if width > 60:
+        # Per-cycle / duty / chiller tags (5-15 min bins): a 10-20 min fault is 1-4 bins, and
+        # on the S-set their short-term steps are mostly real slowdowns propagated through the
+        # line's buffers from another station (ADR-033), so the scan would mislead causal order.
+        out["status"] = "not_applicable"
+        out["reason"] = "short scan runs on 1-min signals only"
+        return out
+    if len(hist) and int(hist.t[-1]) < t1 - 1:  # window runs past the history: end at its end
+        t1 = int(hist.t[-1]) + 1
+    l_min = max(cfg.min_bins, -(-cfg.min_len_s // width))
+    l_max = max(min(cfg.scan_s, t1 - t0), 0) // width  # tested tail always lies in [t0, t1)
+    if l_max < l_min:
+        out["status"] = "insufficient_data"
+        return out
+    a = t1 - (cfg.base_s + l_max * width) // width * width
+    co = [iv for iv in changeover_intervals(a, t1) if iv[1] <= t1]
+    if co:  # only after the last planned changeover (+ restart tail) that ends before t1
+        a = max(a, t1 - (t1 - co[-1][1]) // width * width)
+    xs = Series(hist.t, transform_values(sd, hist.v))
+    starts, vals, _ = bin_series(xs.window(a, t1), a, t1, width, how)
+    ok = np.isfinite(vals) & ~changeover_mask(starts, width)
+    tt, raw = starts[ok], vals[ok]
+    # Profile from whole local days before the tested tail: every slot then rests on the same
+    # days (a profile ending mid-day mixes 7-day and 6-day medians, and on a tag whose setpoint
+    # follows the product model that alone puts a step at the cut).
+    pw = max(300, width)
+    off = plant.PLANT_UTC_OFFSET_S
+    midnight = (t1 - l_max * width + off) // DAY * DAY - off
+    prof, _ = daily_profile(hist.window(midnight - PROFILE_DAYS * DAY, midnight), sd,
+                            midnight - pw, midnight, pw)  # fmt: skip
+    y = raw - _interp_profile(prof, pw, tt + width // 2)
+    n = len(y)
+    min_base = cfg.min_base_bins
+    if n < min_base + l_min:
+        out["status"] = "insufficient_data"
+        return out
+    if t1 - (int(tt[-1]) + width) >= l_min * width:  # the window's end is a changeover or a gap
+        out["status"] = "insufficient_data"
+        out["reason"] = "no usable data at the end of the window (changeover or gap)"
+        return out
+    res_floor = max(sd.resolution * 0.5, 1e-9)
+    nb = cfg.base_s // width
+    best_z, best_abs, mu_by_l = 0.0, -1.0, {}
+    for L in range(l_min, l_max + 1):
+        base = y[: n - L][-nb:]
+        if len(base) < max(min_base, 2 * L) or tt[n - L] < t0:
+            break
+        mu = float(np.median(base))
+        sb = max(1.4826 * float(np.median(np.abs(base - mu))), res_floor)
+        r = _ar1(base, cfg.max_ar)
+        s_model = sb * np.sqrt((1 + r) / (1 - r) / L)
+        rm = np.convolve(base, np.ones(L) / L, mode="valid")
+        s_emp = 1.4826 * float(np.median(np.abs(rm - np.median(rm)))) if len(rm) >= 5 else 0.0
+        tail = y[n - L :]
+        st = 1.4826 * float(np.median(np.abs(tail - np.median(tail))))
+        s_L = max(s_model, s_emp, res_floor / np.sqrt(L)) * max(1.0, st / sb)
+        z = (float(np.mean(tail)) - mu) / s_L
+        mu_by_l[L] = (mu, float(np.mean(tail)), len(base))
+        if abs(z) > best_abs:
+            best_abs, best_z = abs(z), z
+    if not mu_by_l:
+        out["status"] = "insufficient_data"
+        return out
+    out["max_abs_z"] = sig(best_abs, 3)
+    if best_abs < cfg.z_min:
+        return out
+    sgn = 1.0 if best_z > 0 else -1.0
+    L = max(mu_by_l, key=lambda k: (k * max(sgn * (mu_by_l[k][1] - mu_by_l[k][0]), 0.0) ** 2, -k))
+    mu, m_tail, nbase = mu_by_l[L]
+    d_adj = m_tail - mu
+    tail = y[n - L :]
+    if sgn * d_adj <= 0 or np.mean(sgn * (tail - mu) > 0) < cfg.persist or abs(d_adj) < floor:
+        return out
+    before = float(np.median(raw[: n - L][-nb:]))
+    out.update(
+        {
+            "status": "found",
+            "ts": iso(int(tt[n - L])),
+            "end_ts": iso(int(tt[-1]) + width),
+            "duration_s": int(tt[-1] + width - tt[n - L]),
+            "before_mean": sig(before),
+            "after_mean": sig(before + d_adj),
+            "delta": sig(d_adj),
+            "magnitude_pct": sig(100.0 * d_adj / abs(before), 4)
+            if abs(before) > 0.01 * sd.scale
+            else None,
+            "direction": "up" if d_adj > 0 else "down",
+            "z": sig(best_z, 3),
+            "baseline": {
+                "t0": iso(int(tt[: n - L][-nbase:][0])),
+                "t1": iso(int(tt[n - L])),
+                "n_bins": nbase,
+            },
+        }
+    )
+    return out
+
+
+def _interp_profile(prof: dict[int, float], pw: int, t: np.ndarray) -> np.ndarray:
+    """Daily profile (slots of ``pw`` s, local time) linearly interpolated at times ``t``."""
+    if not prof:
+        return np.zeros(len(t))
+    k = np.array(sorted(prof), dtype=np.float64)
+    v = np.array([prof[int(i)] for i in k])
+    x = k * pw + pw / 2
+    xp = np.concatenate([x - DAY, x, x + DAY])  # circular
+    vp = np.concatenate([v, v, v])
+    tl = ((t + plant.PLANT_UTC_OFFSET_S) % DAY).astype(np.float64)
+    return np.interp(tl, xp, vp)
+
+
+def _ar1(y: np.ndarray, cap: float) -> float:
+    """Lag-1 autocorrelation of the baseline (clipped to [0, cap]): long-run variance factor."""
+    if len(y) < 10:
+        return 0.0
+    d = y - np.median(y)
+    den = float(np.dot(d, d))
+    if den <= 0:
+        return 0.0
+    return float(min(max(np.dot(d[1:], d[:-1]) / den, 0.0), cap))
 
 
 def _excursions(cps: list[dict], delta: float, cfg: CPConfig) -> list[dict]:

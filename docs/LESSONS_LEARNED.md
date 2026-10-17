@@ -218,3 +218,9 @@ Template — copy for each entry:
 - **Fix:** C-set = 5 MetroPT-3 normal windows disjoint from every R window + the 5 unused UCI conditions, IDs shuffled, data pinned by SHA-256 in `eval/preregistration_confirm.md`, the limit stated there before any run. R files left untouched (bucket mismatch reported, not fixed here).
 - **Do differently / rule added:** before promising a held-out real set, count the labelled events left in each source; plan the held-out split at R-set construction time.
 - **Cost (time / $):** ~2 h / $0 (template shift notes, no LLM).
+
+### 2026-10-17 — A physical minimum effect sized for days hides a 10-minute fault (data)
+- **What happened:** UCI R009–R011 (10–19 min, 0.2–3 %) produced zero change points on every window. The bins were fine; `min_effect = 8 % of the normal span` deleted steps that were 10–30 bin-sigmas. While building the fix, a daily profile cut at the tail start mixed 6- and 7-day medians (pandas averages the two middle values), which put a fake 5-bar step on the press pressure, whose setpoint follows the product model.
+- **Fix:** an end-anchored short-shift scan with a local empirical null, reported beside `change_points` (ADR-033); the profile is built from whole days; validated on a fresh synthetic dev set (S101–S112), never on R/C outcomes.
+- **Do differently / rule added:** every effect-size floor states the window length it was calibrated for; seasonal profiles always use whole days; validate a detector change on data generated after the change, and measure FP on healthy *and* off-chain windows.
+- **Cost (time / $):** ~5 h / $0.
