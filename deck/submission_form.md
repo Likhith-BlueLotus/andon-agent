@@ -3,8 +3,8 @@
 **Challenge:** Manufacturing: Intelligent Operations & Industrial Efficiency
 **Prototype link:** https://andon-agent-b9c77.web.app
 **GitHub:** https://github.com/Likhith-BlueLotus/andon-agent
-**Demo video:** <YouTube link after upload> (file: video/out/AndonAgent_Demo.mp4, 3:29)
-**Deck PDF:** deck/AndonAgent_AIBuilderCup.pdf
+**Demo video:** https://youtu.be/lBHRCLir0A8 (3:29, public)
+**Deck PDF:** upload AndonAgent_AIBuilderCup.pptx.pdf (team SUTRA final, 18 slides, 1.5 MB)
 
 ## Brief description (paste as-is)
 
