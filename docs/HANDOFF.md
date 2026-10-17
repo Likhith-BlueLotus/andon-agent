@@ -6,6 +6,7 @@
 **Short-fault detector (ADR-033) + analyst v4, post-hoc S1 rerun `eval/results/posthoc_v4`:** S 0.97 [0.89, 0.99] (58/60; S024, S046 missed), R 0.82 [0.59, 0.94] (14/17; R009–R011 missed), C 0.50 (healthy 5/5, short hydraulic 0/5), 0/648 unsupported. No regression → deploy. The detector removes the false alarm but the judge still calls short real hydraulic faults healthy (open weakness, said plainly in README + Q&A).
 **Fix found by the rerun:** dropped Gemini connections (`httpx.ReadError`) failed whole runs; `PinnedGemini` now retries before any output (RISKS #28, 13dea08).
 **Spend:** eval ≈ $99.8 of $120 hard stop; Gemini total ≈ $107. Eval's $8 cap is per process; the live API's Firestore counter is separate.
+**Deployed:** revision andon-api-00005-sxj, `/health` git_sha 5cb4b35; judging_check ALL PASS; replay R002 PASS.
 **Deck/slide:** use the `final_v2` table as the headline; post-hoc numbers and `posthoc_v4/results_slide.png` only as a labelled post-hoc slide or in Q&A.
 
 ## 2026-10-17 — Person A — Release candidate v1.0-rc (new GCP project andon-511816)
