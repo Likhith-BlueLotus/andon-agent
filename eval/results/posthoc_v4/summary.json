@@ -1,0 +1,2413 @@
+{
+ "run_id": "posthoc_v4",
+ "generated_at": "2026-10-17T09:09:36+00:00",
+ "created_at": "2026-10-17T09:06:48+00:00",
+ "dry_run": false,
+ "purpose": "final",
+ "git": {
+  "sha": "13dea089e21d5ccf8e4951d6b3506711d15b482a",
+  "dirty": true
+ },
+ "models": {
+  "default_judge": "gemini-3.8-flash",
+  "flash": "gemini-3.8-flash",
+  "flash_lite": "gemini-3.1-flash-lite",
+  "pro_judge": "gemini-3.1-pro-preview",
+  "b1": "gemini-3.8-flash"
+ },
+ "judge_model_by_system": {
+  "S1": "gemini-3.8-flash"
+ },
+ "prompt_versions": {
+  "cite_manual": "cite_manual v1 2026-10-11",
+  "commander": "commander v1 2026-10-11",
+  "drafter": "drafter v2 2026-10-11",
+  "judge": "judge v7 2026-10-12",
+  "librarian": "librarian v1 2026-10-11",
+  "listen_rubric": "listen_rubric v1 2026-10-11",
+  "signal_analyst": "signal_analyst v4 2026-10-17",
+  "b1": "b1 v1 2026-10-11"
+ },
+ "scenario_seeds": {
+  "C001": 2026201,
+  "C002": 2026202,
+  "C003": 2026203,
+  "C004": 2026204,
+  "C005": 2026205,
+  "C006": 2026206,
+  "C007": 2026207,
+  "C008": 2026208,
+  "C009": 2026209,
+  "C010": 2026210,
+  "R001": 2026101,
+  "R002": 2026102,
+  "R003": 2026103,
+  "R004": 2026104,
+  "R005": 2026105,
+  "R006": 2026106,
+  "R007": 2026107,
+  "R008": 2026108,
+  "R009": 2026109,
+  "R010": 2026110,
+  "R011": 2026111,
+  "R012": 2026112,
+  "R013": 2026113,
+  "R014": 2026114,
+  "R015": 2026115,
+  "R016": 2026116,
+  "R017": 2026117,
+  "S001": 2026001,
+  "S002": 2026002,
+  "S003": 2026003,
+  "S004": 2026004,
+  "S005": 2026005,
+  "S006": 2026006,
+  "S007": 2026007,
+  "S008": 2026008,
+  "S009": 2026009,
+  "S010": 2026010,
+  "S011": 2026011,
+  "S012": 2026012,
+  "S013": 2026013,
+  "S014": 2026014,
+  "S015": 2026015,
+  "S016": 2026016,
+  "S017": 2026017,
+  "S018": 2026018,
+  "S019": 2026019,
+  "S020": 2026020,
+  "S021": 2026021,
+  "S022": 2026022,
+  "S023": 2026023,
+  "S024": 2026024,
+  "S025": 2026025,
+  "S026": 2026026,
+  "S027": 2026027,
+  "S028": 2026028,
+  "S029": 2026029,
+  "S030": 2026030,
+  "S031": 2026031,
+  "S032": 2026032,
+  "S033": 2026033,
+  "S034": 2026034,
+  "S035": 2026035,
+  "S036": 2026036,
+  "S037": 2026037,
+  "S038": 2026038,
+  "S039": 2026039,
+  "S040": 2026040,
+  "S041": 2026041,
+  "S042": 2026042,
+  "S043": 2026043,
+  "S044": 2026044,
+  "S045": 2026045,
+  "S046": 2026046,
+  "S047": 2026047,
+  "S048": 2026048,
+  "S049": 2026049,
+  "S050": 2026050,
+  "S051": 2026051,
+  "S052": 2026052,
+  "S053": 2026053,
+  "S054": 2026054,
+  "S055": 2026055,
+  "S056": 2026056,
+  "S057": 2026057,
+  "S058": 2026058,
+  "S059": 2026059,
+  "S060": 2026060
+ },
+ "seed_note": "Scenario seeds are the simulator's; Gemini calls are not seedable (temperature/top_p/top_k are never sent), hence the variance runs.",
+ "systems": [
+  "S1"
+ ],
+ "n_scenarios": {
+  "S": 0,
+  "R": 4,
+  "C": 0
+ },
+ "heldout_ids_included": [
+  "S051",
+  "S052",
+  "S053",
+  "S054",
+  "S055",
+  "S056",
+  "S057",
+  "S058",
+  "S059",
+  "S060"
+ ],
+ "coverage": {
+  "S1": {
+   "S": {
+    "expected": 0,
+    "completed": 60,
+    "errors": 0
+   },
+   "R": {
+    "expected": 4,
+    "completed": 17,
+    "errors": 0
+   },
+   "C": {
+    "expected": 0,
+    "completed": 10,
+    "errors": 0
+   }
+  }
+ },
+ "sets": {
+  "S": {
+   "S1": {
+    "n": 60,
+    "n_error": 0,
+    "top1": {
+     "k": 58,
+     "n": 60,
+     "value": 0.9667,
+     "lo": 0.8864,
+     "hi": 0.9908
+    },
+    "top3": {
+     "k": 58,
+     "n": 60,
+     "value": 0.9667,
+     "lo": 0.8864,
+     "hi": 0.9908
+    },
+    "chain_f1": {
+     "mean": 0.7723809523809524,
+     "n": 50,
+     "n_scored": 50
+    },
+    "abstention": {
+     "recall": {
+      "k": 10,
+      "n": 10,
+      "value": 1.0,
+      "lo": 0.7225,
+      "hi": 1.0
+     },
+     "precision": {
+      "k": 15,
+      "n": 15,
+      "value": 1.0,
+      "lo": 0.7961,
+      "hi": 1.0
+     },
+     "false_abstention": {
+      "k": 0,
+      "n": 45,
+      "value": 0.0,
+      "lo": 0.0,
+      "hi": 0.0787
+     }
+    },
+    "red_herring_top1": {
+     "k": 10,
+     "n": 10,
+     "value": 1.0,
+     "lo": 0.7225,
+     "hi": 1.0
+    },
+    "imperfection_false_alarm": {
+     "k": 0,
+     "n": 45,
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.0787
+    },
+    "unsupported_claim_rate": {
+     "k": 0,
+     "n": 433,
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.0088
+    },
+    "unsupported_claim_rate_checkable": {
+     "k": 0,
+     "n": 366,
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.0104
+    },
+    "unsupported_run_rate": {
+     "k": 0,
+     "n": 60,
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.0602
+    },
+    "unflagged_unsupported_rate": {
+     "k": 0,
+     "n": 433,
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.0088
+    },
+    "claims": {
+     "n_claims": 433,
+     "n_unsupported": 0,
+     "n_checkable": 366,
+     "n_checker_errors": 0
+    },
+    "verifier": {
+     "catches_total": 1,
+     "catches_mean_per_run": 0.016666666666666666,
+     "runs_with_catch": 1,
+     "flagged_final_total": 0,
+     "iterations_mean": 1.0166666666666666
+    },
+    "calibration": {
+     "n": 60,
+     "brier": 0.042138333333333326,
+     "bins": [
+      {
+       "bin": 0,
+       "lo": 0.0,
+       "hi": 0.2,
+       "n": 0,
+       "mean_confidence": null,
+       "accuracy": null
+      },
+      {
+       "bin": 1,
+       "lo": 0.2,
+       "hi": 0.4,
+       "n": 0,
+       "mean_confidence": null,
+       "accuracy": null
+      },
+      {
+       "bin": 2,
+       "lo": 0.4,
+       "hi": 0.6,
+       "n": 0,
+       "mean_confidence": null,
+       "accuracy": null
+      },
+      {
+       "bin": 3,
+       "lo": 0.6,
+       "hi": 0.8,
+       "n": 1,
+       "mean_confidence": 0.75,
+       "accuracy": 1.0
+      },
+      {
+       "bin": 4,
+       "lo": 0.8,
+       "hi": 1.0,
+       "n": 59,
+       "mean_confidence": 0.8753,
+       "accuracy": 0.9661
+      }
+     ],
+     "ece": 0.09345333333333333,
+     "n_without_confidence": 0
+    },
+    "time_s": {
+     "median": 94.434,
+     "p95": 181.23354999999998,
+     "n": 60
+    },
+    "cost": {
+     "mean_usd": 0.12360458333333332,
+     "total_usd": 7.416275,
+     "median_usd": 0.1221255
+    },
+    "dual_fault_secondary_in_top3": {
+     "k": 4,
+     "n": 10,
+     "value": 0.4,
+     "lo": 0.1682,
+     "hi": 0.6873
+    },
+    "by_variant": {
+     "clean": {
+      "n": 30,
+      "n_error": 0,
+      "top1": {
+       "k": 28,
+       "n": 30,
+       "value": 0.9333,
+       "lo": 0.7868,
+       "hi": 0.9815
+      },
+      "top3": {
+       "k": 28,
+       "n": 30,
+       "value": 0.9333,
+       "lo": 0.7868,
+       "hi": 0.9815
+      },
+      "chain_f1": {
+       "mean": 0.7650793650793651,
+       "n": 30,
+       "n_scored": 30
+      },
+      "abstention": {
+       "recall": {
+        "k": 0,
+        "n": 0,
+        "value": null,
+        "lo": null,
+        "hi": null
+       },
+       "precision": {
+        "k": 3,
+        "n": 3,
+        "value": 1.0,
+        "lo": 0.4385,
+        "hi": 1.0
+       },
+       "false_abstention": {
+        "k": 0,
+        "n": 27,
+        "value": 0.0,
+        "lo": 0.0,
+        "hi": 0.1246
+       }
+      },
+      "red_herring_top1": {
+       "k": 0,
+       "n": 0,
+       "value": null,
+       "lo": null,
+       "hi": null
+      },
+      "imperfection_false_alarm": {
+       "k": 0,
+       "n": 27,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.1246
+      },
+      "unsupported_claim_rate": {
+       "k": 0,
+       "n": 222,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.017
+      },
+      "unsupported_claim_rate_checkable": {
+       "k": 0,
+       "n": 197,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.0191
+      },
+      "unsupported_run_rate": {
+       "k": 0,
+       "n": 30,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.1135
+      },
+      "unflagged_unsupported_rate": {
+       "k": 0,
+       "n": 222,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.017
+      },
+      "claims": {
+       "n_claims": 222,
+       "n_unsupported": 0,
+       "n_checkable": 197,
+       "n_checker_errors": 0
+      },
+      "verifier": {
+       "catches_total": 1,
+       "catches_mean_per_run": 0.03333333333333333,
+       "runs_with_catch": 1,
+       "flagged_final_total": 0,
+       "iterations_mean": 1.0333333333333334
+      },
+      "calibration": {
+       "n": 30,
+       "brier": 0.06777000000000001,
+       "bins": [
+        {
+         "bin": 0,
+         "lo": 0.0,
+         "hi": 0.2,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 1,
+         "lo": 0.2,
+         "hi": 0.4,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 2,
+         "lo": 0.4,
+         "hi": 0.6,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 3,
+         "lo": 0.6,
+         "hi": 0.8,
+         "n": 1,
+         "mean_confidence": 0.75,
+         "accuracy": 1.0
+        },
+        {
+         "bin": 4,
+         "lo": 0.8,
+         "hi": 1.0,
+         "n": 29,
+         "mean_confidence": 0.8731,
+         "accuracy": 0.931
+        }
+       ],
+       "ece": 0.06430333333333339,
+       "n_without_confidence": 0
+      },
+      "time_s": {
+       "median": 96.4495,
+       "p95": 177.62120000000002,
+       "n": 30
+      },
+      "cost": {
+       "mean_usd": 0.12417943333333333,
+       "total_usd": 3.725383,
+       "median_usd": 0.11919
+      },
+      "dual_fault_secondary_in_top3": {
+       "k": 0,
+       "n": 0,
+       "value": null,
+       "lo": null,
+       "hi": null
+      }
+     },
+     "dual_fault": {
+      "n": 10,
+      "n_error": 0,
+      "top1": {
+       "k": 10,
+       "n": 10,
+       "value": 1.0,
+       "lo": 0.7225,
+       "hi": 1.0
+      },
+      "top3": {
+       "k": 10,
+       "n": 10,
+       "value": 1.0,
+       "lo": 0.7225,
+       "hi": 1.0
+      },
+      "chain_f1": {
+       "mean": 0.7733333333333333,
+       "n": 10,
+       "n_scored": 10
+      },
+      "abstention": {
+       "recall": {
+        "k": 0,
+        "n": 0,
+        "value": null,
+        "lo": null,
+        "hi": null
+       },
+       "precision": {
+        "k": 1,
+        "n": 1,
+        "value": 1.0,
+        "lo": 0.2065,
+        "hi": 1.0
+       },
+       "false_abstention": {
+        "k": 0,
+        "n": 9,
+        "value": 0.0,
+        "lo": 0.0,
+        "hi": 0.2991
+       }
+      },
+      "red_herring_top1": {
+       "k": 0,
+       "n": 0,
+       "value": null,
+       "lo": null,
+       "hi": null
+      },
+      "imperfection_false_alarm": {
+       "k": 0,
+       "n": 9,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.2991
+      },
+      "unsupported_claim_rate": {
+       "k": 0,
+       "n": 73,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.05
+      },
+      "unsupported_claim_rate_checkable": {
+       "k": 0,
+       "n": 62,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.0583
+      },
+      "unsupported_run_rate": {
+       "k": 0,
+       "n": 10,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.2775
+      },
+      "unflagged_unsupported_rate": {
+       "k": 0,
+       "n": 73,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.05
+      },
+      "claims": {
+       "n_claims": 73,
+       "n_unsupported": 0,
+       "n_checkable": 62,
+       "n_checker_errors": 0
+      },
+      "verifier": {
+       "catches_total": 0,
+       "catches_mean_per_run": 0.0,
+       "runs_with_catch": 0,
+       "flagged_final_total": 0,
+       "iterations_mean": 1.0
+      },
+      "calibration": {
+       "n": 10,
+       "brier": 0.01175,
+       "bins": [
+        {
+         "bin": 0,
+         "lo": 0.0,
+         "hi": 0.2,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 1,
+         "lo": 0.2,
+         "hi": 0.4,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 2,
+         "lo": 0.4,
+         "hi": 0.6,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 3,
+         "lo": 0.6,
+         "hi": 0.8,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 4,
+         "lo": 0.8,
+         "hi": 1.0,
+         "n": 10,
+         "mean_confidence": 0.899,
+         "accuracy": 1.0
+        }
+       ],
+       "ece": 0.10099999999999998,
+       "n_without_confidence": 0
+      },
+      "time_s": {
+       "median": 99.4965,
+       "p95": 171.48990000000003,
+       "n": 10
+      },
+      "cost": {
+       "mean_usd": 0.1304458,
+       "total_usd": 1.304458,
+       "median_usd": 0.137565
+      },
+      "dual_fault_secondary_in_top3": {
+       "k": 4,
+       "n": 10,
+       "value": 0.4,
+       "lo": 0.1682,
+       "hi": 0.6873
+      }
+     },
+     "no_fault": {
+      "n": 10,
+      "n_error": 0,
+      "top1": {
+       "k": 10,
+       "n": 10,
+       "value": 1.0,
+       "lo": 0.7225,
+       "hi": 1.0
+      },
+      "top3": {
+       "k": 10,
+       "n": 10,
+       "value": 1.0,
+       "lo": 0.7225,
+       "hi": 1.0
+      },
+      "chain_f1": {
+       "mean": null,
+       "n": 0,
+       "n_scored": 0
+      },
+      "abstention": {
+       "recall": {
+        "k": 10,
+        "n": 10,
+        "value": 1.0,
+        "lo": 0.7225,
+        "hi": 1.0
+       },
+       "precision": {
+        "k": 10,
+        "n": 10,
+        "value": 1.0,
+        "lo": 0.7225,
+        "hi": 1.0
+       },
+       "false_abstention": {
+        "k": 0,
+        "n": 0,
+        "value": null,
+        "lo": null,
+        "hi": null
+       }
+      },
+      "red_herring_top1": {
+       "k": 0,
+       "n": 0,
+       "value": null,
+       "lo": null,
+       "hi": null
+      },
+      "imperfection_false_alarm": {
+       "k": 0,
+       "n": 0,
+       "value": null,
+       "lo": null,
+       "hi": null
+      },
+      "unsupported_claim_rate": {
+       "k": 0,
+       "n": 60,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.0602
+      },
+      "unsupported_claim_rate_checkable": {
+       "k": 0,
+       "n": 48,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.0741
+      },
+      "unsupported_run_rate": {
+       "k": 0,
+       "n": 10,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.2775
+      },
+      "unflagged_unsupported_rate": {
+       "k": 0,
+       "n": 60,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.0602
+      },
+      "claims": {
+       "n_claims": 60,
+       "n_unsupported": 0,
+       "n_checkable": 48,
+       "n_checker_errors": 0
+      },
+      "verifier": {
+       "catches_total": 0,
+       "catches_mean_per_run": 0.0,
+       "runs_with_catch": 0,
+       "flagged_final_total": 0,
+       "iterations_mean": 1.0
+      },
+      "calibration": {
+       "n": 10,
+       "brier": 0.0175,
+       "bins": [
+        {
+         "bin": 0,
+         "lo": 0.0,
+         "hi": 0.2,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 1,
+         "lo": 0.2,
+         "hi": 0.4,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 2,
+         "lo": 0.4,
+         "hi": 0.6,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 3,
+         "lo": 0.6,
+         "hi": 0.8,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 4,
+         "lo": 0.8,
+         "hi": 1.0,
+         "n": 10,
+         "mean_confidence": 0.87,
+         "accuracy": 1.0
+        }
+       ],
+       "ece": 0.13,
+       "n_without_confidence": 0
+      },
+      "time_s": {
+       "median": 86.777,
+       "p95": 132.97025000000002,
+       "n": 10
+      },
+      "cost": {
+       "mean_usd": 0.12246520000000001,
+       "total_usd": 1.224652,
+       "median_usd": 0.12392
+      },
+      "dual_fault_secondary_in_top3": {
+       "k": 0,
+       "n": 0,
+       "value": null,
+       "lo": null,
+       "hi": null
+      }
+     },
+     "red_herring": {
+      "n": 10,
+      "n_error": 0,
+      "top1": {
+       "k": 10,
+       "n": 10,
+       "value": 1.0,
+       "lo": 0.7225,
+       "hi": 1.0
+      },
+      "top3": {
+       "k": 10,
+       "n": 10,
+       "value": 1.0,
+       "lo": 0.7225,
+       "hi": 1.0
+      },
+      "chain_f1": {
+       "mean": 0.7933333333333333,
+       "n": 10,
+       "n_scored": 10
+      },
+      "abstention": {
+       "recall": {
+        "k": 0,
+        "n": 0,
+        "value": null,
+        "lo": null,
+        "hi": null
+       },
+       "precision": {
+        "k": 1,
+        "n": 1,
+        "value": 1.0,
+        "lo": 0.2065,
+        "hi": 1.0
+       },
+       "false_abstention": {
+        "k": 0,
+        "n": 9,
+        "value": 0.0,
+        "lo": 0.0,
+        "hi": 0.2991
+       }
+      },
+      "red_herring_top1": {
+       "k": 10,
+       "n": 10,
+       "value": 1.0,
+       "lo": 0.7225,
+       "hi": 1.0
+      },
+      "imperfection_false_alarm": {
+       "k": 0,
+       "n": 9,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.2991
+      },
+      "unsupported_claim_rate": {
+       "k": 0,
+       "n": 78,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.0469
+      },
+      "unsupported_claim_rate_checkable": {
+       "k": 0,
+       "n": 59,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.0611
+      },
+      "unsupported_run_rate": {
+       "k": 0,
+       "n": 10,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.2775
+      },
+      "unflagged_unsupported_rate": {
+       "k": 0,
+       "n": 78,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.0469
+      },
+      "claims": {
+       "n_claims": 78,
+       "n_unsupported": 0,
+       "n_checkable": 59,
+       "n_checker_errors": 0
+      },
+      "verifier": {
+       "catches_total": 0,
+       "catches_mean_per_run": 0.0,
+       "runs_with_catch": 0,
+       "flagged_final_total": 0,
+       "iterations_mean": 1.0
+      },
+      "calibration": {
+       "n": 10,
+       "brier": 0.020269999999999996,
+       "bins": [
+        {
+         "bin": 0,
+         "lo": 0.0,
+         "hi": 0.2,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 1,
+         "lo": 0.2,
+         "hi": 0.4,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 2,
+         "lo": 0.4,
+         "hi": 0.6,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 3,
+         "lo": 0.6,
+         "hi": 0.8,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 4,
+         "lo": 0.8,
+         "hi": 1.0,
+         "n": 10,
+         "mean_confidence": 0.863,
+         "accuracy": 1.0
+        }
+       ],
+       "ece": 0.137,
+       "n_without_confidence": 0
+      },
+      "time_s": {
+       "median": 87.68950000000001,
+       "p95": 181.55220000000006,
+       "n": 10
+      },
+      "cost": {
+       "mean_usd": 0.11617820000000001,
+       "total_usd": 1.161782,
+       "median_usd": 0.1109535
+      },
+      "dual_fault_secondary_in_top3": {
+       "k": 0,
+       "n": 0,
+       "value": null,
+       "lo": null,
+       "hi": null
+      }
+     }
+    },
+    "by_cause": {
+     "air_pressure_drop": {
+      "n": 5,
+      "top1": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      },
+      "top3": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      }
+     },
+     "changeover_error": {
+      "n": 5,
+      "top1": {
+       "k": 3,
+       "n": 5,
+       "value": 0.6,
+       "lo": 0.2307,
+       "hi": 0.8824
+      },
+      "top3": {
+       "k": 3,
+       "n": 5,
+       "value": 0.6,
+       "lo": 0.2307,
+       "hi": 0.8824
+      }
+     },
+     "conveyor_bearing_defect": {
+      "n": 5,
+      "top1": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      },
+      "top3": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      }
+     },
+     "coolant_blockage": {
+      "n": 5,
+      "top1": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      },
+      "top3": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      }
+     },
+     "fixture_misalignment": {
+      "n": 5,
+      "top1": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      },
+      "top3": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      }
+     },
+     "no_fault": {
+      "n": 10,
+      "top1": {
+       "k": 10,
+       "n": 10,
+       "value": 1.0,
+       "lo": 0.7225,
+       "hi": 1.0
+      },
+      "top3": {
+       "k": 10,
+       "n": 10,
+       "value": 1.0,
+       "lo": 0.7225,
+       "hi": 1.0
+      }
+     },
+     "plc_timer_misconfig": {
+      "n": 5,
+      "top1": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      },
+      "top3": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      }
+     },
+     "sealer_pump_cavitation": {
+      "n": 5,
+      "top1": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      },
+      "top3": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      }
+     },
+     "sensor_drift": {
+      "n": 5,
+      "top1": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      },
+      "top3": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      }
+     },
+     "servo_overheat": {
+      "n": 5,
+      "top1": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      },
+      "top3": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      }
+     },
+     "weld_tip_wear": {
+      "n": 5,
+      "top1": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      },
+      "top3": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      }
+     }
+    },
+    "by_heldout": {
+     "heldout": {
+      "n": 10,
+      "top1": {
+       "k": 10,
+       "n": 10,
+       "value": 1.0,
+       "lo": 0.7225,
+       "hi": 1.0
+      },
+      "top3": {
+       "k": 10,
+       "n": 10,
+       "value": 1.0,
+       "lo": 0.7225,
+       "hi": 1.0
+      }
+     },
+     "dev": {
+      "n": 50,
+      "top1": {
+       "k": 48,
+       "n": 50,
+       "value": 0.96,
+       "lo": 0.8654,
+       "hi": 0.989
+      },
+      "top3": {
+       "k": 48,
+       "n": 50,
+       "value": 0.96,
+       "lo": 0.8654,
+       "hi": 0.989
+      }
+     }
+    }
+   }
+  },
+  "R": {
+   "S1": {
+    "n": 17,
+    "n_error": 0,
+    "top1": {
+     "k": 14,
+     "n": 17,
+     "value": 0.8235,
+     "lo": 0.5897,
+     "hi": 0.9381
+    },
+    "top3": {
+     "k": 17,
+     "n": 17,
+     "value": 1.0,
+     "lo": 0.8157,
+     "hi": 1.0
+    },
+    "chain_f1": {
+     "mean": 0.8666666666666666,
+     "n": 10,
+     "n_scored": 10
+    },
+    "abstention": {
+     "recall": {
+      "k": 7,
+      "n": 7,
+      "value": 1.0,
+      "lo": 0.6457,
+      "hi": 1.0
+     },
+     "precision": {
+      "k": 7,
+      "n": 10,
+      "value": 0.7,
+      "lo": 0.3968,
+      "hi": 0.8922
+     },
+     "false_abstention": {
+      "k": 3,
+      "n": 10,
+      "value": 0.3,
+      "lo": 0.1078,
+      "hi": 0.6032
+     }
+    },
+    "red_herring_top1": {
+     "k": 0,
+     "n": 0,
+     "value": null,
+     "lo": null,
+     "hi": null
+    },
+    "imperfection_false_alarm": {
+     "k": 0,
+     "n": 10,
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.2775
+    },
+    "unsupported_claim_rate": {
+     "k": 0,
+     "n": 134,
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.0279
+    },
+    "unsupported_claim_rate_checkable": {
+     "k": 0,
+     "n": 107,
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.0347
+    },
+    "unsupported_run_rate": {
+     "k": 0,
+     "n": 17,
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.1843
+    },
+    "unflagged_unsupported_rate": {
+     "k": 0,
+     "n": 134,
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.0279
+    },
+    "claims": {
+     "n_claims": 134,
+     "n_unsupported": 0,
+     "n_checkable": 107,
+     "n_checker_errors": 0
+    },
+    "verifier": {
+     "catches_total": 1,
+     "catches_mean_per_run": 0.058823529411764705,
+     "runs_with_catch": 1,
+     "flagged_final_total": 0,
+     "iterations_mean": 1.0588235294117647
+    },
+    "calibration": {
+     "n": 17,
+     "brier": 0.14498235294117648,
+     "bins": [
+      {
+       "bin": 0,
+       "lo": 0.0,
+       "hi": 0.2,
+       "n": 0,
+       "mean_confidence": null,
+       "accuracy": null
+      },
+      {
+       "bin": 1,
+       "lo": 0.2,
+       "hi": 0.4,
+       "n": 0,
+       "mean_confidence": null,
+       "accuracy": null
+      },
+      {
+       "bin": 2,
+       "lo": 0.4,
+       "hi": 0.6,
+       "n": 0,
+       "mean_confidence": null,
+       "accuracy": null
+      },
+      {
+       "bin": 3,
+       "lo": 0.6,
+       "hi": 0.8,
+       "n": 0,
+       "mean_confidence": null,
+       "accuracy": null
+      },
+      {
+       "bin": 4,
+       "lo": 0.8,
+       "hi": 1.0,
+       "n": 17,
+       "mean_confidence": 0.8806,
+       "accuracy": 0.8235
+      }
+     ],
+     "ece": 0.05710000000000004,
+     "n_without_confidence": 0
+    },
+    "time_s": {
+     "median": 134.026,
+     "p95": 230.3162,
+     "n": 17
+    },
+    "cost": {
+     "mean_usd": 0.13602852941176471,
+     "total_usd": 2.312485,
+     "median_usd": 0.137992
+    },
+    "dual_fault_secondary_in_top3": {
+     "k": 0,
+     "n": 0,
+     "value": null,
+     "lo": null,
+     "hi": null
+    },
+    "by_variant": {
+     "clean": {
+      "n": 10,
+      "n_error": 0,
+      "top1": {
+       "k": 7,
+       "n": 10,
+       "value": 0.7,
+       "lo": 0.3968,
+       "hi": 0.8922
+      },
+      "top3": {
+       "k": 10,
+       "n": 10,
+       "value": 1.0,
+       "lo": 0.7225,
+       "hi": 1.0
+      },
+      "chain_f1": {
+       "mean": 0.8666666666666666,
+       "n": 10,
+       "n_scored": 10
+      },
+      "abstention": {
+       "recall": {
+        "k": 0,
+        "n": 0,
+        "value": null,
+        "lo": null,
+        "hi": null
+       },
+       "precision": {
+        "k": 0,
+        "n": 3,
+        "value": 0.0,
+        "lo": 0.0,
+        "hi": 0.5615
+       },
+       "false_abstention": {
+        "k": 3,
+        "n": 10,
+        "value": 0.3,
+        "lo": 0.1078,
+        "hi": 0.6032
+       }
+      },
+      "red_herring_top1": {
+       "k": 0,
+       "n": 0,
+       "value": null,
+       "lo": null,
+       "hi": null
+      },
+      "imperfection_false_alarm": {
+       "k": 0,
+       "n": 10,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.2775
+      },
+      "unsupported_claim_rate": {
+       "k": 0,
+       "n": 79,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.0464
+      },
+      "unsupported_claim_rate_checkable": {
+       "k": 0,
+       "n": 66,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.055
+      },
+      "unsupported_run_rate": {
+       "k": 0,
+       "n": 10,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.2775
+      },
+      "unflagged_unsupported_rate": {
+       "k": 0,
+       "n": 79,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.0464
+      },
+      "claims": {
+       "n_claims": 79,
+       "n_unsupported": 0,
+       "n_checkable": 66,
+       "n_checker_errors": 0
+      },
+      "verifier": {
+       "catches_total": 1,
+       "catches_mean_per_run": 0.1,
+       "runs_with_catch": 1,
+       "flagged_final_total": 0,
+       "iterations_mean": 1.1
+      },
+      "calibration": {
+       "n": 10,
+       "brier": 0.23321999999999998,
+       "bins": [
+        {
+         "bin": 0,
+         "lo": 0.0,
+         "hi": 0.2,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 1,
+         "lo": 0.2,
+         "hi": 0.4,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 2,
+         "lo": 0.4,
+         "hi": 0.6,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 3,
+         "lo": 0.6,
+         "hi": 0.8,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 4,
+         "lo": 0.8,
+         "hi": 1.0,
+         "n": 10,
+         "mean_confidence": 0.892,
+         "accuracy": 0.7
+        }
+       ],
+       "ece": 0.19200000000000006,
+       "n_without_confidence": 0
+      },
+      "time_s": {
+       "median": 119.5875,
+       "p95": 208.44135000000006,
+       "n": 10
+      },
+      "cost": {
+       "mean_usd": 0.137238,
+       "total_usd": 1.37238,
+       "median_usd": 0.13734000000000002
+      },
+      "dual_fault_secondary_in_top3": {
+       "k": 0,
+       "n": 0,
+       "value": null,
+       "lo": null,
+       "hi": null
+      }
+     },
+     "no_fault": {
+      "n": 7,
+      "n_error": 0,
+      "top1": {
+       "k": 7,
+       "n": 7,
+       "value": 1.0,
+       "lo": 0.6457,
+       "hi": 1.0
+      },
+      "top3": {
+       "k": 7,
+       "n": 7,
+       "value": 1.0,
+       "lo": 0.6457,
+       "hi": 1.0
+      },
+      "chain_f1": {
+       "mean": null,
+       "n": 0,
+       "n_scored": 0
+      },
+      "abstention": {
+       "recall": {
+        "k": 7,
+        "n": 7,
+        "value": 1.0,
+        "lo": 0.6457,
+        "hi": 1.0
+       },
+       "precision": {
+        "k": 7,
+        "n": 7,
+        "value": 1.0,
+        "lo": 0.6457,
+        "hi": 1.0
+       },
+       "false_abstention": {
+        "k": 0,
+        "n": 0,
+        "value": null,
+        "lo": null,
+        "hi": null
+       }
+      },
+      "red_herring_top1": {
+       "k": 0,
+       "n": 0,
+       "value": null,
+       "lo": null,
+       "hi": null
+      },
+      "imperfection_false_alarm": {
+       "k": 0,
+       "n": 0,
+       "value": null,
+       "lo": null,
+       "hi": null
+      },
+      "unsupported_claim_rate": {
+       "k": 0,
+       "n": 55,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.0653
+      },
+      "unsupported_claim_rate_checkable": {
+       "k": 0,
+       "n": 41,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.0857
+      },
+      "unsupported_run_rate": {
+       "k": 0,
+       "n": 7,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.3543
+      },
+      "unflagged_unsupported_rate": {
+       "k": 0,
+       "n": 55,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.0653
+      },
+      "claims": {
+       "n_claims": 55,
+       "n_unsupported": 0,
+       "n_checkable": 41,
+       "n_checker_errors": 0
+      },
+      "verifier": {
+       "catches_total": 0,
+       "catches_mean_per_run": 0.0,
+       "runs_with_catch": 0,
+       "flagged_final_total": 0,
+       "iterations_mean": 1.0
+      },
+      "calibration": {
+       "n": 7,
+       "brier": 0.01892857142857143,
+       "bins": [
+        {
+         "bin": 0,
+         "lo": 0.0,
+         "hi": 0.2,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 1,
+         "lo": 0.2,
+         "hi": 0.4,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 2,
+         "lo": 0.4,
+         "hi": 0.6,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 3,
+         "lo": 0.6,
+         "hi": 0.8,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 4,
+         "lo": 0.8,
+         "hi": 1.0,
+         "n": 7,
+         "mean_confidence": 0.8643,
+         "accuracy": 1.0
+        }
+       ],
+       "ece": 0.13570000000000004,
+       "n_without_confidence": 0
+      },
+      "time_s": {
+       "median": 161.479,
+       "p95": 224.2504,
+       "n": 7
+      },
+      "cost": {
+       "mean_usd": 0.13430071428571427,
+       "total_usd": 0.940105,
+       "median_usd": 0.138667
+      },
+      "dual_fault_secondary_in_top3": {
+       "k": 0,
+       "n": 0,
+       "value": null,
+       "lo": null,
+       "hi": null
+      }
+     }
+    },
+    "by_cause": {
+     "air_pressure_drop": {
+      "n": 4,
+      "top1": {
+       "k": 4,
+       "n": 4,
+       "value": 1.0,
+       "lo": 0.5101,
+       "hi": 1.0
+      },
+      "top3": {
+       "k": 4,
+       "n": 4,
+       "value": 1.0,
+       "lo": 0.5101,
+       "hi": 1.0
+      }
+     },
+     "conveyor_bearing_defect": {
+      "n": 2,
+      "top1": {
+       "k": 2,
+       "n": 2,
+       "value": 1.0,
+       "lo": 0.3424,
+       "hi": 1.0
+      },
+      "top3": {
+       "k": 2,
+       "n": 2,
+       "value": 1.0,
+       "lo": 0.3424,
+       "hi": 1.0
+      }
+     },
+     "hydraulic_degradation": {
+      "n": 4,
+      "top1": {
+       "k": 1,
+       "n": 4,
+       "value": 0.25,
+       "lo": 0.0456,
+       "hi": 0.6994
+      },
+      "top3": {
+       "k": 4,
+       "n": 4,
+       "value": 1.0,
+       "lo": 0.5101,
+       "hi": 1.0
+      }
+     },
+     "no_fault": {
+      "n": 7,
+      "top1": {
+       "k": 7,
+       "n": 7,
+       "value": 1.0,
+       "lo": 0.6457,
+       "hi": 1.0
+      },
+      "top3": {
+       "k": 7,
+       "n": 7,
+       "value": 1.0,
+       "lo": 0.6457,
+       "hi": 1.0
+      }
+     }
+    },
+    "by_heldout": {
+     "heldout": {
+      "n": 0,
+      "top1": {
+       "k": 0,
+       "n": 0,
+       "value": null,
+       "lo": null,
+       "hi": null
+      },
+      "top3": {
+       "k": 0,
+       "n": 0,
+       "value": null,
+       "lo": null,
+       "hi": null
+      }
+     },
+     "dev": {
+      "n": 17,
+      "top1": {
+       "k": 14,
+       "n": 17,
+       "value": 0.8235,
+       "lo": 0.5897,
+       "hi": 0.9381
+      },
+      "top3": {
+       "k": 17,
+       "n": 17,
+       "value": 1.0,
+       "lo": 0.8157,
+       "hi": 1.0
+      }
+     }
+    }
+   }
+  },
+  "C": {
+   "S1": {
+    "n": 10,
+    "n_error": 0,
+    "top1": {
+     "k": 5,
+     "n": 10,
+     "value": 0.5,
+     "lo": 0.2366,
+     "hi": 0.7634
+    },
+    "top3": {
+     "k": 10,
+     "n": 10,
+     "value": 1.0,
+     "lo": 0.7225,
+     "hi": 1.0
+    },
+    "chain_f1": {
+     "mean": 1.0,
+     "n": 5,
+     "n_scored": 5
+    },
+    "abstention": {
+     "recall": {
+      "k": 5,
+      "n": 5,
+      "value": 1.0,
+      "lo": 0.5655,
+      "hi": 1.0
+     },
+     "precision": {
+      "k": 5,
+      "n": 10,
+      "value": 0.5,
+      "lo": 0.2366,
+      "hi": 0.7634
+     },
+     "false_abstention": {
+      "k": 5,
+      "n": 5,
+      "value": 1.0,
+      "lo": 0.5655,
+      "hi": 1.0
+     }
+    },
+    "red_herring_top1": {
+     "k": 0,
+     "n": 0,
+     "value": null,
+     "lo": null,
+     "hi": null
+    },
+    "imperfection_false_alarm": {
+     "k": 0,
+     "n": 5,
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.4345
+    },
+    "unsupported_claim_rate": {
+     "k": 0,
+     "n": 81,
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.0453
+    },
+    "unsupported_claim_rate_checkable": {
+     "k": 0,
+     "n": 68,
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.0535
+    },
+    "unsupported_run_rate": {
+     "k": 0,
+     "n": 10,
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.2775
+    },
+    "unflagged_unsupported_rate": {
+     "k": 0,
+     "n": 81,
+     "value": 0.0,
+     "lo": 0.0,
+     "hi": 0.0453
+    },
+    "claims": {
+     "n_claims": 81,
+     "n_unsupported": 0,
+     "n_checkable": 68,
+     "n_checker_errors": 0
+    },
+    "verifier": {
+     "catches_total": 0,
+     "catches_mean_per_run": 0.0,
+     "runs_with_catch": 0,
+     "flagged_final_total": 0,
+     "iterations_mean": 1.0
+    },
+    "calibration": {
+     "n": 10,
+     "brier": 0.37918999999999997,
+     "bins": [
+      {
+       "bin": 0,
+       "lo": 0.0,
+       "hi": 0.2,
+       "n": 0,
+       "mean_confidence": null,
+       "accuracy": null
+      },
+      {
+       "bin": 1,
+       "lo": 0.2,
+       "hi": 0.4,
+       "n": 0,
+       "mean_confidence": null,
+       "accuracy": null
+      },
+      {
+       "bin": 2,
+       "lo": 0.4,
+       "hi": 0.6,
+       "n": 0,
+       "mean_confidence": null,
+       "accuracy": null
+      },
+      {
+       "bin": 3,
+       "lo": 0.6,
+       "hi": 0.8,
+       "n": 0,
+       "mean_confidence": null,
+       "accuracy": null
+      },
+      {
+       "bin": 4,
+       "lo": 0.8,
+       "hi": 1.0,
+       "n": 10,
+       "mean_confidence": 0.863,
+       "accuracy": 0.5
+      }
+     ],
+     "ece": 0.363,
+     "n_without_confidence": 0
+    },
+    "time_s": {
+     "median": 103.1705,
+     "p95": 152.37385,
+     "n": 10
+    },
+    "cost": {
+     "mean_usd": 0.1210213,
+     "total_usd": 1.210213,
+     "median_usd": 0.11254
+    },
+    "dual_fault_secondary_in_top3": {
+     "k": 0,
+     "n": 0,
+     "value": null,
+     "lo": null,
+     "hi": null
+    },
+    "by_variant": {
+     "clean": {
+      "n": 5,
+      "n_error": 0,
+      "top1": {
+       "k": 0,
+       "n": 5,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.4345
+      },
+      "top3": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      },
+      "chain_f1": {
+       "mean": 1.0,
+       "n": 5,
+       "n_scored": 5
+      },
+      "abstention": {
+       "recall": {
+        "k": 0,
+        "n": 0,
+        "value": null,
+        "lo": null,
+        "hi": null
+       },
+       "precision": {
+        "k": 0,
+        "n": 5,
+        "value": 0.0,
+        "lo": 0.0,
+        "hi": 0.4345
+       },
+       "false_abstention": {
+        "k": 5,
+        "n": 5,
+        "value": 1.0,
+        "lo": 0.5655,
+        "hi": 1.0
+       }
+      },
+      "red_herring_top1": {
+       "k": 0,
+       "n": 0,
+       "value": null,
+       "lo": null,
+       "hi": null
+      },
+      "imperfection_false_alarm": {
+       "k": 0,
+       "n": 5,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.4345
+      },
+      "unsupported_claim_rate": {
+       "k": 0,
+       "n": 39,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.0897
+      },
+      "unsupported_claim_rate_checkable": {
+       "k": 0,
+       "n": 34,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.1015
+      },
+      "unsupported_run_rate": {
+       "k": 0,
+       "n": 5,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.4345
+      },
+      "unflagged_unsupported_rate": {
+       "k": 0,
+       "n": 39,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.0897
+      },
+      "claims": {
+       "n_claims": 39,
+       "n_unsupported": 0,
+       "n_checkable": 34,
+       "n_checker_errors": 0
+      },
+      "verifier": {
+       "catches_total": 0,
+       "catches_mean_per_run": 0.0,
+       "runs_with_catch": 0,
+       "flagged_final_total": 0,
+       "iterations_mean": 1.0
+      },
+      "calibration": {
+       "n": 5,
+       "brier": 0.74,
+       "bins": [
+        {
+         "bin": 0,
+         "lo": 0.0,
+         "hi": 0.2,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 1,
+         "lo": 0.2,
+         "hi": 0.4,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 2,
+         "lo": 0.4,
+         "hi": 0.6,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 3,
+         "lo": 0.6,
+         "hi": 0.8,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 4,
+         "lo": 0.8,
+         "hi": 1.0,
+         "n": 5,
+         "mean_confidence": 0.86,
+         "accuracy": 0.0
+        }
+       ],
+       "ece": 0.86,
+       "n_without_confidence": 0
+      },
+      "time_s": {
+       "median": 111.284,
+       "p95": 153.4056,
+       "n": 5
+      },
+      "cost": {
+       "mean_usd": 0.12425299999999999,
+       "total_usd": 0.621265,
+       "median_usd": 0.109642
+      },
+      "dual_fault_secondary_in_top3": {
+       "k": 0,
+       "n": 0,
+       "value": null,
+       "lo": null,
+       "hi": null
+      }
+     },
+     "no_fault": {
+      "n": 5,
+      "n_error": 0,
+      "top1": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      },
+      "top3": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      },
+      "chain_f1": {
+       "mean": null,
+       "n": 0,
+       "n_scored": 0
+      },
+      "abstention": {
+       "recall": {
+        "k": 5,
+        "n": 5,
+        "value": 1.0,
+        "lo": 0.5655,
+        "hi": 1.0
+       },
+       "precision": {
+        "k": 5,
+        "n": 5,
+        "value": 1.0,
+        "lo": 0.5655,
+        "hi": 1.0
+       },
+       "false_abstention": {
+        "k": 0,
+        "n": 0,
+        "value": null,
+        "lo": null,
+        "hi": null
+       }
+      },
+      "red_herring_top1": {
+       "k": 0,
+       "n": 0,
+       "value": null,
+       "lo": null,
+       "hi": null
+      },
+      "imperfection_false_alarm": {
+       "k": 0,
+       "n": 0,
+       "value": null,
+       "lo": null,
+       "hi": null
+      },
+      "unsupported_claim_rate": {
+       "k": 0,
+       "n": 42,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.0838
+      },
+      "unsupported_claim_rate_checkable": {
+       "k": 0,
+       "n": 34,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.1015
+      },
+      "unsupported_run_rate": {
+       "k": 0,
+       "n": 5,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.4345
+      },
+      "unflagged_unsupported_rate": {
+       "k": 0,
+       "n": 42,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.0838
+      },
+      "claims": {
+       "n_claims": 42,
+       "n_unsupported": 0,
+       "n_checkable": 34,
+       "n_checker_errors": 0
+      },
+      "verifier": {
+       "catches_total": 0,
+       "catches_mean_per_run": 0.0,
+       "runs_with_catch": 0,
+       "flagged_final_total": 0,
+       "iterations_mean": 1.0
+      },
+      "calibration": {
+       "n": 5,
+       "brier": 0.01838,
+       "bins": [
+        {
+         "bin": 0,
+         "lo": 0.0,
+         "hi": 0.2,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 1,
+         "lo": 0.2,
+         "hi": 0.4,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 2,
+         "lo": 0.4,
+         "hi": 0.6,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 3,
+         "lo": 0.6,
+         "hi": 0.8,
+         "n": 0,
+         "mean_confidence": null,
+         "accuracy": null
+        },
+        {
+         "bin": 4,
+         "lo": 0.8,
+         "hi": 1.0,
+         "n": 5,
+         "mean_confidence": 0.866,
+         "accuracy": 1.0
+        }
+       ],
+       "ece": 0.134,
+       "n_without_confidence": 0
+      },
+      "time_s": {
+       "median": 102.187,
+       "p95": 116.21799999999999,
+       "n": 5
+      },
+      "cost": {
+       "mean_usd": 0.11778960000000001,
+       "total_usd": 0.588948,
+       "median_usd": 0.114708
+      },
+      "dual_fault_secondary_in_top3": {
+       "k": 0,
+       "n": 0,
+       "value": null,
+       "lo": null,
+       "hi": null
+      }
+     }
+    },
+    "by_cause": {
+     "hydraulic_degradation": {
+      "n": 5,
+      "top1": {
+       "k": 0,
+       "n": 5,
+       "value": 0.0,
+       "lo": 0.0,
+       "hi": 0.4345
+      },
+      "top3": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      }
+     },
+     "no_fault": {
+      "n": 5,
+      "top1": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      },
+      "top3": {
+       "k": 5,
+       "n": 5,
+       "value": 1.0,
+       "lo": 0.5655,
+       "hi": 1.0
+      }
+     }
+    },
+    "by_heldout": {
+     "heldout": {
+      "n": 0,
+      "top1": {
+       "k": 0,
+       "n": 0,
+       "value": null,
+       "lo": null,
+       "hi": null
+      },
+      "top3": {
+       "k": 0,
+       "n": 0,
+       "value": null,
+       "lo": null,
+       "hi": null
+      }
+     },
+     "dev": {
+      "n": 10,
+      "top1": {
+       "k": 5,
+       "n": 10,
+       "value": 0.5,
+       "lo": 0.2366,
+       "hi": 0.7634
+      },
+      "top3": {
+       "k": 10,
+       "n": 10,
+       "value": 1.0,
+       "lo": 0.7225,
+       "hi": 1.0
+      }
+     }
+    }
+   }
+  }
+ },
+ "tests": {
+  "S": [],
+  "R": [],
+  "C": []
+ },
+ "variance": {},
+ "s1_minus_b1_top1_gap_S": null,
+ "stopped_budget": false,
+ "notes": [],
+ "conventions": "Every metric of EVAL_PLAN \u00a73, computed from ``results.jsonl`` rows and ground truth.\n\nGrading is a pure function of (row, truth, independent check): ``grade_run``. Aggregation is\n``summarize``; paired tests are ``compare``; run-to-run spread is ``variance``. Conventions (all\nstated again in the report footnote / README):\n\n* **Failed runs are misses.** A row with ``status == \"error\"`` (or no report) counts as incorrect\n  in every accuracy denominator and is reported as ``n_error``.\n* **Top-1** = top hypothesis ``cause_class`` equals truth AND ``asset_id`` equals truth (truth\n  ``asset_id`` is None only for ``no_fault``, then only the class must match). **Top-3** = any of\n  the <= 3 hypotheses matches. For ``dual_fault`` the truth is the primary fault; finding the\n  secondary class in the top 3 is reported separately.\n* **Abstention** = status ``insufficient_evidence``, or no hypotheses, or the top hypothesis is\n  ``no_fault`` / ``sensor_drift``. *Recall* = abstains on ``no_fault`` scenarios. *Precision* =\n  of all abstentions, the share where the truth really is a non-machine case (``no_fault`` or\n  ``sensor_drift``). *False abstention* = abstains although a machine fault was injected.\n* **Imperfection false alarm** = top hypothesis is ``sensor_drift`` although the truth is a\n  machine fault (the injected gaps/stuck values/chatter were blamed instead). Denominator: runs on\n  machine-fault scenarios.\n* **Unsupported claim** = a claim of the final report that the independent checker\n  (``eval/checker.py``) does not grade ``pass`` (fail or unverifiable), pooled over claims; the\n  run-level companion is the share of runs with at least one. Claims are clustered within runs, so\n  the pooled Wilson interval is optimistic: read it together with the run-level rate.\n"
+}

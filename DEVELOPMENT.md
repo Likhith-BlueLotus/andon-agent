@@ -77,15 +77,15 @@ All Gemini calls go through `agents/llm.py` (backoff, fallback, accounting, audi
 | Judging window demo (replay default, live capped) | $30 | $40 |
 | **Reserve** (finalist rework before Dec 4) | $50 | — |
 | **Total** | **$300** | |
-**Actuals to 2026-10-16** (Gemini, from run logs and the eval cost files; confirm gross cost in Billing → Reports for both projects):
+**Actuals to 2026-10-17** (Gemini, from run logs and the eval cost files; confirm gross cost in Billing → Reports for both projects):
 | Line | Spent | Note |
 |---|---|---|
 | Phase 0–2 | ≈ $1.3 | handoff 2026-10-11 |
 | Phase 3–4 integration + live testing | ≈ $3 | live R002/S014 checks, replays re-recorded, prod smoke runs |
-| Eval | ≈ $79.3 | final_flash 23.69, final_v2 16.42, run20 ×3 9.30, variance 5.00, S3 3.12, Pro 12.15, post-hoc 8.71, R002 repeats 0.37, retries 0.56 |
+| Eval | ≈ $99.8 | final_flash 23.69, final_v2 16.42, run20 ×3 9.30, variance 5.00, S3 3.12, Pro 12.15, post-hoc 8.71, R002 repeats 0.37, retries 0.56, runs to the $88.43 harness ledger 9.1 (incl. C-set confirmation 2.34), posthoc_v4 11.35 (incl. 8.03 first pass cut by the $8 in-process cap) |
 | Stretch + fixes (upload, tech, lang, ADR-025/027/031 checks) | ≈ $2 | |
-| **Gemini total** | **≈ $86** | plus Cloud Run / Build / storage (Billing) |
-Remaining for recording, judging window and reserve ≈ $200 (new project budget `andon-300-andon-511816` ≈ ₹18,000, ADR-031). Daily kill switch: `daily-budget-usd` secret = $8.
+| **Gemini total** | **≈ $107** | plus Cloud Run / Build / storage (Billing) |
+Remaining for recording, judging window and reserve ≈ $190 (new project budget `andon-300-andon-511816` ≈ ₹18,000, ADR-031). Daily kill switch: `daily-budget-usd` secret = $8.
 
 `/status` reports spend vs this table. If a line hits its hard stop, the principal-engineer decides what to cut before more is spent.
 

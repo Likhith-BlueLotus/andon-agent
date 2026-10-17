@@ -1,5 +1,13 @@
 # Handoff log (newest first)
 
+## 2026-10-17 (late) — Person A — Three weaknesses addressed, post-hoc rerun
+**Verifier value (ADR-032):** offline fault injection, 2,778 faults, caught 97.1% [96.4, 97.7] vs S2 0%; sign flips 92.6%, false premises 90.6%; 8/586 true claims wrongly flagged (`eval/results/stress_verifier/`).
+**Pre-registered C-set:** S1 0.40 (P1 FAIL), B1 0.20 (P2 pass), unsupported 0/80 vs 6/91 (`eval/results/confirm_c_v1`, results in `eval/preregistration_confirm.md`).
+**Short-fault detector (ADR-033) + analyst v4, post-hoc S1 rerun `eval/results/posthoc_v4`:** S 0.97 [0.89, 0.99] (58/60; S024, S046 missed), R 0.82 [0.59, 0.94] (14/17; R009–R011 missed), C 0.50 (healthy 5/5, short hydraulic 0/5), 0/648 unsupported. No regression → deploy. The detector removes the false alarm but the judge still calls short real hydraulic faults healthy (open weakness, said plainly in README + Q&A).
+**Fix found by the rerun:** dropped Gemini connections (`httpx.ReadError`) failed whole runs; `PinnedGemini` now retries before any output (RISKS #28, 13dea08).
+**Spend:** eval ≈ $99.8 of $120 hard stop; Gemini total ≈ $107. Eval's $8 cap is per process; the live API's Firestore counter is separate.
+**Deck/slide:** use the `final_v2` table as the headline; post-hoc numbers and `posthoc_v4/results_slide.png` only as a labelled post-hoc slide or in Q&A.
+
 ## 2026-10-17 — Person A — Release candidate v1.0-rc (new GCP project andon-511816)
 **Live:** web https://andon-agent-b9c77.web.app · API https://andon-api-359520289475.asia-south1.run.app (revision with `/health` git_sha 6f6ea10, max-instances 1, stretch upload,tech,lang). Old project `andon-agent-511218` suspended 2026-10-13 (appeal pending) → moved per ADR-031; new demo passcode in Secret Manager (`--project andon-511816`).
 **Release check: all pass.** main green (708 pytest, ruff, 150 vitest + build); judging_check ALL PASS; live R002 in the browser verified air_pressure_drop @ UT-AIR (7/7 claims, PASS iter 1, 19 LOTO steps, $0.14); replay `r002-cloud-1` re-recorded on the final build, `s014-cloud-1` keeps the verifier rejection; final security review + data audit: OK to submit, no blockers.

@@ -1,0 +1,23 @@
+{
+ "run_id": "posthoc_v4",
+ "dry_run": false,
+ "total_usd": 11.35077,
+ "n_calls_rows": 116,
+ "by_system": {
+  "S1": {
+   "runs": 116,
+   "usd": 11.35077,
+   "by_model": {
+    "gemini-3.8-flash": 11.19727,
+    "gemini-3.1-flash-lite": 0.1535
+   },
+   "mean_usd": 0.09785
+  }
+ },
+ "by_model": {
+  "gemini-3.1-flash-lite": 0.1535,
+  "gemini-3.8-flash": 11.19727
+ },
+ "estimated_usd": 0.4628,
+ "note": "includes superseded rows (retried errors); a dry run bills nothing"
+}

@@ -1,0 +1,75 @@
+{
+ "args": {
+  "systems": "S1",
+  "sets": "R007,R010,R011,R012",
+  "subset": null,
+  "repeats": 1,
+  "concurrency": 1,
+  "judge": null,
+  "out": "eval/results/posthoc_v4",
+  "yes": true,
+  "dry_run": false,
+  "estimate_only": false,
+  "limit": null,
+  "no_retry_errors": false,
+  "override_ledger": false,
+  "daily_budget": null,
+  "purpose": "final",
+  "db": "/Users/varunm/Likhith's Professional/andon-agent/data/andon.duckdb",
+  "scenarios_dir": "/Users/varunm/Likhith's Professional/andon-agent/data/scenarios",
+  "truth_dir": null,
+  "sync_to": null,
+  "store": "local",
+  "data_dir": null,
+  "no_report": false
+ },
+ "dry_run": false,
+ "git": {
+  "sha": "13dea089e21d5ccf8e4951d6b3506711d15b482a",
+  "dirty": true
+ },
+ "models": {
+  "default_judge": "gemini-3.8-flash",
+  "flash": "gemini-3.8-flash",
+  "flash_lite": "gemini-3.1-flash-lite",
+  "pro_judge": "gemini-3.1-pro-preview",
+  "b1": "gemini-3.8-flash"
+ },
+ "prompt_versions": {
+  "cite_manual": "cite_manual v1 2026-10-11",
+  "commander": "commander v1 2026-10-11",
+  "drafter": "drafter v2 2026-10-11",
+  "judge": "judge v7 2026-10-12",
+  "librarian": "librarian v1 2026-10-11",
+  "listen_rubric": "listen_rubric v1 2026-10-11",
+  "signal_analyst": "signal_analyst v4 2026-10-17",
+  "b1": "b1 v1 2026-10-11"
+ },
+ "ids": [
+  "R007",
+  "R010",
+  "R011",
+  "R012"
+ ],
+ "systems": [
+  "S1"
+ ],
+ "purpose": "final",
+ "stopped_budget": false,
+ "created_at": "2026-10-17T09:06:48+00:00",
+ "estimate": {
+  "lines": [
+   {
+    "system": "S1",
+    "runs": 4,
+    "per_run_usd": 0.11570001858736059,
+    "usd": 0.4628,
+    "basis": "observed mean of 538 earlier runs"
+   }
+  ],
+  "total_usd": 0.4628,
+  "spent_before_usd": 88.4338,
+  "projected_usd": 88.8966
+ },
+ "daily_budget_usd": 2.0
+}
