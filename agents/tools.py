@@ -25,6 +25,7 @@ from __future__ import annotations
 import dataclasses
 import inspect
 import json
+import logging
 import re
 import threading
 from collections import Counter
@@ -60,6 +61,7 @@ from simulator.load import TelemetryStore
 
 ROOT = Path(__file__).resolve().parents[1]
 GCS_CACHE_DIR = ROOT / "data" / "cache" / "gcs"
+log = logging.getLogger("andon.tools")
 EVIDENCE_PREFIX = "evidence:"
 MAX_WINDOW_S = 7 * 86400
 HISTORY_SLACK_S = 3600  # windows may run up to 1 h past the end of the scenario history
@@ -146,10 +148,13 @@ class GCSReader:
 
                 self._client = storage.Client()
         data = self._client.bucket(m.group(1)).blob(m.group(2)).download_as_bytes(timeout=60)
-        path.parent.mkdir(parents=True, exist_ok=True)
-        tmp = path.with_suffix(path.suffix + ".part")
-        tmp.write_bytes(data)
-        tmp.replace(path)
+        try:  # best effort: the Cloud Run image is read-only for the app user
+            path.parent.mkdir(parents=True, exist_ok=True)
+            tmp = path.with_suffix(path.suffix + ".part")
+            tmp.write_bytes(data)
+            tmp.replace(path)
+        except OSError as exc:
+            log.debug("gcs cache write skipped for %s: %r", uri, exc)
         return data
 
 

@@ -497,3 +497,23 @@ def test_detect_direction_follows_reported_delta_under_daily_profile():
     assert cps
     for c in cps:
         assert (c["delta"] > 0) == (c["direction"] == "up"), c
+
+
+def test_gcs_reader_returns_data_when_cache_dir_is_read_only(tmp_path, monkeypatch):
+    """Cloud Run runs the image as a non-root user: a failed cache write must not fail the read (listen index)."""
+    import stat
+    from types import SimpleNamespace
+
+    from agents.tools import GCSReader
+
+    ro = tmp_path / "ro"
+    ro.mkdir()
+    ro.chmod(stat.S_IRUSR | stat.S_IXUSR)
+    blob = SimpleNamespace(download_as_bytes=lambda timeout: b'{"clips": []}')
+    client = SimpleNamespace(bucket=lambda name: SimpleNamespace(blob=lambda key: blob))
+    r = GCSReader(cache_dir=ro / "gcs")
+    r._client = client
+    try:
+        assert r.read_bytes("gs://b/audio/R002/audio_index.json") == b'{"clips": []}'
+    finally:
+        ro.chmod(stat.S_IRWXU)

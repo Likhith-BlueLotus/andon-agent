@@ -313,10 +313,13 @@ def _gemini(
         },
         "created_at": datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
     }
-    path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(f".{threading.get_ident()}.tmp")
-    tmp.write_text(json.dumps(entry, indent=1, sort_keys=True) + "\n")
-    tmp.replace(path)
+    try:  # best effort: the Cloud Run image is read-only for the app user
+        path.parent.mkdir(parents=True, exist_ok=True)
+        tmp = path.with_suffix(f".{threading.get_ident()}.tmp")
+        tmp.write_text(json.dumps(entry, indent=1, sort_keys=True) + "\n")
+        tmp.replace(path)
+    except OSError as exc:
+        log.debug("listen cache write skipped for %s: %r", key, exc)
     return finding, "ok", version
 
 
