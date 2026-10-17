@@ -1,0 +1,1225 @@
+{
+ "faults": {
+  "num_10": {
+   "family": "numeric",
+   "label": "Number off by \u00b110%",
+   "catch": {
+    "k": 488,
+    "n": 488,
+    "value": 1.0,
+    "lo": 0.9922,
+    "hi": 1.0
+   },
+   "caught_fail": 488,
+   "caught_unverifiable": 0,
+   "missed": 0,
+   "n_runs": 77,
+   "explicit_path": {
+    "k": 486,
+    "n": 486,
+    "value": 1.0,
+    "lo": 0.9922,
+    "hi": 1.0
+   },
+   "implicit": {
+    "k": 2,
+    "n": 2,
+    "value": 1.0,
+    "lo": 0.3424,
+    "hi": 1.0
+   },
+   "by_variant": {
+    "+10%": {
+     "k": 244,
+     "n": 244,
+     "value": 1.0,
+     "lo": 0.9845,
+     "hi": 1.0
+    },
+    "-10%": {
+     "k": 244,
+     "n": 244,
+     "value": 1.0,
+     "lo": 0.9845,
+     "hi": 1.0
+    }
+   }
+  },
+  "num_25": {
+   "family": "numeric",
+   "label": "Number off by \u00b125%",
+   "catch": {
+    "k": 488,
+    "n": 488,
+    "value": 1.0,
+    "lo": 0.9922,
+    "hi": 1.0
+   },
+   "caught_fail": 488,
+   "caught_unverifiable": 0,
+   "missed": 0,
+   "n_runs": 77,
+   "explicit_path": {
+    "k": 486,
+    "n": 486,
+    "value": 1.0,
+    "lo": 0.9922,
+    "hi": 1.0
+   },
+   "implicit": {
+    "k": 2,
+    "n": 2,
+    "value": 1.0,
+    "lo": 0.3424,
+    "hi": 1.0
+   },
+   "by_variant": {
+    "+25%": {
+     "k": 244,
+     "n": 244,
+     "value": 1.0,
+     "lo": 0.9845,
+     "hi": 1.0
+    },
+    "-25%": {
+     "k": 244,
+     "n": 244,
+     "value": 1.0,
+     "lo": 0.9845,
+     "hi": 1.0
+    }
+   }
+  },
+  "num_sign": {
+   "family": "numeric",
+   "label": "Number sign flipped",
+   "catch": {
+    "k": 226,
+    "n": 244,
+    "value": 0.9262,
+    "lo": 0.8864,
+    "hi": 0.9528
+   },
+   "caught_fail": 226,
+   "caught_unverifiable": 0,
+   "missed": 18,
+   "n_runs": 77,
+   "explicit_path": {
+    "k": 225,
+    "n": 243,
+    "value": 0.9259,
+    "lo": 0.886,
+    "hi": 0.9526
+   },
+   "implicit": {
+    "k": 1,
+    "n": 1,
+    "value": 1.0,
+    "lo": 0.2065,
+    "hi": 1.0
+   },
+   "by_variant": {
+    "sign": {
+     "k": 226,
+     "n": 244,
+     "value": 0.9262,
+     "lo": 0.8864,
+     "hi": 0.9528
+    }
+   }
+  },
+  "ts_15m": {
+   "family": "temporal",
+   "label": "Timestamp shifted \u00b115 min",
+   "catch": {
+    "k": 234,
+    "n": 238,
+    "value": 0.9832,
+    "lo": 0.9576,
+    "hi": 0.9934
+   },
+   "caught_fail": 234,
+   "caught_unverifiable": 0,
+   "missed": 4,
+   "n_runs": 77,
+   "by_variant": {
+    "+0:15:00": {
+     "k": 115,
+     "n": 119,
+     "value": 0.9664,
+     "lo": 0.9168,
+     "hi": 0.9869
+    },
+    "-0:15:00": {
+     "k": 119,
+     "n": 119,
+     "value": 1.0,
+     "lo": 0.9687,
+     "hi": 1.0
+    }
+   }
+  },
+  "ts_2h": {
+   "family": "temporal",
+   "label": "Timestamp shifted \u00b12 h",
+   "catch": {
+    "k": 237,
+    "n": 238,
+    "value": 0.9958,
+    "lo": 0.9766,
+    "hi": 0.9993
+   },
+   "caught_fail": 237,
+   "caught_unverifiable": 0,
+   "missed": 1,
+   "n_runs": 77,
+   "by_variant": {
+    "+2:00:00": {
+     "k": 118,
+     "n": 119,
+     "value": 0.9916,
+     "lo": 0.9539,
+     "hi": 0.9985
+    },
+    "-2:00:00": {
+     "k": 119,
+     "n": 119,
+     "value": 1.0,
+     "lo": 0.9687,
+     "hi": 1.0
+    }
+   }
+  },
+  "cite_sentence": {
+   "family": "citation",
+   "label": "Quote with one word altered",
+   "catch": {
+    "k": 80,
+    "n": 80,
+    "value": 1.0,
+    "lo": 0.9542,
+    "hi": 1.0
+   },
+   "caught_fail": 80,
+   "caught_unverifiable": 0,
+   "missed": 0,
+   "n_runs": 65,
+   "by_variant": {
+    "word": {
+     "k": 80,
+     "n": 80,
+     "value": 1.0,
+     "lo": 0.9542,
+     "hi": 1.0
+    }
+   }
+  },
+  "cite_page": {
+   "family": "citation",
+   "label": "Quote cited on the wrong page",
+   "catch": {
+    "k": 80,
+    "n": 80,
+    "value": 1.0,
+    "lo": 0.9542,
+    "hi": 1.0
+   },
+   "caught_fail": 80,
+   "caught_unverifiable": 0,
+   "missed": 0,
+   "n_runs": 65,
+   "by_variant": {
+    "p.10": {
+     "k": 15,
+     "n": 15,
+     "value": 1.0,
+     "lo": 0.7961,
+     "hi": 1.0
+    },
+    "p.11": {
+     "k": 1,
+     "n": 1,
+     "value": 1.0,
+     "lo": 0.2065,
+     "hi": 1.0
+    },
+    "p.14": {
+     "k": 4,
+     "n": 4,
+     "value": 1.0,
+     "lo": 0.5101,
+     "hi": 1.0
+    },
+    "p.16": {
+     "k": 22,
+     "n": 22,
+     "value": 1.0,
+     "lo": 0.8513,
+     "hi": 1.0
+    },
+    "p.17": {
+     "k": 17,
+     "n": 17,
+     "value": 1.0,
+     "lo": 0.8157,
+     "hi": 1.0
+    },
+    "p.18": {
+     "k": 7,
+     "n": 7,
+     "value": 1.0,
+     "lo": 0.6457,
+     "hi": 1.0
+    },
+    "p.19": {
+     "k": 4,
+     "n": 4,
+     "value": 1.0,
+     "lo": 0.5101,
+     "hi": 1.0
+    },
+    "p.20": {
+     "k": 7,
+     "n": 7,
+     "value": 1.0,
+     "lo": 0.6457,
+     "hi": 1.0
+    },
+    "p.21": {
+     "k": 3,
+     "n": 3,
+     "value": 1.0,
+     "lo": 0.4385,
+     "hi": 1.0
+    }
+   }
+  },
+  "cite_doc": {
+   "family": "citation",
+   "label": "Quote from another manual",
+   "catch": {
+    "k": 65,
+    "n": 65,
+    "value": 1.0,
+    "lo": 0.9442,
+    "hi": 1.0
+   },
+   "caught_fail": 65,
+   "caught_unverifiable": 0,
+   "missed": 0,
+   "n_runs": 55,
+   "by_variant": {
+    "other doc": {
+     "k": 65,
+     "n": 65,
+     "value": 1.0,
+     "lo": 0.9442,
+     "hi": 1.0
+    }
+   }
+  },
+  "causal_reversed": {
+   "family": "causal_order",
+   "label": "Causal order reversed",
+   "catch": {
+    "k": 10,
+    "n": 10,
+    "value": 1.0,
+    "lo": 0.7225,
+    "hi": 1.0
+   },
+   "caught_fail": 10,
+   "caught_unverifiable": 0,
+   "missed": 0,
+   "n_runs": 10,
+   "by_variant": {
+    "reversed": {
+     "k": 10,
+     "n": 10,
+     "value": 1.0,
+     "lo": 0.7225,
+     "hi": 1.0
+    }
+   }
+  },
+  "fabricated_evidence": {
+   "family": "fabricated",
+   "label": "Claim cites a non-existent evidence id",
+   "catch": {
+    "k": 231,
+    "n": 231,
+    "value": 1.0,
+    "lo": 0.9836,
+    "hi": 1.0
+   },
+   "caught_fail": 231,
+   "caught_unverifiable": 0,
+   "missed": 0,
+   "n_runs": 77,
+   "by_variant": {
+    "numeric": {
+     "k": 77,
+     "n": 77,
+     "value": 1.0,
+     "lo": 0.9525,
+     "hi": 1.0
+    },
+    "qualitative": {
+     "k": 77,
+     "n": 77,
+     "value": 1.0,
+     "lo": 0.9525,
+     "hi": 1.0
+    },
+    "temporal": {
+     "k": 77,
+     "n": 77,
+     "value": 1.0,
+     "lo": 0.9525,
+     "hi": 1.0
+    }
+   }
+  },
+  "premise_false": {
+   "family": "premise",
+   "label": "Quote with false premise (by construction)",
+   "catch": {
+    "k": 558,
+    "n": 616,
+    "value": 0.9058,
+    "lo": 0.8802,
+    "hi": 0.9265
+   },
+   "caught_fail": 319,
+   "caught_unverifiable": 239,
+   "missed": 58,
+   "n_runs": 77,
+   "by_variant": {
+    "compressed_air p.14": {
+     "k": 27,
+     "n": 27,
+     "value": 1.0,
+     "lo": 0.8754,
+     "hi": 1.0
+    },
+    "compressed_air p.15": {
+     "k": 162,
+     "n": 165,
+     "value": 0.9818,
+     "lo": 0.9479,
+     "hi": 0.9938
+    },
+    "compressed_air p.16": {
+     "k": 40,
+     "n": 44,
+     "value": 0.9091,
+     "lo": 0.7884,
+     "hi": 0.9641
+    },
+    "compressed_air p.25": {
+     "k": 17,
+     "n": 17,
+     "value": 1.0,
+     "lo": 0.8157,
+     "hi": 1.0
+    },
+    "conveyor_drive p.14": {
+     "k": 15,
+     "n": 15,
+     "value": 1.0,
+     "lo": 0.7961,
+     "hi": 1.0
+    },
+    "conveyor_drive p.15": {
+     "k": 62,
+     "n": 62,
+     "value": 1.0,
+     "lo": 0.9417,
+     "hi": 1.0
+    },
+    "conveyor_drive p.24": {
+     "k": 11,
+     "n": 11,
+     "value": 1.0,
+     "lo": 0.7412,
+     "hi": 1.0
+    },
+    "press_hydraulics p.14": {
+     "k": 1,
+     "n": 13,
+     "value": 0.0769,
+     "lo": 0.0137,
+     "hi": 0.3331
+    },
+    "press_hydraulics p.15": {
+     "k": 2,
+     "n": 27,
+     "value": 0.0741,
+     "lo": 0.0206,
+     "hi": 0.2337
+    },
+    "press_hydraulics p.16": {
+     "k": 23,
+     "n": 31,
+     "value": 0.7419,
+     "lo": 0.5675,
+     "hi": 0.863
+    },
+    "sealer_pump p.14": {
+     "k": 10,
+     "n": 10,
+     "value": 1.0,
+     "lo": 0.7225,
+     "hi": 1.0
+    },
+    "sealer_pump p.15": {
+     "k": 97,
+     "n": 100,
+     "value": 0.97,
+     "lo": 0.9155,
+     "hi": 0.9897
+    },
+    "sealer_pump p.16": {
+     "k": 14,
+     "n": 14,
+     "value": 1.0,
+     "lo": 0.7847,
+     "hi": 1.0
+    },
+    "weld_controller p.14": {
+     "k": 12,
+     "n": 13,
+     "value": 0.9231,
+     "lo": 0.6669,
+     "hi": 0.9863
+    },
+    "weld_controller p.15": {
+     "k": 12,
+     "n": 12,
+     "value": 1.0,
+     "lo": 0.7575,
+     "hi": 1.0
+    },
+    "weld_controller p.16": {
+     "k": 16,
+     "n": 17,
+     "value": 0.9412,
+     "lo": 0.7302,
+     "hi": 0.9895
+    },
+    "weld_controller p.17": {
+     "k": 27,
+     "n": 27,
+     "value": 1.0,
+     "lo": 0.8754,
+     "hi": 1.0
+    },
+    "weld_controller p.19": {
+     "k": 10,
+     "n": 11,
+     "value": 0.9091,
+     "lo": 0.6226,
+     "hi": 0.9838
+    }
+   }
+  }
+ },
+ "overall": {
+  "k": 2697,
+  "n": 2778,
+  "value": 0.9708,
+  "lo": 0.9639,
+  "hi": 0.9765
+ },
+ "false_alarm_all_claims": {
+  "k": 8,
+  "n": 586,
+  "value": 0.0137,
+  "lo": 0.0069,
+  "hi": 0.0267
+ },
+ "false_alarm_checkable_claims": {
+  "k": 8,
+  "n": 498,
+  "value": 0.0161,
+  "lo": 0.0082,
+  "hi": 0.0314
+ },
+ "baseline_agreement_with_checker": {
+  "equal": 586,
+  "total": 586
+ },
+ "s2": {
+  "catch": {
+   "k": 0,
+   "n": 2778,
+   "value": 0.0,
+   "lo": 0.0,
+   "hi": 0.0014
+  },
+  "note": "S2 shows every claim as verified (verifier always PASS), so it strikes through none of the mutated claims: catch 0%."
+ },
+ "miss_patterns": {
+  "num_sign": {
+   "<ev>:tags.air_pressure_bar.min = # matches # (rel err #) (sign from direction words)": 4,
+   "<ev>:tags.air_pressure_bar.mean = # matches # (rel err #) (sign from direction words)": 3,
+   "<ev>:tags.header_pressure_bar.min = # matches # (rel err #) (sign from direction words)": 2,
+   "<ev>:tags.hyd_pressure_bar.mean = # matches # (rel err #) (sign from direction words)": 2,
+   "<ev>:tags.flow_rate_ccm.mean = # matches # (rel err #) (sign from direction words)": 2,
+   "<ev>:tags.header_pressure_bar.mean = # matches # (rel err #) (sign from direction words)": 2,
+   "<ev>:change_points[#].magnitude_pct = # matches # (rel err #) (sign from direction words)": 1,
+   "<ev>:tags.air_pressure_bar.pct_outside_normal = # matches # (rel err #) (sign from direction words)": 1
+  },
+  "ts_15m": {
+   "<ts> is +# s from <ev>:rows[#].ts (<ts>)": 3,
+   "<ts> is # s from <ev>:rows[#].ts (<ts>)": 1
+  },
+  "ts_2h": {
+   "<ts> is +# s from <ev>:change_points[#].end_ts (<ts>)": 1
+  },
+  "premise_false": {
+   "quote found verbatim in press_hydraulics p.#; premises met: ST#-PRS hyd_pressure_bar changes in a step": 37,
+   "quote found verbatim in press_hydraulics p.#; premises met: ST#-PRS hyd_pressure_bar falls": 7,
+   "quote found verbatim in compressed_air p.#; premises met: UT-AIR oil_temp_c rises": 4,
+   "quote found verbatim in compressed_air p.#; premises met: UT-AIR compressor_current_a rises": 2,
+   "quote found verbatim in sealer_pump p.#; premises met: ST#-SLR flow_rate_ccm falls": 2,
+   "quote found verbatim in weld_controller p.#; premises met: ST#-WLD air_pressure_bar falls (<ev>: change point ": 1,
+   "quote found verbatim in sealer_pump p.#; premises met: ST#-SLR flow_rate_ccm is below its normal range": 1,
+   "quote found verbatim in compressed_air p.#; premises met: UT-AIR compressor_current_a runs loaded": 1
+  }
+ },
+ "false_alarm_examples": [
+  {
+   "sid": "R016|0",
+   "claim_id": "h1c3",
+   "kind": "numeric",
+   "verdict": "unverifiable",
+   "reason": "ev_spectrum_1 could not be re-run (raw_unavailable)"
+  },
+  {
+   "sid": "S013|0",
+   "claim_id": "h1c4",
+   "kind": "numeric",
+   "verdict": "fail",
+   "reason": "evidence not reproducible: re-running ev_listen_1 gave a different result"
+  },
+  {
+   "sid": "S016|0",
+   "claim_id": "h2c1",
+   "kind": "numeric",
+   "verdict": "fail",
+   "reason": "evidence not reproducible: re-running ev_listen_1 gave a different result"
+  },
+  {
+   "sid": "S021|0",
+   "claim_id": "h1c4",
+   "kind": "numeric",
+   "verdict": "fail",
+   "reason": "evidence not reproducible: re-running ev_listen_1 gave a different result"
+  },
+  {
+   "sid": "S025|0",
+   "claim_id": "h2c2",
+   "kind": "citation",
+   "verdict": "unverifiable",
+   "reason": "premise could not be checked: ST30-WLD coolant_flow_lpm falls: verifier check: no change point detected in 2026-08-19T21:43:27Z..2026-08-20T21:43:27Z"
+  },
+  {
+   "sid": "S030|0",
+   "claim_id": "h1c6",
+   "kind": "numeric",
+   "verdict": "fail",
+   "reason": "evidence not reproducible: re-running ev_listen_1 gave a different result"
+  },
+  {
+   "sid": "S034|0",
+   "claim_id": "h3c1",
+   "kind": "numeric",
+   "verdict": "fail",
+   "reason": "evidence not reproducible: re-running ev_listen_1 gave a different result"
+  },
+  {
+   "sid": "S059|0",
+   "claim_id": "h1c5",
+   "kind": "numeric",
+   "verdict": "fail",
+   "reason": "evidence not reproducible: re-running ev_listen_1 gave a different result"
+  }
+ ],
+ "missed_examples": [
+  {
+   "sid": "R001|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.14",
+   "claim_id": "zz_premise_0",
+   "reason": "quote found verbatim in press_hydraulics p.14; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-08-17T00:30:00Z up 5"
+  },
+  {
+   "sid": "R001|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_3",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-08-17T00:30:00Z up 5"
+  },
+  {
+   "sid": "R001|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_6",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-08-17T00:30:00Z up 5"
+  },
+  {
+   "sid": "R002|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.14",
+   "claim_id": "zz_premise_6",
+   "reason": "quote found verbatim in press_hydraulics p.14; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-09-19T16:30:00Z up 5"
+  },
+  {
+   "sid": "R003|0",
+   "fault": "num_sign",
+   "variant": "sign",
+   "claim_id": "h1c2",
+   "reason": "ev_detect_change_points_1:change_points[0].magnitude_pct = 759.3 matches -759.3 (rel err 0.000) (sign from direction words)"
+  },
+  {
+   "sid": "R004|0",
+   "fault": "num_sign",
+   "variant": "sign",
+   "claim_id": "h1c1",
+   "reason": "ev_query_telemetry_2:tags.header_pressure_bar.min = 5.08 matches -5.08 (rel err 0.000) (sign from direction words)"
+  },
+  {
+   "sid": "R004|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.14",
+   "claim_id": "zz_premise_4",
+   "reason": "quote found verbatim in press_hydraulics p.14; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-08-11T16:30:00Z up 5"
+  },
+  {
+   "sid": "R004|0",
+   "fault": "premise_false",
+   "variant": "weld_controller p.19",
+   "claim_id": "zz_premise_5",
+   "reason": "quote found verbatim in weld_controller p.19; premises met: ST20-WLD air_pressure_bar falls (ev_detect_change_points_3: change point 2026-08-12T11:14:00Z down -"
+  },
+  {
+   "sid": "R005|0",
+   "fault": "num_sign",
+   "variant": "sign",
+   "claim_id": "h1c3",
+   "reason": "ev_query_telemetry_2:tags.air_pressure_bar.min = 4.47 matches -4.47 (rel err 0.000) (sign from direction words)"
+  },
+  {
+   "sid": "R005|0",
+   "fault": "num_sign",
+   "variant": "sign",
+   "claim_id": "h2c1",
+   "reason": "ev_query_telemetry_6:tags.air_pressure_bar.min = 4.47 matches -4.47 (rel err 0.000) (sign from direction words)"
+  },
+  {
+   "sid": "R006|0",
+   "fault": "premise_false",
+   "variant": "sealer_pump p.15",
+   "claim_id": "zz_premise_5",
+   "reason": "quote found verbatim in sealer_pump p.15; premises met: ST40-SLR flow_rate_ccm is below its normal range (verifier check: mean 260.61 cc/min in 2026-08-09T08:10"
+  },
+  {
+   "sid": "R007|0",
+   "fault": "num_sign",
+   "variant": "sign",
+   "claim_id": "h1c2",
+   "reason": "ev_query_telemetry_6:tags.air_pressure_bar.pct_outside_normal = 3.33 matches -3.33 (rel err 0.000) (sign from direction words)"
+  },
+  {
+   "sid": "R007|0",
+   "fault": "premise_false",
+   "variant": "compressed_air p.16",
+   "claim_id": "zz_premise_2",
+   "reason": "quote found verbatim in compressed_air p.16; premises met: UT-AIR oil_temp_c rises (verifier check: change point 2026-09-21T12:50:00Z up 18.14% (ramp))"
+  },
+  {
+   "sid": "R008|0",
+   "fault": "num_sign",
+   "variant": "sign",
+   "claim_id": "h1c2",
+   "reason": "ev_query_telemetry_1:tags.air_pressure_bar.mean = 5.6004 matches -5.6004 (rel err 0.000) (sign from direction words)"
+  },
+  {
+   "sid": "R015|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_4",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-09-20T16:30:00Z down"
+  },
+  {
+   "sid": "R016|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_1",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-09-17T08:30:00Z up 5"
+  },
+  {
+   "sid": "R016|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_6",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-09-17T08:30:00Z up 5"
+  },
+  {
+   "sid": "S001|0",
+   "fault": "ts_15m",
+   "variant": "+0:15:00",
+   "claim_id": "h1c1",
+   "reason": "2026-08-25T01:06:04Z is +29 s from ev_search_alarms_1:rows[5].ts (2026-08-25T01:05:35Z)"
+  },
+  {
+   "sid": "S002|0",
+   "fault": "num_sign",
+   "variant": "sign",
+   "claim_id": "h1c3",
+   "reason": "ev_query_telemetry_4:tags.hyd_pressure_bar.mean = 165.6 matches -165.6 (rel err 0.000) (sign from direction words)"
+  },
+  {
+   "sid": "S002|0",
+   "fault": "premise_false",
+   "variant": "compressed_air p.16",
+   "claim_id": "zz_premise_0",
+   "reason": "quote found verbatim in compressed_air p.16; premises met: UT-AIR oil_temp_c rises (verifier check: change point 2026-08-04T13:52:33Z up 9.97% (ramp)); UT-AIR c"
+  },
+  {
+   "sid": "S002|0",
+   "fault": "premise_false",
+   "variant": "compressed_air p.16",
+   "claim_id": "zz_premise_1",
+   "reason": "quote found verbatim in compressed_air p.16; premises met: UT-AIR oil_temp_c rises (verifier check: change point 2026-08-04T13:52:33Z up 9.97% (ramp))"
+  },
+  {
+   "sid": "S002|0",
+   "fault": "premise_false",
+   "variant": "compressed_air p.15",
+   "claim_id": "zz_premise_6",
+   "reason": "quote found verbatim in compressed_air p.15; premises met: UT-AIR compressor_current_a rises (verifier check: change point 2026-08-04T13:39:33Z up 83.44% (ramp)"
+  },
+  {
+   "sid": "S003|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.14",
+   "claim_id": "zz_premise_2",
+   "reason": "quote found verbatim in press_hydraulics p.14; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-09-26T08:30:00Z up 5"
+  },
+  {
+   "sid": "S003|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_5",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-09-26T08:30:00Z up 5"
+  },
+  {
+   "sid": "S004|0",
+   "fault": "num_sign",
+   "variant": "sign",
+   "claim_id": "h3c1",
+   "reason": "ev_query_telemetry_3:tags.flow_rate_ccm.mean = 260.33 matches -260.33 (rel err 0.000) (sign from direction words)"
+  },
+  {
+   "sid": "S004|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.14",
+   "claim_id": "zz_premise_2",
+   "reason": "quote found verbatim in press_hydraulics p.14; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-09-23T00:30:00Z up 5"
+  },
+  {
+   "sid": "S005|0",
+   "fault": "ts_2h",
+   "variant": "+2:00:00",
+   "claim_id": "h1c1",
+   "reason": "2026-08-07T14:01:00Z is +60 s from ev_detect_change_points_2:change_points[0].end_ts (2026-08-07T14:00:00Z)"
+  },
+  {
+   "sid": "S005|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_2",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-08-06T16:30:00Z up 0"
+  },
+  {
+   "sid": "S005|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_3",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-08-06T16:30:00Z up 0"
+  },
+  {
+   "sid": "S005|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.14",
+   "claim_id": "zz_premise_5",
+   "reason": "quote found verbatim in press_hydraulics p.14; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-08-06T16:30:00Z up 0"
+  },
+  {
+   "sid": "S006|0",
+   "fault": "ts_15m",
+   "variant": "+0:15:00",
+   "claim_id": "h1c1",
+   "reason": "2026-09-14T01:06:04Z is +15 s from ev_search_alarms_1:rows[2].ts (2026-09-14T01:05:49Z)"
+  },
+  {
+   "sid": "S007|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_0",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-09-22T16:30:00Z down"
+  },
+  {
+   "sid": "S010|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_1",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-09-02T08:30:00Z up 5"
+  },
+  {
+   "sid": "S011|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_4",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-08-29T08:30:00Z up 5"
+  },
+  {
+   "sid": "S012|0",
+   "fault": "premise_false",
+   "variant": "compressed_air p.15",
+   "claim_id": "zz_premise_3",
+   "reason": "quote found verbatim in compressed_air p.15; premises met: UT-AIR compressor_current_a runs loaded (verifier check: loaded_fraction 0.991 in 2026-09-12T01:31:01"
+  },
+  {
+   "sid": "S012|0",
+   "fault": "premise_false",
+   "variant": "compressed_air p.16",
+   "claim_id": "zz_premise_4",
+   "reason": "quote found verbatim in compressed_air p.16; premises met: UT-AIR oil_temp_c rises (verifier check: change point 2026-09-11T20:05:01Z up 11.45% (ramp))"
+  },
+  {
+   "sid": "S012|0",
+   "fault": "premise_false",
+   "variant": "compressed_air p.15",
+   "claim_id": "zz_premise_5",
+   "reason": "quote found verbatim in compressed_air p.15; premises met: UT-AIR compressor_current_a rises (verifier check: change point 2026-09-11T20:39:01Z up 80.97% (ramp)"
+  },
+  {
+   "sid": "S012|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_7",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-09-11T08:30:00Z down"
+  },
+  {
+   "sid": "S013|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_6",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-09-25T16:30:00Z up 0"
+  },
+  {
+   "sid": "S016|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_0",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-09-13T16:30:00Z up 5"
+  },
+  {
+   "sid": "S017|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_2",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-09-14T16:26:58Z down"
+  },
+  {
+   "sid": "S018|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.16",
+   "claim_id": "zz_premise_2",
+   "reason": "quote found verbatim in press_hydraulics p.16; premises met: ST10-PRS hyd_pressure_bar falls (verifier check: change point 2026-09-01T00:30:00Z down -5.257% (st"
+  },
+  {
+   "sid": "S019|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.14",
+   "claim_id": "zz_premise_2",
+   "reason": "quote found verbatim in press_hydraulics p.14; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-08-24T16:30:00Z down"
+  },
+  {
+   "sid": "S019|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.16",
+   "claim_id": "zz_premise_7",
+   "reason": "quote found verbatim in press_hydraulics p.16; premises met: ST10-PRS hyd_pressure_bar falls (verifier check: change point 2026-08-24T16:30:00Z down -5.265% (st"
+  },
+  {
+   "sid": "S020|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.14",
+   "claim_id": "zz_premise_3",
+   "reason": "quote found verbatim in press_hydraulics p.14; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-09-23T08:30:00Z up 5"
+  },
+  {
+   "sid": "S021|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_5",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-09-22T08:30:00Z up 5"
+  },
+  {
+   "sid": "S025|0",
+   "fault": "num_sign",
+   "variant": "sign",
+   "claim_id": "h1c1",
+   "reason": "ev_query_telemetry_1:tags.servo_temp_c.mean = 74.29 matches -74.29 (rel err 0.000) (sign from direction words)"
+  },
+  {
+   "sid": "S025|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.16",
+   "claim_id": "zz_premise_0",
+   "reason": "quote found verbatim in press_hydraulics p.16; premises met: ST10-PRS hyd_pressure_bar falls (verifier check: change point 2026-08-20T08:30:00Z down -5.275% (st"
+  },
+  {
+   "sid": "S025|0",
+   "fault": "premise_false",
+   "variant": "sealer_pump p.15",
+   "claim_id": "zz_premise_1",
+   "reason": "quote found verbatim in sealer_pump p.15; premises met: ST40-SLR flow_rate_ccm falls (verifier check: change point 2026-08-20T15:50:27Z down -7.925% (ramp))"
+  },
+  {
+   "sid": "S025|0",
+   "fault": "premise_false",
+   "variant": "sealer_pump p.15",
+   "claim_id": "zz_premise_6",
+   "reason": "quote found verbatim in sealer_pump p.15; premises met: ST40-SLR flow_rate_ccm falls (verifier check: change point 2026-08-20T15:50:27Z down -7.925% (ramp))"
+  },
+  {
+   "sid": "S026|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_0",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-08-16T08:30:00Z down"
+  },
+  {
+   "sid": "S027|0",
+   "fault": "num_sign",
+   "variant": "sign",
+   "claim_id": "h1c3",
+   "reason": "ev_query_telemetry_4:tags.hyd_pressure_bar.mean = 154.08 matches -154.08 (rel err 0.000) (sign from direction words)"
+  },
+  {
+   "sid": "S030|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_2",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-09-06T16:30:00Z up 5"
+  },
+  {
+   "sid": "S033|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.14",
+   "claim_id": "zz_premise_5",
+   "reason": "quote found verbatim in press_hydraulics p.14; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-09-23T08:30:00Z up 5"
+  },
+  {
+   "sid": "S034|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.16",
+   "claim_id": "zz_premise_6",
+   "reason": "quote found verbatim in press_hydraulics p.16; premises met: ST10-PRS hyd_pressure_bar falls (verifier check: change point 2026-08-20T08:30:00Z down -5.264% (st"
+  },
+  {
+   "sid": "S035|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.16",
+   "claim_id": "zz_premise_7",
+   "reason": "quote found verbatim in press_hydraulics p.16; premises met: ST10-PRS hyd_pressure_bar falls (ev_detect_change_points_6: change point 2026-09-11T08:30:00Z down "
+  },
+  {
+   "sid": "S039|0",
+   "fault": "num_sign",
+   "variant": "sign",
+   "claim_id": "h1c2",
+   "reason": "ev_query_telemetry_2:tags.header_pressure_bar.min = 5.22 matches -5.22 (rel err 0.000) (sign from direction words)"
+  },
+  {
+   "sid": "S039|0",
+   "fault": "num_sign",
+   "variant": "sign",
+   "claim_id": "h2c1",
+   "reason": "ev_query_telemetry_1:tags.air_pressure_bar.min = 4.97 matches -4.97 (rel err 0.000) (sign from direction words)"
+  },
+  {
+   "sid": "S040|0",
+   "fault": "num_sign",
+   "variant": "sign",
+   "claim_id": "h2c1",
+   "reason": "ev_query_telemetry_4:tags.air_pressure_bar.min = 4.97 matches -4.97 (rel err 0.000) (sign from direction words)"
+  },
+  {
+   "sid": "S040|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_3",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-08-26T16:30:00Z up 5"
+  },
+  {
+   "sid": "S041|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_3",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-09-22T00:30:00Z up 5"
+  },
+  {
+   "sid": "S043|0",
+   "fault": "num_sign",
+   "variant": "sign",
+   "claim_id": "h1c3",
+   "reason": "ev_query_telemetry_2:tags.flow_rate_ccm.mean = 256.62 matches -256.62 (rel err 0.000) (sign from direction words)"
+  },
+  {
+   "sid": "S043|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.14",
+   "claim_id": "zz_premise_3",
+   "reason": "quote found verbatim in press_hydraulics p.14; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-08-24T08:30:00Z down"
+  },
+  {
+   "sid": "S048|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_2",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-08-16T00:30:00Z up 5"
+  },
+  {
+   "sid": "S048|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_3",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-08-16T00:30:00Z up 5"
+  },
+  {
+   "sid": "S050|0",
+   "fault": "num_sign",
+   "variant": "sign",
+   "claim_id": "h1c1",
+   "reason": "ev_query_telemetry_4:tags.header_pressure_bar.mean = 5.9953 matches -5.9953 (rel err 0.000) (sign from direction words)"
+  },
+  {
+   "sid": "S050|0",
+   "fault": "num_sign",
+   "variant": "sign",
+   "claim_id": "h2c1",
+   "reason": "ev_query_telemetry_5:tags.air_pressure_bar.mean = 5.2016 matches -5.2016 (rel err 0.000) (sign from direction words)"
+  },
+  {
+   "sid": "S050|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.16",
+   "claim_id": "zz_premise_2",
+   "reason": "quote found verbatim in press_hydraulics p.16; premises met: ST10-PRS hyd_pressure_bar falls (verifier check: change point 2026-08-10T08:30:00Z down -0.02152% ("
+  },
+  {
+   "sid": "S050|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_4",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-08-11T00:30:00Z up 5"
+  },
+  {
+   "sid": "S050|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_6",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-08-11T00:30:00Z up 5"
+  },
+  {
+   "sid": "S051|0",
+   "fault": "num_sign",
+   "variant": "sign",
+   "claim_id": "h1c1",
+   "reason": "ev_query_telemetry_5:tags.header_pressure_bar.mean = 5.5027 matches -5.5027 (rel err 0.000) (sign from direction words)"
+  },
+  {
+   "sid": "S051|0",
+   "fault": "ts_15m",
+   "variant": "+0:15:00",
+   "claim_id": "h1c3",
+   "reason": "2026-09-01T01:21:53Z is -15 s from ev_search_alarms_1:rows[4].ts (2026-09-01T01:22:08Z)"
+  },
+  {
+   "sid": "S051|0",
+   "fault": "num_sign",
+   "variant": "sign",
+   "claim_id": "h2c1",
+   "reason": "ev_query_telemetry_4:tags.air_pressure_bar.mean = 5.2591 matches -5.2591 (rel err 0.000) (sign from direction words)"
+  },
+  {
+   "sid": "S051|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.16",
+   "claim_id": "zz_premise_3",
+   "reason": "quote found verbatim in press_hydraulics p.16; premises met: ST10-PRS hyd_pressure_bar falls (verifier check: change point 2026-08-31T16:30:00Z down -5.266% (st"
+  },
+  {
+   "sid": "S051|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.14",
+   "claim_id": "zz_premise_4",
+   "reason": "quote found verbatim in press_hydraulics p.14; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-09-01T00:30:00Z up 5"
+  },
+  {
+   "sid": "S055|0",
+   "fault": "premise_false",
+   "variant": "weld_controller p.14",
+   "claim_id": "zz_premise_1",
+   "reason": "quote found verbatim in weld_controller p.14; premises met: ST30-WLD servo_temp_c is above its normal range (verifier check: change point 2026-09-15T12:04:47Z t"
+  },
+  {
+   "sid": "S055|0",
+   "fault": "premise_false",
+   "variant": "weld_controller p.16",
+   "claim_id": "zz_premise_2",
+   "reason": "quote found verbatim in weld_controller p.16; premises met: ST30-WLD servo_temp_c rises (verifier check: change point 2026-09-15T12:04:47Z up 39.74% (ramp))"
+  },
+  {
+   "sid": "S056|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.15",
+   "claim_id": "zz_premise_1",
+   "reason": "quote found verbatim in press_hydraulics p.15; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-08-10T00:30:00Z down"
+  },
+  {
+   "sid": "S056|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.14",
+   "claim_id": "zz_premise_4",
+   "reason": "quote found verbatim in press_hydraulics p.14; premises met: ST10-PRS hyd_pressure_bar changes in a step (verifier check: change point 2026-08-10T00:30:00Z down"
+  },
+  {
+   "sid": "S058|0",
+   "fault": "ts_15m",
+   "variant": "+0:15:00",
+   "claim_id": "h1c2",
+   "reason": "2026-08-08T08:12:23Z is +6 s from ev_search_alarms_1:rows[1].ts (2026-08-08T08:12:17Z)"
+  },
+  {
+   "sid": "S058|0",
+   "fault": "premise_false",
+   "variant": "press_hydraulics p.16",
+   "claim_id": "zz_premise_0",
+   "reason": "quote found verbatim in press_hydraulics p.16; premises met: ST10-PRS hyd_pressure_bar falls (verifier check: change point 2026-08-08T00:30:00Z down -5.276% (st"
+  }
+ ],
+ "source_run": "final_v2",
+ "seed": 2026,
+ "n_runs": 77,
+ "n_trials": 2778,
+ "git_sha": "f0533e9",
+ "git_dirty_paths": [],
+ "evaluated_tree": "git archive of f0533e9 (committed agents/, analytics/, simulator/; the uncommitted edits of other engineers excluded) plus eval/stress_verifier.py; data from local data/andon.duckdb"
+}

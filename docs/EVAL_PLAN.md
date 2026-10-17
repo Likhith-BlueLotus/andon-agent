@@ -67,6 +67,27 @@ Resumable; cost estimate printed first; confirmation above $25. Prefer the Cloud
 Each run: `results.jsonl`, `summary.json` (with intervals and tests), `cost.json`, `calibration.csv`, `results_slide.png`.
 **Slide:** left — table of S1/S2/B1/B2 × {top-1 [95% CI], top-3, unsupported-claim rate, median time, $/run} for the S-set; a second, smaller table for the R-set ("real signals, n = 17"). Right — top-1 bar chart with CI whiskers, held-out marked. Footnote: "S-set: 60 synthetic scenarios with injected ground truth. R-set: real compressor (MetroPT-3), hydraulic rig (UCI) and bearing (IMS) signals with the source's own labels; surrounding plant context synthetic. Run <id>, <date>."
 
+## 8b. Verifier fault injection (`eval/stress_verifier.py`, ADR-032; offline, $0)
+**Why.** The S1-vs-S2 ablation (§1) cannot show what the deterministic verifier is for: the generator rarely makes a checkable error on these prompts, so S2 (verifier always PASS, every claim displayed as verified) matches S1 on top-1 and nearly on unsupported claims. This test injects the errors instead and asks whether code strikes them through.
+
+**Method.** `uv run python -m eval.stress_verifier --run eval/results/final_v2` (seed 2026, local DuckDB, a few minutes, no Gemini). For every S1 run with a report: rebuild the evidence from the run's own tool calls exactly as `eval/checker.py` does and re-execute it against the store (the system's verdicts are never read); grade the unmutated report with `verify_report` (false-alarm rate; equals the checker's verdicts, asserted in the summary). Only claims that pass at baseline are attacked, one fault at a time, whole mutated report re-graded, verdict of the mutated claim read. Caught = `fail` or `unverifiable` (both are struck through in the UI); missed = `pass`.
+
+| Fault | Injection |
+|---|---|
+| Number off by ±10% / ±25% | `asserted_value` x (1 ± p), beyond the 5% tolerance |
+| Number sign flipped | value negated and direction words in the text swapped; skipped where the baseline pass itself relied on the sign relaxation |
+| Timestamp shifted | `asserted_ts` ± 15 min / ± 2 h (tolerance 60 s) |
+| Quote with one word altered | antonym swap, else number change, else one word replaced |
+| Quote on the wrong page | page ± 1 where the quote is absent |
+| Quote from another manual | a verbatim sentence of a different manual under the original doc/page |
+| Causal order reversed | chain reversed, root = previous last asset |
+| Non-existent evidence id | one fabricated numeric, temporal and qualitative claim per run citing `ev_nonexistent_999` |
+| Premise-false citation | verbatim passage with measurable premises (`simulator/manuals/premises.py`, read-only), appended as a citation claim, sampled (8 per run, seeded) from passages that diagnose a different cause class than the injected one, whose manual covers neither the true asset/chain nor the asset the report blames. Ground truth is read grader-side only to label this. |
+
+**Outputs.** `eval/results/stress_verifier/{summary.json,table.md,stress.png}`: catch rate per fault with 95% Wilson intervals, n, overall catch rate, false-alarm rate on unmutated claims, and the S2 line ("S2 shows all mutated claims as verified: catch 0%"). Numeric faults are also split into explicit `path:` claims and implicit leaf search.
+
+**Reading it.** This measures the safety net, not how often the model errs. Faults are synthetic, single, and injected into fields the verifier reads; trials are clustered by run (intervals are optimistic). A fault type that is not caught is reported as measured and the verifier is not tuned to it. Misses and `unverifiable` outcomes are listed in `summary.json` (`missed_examples`).
+
 ## 9. Integrity rules
 - Report whatever is measured, including slices where S1 loses. If S1 doesn't beat B1 on the S-set top-1 or unsupported-claim rate, stop and fix before submission, or say so plainly.
 - No tuning on S051–S060 or the R-set. The demo scenario is named in the README.
