@@ -11,6 +11,7 @@ import warnings
 from collections.abc import AsyncGenerator
 from types import SimpleNamespace
 
+import httpx
 import pytest
 from google.adk.agents import LlmAgent, RunConfig
 from google.adk.agents.run_config import StreamingMode
@@ -24,6 +25,7 @@ from google.genai import types
 
 import config
 from agents.adk_budget import (
+    DROPPED_CONNECTION_RETRIES,
     AndonBudgetPlugin,
     ModelPolicyError,
     PinnedGemini,
@@ -271,6 +273,46 @@ async def test_pinned_gemini_keeps_agent_thinking_config():
     )
     _ = [x async for x in m.generate_content_async(r)]
     assert fm.seen[0][1].thinking_config.thinking_level == types.ThinkingLevel.HIGH
+
+
+class _DroppingModels(_FakeModels):
+    """Drops the connection ``drops`` times before answering."""
+
+    def __init__(self, drops: int):
+        super().__init__()
+        self.drops = drops
+
+    async def generate_content(self, *, model, contents, config):
+        if self.drops:
+            self.drops -= 1
+            self.seen.append((model, config))
+            raise httpx.ReadError("")
+        return await super().generate_content(model=model, contents=contents, config=config)
+
+
+async def test_pinned_gemini_retries_dropped_connection(monkeypatch):
+    monkeypatch.setattr(config, "LLM_BACKOFF_BASE_S", 0.0)
+    fm = _DroppingModels(drops=2)
+    m = make_model(config.FLASH, "LOW")
+    m.client = SimpleNamespace(vertexai=True, aio=SimpleNamespace(models=fm))
+    r = LlmRequest(
+        model=m.model, contents=[types.Content(role="user", parts=[types.Part(text="x")])]
+    )
+    out = [x async for x in m.generate_content_async(r)]
+    assert len(fm.seen) == 3 and out[0].usage_metadata.prompt_token_count == 5
+
+
+async def test_pinned_gemini_gives_up_after_bounded_retries(monkeypatch):
+    monkeypatch.setattr(config, "LLM_BACKOFF_BASE_S", 0.0)
+    fm = _DroppingModels(drops=DROPPED_CONNECTION_RETRIES + 1)
+    m = make_model(config.FLASH, "LOW")
+    m.client = SimpleNamespace(vertexai=True, aio=SimpleNamespace(models=fm))
+    r = LlmRequest(
+        model=m.model, contents=[types.Content(role="user", parts=[types.Part(text="x")])]
+    )
+    with pytest.raises(httpx.ReadError):
+        _ = [x async for x in m.generate_content_async(r)]
+    assert len(fm.seen) == DROPPED_CONNECTION_RETRIES + 1
 
 
 # --- integration: real Runner + App(plugins) + fake model, SSE --------------------------------

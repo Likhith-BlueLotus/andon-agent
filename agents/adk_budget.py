@@ -23,6 +23,7 @@ calls from tools land in the same totals.
 
 from __future__ import annotations
 
+import asyncio
 import logging
 import os
 import time
@@ -31,6 +32,7 @@ from collections.abc import AsyncGenerator
 from dataclasses import dataclass
 from typing import Any
 
+import httpx
 from google.adk.agents.invocation_context import LlmCallsLimitExceededError
 from google.adk.models import Gemini
 from google.adk.models.base_llm import LlmCapabilities, gemini_output_schema_and_tools
@@ -67,6 +69,10 @@ def normalise_model_id(name: str | None) -> str:
     return (name or "").rsplit("/", 1)[-1]
 
 
+DROPPED_CONNECTION_RETRIES = 2
+_DROPPED_CONNECTION = (httpx.ReadError, httpx.WriteError, httpx.RemoteProtocolError)
+
+
 # --- Model factory ---------------------------------------------------------------------------
 class PinnedGemini(Gemini):
     """ADK ``Gemini`` that adds our thinking level and per-attempt timeout to every request.
@@ -96,8 +102,23 @@ class PinnedGemini(Gemini):
         cfg.http_options = cfg.http_options or types.HttpOptions()
         if cfg.http_options.timeout is None:
             cfg.http_options.timeout = int(self.timeout_s * 1000)  # milliseconds
-        async for resp in super().generate_content_async(llm_request, stream=stream):
-            yield resp
+        # The SDK retries timeouts and connect errors but not a connection dropped mid-response
+        # (RISKS #28). Retry those here, only while nothing has been yielded, so a retry can
+        # never duplicate output that ADK has already seen.
+        for attempt in range(DROPPED_CONNECTION_RETRIES + 1):
+            yielded = False
+            try:
+                async for resp in super().generate_content_async(llm_request, stream=stream):
+                    yielded = True
+                    yield resp
+                return
+            except _DROPPED_CONNECTION as exc:
+                if yielded or attempt >= DROPPED_CONNECTION_RETRIES:
+                    raise
+                log.warning(
+                    "dropped connection model=%s attempt=%d err=%r", self.model, attempt + 1, exc
+                )
+                await asyncio.sleep(config.LLM_BACKOFF_BASE_S * 2**attempt)
 
 
 def make_model(
