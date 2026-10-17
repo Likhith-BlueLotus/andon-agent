@@ -1,0 +1,97 @@
+{
+ "args": {
+  "systems": "S1,B1,B2",
+  "sets": "C",
+  "subset": null,
+  "repeats": 1,
+  "concurrency": 2,
+  "judge": null,
+  "out": "/Users/varunm/Likhith's Professional/andon-agent/eval/results/confirm_c_v1",
+  "yes": true,
+  "dry_run": false,
+  "estimate_only": false,
+  "limit": null,
+  "no_retry_errors": false,
+  "override_ledger": false,
+  "daily_budget": null,
+  "purpose": "final",
+  "db": "/Users/varunm/Likhith's Professional/andon-agent/data/andon.duckdb",
+  "scenarios_dir": "/Users/varunm/Likhith's Professional/andon-agent/data/scenarios",
+  "truth_dir": null,
+  "sync_to": null,
+  "store": "local",
+  "data_dir": "/Users/varunm/Likhith's Professional/andon-agent/data",
+  "no_report": false
+ },
+ "dry_run": false,
+ "git": {
+  "sha": "d8423f97ae690f2c3b6894892713cfcad474e482",
+  "dirty": false
+ },
+ "models": {
+  "default_judge": "gemini-3.8-flash",
+  "flash": "gemini-3.8-flash",
+  "flash_lite": "gemini-3.1-flash-lite",
+  "pro_judge": "gemini-3.1-pro-preview",
+  "b1": "gemini-3.8-flash"
+ },
+ "prompt_versions": {
+  "cite_manual": "cite_manual v1 2026-10-11",
+  "commander": "commander v1 2026-10-11",
+  "drafter": "drafter v2 2026-10-11",
+  "judge": "judge v7 2026-10-12",
+  "librarian": "librarian v1 2026-10-11",
+  "listen_rubric": "listen_rubric v1 2026-10-11",
+  "signal_analyst": "signal_analyst v3 2026-10-11",
+  "b1": "b1 v1 2026-10-11"
+ },
+ "ids": [
+  "C001",
+  "C002",
+  "C003",
+  "C004",
+  "C005",
+  "C006",
+  "C007",
+  "C008",
+  "C009",
+  "C010"
+ ],
+ "systems": [
+  "S1",
+  "B1",
+  "B2"
+ ],
+ "purpose": "final",
+ "stopped_budget": false,
+ "created_at": "2026-10-17T04:13:19+00:00",
+ "estimate": {
+  "lines": [
+   {
+    "system": "S1",
+    "runs": 10,
+    "per_run_usd": 0.1206736298076923,
+    "usd": 1.2067,
+    "basis": "observed mean of 416 earlier runs"
+   },
+   {
+    "system": "B1",
+    "runs": 10,
+    "per_run_usd": 0.09146305084745764,
+    "usd": 0.9146,
+    "basis": "observed mean of 177 earlier runs"
+   },
+   {
+    "system": "B2",
+    "runs": 10,
+    "per_run_usd": 0.0,
+    "usd": 0.0,
+    "basis": "no LLM"
+   }
+  ],
+  "total_usd": 2.1214,
+  "spent_before_usd": 86.0985,
+  "projected_usd": 88.2198
+ },
+ "daily_budget_usd": 8.0
+}

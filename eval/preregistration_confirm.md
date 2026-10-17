@@ -88,3 +88,14 @@ uv run python -m eval.run_eval --systems S1,B1,B2 --sets C --purpose final --rep
 ```
 
 Estimated cost: $2.12 (S1 $1.21, B1 $0.91, B2 $0). The ledger then stands at $88.22 of $110 for eval.
+
+## Results (appended 2026-10-17 after the single confirmatory run; nothing above was changed)
+Run `eval/results/confirm_c_v1` (S1 = deployed build 6f6ea10, B1, B2; concurrency 2; $2.34).
+| | S1 | B1 | B2 |
+|---|---|---|---|
+| Top-1 [95% Wilson] | 0.40 [0.17, 0.69] | 0.20 [0.06, 0.51] | 0.00 [0.00, 0.28] |
+| Top-3 | 0.90 | 0.70 | 0.00 |
+| Unsupported claims | 0 / 80 | 6 / 91 | n/a |
+- **P1 (S1 top-1 ≥ 0.53): FAIL.** **P2 (S1 ≥ B1): PASS** (2 discordant for S1, 0 for B1; exact McNemar p = 0.50, not significant). **Secondary (≤ 2% and below B1): PASS.**
+- Strata: healthy compressor windows 4/5 correct for S1 (C001 called air_pressure_drop at ST20-WLD; none called a UT-AIR leak); short UCI hydraulic faults 0/5 for S1 and B1 (as predicted above).
+- Reading: judge v7 did not turn healthy compressors into UT-AIR leak calls on unseen data; the short-fault weakness is confirmed on unseen data. Any later detector change makes further C results post-hoc.
