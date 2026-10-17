@@ -18,6 +18,7 @@ import argparse
 import json
 import sys
 import time
+from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
@@ -78,6 +79,55 @@ def assign_ids(seed: int) -> dict[str, Slot]:
     raise RuntimeError("could not satisfy held-out coverage")  # pragma: no cover
 
 
+# --- Dev set D (ADR-033): short hydraulic faults, validation only -----------------------------
+DEV_FIRST = 101
+DEV_SEED = 2033
+# 10 short faults (subtypes balanced as far as 10 allows) + 2 ST10 no_fault controls.
+DEV_SUBTYPES = ("pump_leakage", "valve_lag", "accumulator_loss", "cooler_loss") * 2 + (
+    "pump_leakage",
+    "accumulator_loss",
+)
+
+
+def dev_slots(seed: int, n: int = 12) -> dict[str, tuple[Slot, str | None]]:
+    """Seeded shuffle of the dev slots onto S101..: an id never encodes its fault."""
+    slots: list[tuple[Slot, str | None]] = [
+        (Slot(CauseClass.HYDRAULIC_DEGRADATION, "clean", k), sub)
+        for k, sub in enumerate(DEV_SUBTYPES)
+    ] + [(Slot(CauseClass.HYDRAULIC_DEGRADATION, "no_fault", k), None) for k in range(2)]
+    perm = np.random.default_rng([seed, 4099]).permutation(len(slots))
+    return {f"S{DEV_FIRST + i:03d}": slots[j] for i, j in enumerate(perm[:n])}
+
+
+def load_wo_pool(data_dir: Path, gen: TextGen, seed: int) -> list[dict[str, Any]]:
+    """Normal historical WOs for background text, read from the existing files (the dev set
+    never rewrites shared data); built in memory if they are absent."""
+    wo, lab = data_dir / "work_orders.parquet", data_dir / "work_orders_labels.parquet"
+    if wo.exists() and lab.exists():
+        kinds = {r["wo_id"]: r["kind"] for r in pq.read_table(lab).to_pylist()}
+        return [r for r in pq.read_table(wo).to_pylist() if kinds.get(r["wo_id"]) == "normal"]
+    wos, labels = gen.run(text_artifacts.build_work_orders(gen, N_WORK_ORDERS, seed,
+                                                           Path("/nonexistent")))  # fmt: skip
+    kinds = {lb["wo_id"]: lb["kind"] for lb in labels}
+    return [w for w in wos if kinds[w["wo_id"]] == "normal"]
+
+
+def main_dev(args: argparse.Namespace) -> int:
+    if args.out == Path("data/scenarios"):
+        raise SystemExit("--set D writes to its own directory (e.g. --out data/scenarios_dev)")
+    gen = TextGen(mode="template")  # $0: dev scenarios never call an LLM
+    pool = load_wo_pool(args.out.parent, gen, args.seed)
+    t0 = time.time()
+    for sid, (slot, sub) in dev_slots(args.seed, args.n).items():
+        inj = faults.short_hydraulic(sub) if sub else None
+        sc = Scenario(sid, args.seed * 1000 + int(sid[1:]), slot,
+                      int(args.history_days * 86400), injector=inj)  # fmt: skip
+        d = write_scenario(args.out, sid, build(sc, gen, pool))
+        mb = sum(f.stat().st_size for f in d.iterdir()) / 1e6
+        print(f"{sid}  {mb:6.1f} MB  {time.time() - t0:6.1f}s", flush=True)
+    return 0
+
+
 # --- One scenario ----------------------------------------------------------------------------
 @dataclass
 class Scenario:
@@ -85,6 +135,8 @@ class Scenario:
     seed: int
     slot: Slot
     history_s: int = DEFAULT_HISTORY_S
+    # Dev-set only (--set D): replaces the class injector for the primary fault.
+    injector: Callable[[FaultContext, Modifiers], FaultInstance] | None = None
 
 
 def _stop_ts(seed: int) -> datetime:
@@ -122,6 +174,8 @@ def build(sc: Scenario, gen: TextGen, wo_pool: list[dict[str, Any]]) -> dict[str
         fd = faults.FAULTS[slot.group_class]
         station = fd.home_stations[int(frng.integers(len(fd.home_stations)))]
         primary = faults.no_fault(FaultContext(tl, frng), mods, station)
+    elif sc.injector is not None:
+        primary = sc.injector(FaultContext(tl, frng), mods)
     else:
         primary = faults.inject(primary_cls, FaultContext(tl, frng), mods)
     assert primary.stop is not None
@@ -473,10 +527,15 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    ap.add_argument("--set", choices=["S"], default="S")
-    ap.add_argument("--n", type=int, default=60, help="generate S001..S<n> (max 60)")
+    ap.add_argument(
+        "--set",
+        choices=["S", "D"],
+        default="S",
+        help="S: the S-set; D: short-fault dev set S101.. (ADR-033, validation only)",
+    )
+    ap.add_argument("--n", type=int, default=None, help="generate S001..S<n> (max 60; D: max 12)")
     ap.add_argument("--ids", default="", help="comma-separated subset, e.g. S001,S007")
-    ap.add_argument("--seed", type=int, default=2026)
+    ap.add_argument("--seed", type=int, default=None, help="default 2026 (S), 2033 (D)")
     ap.add_argument("--out", type=Path, default=Path("data/scenarios"))
     ap.add_argument("--history-days", type=float, default=7.0)
     ap.add_argument(
@@ -492,6 +551,14 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = ap.parse_args(argv)
 
+    if args.set == "D":
+        args.seed = DEV_SEED if args.seed is None else args.seed
+        args.n = 12 if args.n is None else args.n
+        if not 1 <= args.n <= 12:
+            ap.error("--set D: --n must be 1..12")
+        return main_dev(args)
+    args.n = 60 if args.n is None else args.n
+    args.seed = 2026 if args.seed is None else args.seed
     if not 1 <= args.n <= 60:
         ap.error("--n must be 1..60")
     mode: TextMode = args.text

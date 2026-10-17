@@ -4,6 +4,7 @@ data/raw/
 data/audio/
 # generated scenarios are reproducible: uv run python -m simulator.generate (deterministic seeds)
 data/scenarios/*/
+data/scenarios_dev/*/
 data/andon.duckdb*
 data/andon.tmp.duckdb*
 data/*.duckdb

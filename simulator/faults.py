@@ -554,6 +554,54 @@ def hydraulic_degradation(ctx: FaultContext, mods: Modifiers) -> FaultInstance:
     )  # fmt: skip
 
 
+def short_hydraulic(sub: str) -> Callable[[FaultContext, Modifiers], FaultInstance]:
+    """Dev-set variant (ADR-033): a *short* hydraulic fault, 10-20 min before the stop, with a
+    0.5-6 % level shift (log-uniform, relative to the tag's nominal), shaped like the UCI rig's
+    labelled conditions (R009-R012). Never part of the S-set or the R-set: it exists only to
+    validate short-fault detection on data we did not look at (``simulator.generate --set D``).
+    The shift settles with a first-order response (tau 60 s; tank temperature 600 s)."""
+    if sub not in HYDRAULIC_SUBTYPES:
+        raise ValueError(sub)
+
+    def inject(ctx: FaultContext, mods: Modifiers) -> FaultInstance:
+        rng, n = ctx.rng, ctx.n
+        root = "ST10-PRS"
+        onset = n - int(rng.integers(600, 1201))
+        mag = float(np.exp(rng.uniform(np.log(0.005), np.log(0.06))))
+        step = ramp(n, onset, "step")
+        r = first_order(step, 60)
+        nom = {t.tag: t.nominal for t in plant.asset(root).tags}
+        sigs: list[Signature] = []
+        if sub == "pump_leakage":  # internal leakage: pressure sags, pump works harder
+            mods.get("add", (root, "hyd_pressure_bar"))[:] += -mag * nom["hyd_pressure_bar"] * r
+            mods.get("add", (root, "motor_current_a"))[:] += mag * nom["motor_current_a"] * r
+            sigs += [Signature(root, "hyd_pressure_bar", -1, onset),
+                     Signature(root, "motor_current_a", 1, onset)]  # fmt: skip
+        elif sub == "valve_lag":  # sluggish spool: hammering, pressure ripple
+            mods.get("add", (root, "vibration_rms_mms"))[:] += mag * nom["vibration_rms_mms"] * r
+            mods.get("noise_mult", (root, "hyd_pressure_bar"))[:] += 1.0 * r
+            sigs += [Signature(root, "vibration_rms_mms", 1, onset)]
+        elif sub == "accumulator_loss":  # lost precharge: pump loads more often, ripple
+            mods.get("add", (root, "motor_current_a"))[:] += mag * nom["motor_current_a"] * r
+            mods.add_osc((root, "hyd_pressure_bar"), 0.05, mag * nom["hyd_pressure_bar"] * r)
+            sigs += [Signature(root, "motor_current_a", 1, onset)]
+        else:  # cooler_loss: tank temperature climbs with the tank's thermal inertia
+            rt = first_order(step, 600)
+            mods.get("add", (root, "oil_temp_c"))[:] += mag * nom["oil_temp_c"] * rt
+            sigs += [Signature(root, "oil_temp_c", 1, onset)]
+        return FaultInstance(
+            C.HYDRAULIC_DEGRADATION, root, onset, [root], sigs,
+            {(root, t.tag) for t in plant.asset(root).tags},
+            StopSpec(root, "S-ST10-HYD-FLT", "ST10 Press: hydraulic fault, press stopped",
+                     ((root, "hyd_pressure_bar"), (root, "oil_temp_c"), (root, "cycle_time_s"))),
+            MANUAL[C.HYDRAULIC_DEGRADATION],
+            detail=f"short_{sub}|mag_pct={100 * mag:.2f}|dur_s={n - onset}",
+            asset_onsets={root: onset},
+        )  # fmt: skip
+
+    return inject
+
+
 # --- no_fault --------------------------------------------------------------------------------
 GLITCH_KINDS = ("sensor_spike", "safety_trip", "comm_timeout")
 
