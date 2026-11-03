@@ -1,8 +1,36 @@
 Theme: Manufacturing: Intelligent Operations & Industrial Efficiency
 
-# Andon Agent
+<div align="center">
+
+# 🚨 Andon Agent
+
+**When the line stops, find the real cause, prove every claim, and let a human approve the fix.**
+
+[![Live app](https://img.shields.io/badge/Live_app-andon--agent--b9c77.web.app-1a73e8?logo=firebase&logoColor=white)](https://andon-agent-b9c77.web.app)
+[![Demo video](https://img.shields.io/badge/Demo-3:29_on_YouTube-ff0000?logo=youtube&logoColor=white)](https://youtu.be/lBHRCLir0A8)
+[![API health](https://img.shields.io/badge/API-Cloud_Run-4285f4?logo=googlecloud&logoColor=white)](https://andon-api-359520289475.asia-south1.run.app/health)
+[![CI](https://github.com/Likhith-BlueLotus/andon-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/Likhith-BlueLotus/andon-agent/actions/workflows/ci.yml)
+![Gemini](https://img.shields.io/badge/Gemini_3.8_Flash_+_3.1_Flash--Lite-8e75b2?logo=googlegemini&logoColor=white)
+![License](https://img.shields.io/badge/code-MIT-green)
+
+<img src="docs/media/live-run.gif" alt="Live run: Gemini agents investigate a stopped line and the verifier checks every claim (14x speed)" width="880">
+
+<sub>A real live run on the deployed app, sped up: agents work upstream from the alarming weld cell to the plant-air compressor; 8/8 claims verified by code.</sub>
+
+</div>
 
 When an automotive assembly line stops, Andon Agent investigates like a reliability engineer: it plans checks, runs analytics on telemetry and machine sound, cites the manual, has code verify every claim, and hands a human a verified root cause plus a safety-gated draft work order.
+
+| | |
+|---|---|
+| 🔍 **Investigate** | Gemini agents (Google ADK) plan competing checks, run change-point and spectral analysis on telemetry and machine audio, and cite the manual by page. |
+| ✅ **Verify** | A deterministic verifier (code, no LLM) re-runs every number, timestamp, quote and causal claim. Anything it cannot back is struck through, never hidden. |
+| 👷 **Approve** | A draft work order with lockout/tagout steps quoted verbatim, translations beside them. Nothing touches a machine until a named human approves. |
+
+<p align="center">
+  <a href="https://youtu.be/lBHRCLir0A8"><img src="docs/media/demo-video.jpg" alt="Watch the 3:29 demo on YouTube" width="640"></a><br>
+  <sub>▶ Watch the 3:29 demo: live console run, Hindi work order, verbatim LOTO, CSV upload, technician phone view with voice notes.</sub>
+</p>
 
 **Live app:** https://andon-agent-b9c77.web.app · **Demo video (3:29):** https://youtu.be/lBHRCLir0A8 · **API:** https://andon-api-359520289475.asia-south1.run.app/health · **Repo:** https://github.com/Likhith-BlueLotus/andon-agent
 
@@ -14,6 +42,24 @@ Replays play for anyone, no login. Live investigations call Gemini and need the 
 3. Click any evidence chip: the drawer charts the real telemetry window behind the claim.
 4. Right pane: every claim is re-checked by code (pass / struck through with the measured value). Accept the root cause, tick the lockout/tagout steps (quoted verbatim with page numbers), approve; the work order lands in a mock CMMS as `APPROVED`. Nothing touches a machine.
 5. Replay **S014** to see the verifier reject a reversed cause-and-effect claim and the judge revise it. `/eval` shows the results below.
+
+## Screens
+All from the deployed app (live run, 17 Oct 2026).
+
+| Verified root cause | Evidence drawer: real MetroPT-3 telemetry |
+|---|---|
+| ![Console with verified root cause](docs/media/console-verified-root-cause.jpg) | ![Evidence drawer charting the real telemetry window](docs/media/evidence-drawer.jpg) |
+| **Work order in Hindi beside verbatim LOTO steps** | **Approved to the mock CMMS, run cost shown** |
+| ![Work order with Hindi translation](docs/media/work-order-hindi-loto.jpg) | ![Approved work order and run cost](docs/media/approved-run-cost.jpg) |
+| **Bring your own CSV: Gemini proposes the mapping** | **Eval page: results with intervals** |
+| ![Upload column mapping](docs/media/upload-gemini-mapping.jpg) | ![Eval page](docs/media/eval-page.jpg) |
+
+<p align="center">
+  <img src="docs/media/technician-safety-tamil.jpg" alt="Technician phone view: safety checklist in Tamil beside verbatim English" width="260">
+  &nbsp;&nbsp;
+  <img src="docs/media/technician-voice-note.jpg" alt="Technician phone view: voice note turned into a structured, untrusted shift note" width="260"><br>
+  <sub>Technician phone view: safety steps in Tamil beside the binding English · voice note → structured shift note, marked untrusted.</sub>
+</p>
 
 ## Results (committed run `eval/results/final_v2`)
 Top-1 = right cause class and right asset. 95% Wilson intervals. Failed runs count as misses.
